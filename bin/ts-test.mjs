@@ -14,9 +14,8 @@ var checkTypeScriptFile = (filePath) => {
     path.dirname("tsconfig.json")
   );
   const program = ts.createProgram(parsedCommandLine.fileNames, parsedCommandLine.options);
-  const emitResult = program.emit();
   const diagnostics = [];
-  const allDiagnostics = ts.getPreEmitDiagnostics(program).concat(emitResult.diagnostics);
+  const allDiagnostics = ts.getPreEmitDiagnostics(program);
   allDiagnostics.forEach((diagnostic) => {
     if (diagnostic.file) {
       const { line, character } = ts.getLineAndCharacterOfPosition(diagnostic.file, diagnostic.start || 0);
@@ -46,8 +45,8 @@ var checkTypeScriptFile = (filePath) => {
       });
     }
   });
-  const exitCode = diagnostics.length === 0 && !emitResult.emitSkipped ? 0 : 1;
-  return [exitCode, emitResult, diagnostics];
+  const exitCode = diagnostics.length === 0 ? 0 : 1;
+  return [exitCode, diagnostics];
 };
 
 // src/ts-test.ts
@@ -66,7 +65,7 @@ var type_validation = async (folder, configFile) => {
   let error_files = {};
   const all_diagnostics = [];
   for (const file of files) {
-    const [code, _result, diagnostics] = checkTypeScriptFile(file);
+    const [code, diagnostics] = checkTypeScriptFile(file);
     if (code === 1) {
       error_files = {
         ...error_files,

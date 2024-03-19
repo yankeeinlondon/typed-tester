@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { Diagnostic, checkTypeScriptFile, isSpecificDiagnostic } from "./checkFile";
+import { Diagnostic, checkTypeScriptFile } from "./checkFile";
 import chalk from "chalk";
 
 import glob from "fast-glob";
@@ -19,7 +19,7 @@ const type_validation = async (folder: string, configFile?: string) => {
   const all_diagnostics: Diagnostic[] = [] as Diagnostic[];
 
   for (const file of files) {
-    const [code, _result, diagnostics] = checkTypeScriptFile(file);
+    const [code, diagnostics] = checkTypeScriptFile(file);
     if(code === 1) {
       // console.log(` - file "${file}" has ${diagnostics.length} error(s)`);
       error_files = {

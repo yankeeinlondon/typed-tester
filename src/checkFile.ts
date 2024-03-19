@@ -23,7 +23,7 @@ export type Diagnostic<T extends "specific" | "general" = "specific" | "general"
             } 
         : NonNullable<unknown>);
 
-export const checkTypeScriptFile = (filePath: string): [0|1, ts.EmitResult, Diagnostic[]] => {
+export const checkTypeScriptFile = (filePath: string): [0|1,  Diagnostic[]] => {
   // Load the base tsconfig.json
   const configFile = ts.readConfigFile("tsconfig.json", ts.sys.readFile);
 
@@ -41,11 +41,12 @@ export const checkTypeScriptFile = (filePath: string): [0|1, ts.EmitResult, Diag
   const program = ts.createProgram(parsedCommandLine.fileNames, parsedCommandLine.options);
 
   // Perform the type check
-  const emitResult = program.emit();
+//   const emitResult = program.emit(undefined,undefined,undefined,false);
   const diagnostics: Diagnostic[] = [];
-  const allDiagnostics = ts
-      .getPreEmitDiagnostics(program)
-      .concat(emitResult.diagnostics);
+  const allDiagnostics = ts.getPreEmitDiagnostics(program);
+//   const allDiagnostics = ts
+//       .getPreEmitDiagnostics(program)
+//       .concat(emitResult.diagnostics);
 
   allDiagnostics.forEach(diagnostic => {
       if (diagnostic.file) {
@@ -77,8 +78,8 @@ export const checkTypeScriptFile = (filePath: string): [0|1, ts.EmitResult, Diag
       }
   });
 
-  const exitCode = diagnostics.length === 0 && !emitResult.emitSkipped
+  const exitCode = diagnostics.length === 0 
     ? 0 
     : 1;
-  return [exitCode, emitResult, diagnostics as Diagnostic[]]
+  return [exitCode, diagnostics as Diagnostic[]]
 }
