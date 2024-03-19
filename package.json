@@ -8,14 +8,14 @@
     "release": "bumpp"
   },
   "bin": {
-    "ts-test": "./bin/ts-test.mjs",
-    "ts-type-tester": "./bin/ts-test.mjs"
+    "ts-test": "bin/ts-test.mjs",
+    "ts-type-tester": "bin/ts-test.mjs"
   },
   "keywords": [
     "typescript",
     "testing"
   ],
-  "author": "Ken Snyder<ken@ken.net>",
+  "author": "Ken Snyder <ken@ken.net>",
   "license": "MIT",
   "dependencies": {
     "chalk": "^5.3.0",
