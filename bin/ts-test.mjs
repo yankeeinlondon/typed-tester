@@ -1,13 +1,23 @@
 #!/usr/bin/env node
 
+// src/ts-test.ts
+import chalk3 from "chalk";
+import commandLineArgs from "command-line-args";
+import commandLineUsage from "command-line-usage";
+
+// src/type_validate.ts
+import chalk2 from "chalk";
+import glob from "fast-glob";
+import ts2 from "typescript";
+
 // src/checkFile.ts
 import ts from "typescript";
 import path from "pathe";
 import { isObject } from "inferred-types";
 import chalk from "chalk";
-var checkTypeScriptFile = (filePath) => {
+var checkFile = (folder, config) => {
   const configFile = ts.readConfigFile("tsconfig.json", ts.sys.readFile);
-  configFile.config.include = [filePath];
+  configFile.config.include = [folder];
   const parsedCommandLine = ts.parseJsonConfigFileContent(
     configFile.config,
     ts.sys,
@@ -27,7 +37,7 @@ var checkTypeScriptFile = (filePath) => {
         code: diagnostic.code,
         source: diagnostic.source,
         relatedInformation: diagnostic.relatedInformation,
-        file: filePath,
+        file: folder,
         msg: `(${chalk.dim("l:")} ${line + 1}, ${chalk.dim("c:")}${character + 1}): ${message}`,
         line,
         character
@@ -37,7 +47,7 @@ var checkTypeScriptFile = (filePath) => {
         kind: "Diagnostic",
         type: "general",
         category: diagnostic.category,
-        file: filePath,
+        file: folder,
         source: diagnostic.source,
         relatedInformation: diagnostic.relatedInformation,
         code: diagnostic.code,
@@ -49,23 +59,26 @@ var checkTypeScriptFile = (filePath) => {
   return [exitCode, diagnostics];
 };
 
-// src/ts-test.ts
-import chalk2 from "chalk";
-import glob from "fast-glob";
-import ts2 from "typescript";
+// src/type_validate.ts
+import path2 from "pathe";
 var type_validation = async (folder, configFile) => {
-  const config = ts2.readConfigFile(configFile || "tsconfig.json", ts2.sys.readFile);
+  console.log(chalk2.bold(`TS Type Tester`));
+  console.log(`------------`);
+  const config = ts2.readConfigFile(configFile || `tsconfig.json`, ts2.sys.readFile);
   if (config.error) {
     throw new Error(`Problems loading Typescript config file: ${configFile || "tsconfig.json"}`);
   }
-  const files = await glob(`${folder}/**/*.ts`);
-  console.log(`- watching ${files.length} typescript files for type errors`);
+  const glob_pattern = path2.join("./", folder, "/**/**.ts");
+  console.log(`glob: ${chalk2.dim(glob_pattern)}`);
+  console.log(folder);
+  const files = await glob(glob_pattern);
+  console.log(`- inspecting ${files.length} typescript files for type errors`);
   console.log(`- starting initial analysis:
 `);
   let error_files = {};
   const all_diagnostics = [];
   for (const file of files) {
-    const [code, diagnostics] = checkTypeScriptFile(file);
+    const [code, diagnostics] = checkFile(file);
     if (code === 1) {
       error_files = {
         ...error_files,
@@ -92,8 +105,59 @@ var type_validation = async (folder, configFile) => {
     console.log(`  - ${d.msg} (cat: ${chalk2.dim(d.category)}, code: ${chalk2.dim(d.code)}${source}${related})`);
   }
 };
-var ts_test_default = type_validation;
-await type_validation("./tests");
-export {
-  ts_test_default as default
-};
+
+// src/ts-test.ts
+var cli = commandLineArgs(
+  [
+    { name: "params", type: String, multiple: true, defaultOption: true },
+    { name: "verbose", alias: "v" }
+  ],
+  {
+    stopAtFirstUnknown: true
+  }
+);
+var sections = [
+  {
+    header: "TS Type Tester",
+    content: "Test your {italic types} as part of your testing."
+  },
+  {
+    header: `Syntax`,
+    content: `${chalk3.bold("ts-type-tester")} folder [${chalk3.dim("configFile")}]
+      
+      You must specify the root folder you want to test files in. While this program was intended to primarily be pointed at a test directory you can point it anywhere relative to the current directory.
+
+      By default the ${chalk3.dim("configFile")} parameter will be the ${chalk3.blue("tsconfig.json")} in the project root but you can point it to another file if you prefer.
+      `,
+    description: ""
+  },
+  {
+    header: "Options",
+    optionList: [
+      {
+        name: "ignore",
+        typeLabel: "{underline code,code,etc.}",
+        description: "Specify error codes you want to ignore fully"
+      },
+      {
+        name: "warn",
+        typeLabel: "{underline code,code,etc.}",
+        description: "Specify error codes which should only be considered a warning rather than an error"
+      },
+      {
+        name: "watch",
+        alias: "w",
+        type: Boolean,
+        description: `start as a {italic watcher} and update error status as it changes`
+      }
+    ]
+  }
+];
+if (Object.keys(cli).length === 0) {
+  const usage = commandLineUsage(sections);
+  console.log(usage);
+  process.exit(0);
+} else {
+  console.log(cli.params);
+}
+await type_validation(cli.params[0] || "tests", cli.params[1]);

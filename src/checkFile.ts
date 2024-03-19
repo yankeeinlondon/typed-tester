@@ -23,12 +23,16 @@ export type Diagnostic<T extends "specific" | "general" = "specific" | "general"
             } 
         : NonNullable<unknown>);
 
-export const checkTypeScriptFile = (filePath: string): [0|1,  Diagnostic[]] => {
+
+export const checkFile = (
+  folder: string,
+  config?: string
+): [0|1,  Diagnostic[]] => {
   // Load the base tsconfig.json
-  const configFile = ts.readConfigFile("tsconfig.json", ts.sys.readFile);
+  const configFile = ts.readConfigFile( "tsconfig.json", ts.sys.readFile);
 
   // Override the "files" property to only include the specific file
-  configFile.config.include = [filePath];
+  configFile.config.include = [folder];
 
   // Parse the configuration, including command line options
   const parsedCommandLine = ts.parseJsonConfigFileContent(
@@ -59,7 +63,7 @@ export const checkTypeScriptFile = (filePath: string): [0|1,  Diagnostic[]] => {
                 code: diagnostic.code,
                 source: diagnostic.source,
                 relatedInformation: diagnostic.relatedInformation,
-                file: filePath,
+                file: folder,
                 msg: `(${chalk.dim("l:")} ${line + 1}, ${chalk.dim("c:")}${character + 1}): ${message}`,
                 line,
                 character
@@ -69,7 +73,7 @@ export const checkTypeScriptFile = (filePath: string): [0|1,  Diagnostic[]] => {
                 kind: "Diagnostic",
                 type: "general",
                 category: diagnostic.category,
-                file: filePath,
+                file: folder,
                 source: diagnostic.source,
                 relatedInformation: diagnostic.relatedInformation,
                 code: diagnostic.code,

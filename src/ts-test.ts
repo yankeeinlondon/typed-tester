@@ -1,62 +1,65 @@
 #!/usr/bin/env node
 
-import { Diagnostic, checkTypeScriptFile } from "./checkFile";
 import chalk from "chalk";
+import commandLineArgs from "command-line-args";
+import commandLineUsage from "command-line-usage";
 
-import glob from "fast-glob";
-import ts from "typescript";
+import { type_validation } from "./type_validate";
 
-const type_validation = async (folder: string, configFile?: string) => {
-  const config = ts.readConfigFile(configFile || "tsconfig.json", ts.sys.readFile);
-  if(config.error) {
-    throw new Error(`Problems loading Typescript config file: ${configFile || "tsconfig.json"}`);
-  }
-  const files = await glob(`${folder}/**/*.ts`);
-  console.log(`- watching ${files.length} typescript files for type errors`);
-  // initial analysis
-  console.log(`- starting initial analysis:\n`);
-  let error_files: Record<string, Diagnostic[]> = {};
-  const all_diagnostics: Diagnostic[] = [] as Diagnostic[];
+const cli = commandLineArgs(
+  [
+    { name: "params", type: String, multiple: true, defaultOption: true },
+    { name: "verbose", alias: "v", }
+  ], 
+  {
+    stopAtFirstUnknown: true,
+  });
 
-  for (const file of files) {
-    const [code, diagnostics] = checkTypeScriptFile(file);
-    if(code === 1) {
-      // console.log(` - file "${file}" has ${diagnostics.length} error(s)`);
-      error_files = {
-        ...error_files,
-        ...{ [file]: diagnostics }
-      };
+  const sections = [
+    {
+      header: 'TS Type Tester',
+      content: 'Test your {italic types} as part of your testing.',
+    },
+    {
+      header: `Syntax`,
+      content: `${chalk.bold("ts-type-tester")} folder [${chalk.dim("configFile")}]
+      
+      You must specify the root folder you want to test files in. While this program was intended to primarily be pointed at a test directory you can point it anywhere relative to the current directory.
 
+      By default the ${chalk.dim("configFile")} parameter will be the ${chalk.blue("tsconfig.json")} in the project root but you can point it to another file if you prefer.
+      `,
+      description: ""
+    },
+    {
+      header: 'Options',
+      optionList: [
+        {
+          name: 'ignore',
+          typeLabel: '{underline code,code,etc.}',
+          description: 'Specify error codes you want to ignore fully'
+        },
+        {
+          name: 'warn',
+          typeLabel: '{underline code,code,etc.}',
+          description: 'Specify error codes which should only be considered a warning rather than an error'
+        },
+        {
+          name: 'watch',
+          alias: "w",
+          type: Boolean,
+          description: `start as a {italic watcher} and update error status as it changes`
+        },
+        
+      ]
     }
-    all_diagnostics.push(...diagnostics as Diagnostic[])
+  ]
+  if (Object.keys(cli).length === 0) {
+    const usage = commandLineUsage(sections)
+    console.log(usage)
+    process.exit(0);
+  } else {
+    console.log(cli.params);
   }
 
-  console.log(`\n- ${chalk.bold(Object.keys(error_files).length)} of ${chalk.bold(files.length)} files with type errors`);
-  console.log(`- there are ${chalk.redBright.bold(all_diagnostics.length)} total errors across all files\n`);
 
-  console.log(chalk.bold(`Existing Errors`));
-  console.log(`---------------`);
-  
-  
-  let current_file = "";
-  for (const d of all_diagnostics) {
-    if(d.file !== current_file) {
-      console.log();
-      console.log(chalk.underline.bold(d.file));
-      current_file = d.file
-    }
-    const source = d.source
-      ? `, source: ${chalk.dim(d.source)}`
-      : "";
-    const related = d.relatedInformation
-      ? `, related: ${chalk.dim(JSON.stringify(d.relatedInformation))}`
-      : ""
-    console.log(`  - ${d.msg} (cat: ${chalk.dim(d.category)}, code: ${chalk.dim(d.code)}${source}${related})`);
-  }
-  
-};
-
-
-export default type_validation;
-
-await type_validation("./tests")
+await type_validation(cli.params[0] || "tests",cli.params[1])
