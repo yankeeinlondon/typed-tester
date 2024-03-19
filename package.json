@@ -1,0 +1,32 @@
+{
+  "name": "ts-type-tester",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "tsup src/ts-test.ts --format=esm -d bin --clean && chmod +x \"bin/ts-test.mjs\"",
+    "test": "node ./bin/ts-test.mjs"
+  },
+  "bin": {
+    "ts-test": "node ./bin/ts-test.mjs"
+  },
+  "keywords": [
+    "typescript",
+    "testing"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "fast-glob": "^3.3.2",
+    "inferred-types": "^0.42.1",
+    "pathe": "^1.1.2",
+    "typescript": "^5.4.2",
+    "watcher": "^2.3.0"
+  },
+  "devDependencies": {
+    "@type-challenges/utils": "^0.1.1",
+    "@types/node": "18",
+    "tsup": "^8.0.2",
+    "vitest": "^1.4.0"
+  }
+}
