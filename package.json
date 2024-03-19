@@ -1,7 +1,7 @@
 {
   "name": "ts-type-tester",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Test all your type-tests and incorporate into your CI-CD and deployment strategy",
   "scripts": {
     "build": "tsup src/ts-test.ts --format=esm -d bin --clean && chmod +x \"bin/ts-test.mjs\"",
     "test": "node ./bin/ts-test.mjs"
@@ -13,8 +13,8 @@
     "typescript",
     "testing"
   ],
-  "author": "",
-  "license": "ISC",
+  "author": "Ken Snyder<ken@ken.net>",
+  "license": "MIT",
   "dependencies": {
     "chalk": "^5.3.0",
     "fast-glob": "^3.3.2",
