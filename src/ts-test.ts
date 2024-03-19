@@ -4,11 +4,12 @@ import chalk from "chalk";
 import commandLineArgs from "command-line-args";
 import commandLineUsage from "command-line-usage";
 
-import { type_validation } from "./type_validate";
+import { type_validation } from "./typeValidation";
 
 const cli = commandLineArgs(
   [
     { name: "params", type: String, multiple: true, defaultOption: true },
+    { name: "filter", type: String, alias: "f", multiple: true },
     { name: "verbose", alias: "v", }
   ], 
   {
@@ -34,9 +35,10 @@ const cli = commandLineArgs(
       header: 'Options',
       optionList: [
         {
-          name: 'ignore',
-          typeLabel: '{underline code,code,etc.}',
-          description: 'Specify error codes you want to ignore fully'
+          name: 'filter',
+          type: String,
+          typeLabel: '{underline glob-pattern}',
+          description: 'Use a glob pattern to select or deselect files'
         },
         {
           name: 'warn',
@@ -49,6 +51,11 @@ const cli = commandLineArgs(
           type: Boolean,
           description: `start as a {italic watcher} and update error status as it changes`
         },
+        {
+          name: "audio",
+          type: Boolean,
+          description: `play an audio notification when errors appear or are eliminated`
+        }
         
       ]
     }
@@ -58,7 +65,7 @@ const cli = commandLineArgs(
     console.log(usage)
     process.exit(0);
   } else {
-    console.log(cli.params);
+    console.log(cli);
   }
 
 

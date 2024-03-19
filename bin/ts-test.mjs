@@ -1,115 +1,175 @@
 #!/usr/bin/env node
 
 // src/ts-test.ts
-import chalk3 from "chalk";
+import chalk4 from "chalk";
 import commandLineArgs from "command-line-args";
 import commandLineUsage from "command-line-usage";
 
-// src/type_validate.ts
-import chalk2 from "chalk";
+// src/typeValidation.ts
+import chalk3 from "chalk";
 import glob from "fast-glob";
-import ts2 from "typescript";
-
-// src/checkFile.ts
-import ts from "typescript";
 import path from "pathe";
-import { isObject } from "inferred-types";
+
+// src/getFileDiagnostics.ts
+import { ts } from "ts-morph";
+
+// src/cache.ts
+import { existsSync, readFileSync, unlinkSync, writeFileSync } from "fs";
 import chalk from "chalk";
-var checkFile = (folder, config) => {
-  const configFile = ts.readConfigFile("tsconfig.json", ts.sys.readFile);
-  configFile.config.include = [folder];
-  const parsedCommandLine = ts.parseJsonConfigFileContent(
-    configFile.config,
-    ts.sys,
-    path.dirname("tsconfig.json")
-  );
-  const program = ts.createProgram(parsedCommandLine.fileNames, parsedCommandLine.options);
-  const diagnostics = [];
-  const allDiagnostics = ts.getPreEmitDiagnostics(program);
-  allDiagnostics.forEach((diagnostic) => {
-    if (diagnostic.file) {
-      const { line, character } = ts.getLineAndCharacterOfPosition(diagnostic.file, diagnostic.start || 0);
-      const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, "\n");
-      diagnostics.push({
-        kind: "Diagnostic",
-        type: "specific",
-        category: diagnostic.category,
-        code: diagnostic.code,
-        source: diagnostic.source,
-        relatedInformation: diagnostic.relatedInformation,
-        file: folder,
-        msg: `(${chalk.dim("l:")} ${line + 1}, ${chalk.dim("c:")}${character + 1}): ${message}`,
-        line,
-        character
-      });
-    } else {
-      diagnostics.push({
-        kind: "Diagnostic",
-        type: "general",
-        category: diagnostic.category,
-        file: folder,
-        source: diagnostic.source,
-        relatedInformation: diagnostic.relatedInformation,
-        code: diagnostic.code,
-        msg: ts.flattenDiagnosticMessageText(diagnostic.messageText, "\n")
-      });
+var CACHE_FILE = ".ts-test-cache";
+var cache = {};
+var getCache = (force) => {
+  if (Object.keys(cache).length === 0 || force) {
+    if (existsSync(CACHE_FILE)) {
+      const data = readFileSync(CACHE_FILE, "utf-8");
+      try {
+        cache = JSON.parse(data);
+      } catch (e) {
+        console.log(`${chalk.red.bold("Invalid Cache File!")} Cache file is being removed!`);
+        cache = {};
+        unlinkSync(CACHE_FILE);
+      }
     }
-  });
-  const exitCode = diagnostics.length === 0 ? 0 : 1;
-  return [exitCode, diagnostics];
+  }
+  return cache;
+};
+var saveCache = (data) => {
+  cache = data.reduce(
+    (acc, item) => {
+      return {
+        ...acc,
+        [item.file]: item
+      };
+    },
+    {}
+  );
+  writeFileSync(CACHE_FILE, JSON.stringify(cache), "utf-8");
+  return cache;
 };
 
-// src/type_validate.ts
-import path2 from "pathe";
-var type_validation = async (folder, configFile) => {
-  console.log(chalk2.bold(`TS Type Tester`));
-  console.log(`------------`);
-  const config = ts2.readConfigFile(configFile || `tsconfig.json`, ts2.sys.readFile);
-  if (config.error) {
-    throw new Error(`Problems loading Typescript config file: ${configFile || "tsconfig.json"}`);
-  }
-  const glob_pattern = path2.join("./", folder, "/**/**.ts");
-  console.log(`glob: ${chalk2.dim(glob_pattern)}`);
-  console.log(folder);
-  const files = await glob(glob_pattern);
-  console.log(`- inspecting ${files.length} typescript files for type errors`);
-  console.log(`- starting initial analysis:
-`);
-  let error_files = {};
-  const all_diagnostics = [];
-  for (const file of files) {
-    const [code, diagnostics] = checkFile(file);
-    if (code === 1) {
-      error_files = {
-        ...error_files,
-        ...{ [file]: diagnostics }
+// src/getFileDiagnostics.ts
+import chalk2 from "chalk";
+import { readFileSync as readFileSync2 } from "fs";
+var getFileDiagnostics = (file, prj, hasher) => {
+  const cache2 = getCache();
+  if (cache2[file]) {
+    const data = readFileSync2(file, "utf-8");
+    const hash2 = hasher(data);
+    if (hash2 === cache2[file].hash) {
+      if (cache2[file].hasErrors) {
+        process.stdout.write(chalk2.dim.red("."));
+      } else {
+        process.stdout.write(chalk2.dim.green("."));
+      }
+      return {
+        ...cache2[file],
+        cacheHit: true
       };
     }
-    all_diagnostics.push(...diagnostics);
   }
-  console.log(`
-- ${chalk2.bold(Object.keys(error_files).length)} of ${chalk2.bold(files.length)} files with type errors`);
-  console.log(`- there are ${chalk2.redBright.bold(all_diagnostics.length)} total errors across all files
-`);
-  console.log(chalk2.bold(`Existing Errors`));
+  const source = prj.addSourceFileAtPath(file);
+  const ast_diagnostics = source.getPreEmitDiagnostics();
+  const hasErrors = ast_diagnostics.length > 0 ? true : false;
+  const diagnostics = [];
+  for (const d of ast_diagnostics) {
+    const related = d.compilerObject.relatedInformation ? `( ${chalk2.bold("related:")} ${chalk2.dim(JSON.stringify(d.compilerObject.relatedInformation.map((t) => t.messageText.toString())))} )` : "";
+    const {
+      line,
+      character
+    } = ts.getLineAndCharacterOfPosition(source.compilerNode, d.getStart() || 0);
+    const lineNumber = `${chalk2.dim("l:")}${line + 1}`;
+    const column = `${chalk2.dim("c:")}${character + 1}`;
+    const code = `${chalk2.dim("code:")} ${d.getCode()}`;
+    const txt = typeof d.getMessageText() === "string" ? d.getMessageText() : d.getMessageText().toString();
+    const msg = `(${lineNumber}, ${column}, ${code}): ${txt} ${related}`;
+    diagnostics.push({
+      msg,
+      lineNumber: line + 1,
+      column: character + 1,
+      code: d.getCode()
+    });
+  }
+  const hash = hasher(source.getText());
+  if (hasErrors) {
+    process.stdout.write(chalk2.bold.red("."));
+  } else {
+    process.stdout.write(chalk2.bold.green("."));
+  }
+  return {
+    file,
+    hash,
+    hasErrors,
+    diagnostics,
+    cacheHit: false
+  };
+};
+
+// src/setupProject.ts
+import { Project as Project2 } from "ts-morph";
+var setupProject = (configFile) => {
+  const prj = new Project2({
+    tsConfigFilePath: configFile,
+    skipAddingFilesFromTsConfig: true
+  });
+  return prj;
+};
+
+// src/typeValidation.ts
+import { stdout } from "process";
+import xxhash from "xxhash-wasm";
+var type_validation = async (folder, configFile) => {
+  var start = performance.now();
+  configFile = configFile || "tsconfig.json";
+  const { h32 } = await xxhash();
+  console.log(chalk3.bold(`TS Type Tester`));
+  console.log(`------------`);
+  const glob_pattern = path.join("./", folder, "/**/**.ts");
+  const files = await glob(glob_pattern);
+  console.log(`- inspecting ${files.length} typescript files for type errors`);
+  stdout.write(`- starting analysis:  `);
+  const prj = setupProject(configFile);
+  const results = [];
+  for (const file of files) {
+    results.push(getFileDiagnostics(file, prj, h32));
+  }
+  const cache2 = saveCache(results);
+  console.log(chalk3.bold(`
+
+Type Errors`));
   console.log(`---------------`);
-  let current_file = "";
-  for (const d of all_diagnostics) {
-    if (d.file !== current_file) {
+  for (const key of Object.keys(cache2)) {
+    const file = cache2[key];
+    if (file.hasErrors) {
       console.log();
-      console.log(chalk2.underline.bold(d.file));
-      current_file = d.file;
+      console.log(chalk3.underline.bold(file.file));
+      for (const diagnostic of file.diagnostics) {
+        console.log(`- ${diagnostic.msg}`);
+      }
     }
-    const source = d.source ? `, source: ${chalk2.dim(d.source)}` : "";
-    const related = d.relatedInformation ? `, related: ${chalk2.dim(JSON.stringify(d.relatedInformation))}` : "";
-    console.log(`  - ${d.msg} (cat: ${chalk2.dim(d.category)}, code: ${chalk2.dim(d.code)}${source}${related})`);
   }
+  console.log(chalk3.bold(`
+
+Type Error Summary`));
+  console.log(chalk3.bold(`------------------
+`));
+  const err_count = results.reduce((acc, i) => acc + i.diagnostics.length, 0);
+  const err_files = results.reduce((acc, i) => acc + (i.hasErrors ? 1 : 0), 0);
+  const hits = results.reduce((acc, i) => acc + (i.cacheHit ? 1 : 0), 0);
+  const ratio = Math.floor(hits / Object.keys(cache2).length * 100);
+  const end = performance.now();
+  const duration = Math.floor(end - start) / 1e3;
+  console.log(`- ${chalk3.bold(err_files)} of ${chalk3.bold(files.length)} files had type errors`);
+  console.log(`- there are ${chalk3.redBright.bold(err_count)} total errors`);
+  console.log(`- analysis benefited from ${chalk3.bold(hits)} cache hits [${chalk3.dim(`ratio: ${ratio}%`)}]`);
+  console.log(`- analysis and cache refresh took ${duration} seconds`);
+  console.log();
 };
 
 // src/ts-test.ts
 var cli = commandLineArgs(
   [
     { name: "params", type: String, multiple: true, defaultOption: true },
+    { name: "filter", type: String, alias: "f", multiple: true },
     { name: "verbose", alias: "v" }
   ],
   {
@@ -123,11 +183,11 @@ var sections = [
   },
   {
     header: `Syntax`,
-    content: `${chalk3.bold("ts-type-tester")} folder [${chalk3.dim("configFile")}]
+    content: `${chalk4.bold("ts-type-tester")} folder [${chalk4.dim("configFile")}]
       
       You must specify the root folder you want to test files in. While this program was intended to primarily be pointed at a test directory you can point it anywhere relative to the current directory.
 
-      By default the ${chalk3.dim("configFile")} parameter will be the ${chalk3.blue("tsconfig.json")} in the project root but you can point it to another file if you prefer.
+      By default the ${chalk4.dim("configFile")} parameter will be the ${chalk4.blue("tsconfig.json")} in the project root but you can point it to another file if you prefer.
       `,
     description: ""
   },
@@ -135,9 +195,10 @@ var sections = [
     header: "Options",
     optionList: [
       {
-        name: "ignore",
-        typeLabel: "{underline code,code,etc.}",
-        description: "Specify error codes you want to ignore fully"
+        name: "filter",
+        type: String,
+        typeLabel: "{underline glob-pattern}",
+        description: "Use a glob pattern to select or deselect files"
       },
       {
         name: "warn",
@@ -158,6 +219,6 @@ if (Object.keys(cli).length === 0) {
   console.log(usage);
   process.exit(0);
 } else {
-  console.log(cli.params);
+  console.log(cli);
 }
 await type_validation(cli.params[0] || "tests", cli.params[1]);

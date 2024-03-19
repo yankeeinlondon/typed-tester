@@ -4,10 +4,12 @@
   "description": "Test all your type-tests and incorporate into your CI-CD and deployment strategy",
   "scripts": {
     "build": "tsup src/ts-test.ts --format=esm -d bin --clean && chmod +x \"bin/ts-test.mjs\"",
-    "test": "node ./bin/ts-test.mjs"
+    "test": "node ./bin/ts-test.mjs",
+    "release": "bumpp"
   },
   "bin": {
-    "ts-test": "node ./bin/ts-test.mjs"
+    "ts-test": "./bin/ts-test.mjs",
+    "ts-type-tester": "./bin/ts-test.mjs"
   },
   "keywords": [
     "typescript",
@@ -22,8 +24,10 @@
     "fast-glob": "^3.3.2",
     "inferred-types": "^0.42.1",
     "pathe": "^1.1.2",
+    "ts-morph": "^22.0.0",
     "typescript": "^5.4.2",
-    "watcher": "^2.3.0"
+    "watcher": "^2.3.0",
+    "xxhash-wasm": "^1.0.2"
   },
   "devDependencies": {
     "@type-challenges/utils": "^0.1.1",
