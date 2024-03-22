@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "description": "Test all your type-tests and incorporate into your CI-CD and deployment strategy",
   "scripts": {
-    "build": "tsup src/ts-test.ts --format=esm -d bin --clean && chmod +x \"bin/ts-test.mjs\"",
+    "build": "tsup src/ts-test.ts --format=esm -d bin --clean --sourcemap && chmod +x \"bin/ts-test.mjs\"",
     "test": "node ./bin/ts-test.mjs",
     "release": "bumpp"
   },
@@ -15,6 +15,13 @@
     "typescript",
     "testing"
   ],
+  "tsup": {
+    "entry": ["src/ts-test.ts"],
+    "splitting": false,
+    "sourcemap": true,
+    "format": "esm",
+    "clean": true
+  },
   "author": "Ken Snyder <ken@ken.net>",
   "license": "MIT",
   "dependencies": {

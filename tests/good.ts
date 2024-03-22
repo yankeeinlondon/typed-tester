@@ -1,1 +1,1 @@
-export const good = true;
+export const good: boolean = true;

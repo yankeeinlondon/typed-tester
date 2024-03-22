@@ -1,10 +1,10 @@
-import { Project, ts } from "ts-morph";
-import xxhash from "xxhash-wasm";
-import { getCache } from "./cache";
+import { ts } from "ts-morph";
+import { getCache, h, validateCache } from "./cache";
 import chalk from "chalk";
-import { readFileSync } from "fs";
-
-export type Hasher = Awaited<ReturnType<typeof xxhash>>["h32"];
+import { getFileDependencies } from "./getFileDependencies";
+import { getProject } from "./setupProject";
+import { ValidationOptions } from "./typeValidation";
+import { calcErrorsAndWarnings } from "./calculateErrorsAndWarnings";
 
 /** a cachable summary of a file's diagnostic state */
 export type CacheDiagnostic = {
@@ -18,6 +18,11 @@ export type FileDiagnostics = {
   file: string;
   diagnostics: CacheDiagnostic[];
   /**
+   * local files which are imported in this file and represent
+   * dependencies on this file's state
+   */
+  deps: string[];
+  /**
    * The hash code representing the file's contents
    */
   hash: number;
@@ -25,46 +30,54 @@ export type FileDiagnostics = {
   cacheHit: boolean;
 
   /**
-   * boolean flag indicating whether the file had any errors
+   * Boolean flag indicating whether the file had any errors. Note,
+   * any _errors_ with a code which was configured to be made only
+   * a warning will have the flag set to `false`.
    */
   hasErrors: boolean;
+
+  hasWarnings: boolean;
 }
 
 /**
  * Retrieves the file's diagnostics (from cache or static analysis)
  */
-export const getFileDiagnostics = (file: string, prj: Project, hasher: Hasher ): FileDiagnostics => {
-  // process.on('SIGINT', function() {
-  //       console.log(`✅ The server has been stopped`, 'Shutdown information', {swallowErrors: false});
-  //       setTimeout(() => process.exit(0), 1000);
-  // });
-  const cache = getCache();
-  if(cache[file]) {
-    const data = readFileSync(file, "utf-8");
-    const hash = hasher(data);
-    if (hash === cache[file].hash) {
-      if(cache[file].hasErrors) {
-        process.stdout.write(chalk.dim.red("."));
-      } else {
-        process.stdout.write(chalk.dim.green("."));
-      }
+export const getFileDiagnostics = (file: string, opts: ValidationOptions ): FileDiagnostics => {
 
-      return {
-        ...cache[file],
-        cacheHit: true
-      } as FileDiagnostics
+  let cache = getCache();
+  if(cache[file] && !opts.force && validateCache(file, cache[file].hash)) {
+    const refreshed = {
+      ...cache[file],
+      ...calcErrorsAndWarnings(cache[file],opts)
+    } as FileDiagnostics;
+    
+    if(cache[file].hasErrors) {
+      process.stdout.write(chalk.red("."));
+    } else if (cache[file].hasWarnings) {
+      process.stdout.write(chalk.yellow("."));
+    } else {
+      process.stdout.write(chalk.green("."));
     }
+
+    return {
+      ...refreshed,
+      cacheHit: true,
+    } as FileDiagnostics
+
   }
 
-  const source = prj.addSourceFileAtPath(file);
+  let source = getProject().addSourceFileAtPath(file);
+  if(opts.force) {
+    getProject().removeSourceFile(source);
+    source = getProject().addSourceFileAtPath(file);
+  }
   const ast_diagnostics = source.getPreEmitDiagnostics();
-  const hasErrors = ast_diagnostics.length > 0 ? true : false;
 
   const diagnostics: CacheDiagnostic[] = [];
 
   for (const d of ast_diagnostics) {
     const related = d.compilerObject.relatedInformation
-      ? `( ${chalk.bold("related:")} ${chalk.dim(JSON.stringify(d.compilerObject.relatedInformation.map(t => t.messageText.toString())))} )`
+      ? `( ${chalk.bold("related:")} ${chalk.dim(JSON.stringify(d.compilerObject.relatedInformation.map(t => t.messageText.toString().slice(0,40))))} )`
       : ""
       
     const { 
@@ -77,7 +90,7 @@ export const getFileDiagnostics = (file: string, prj: Project, hasher: Hasher ):
     const code = `${chalk.dim("code:")} ${d.getCode()}`;
     const txt = typeof d.getMessageText() === "string"
       ? d.getMessageText()
-      : d.getMessageText().toString()
+      : d.getMessageText().toString();
   
     const msg = `(${lineNumber}, ${column}, ${code}): ${txt} ${related}`
 
@@ -89,21 +102,35 @@ export const getFileDiagnostics = (file: string, prj: Project, hasher: Hasher ):
     })
   }
 
-  const hash = hasher(source.getText());
-  if(hasErrors) {
-    process.stdout.write(chalk.bold.red("."));
-  } else {
-    process.stdout.write(chalk.bold.green("."));
-  }
+  const hash = h(source.getText());
 
-  return {
+  const deps = getFileDependencies(file, source);
+
+  const partial = {
     file,
     hash,
-    hasErrors,
+    hasErrors: false,
+    hasWarnings: false,
+    deps,
     diagnostics,
     cacheHit: false
   } as FileDiagnostics;
 
-  
+  const result = {
+    ...partial,
+    ...calcErrorsAndWarnings(partial, opts)
+  }
 
+  if(!opts.quiet && !opts.force) {
+    if(result.hasErrors) {
+      process.stdout.write("🔴");
+    } else if(result.hasWarnings) {
+      process.stdout.write("🟡");
+    } else {
+      process.stdout.write("🟢");
+    }
+  }
+
+  return result;
 }
+
