@@ -16,7 +16,9 @@
     "testing"
   ],
   "tsup": {
-    "entry": ["src/ts-test.ts"],
+    "entry": [
+      "src/ts-test.ts"
+    ],
     "splitting": false,
     "sourcemap": true,
     "format": "esm",
@@ -32,7 +34,7 @@
     "inferred-types": "^0.42.1",
     "pathe": "^1.1.2",
     "ts-morph": "^22.0.0",
-    "typescript": "^5.4.2",
+    "typescript": "^5.4.3",
     "watcher": "^2.3.0",
     "xxhash-wasm": "^1.0.2"
   },
