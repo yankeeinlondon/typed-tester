@@ -4,7 +4,7 @@ import chalk from "chalk";
 import { getFileDependencies } from "./getFileDependencies";
 import { getProject } from "./setupProject";
 import { ValidationOptions } from "./typeValidation";
-import { calcErrorsAndWarnings } from "./calculateErrorsAndWarnings";
+import { calcErrorsAndWarnings } from "./calcErrorsAndWarnings";
 
 /** a cachable summary of a file's diagnostic state */
 export type CacheDiagnostic = {

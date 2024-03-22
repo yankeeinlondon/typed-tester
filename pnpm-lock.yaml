@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@types/stack-trace':
+    specifier: ^0.0.33
+    version: 0.0.33
   chalk:
     specifier: ^5.3.0
     version: 5.3.0
@@ -23,6 +26,9 @@ dependencies:
   pathe:
     specifier: ^1.1.2
     version: 1.1.2
+  stack-trace:
+    specifier: 1.0.0-pre2
+    version: 1.0.0-pre2
   ts-morph:
     specifier: ^22.0.0
     version: 22.0.0
@@ -731,6 +737,10 @@ packages:
     dependencies:
       undici-types: 5.26.5
     dev: true
+
+  /@types/stack-trace@0.0.33:
+    resolution: {integrity: sha512-O7in6531Bbvlb2KEsJ0dq0CHZvc3iWSR5ZYMtvGgnHA56VgriAN/AU2LorfmcvAl2xc9N5fbCTRyMRRl8nd74g==}
+    dev: false
 
   /@vitest/expect@1.4.0:
     resolution: {integrity: sha512-Jths0sWCJZ8BxjKe+p+eKsoqev1/T8lYcrjavEaz8auEJ4jAVY0GwW3JKmdVU4mmNPLPHixh4GNXP7GFtAiDHA==}
@@ -1940,6 +1950,11 @@ packages:
     dependencies:
       whatwg-url: 7.1.0
     dev: true
+
+  /stack-trace@1.0.0-pre2:
+    resolution: {integrity: sha512-2ztBJRek8IVofG9DBJqdy2N5kulaacX30Nz7xmkYF6ale9WBVmIy6mFBchvGX7Vx/MyjBhx+Rcxqrj+dbOnQ6A==}
+    engines: {node: '>=16'}
+    dev: false
 
   /stackback@0.0.2:
     resolution: {integrity: sha512-1XMJE5fQo1jGH6Y/7ebnwPOBEkIEnT4QF32d5R1+VXdXveM0IBMJt8zfaxX1P3QhVwrYe+576+jkANtSS2mBbw==}

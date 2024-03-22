@@ -3,6 +3,9 @@ import { FileDiagnostics, getFileDiagnostics } from "./getFileDiagnostics";
 import chalk from "chalk";
 import xxhash from "xxhash-wasm";
 import { ValidationOptions } from "./typeValidation";
+import { isFileDiagnostic } from "./type-guards/isFileDiagnostic";
+import { error } from "./logging/error";
+import { rel } from "./utils";
 export type Hasher = Awaited<ReturnType<typeof xxhash>>["h32"];
 
 export const CACHE_FILE = ".ts-test-cache";
@@ -33,6 +36,19 @@ export const initializeHasher = async() => {
   hasher = h32;
 }
 
+export const hasCacheFile = (file: string) => {
+  return isFileDiagnostic(cache[file]);
+} 
+
+export const getCacheEntry = (file: string) => {
+  const entry = cache[file] || cache[rel(file)];
+  if(!isFileDiagnostic(entry)) {
+    error(`Call to getCacheEntry(${chalk.dim.italic("file")}) where cache does not contain this cache item!`, {file, cacheCount: Object.keys(cache).length});
+  }
+
+  return {...entry};
+}
+
 /**
  * **getDependency**(file)
  * 
@@ -43,7 +59,7 @@ export const getDependency = (file: string) => {
     throw new Error(`The file "${file}" is not being tracked as a dependency!`);
   }
 
-  return dependencyGraph[file];
+  return {...dependencyGraph[file]};
 }
 
 /**
@@ -116,11 +132,14 @@ export const hasDependency = (file: string) => {
  * Note: _does not_ update cache to disk
  */
 export const updateCache = (
-  diagnostics: FileDiagnostics, 
+  fd: FileDiagnostics, 
   opts: ValidationOptions
 ) => {
-  const file = diagnostics.file;
-  const oldDeps = diagnostics?.deps || [];
+  if(!isFileDiagnostic(fd)) {
+    error(`Call to updateCash(${chalk.dim("fd,opts")}) was passed an invalid FileDiagnostics structure`, {fd});
+  }
+  const file = fd?.file;
+  const oldDeps = fd?.deps || [];
 
   delete cache[file];
 
@@ -139,7 +158,7 @@ export const updateCache = (
     addDependency(file, item);
   }
 
-  return cache;
+  return {...cache[file]};
 }
 
 /**
@@ -179,17 +198,21 @@ export const getCache = (force?: boolean) => {
  * Saves the cache to disk. If `data` is passed in then this will be used, otherwise
  * the current state managed by the **cache** module will be used.
  */
-export const saveCache = (data: FileDiagnostics[]): Record<string, FileDiagnostics> => {
-  cache = data.reduce(
-    (acc, item) => {
-      return {
-        ...acc,
-        [item.file]: item
-      }
-    }, {} as Record<string, FileDiagnostics>
-  );
-
-  writeFileSync(CACHE_FILE, JSON.stringify(cache), "utf-8")
+export const saveCache = (data?: FileDiagnostics[]): Record<string, FileDiagnostics> => {
+  if(data) {
+    cache = data.reduce(
+      (acc, item) => {
+        return {
+          ...acc,
+          [item.file]: item
+        }
+      }, {} as Record<string, FileDiagnostics>
+    );
+  
+    writeFileSync(CACHE_FILE, JSON.stringify(cache), "utf-8");
+  } else {
+    writeFileSync(CACHE_FILE, JSON.stringify(cache), "utf-8");
+  }
   return cache;
 }
 
