@@ -1,4 +1,4 @@
-import { ts } from "ts-morph";
+import { DiagnosticMessageChain, ts } from "ts-morph";
 import { getCache, h, validateCache } from "./cache";
 import chalk from "chalk";
 import { getFileDependencies } from "./getFileDependencies";
@@ -90,7 +90,7 @@ export const getFileDiagnostics = (file: string, opts: ValidationOptions ): File
     const code = `${chalk.dim("code:")} ${d.getCode()}`;
     const txt = typeof d.getMessageText() === "string"
       ? d.getMessageText()
-      : d.getMessageText().toString();
+      : (d.getMessageText() as DiagnosticMessageChain).getMessageText();
   
     const msg = `(${lineNumber}, ${column}, ${code}): ${txt} ${related}`
 
