@@ -1,6 +1,6 @@
 {
   "name": "ts-type-tester",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Test all your type-tests and incorporate into your CI-CD and deployment strategy",
   "scripts": {
     "build": "tsup src/ts-test.ts --format=esm -d bin --clean --sourcemap && chmod +x \"bin/ts-test.mjs\"",
