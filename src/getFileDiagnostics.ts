@@ -44,6 +44,7 @@ export type FileDiagnostics = {
  * Retrieves the file's diagnostics (from cache or static analysis)
  */
 export const getFileDiagnostics = (file: string, opts: ValidationOptions ): FileDiagnostics => {
+  const start_time = Date.now();
 
   let cache = getCache();
   if(cache[file] && !opts.force && validateCache(file, cache[file].hash)) {
@@ -124,24 +125,26 @@ export const getFileDiagnostics = (file: string, opts: ValidationOptions ): File
   }
 
   if(!opts.quiet && !opts.force) {
+    const now = Date.now();
+    const duration = now - start_time;
     if(result.hasErrors) {
       if(opts.verbose) {
         process.stdout.write("\u001b[1000D");
-        console.log(`🔴 ${chalk.bold("completed: ")}${chalk.dim("")}${file}${chalk.dim("")}`);
+        console.log(`🔴 ${chalk.bold("completed: ")}${chalk.dim("")}${file}${chalk.dim("")}${chalk.italic(` at `)}${now} ${chalk.dim("[ ")}${duration}${chalk.dim("ms ]")}`);
       } else {
         process.stdout.write("🔴");
       }
     } else if(result.hasWarnings) {
       if(opts.verbose) {
         process.stdout.write(`\u001b[1000D`)
-        console.log(`🟡 ${chalk.bold("completed: ")}${chalk.dim("")}${file}${chalk.dim("")}`)
+        console.log(`🟡 ${chalk.bold("completed: ")}${chalk.dim("")}${file}${chalk.dim("")}${chalk.italic(` at `)}${now} ${chalk.dim("[ ")}${duration}${chalk.dim("ms ]")}`)
       } else {
         process.stdout.write("🟡");
       }
     } else {
       if(opts.verbose) {
         process.stdout.write("\u001b[1000D")
-        console.log(`🟢 ${chalk.bold("completed: ")}${chalk.dim("")}${file}${chalk.dim("")}`)
+        console.log(`🟢 ${chalk.bold("completed: ")}${chalk.dim("")}${file}${chalk.dim("")}${chalk.italic(` at `)}${now} ${chalk.dim("[ ")}${duration}${chalk.dim("ms ]")}`)
       } else {
         process.stdout.write("🟢");
       }
