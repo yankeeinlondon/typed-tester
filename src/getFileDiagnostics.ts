@@ -6,6 +6,7 @@ import { getProject } from "./setupProject";
 import { ValidationOptions } from "./typeValidation";
 import { calcErrorsAndWarnings } from "./calcErrorsAndWarnings";
 
+
 /** a cachable summary of a file's diagnostic state */
 export type CacheDiagnostic = {
   lineNumber: number;
@@ -52,6 +53,7 @@ export const getFileDiagnostics = (file: string, opts: ValidationOptions ): File
     } as FileDiagnostics;
     
     if(cache[file].hasErrors) {
+
       process.stdout.write(chalk.red("."));
     } else if (cache[file].hasWarnings) {
       process.stdout.write(chalk.yellow("."));
@@ -123,11 +125,26 @@ export const getFileDiagnostics = (file: string, opts: ValidationOptions ): File
 
   if(!opts.quiet && !opts.force) {
     if(result.hasErrors) {
-      process.stdout.write("🔴");
+      if(opts.verbose) {
+        process.stdout.write("\u001b[1000D");
+        console.log(`🔴 ${chalk.bold("completed: ")}${chalk.dim("")}${file}${chalk.dim("")}`);
+      } else {
+        process.stdout.write("🔴");
+      }
     } else if(result.hasWarnings) {
-      process.stdout.write("🟡");
+      if(opts.verbose) {
+        process.stdout.write(`\u001b[1000D`)
+        console.log(`🟡 ${chalk.bold("completed: ")}${chalk.dim("")}${file}${chalk.dim("")}`)
+      } else {
+        process.stdout.write("🟡");
+      }
     } else {
-      process.stdout.write("🟢");
+      if(opts.verbose) {
+        process.stdout.write("\u001b[1000D")
+        console.log(`🟢 ${chalk.bold("completed: ")}${chalk.dim("")}${file}${chalk.dim("")}`)
+      } else {
+        process.stdout.write("🟢");
+      }
     }
   }
 

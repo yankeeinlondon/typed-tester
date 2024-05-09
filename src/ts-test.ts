@@ -9,6 +9,7 @@ import { type_validation } from "./typeValidation";
 const cli = commandLineArgs(
   [
     { name: "params", type: String, multiple: true, defaultOption: true },
+    { name: "verbose", type: Boolean, alias: "v"},
     { name: "filter", type: String, alias: "f", multiple: true },
     { name: "warn", type: String, multiple: true },
     { name: "watch", type: Boolean, alias: "w" },
@@ -44,6 +45,12 @@ const sections = [
         type: String,
         typeLabel: '{underline glob-pattern}',
         description: `Use a glob pattern to select or deselect files; you can use 1 or more of these and a glob pattern starting with a ${chalk.bold("!")} will be a negation pattern.`
+      },
+      {
+        name: 'verbose',
+        alias: "v",
+        type: Boolean,
+        description: `more verbose output when analyzing`
       },
       {
         name: 'warn',
@@ -113,7 +120,8 @@ if(cli.help) {
         warn: cli.warn || [],
         quiet: cli.quiet || false,
         json: cli.json || false,
-        force: false
+        force: false,
+        verbose: cli.verbose || false
       }
     );
   }

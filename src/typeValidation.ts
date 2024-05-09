@@ -39,6 +39,7 @@ export type ValidationOptions = {
   json: boolean,
   /** not exposed to CLI but used by watcher */
   force: boolean,
+  verbose: boolean
 }
 
 /**
@@ -73,11 +74,14 @@ export const type_validation = async (
     const files = await glob(glob_pattern);
     console.log(`- inspecting ${files.length} typescript files for type errors`);
     // initial analysis
-    stdout.write(`- starting analysis:  `);
+    console.log(`- starting analysis:  `);
 
     const results: FileDiagnostics[] = [];
 
     for (const file of files) {
+      if(opts.verbose) {
+        process.stdout.write(chalk.gray(`\n- working on "${file}"`));
+      }
       results.push(getFileDiagnostics(file, opts));
     }
 
