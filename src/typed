@@ -1,5 +1,3 @@
-#!/bin/env bash
-
 #!/usr/bin/env bash
 
 export RESET='\033[0m'
@@ -102,42 +100,25 @@ function has_command() {
 }
 
 function main() {
-    if is_empty "${1:-}"; then
-    error "no target program given for ${BOLD}bunny${RESET} to run!"
-    else 
-    if ! file_exists "$1"; then 
-        error "the target program ${BLUE}$1${RESET} ${ITALIC}does not${RESET} exist!"
-    fi
-    fi
+    local -r command="${1}";
+    shift
+    local -r params="$*";
 
-    if is_wasm "$1"; then 
-    if has_command "wasmer"; then 
-        wasmer "$1"
-    elif has_command "wasmtime"; then 
-        wasmtime "$1"
-    elif has_command "nix-shell"; then 
-        nix-shell -p wasmer --run "wasmer $1"
-    else
-        error "Unable to find a WASM runtime to use to run ${BLUE}$1${RESET}!"
+    if ! file_exists "$command"; then
+        log "${RED}ERROR:${RESET} unable to run ${BOLD}typed${RESET} due to missing \"${command}\" file!"
+        log ""
+        exit 1
     fi
-    else
 
     if has_command "bun"; then 
-        bun run "$1"
+        bun run "${command}" "${params}"
     elif has_command "deno"; then 
-        deno run "$1"
-    elif has_command "tsx"; then
-        tsx "$1"
-    elif is_javascript "$1" && has_command "node"; then 
-        node "$1"
-    elif has_command "ts-node"; then 
-        ts-node "$1"
-    elif has_command "nix-shell"; then 
-        nix-shell -p bun --run "bun run $1"
+        deno run "${command}" "${params}"
+    elif has_command "node"; then 
+        node "${command}"  "${params}"
     else 
-        error "${BOLD}${RED}Error:${RESET} failed to find a JS/TS runtime to run ${BLUE}${1}${RESET}\n\nTo run you must install any of the following:\n"
-    fi 
+        error "${BOLD}${RED}Error:${RESET} failed to find a JS/TS runtime to run ${BLUE}${1}${RESET}\n\nTo run you must install any of the following:  - bun, deno, node\n"
     fi
 }
 
-main "typed.mjs"
+main "./bin/typed.mjs" "$*"

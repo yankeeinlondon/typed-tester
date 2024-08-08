@@ -54,6 +54,7 @@ export const type_validation = async (
   folder: string,
   opts: ValidationOptions
 ) => {
+  
   try {
     var start = performance.now();
     
@@ -63,11 +64,12 @@ export const type_validation = async (
     const configFile = opts.configFile || "tsconfig.json";
     setupProject(configFile);
     await initializeHasher();
-
+    
     if(!opts.quiet) {
       console.log(chalk.bold(`TS Type Tester`));
       console.log(`--------------`);
     }
+    console.log(`- type validation of the folder "${folder}"`);
 
     const glob_pattern = [path.join("./", folder, "/**/**.ts"), ...opts.filter];
     const files = await glob(glob_pattern);

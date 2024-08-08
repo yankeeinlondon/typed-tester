@@ -4,6 +4,7 @@
   "description": "Test all your type-tests and incorporate into your CI-CD and deployment strategy",
   "scripts": {
     "build": "./build",
+    "try": "./bin/typed",
     "release": "bumpp"
   },
   "bin": {
@@ -20,8 +21,7 @@
     ],
     "splitting": false,
     "sourcemap": true,
-    "format": "esm",
-    "clean": true
+    "format": "esm"
   },
   "author": "Ken Snyder <ken@ken.net>",
   "license": "MIT",
@@ -33,6 +33,7 @@
     "fast-glob": "^3.3.2",
     "inferred-types": "^0.46.1",
     "pathe": "^1.1.2",
+    "play-sound": "^1.1.6",
     "stack-trace": "1.0.0-pre2",
     "ts-morph": "^23.0.0",
     "watcher": "^2.3.1",
