@@ -5,11 +5,11 @@
   "scripts": {
     "build": "./build",
     "try": "./bin/typed",
+    "test": "echo \"no tests until after refactor of CLI interface\"",
     "release": "bumpp"
   },
   "bin": {
-    "ts-test": "bin/typed",
-    "ts-type-tester": "bin/typed"
+    "typed": "bin/typed"
   },
   "keywords": [
     "typescript",
