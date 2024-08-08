@@ -7,8 +7,8 @@
     "release": "bumpp"
   },
   "bin": {
-    "ts-test": "bin/ts-test.mjs",
-    "ts-type-tester": "bin/ts-test.mjs"
+    "ts-test": "bin/typed",
+    "ts-type-tester": "bin/typed"
   },
   "keywords": [
     "typescript",

@@ -56,7 +56,7 @@ The CLI has the following commands:
 2. Source Diagnostics:
 
     ```sh
-    [npx] typed diagnostics [filter] [--show-warnings]
+    [npx] typed diagnostics [filter] [--show-warnings] [--only-top=10]
     ```
 
     Evaluates all of the sources files and provides the following metrics by file:
@@ -68,20 +68,31 @@ The CLI has the following commands:
         - **Perf per Lines of Code**: build time by lines of code
         - **Perf per Symbol**: build time by symbols in file
 
-3. Dependency Graph:
+3. Source Dependency Graph:
 
+    ```sh
+    [npx] typed graph [filter] 
+    ```
 
+    Produces a list of source _type symbols_ and their dependencies on other symbols.
 
+4. Type Coverage:
 
+    ```sh
+    [npx] typed coverage
+    ```
 
-There are configuration options available if you want to go beyond the basics and
-the best way to get an overview of this is to just run:
+    Provides the following metrics:
 
-```sh
-npx typed
-```
+    - total number of symbols found in source code
+    - symbols tested directly (and coverage %)
+    - symbols tested directly or indirectly (and coverage %)
+  
+    Note:
+    - These metrics aren't perfect but they're better than the absence of metrics
+    - The coverage relating to "directly or indirectly" means ...
+      - Where the symbol was directly tested (aka, there was a direct test that symbol result in an expected type) _or_ (less ideally) that some other symbol _used_ the type to calculate a tested outcome.
 
-Without any parameters this will bring up the help system which describes all command line switches.
 
 ### Using as Vite plugin
 

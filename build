@@ -39,13 +39,6 @@ else
     exit 1
 fi
 
-if cp "./src/typed" "./bin"; then
-    log "- copied ${BLUE}src/typed${RESET} ${ITALIC}shell script${NO_ITALIC} to ${BLUE}./bin${RESET} directory"
-else 
-    log "- ${RED}ERROR:${RESET} failed to copy ${BLUE}src/typed${RESET} ${ITALIC}shell script${NO_ITALIC} to ${BLUE}./bin${RESET} directory"
-    exit 1
-fi
-
 if pnpm tsup src/typed.ts --format=esm -d bin --sourcemap; then
     log ""
     log "- transpiled ${BOLD}JS${RESET} files from ${BOLD}TS${RESET} source using ${BOLD}tsup${RESET} build utility"
@@ -53,6 +46,13 @@ else
     log ""
     log "- ${RED}ERROR:${RESET} failed to transpile JS files from TS source using ${BOLD}tsup${RESET}"
     log ""
+    exit 1
+fi
+
+if cp "./src/typed" "./bin/"; then
+    log "- copied ${BLUE}./src/typed${RESET} ${ITALIC}shell script${NO_ITALIC} to ${BLUE}./bin${RESET} directory"
+else 
+    log "- ${RED}ERROR:${RESET} failed to copy ${BLUE}src/typed${RESET} ${ITALIC}shell script${NO_ITALIC} to ${BLUE}./bin${RESET} directory"
     exit 1
 fi
 
