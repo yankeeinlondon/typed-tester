@@ -1,6 +1,6 @@
 {
   "name": "typed",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "Test all your type-tests and incorporate into your CI-CD and deployment strategy",
   "scripts": {
     "build": "./build",
