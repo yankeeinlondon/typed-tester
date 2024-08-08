@@ -1,0 +1,143 @@
+#!/bin/env bash
+
+#!/usr/bin/env bash
+
+export RESET='\033[0m'
+
+export RED='\033[31m'
+export GREEN='\033[32m'
+export BLUE='\033[34m'
+export MAGENTA='\033[35m'
+
+export BRIGHT_RED='\033[91m'
+export BRIGHT_GREEN='\033[92m'
+export BRIGHT_BLUE='\033[94m'
+
+export BOLD='\033[1m'
+export NO_BOLD='\033[21m'
+export DIM='\033[2m'
+export NO_DIM='\033[22m'
+export ITALIC='\033[3m'
+export NO_ITALIC='\033[23m'
+
+# log
+#
+# Logs the parameters passed to STDERR
+function log() {
+    printf "%b\\n" "${*}" >&2
+}
+
+function error() {
+  printf "%b\\n" "${*}" >&2
+
+  exit 1
+}
+
+# is_empty() <test | ref:test>
+# 
+# tests whether the <test> value passed in is an empty string (or is unset)
+# and returns 0 when it is empty and 1 when it is NOT.
+function is_empty() {
+  if [ -z "$1" ] || [[ "$1" == "" ]]; then
+      return 0
+  else
+      return 1
+  fi
+}
+
+# file_exists <filepath>
+#
+# tests whether a given filepath exists in the filesystem
+function file_exists() {
+    local filepath="${1:?filepath is missing}"
+
+    if [ -f "${filepath}" ]; then
+        return 0;
+    else
+        return 1;
+    fi
+}
+
+# is_javascript <filepath>
+#
+# Tests whether the given filepath points to a file with a
+# ".js" file extension
+function is_javascript() {
+  local -r filepath="${1:?no filepath passed to is_javascript!}"
+
+  if [[ "$filepath" == *".js" ]]; then 
+    return 0; # is javascript 
+  elif [[ "$filepath" != *".mjs" ]]; then
+    return 0; # esm JS 
+  elif [[ "$filepath" != *".cjs" ]]; then  
+    return 0; # cjs JS 
+  else 
+    return 1; # not javascript 
+  fi 
+}
+
+function is_wasm() {
+  local -r filepath="${1:?no filepath passed to is_wasm!}"
+
+  if [[ "$filepath" == *".wasm" ]]; then 
+    return 0; # is wasm 
+  else 
+    return 1; # not wasm 
+  fi 
+
+}
+
+# has_command <cmd>
+#
+# checks whether a particular program passed in via $1 is installed 
+# on the OS or not (at least within the $PATH)
+function has_command() {
+    local -r cmd="${1:?cmd is missing}"
+
+    if command -v "${cmd}" &> /dev/null; then
+        return 0
+    else 
+        return 1
+    fi
+}
+
+function main() {
+    if is_empty "${1:-}"; then
+    error "no target program given for ${BOLD}bunny${RESET} to run!"
+    else 
+    if ! file_exists "$1"; then 
+        error "the target program ${BLUE}$1${RESET} ${ITALIC}does not${RESET} exist!"
+    fi
+    fi
+
+    if is_wasm "$1"; then 
+    if has_command "wasmer"; then 
+        wasmer "$1"
+    elif has_command "wasmtime"; then 
+        wasmtime "$1"
+    elif has_command "nix-shell"; then 
+        nix-shell -p wasmer --run "wasmer $1"
+    else
+        error "Unable to find a WASM runtime to use to run ${BLUE}$1${RESET}!"
+    fi
+    else
+
+    if has_command "bun"; then 
+        bun run "$1"
+    elif has_command "deno"; then 
+        deno run "$1"
+    elif has_command "tsx"; then
+        tsx "$1"
+    elif is_javascript "$1" && has_command "node"; then 
+        node "$1"
+    elif has_command "ts-node"; then 
+        ts-node "$1"
+    elif has_command "nix-shell"; then 
+        nix-shell -p bun --run "bun run $1"
+    else 
+        error "${BOLD}${RED}Error:${RESET} failed to find a JS/TS runtime to run ${BLUE}${1}${RESET}\n\nTo run you must install any of the following:\n"
+    fi 
+    fi
+}
+
+main "typed.mjs"

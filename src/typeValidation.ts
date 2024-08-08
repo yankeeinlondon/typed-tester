@@ -3,7 +3,6 @@ import glob from "fast-glob";
 import path from "pathe";
 import { FileDiagnostics, getFileDiagnostics } from "./getFileDiagnostics";
 import { setupProject } from "./setupProject";
-import { stdout } from "process";
 import {  clearCache, initializeHasher, saveCache } from "./cache";
 import { watch } from "./watch";
 import { reportGlobalMetrics } from "./reporting/globalMetrics";
@@ -159,5 +158,7 @@ export const type_validation = async (
     return metrics;
   } catch(e) {
     error((e as any).msg);
+
+    return
   }
 };
