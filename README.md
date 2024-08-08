@@ -2,6 +2,8 @@
 
 > a CLI and Vite plugin which runs "type tests" for your Typescript projects
 
+## Install
+
 You can install locally in a project or globally via `npm`:
 
 ```sh
@@ -14,6 +16,23 @@ npm install -D typed
 > **Note:**
 >
 > in order for the _same_ version of Typescript to be used for type testing as you are using in your repo we include `typescript` as a "peer dependency" ... meaning it is required but not included. For any normal Typescript based project this is a non-issue as you'd clearly have already installed Typescript as a development dependency but if you _do_ install this globally so you can use the CLI where you like, then be sure to install a modern version of Typescript globally too.
+
+When running as a local dependency you can interactively use the tool by running:
+
+```sh
+# run a command (e.g., "test", "diagnostics", etc.)
+npx typed [cmd]
+# get a CLI help menu
+npx typed
+```
+
+But in general it is recommended to add a _script_ to your `package.json`:
+
+```json
+"scripts": {
+    "test:types": "typed test"
+}
+```
 
 ## Usage
 
@@ -35,23 +54,25 @@ The CLI has the following commands:
 
 
 2. Source Diagnostics:
+
+    ```sh
+    [npx] typed diagnostics [filter] [--show-warnings]
+    ```
+
+    Evaluates all of the sources files and provides the following metrics by file:
+
+    - errors: type errors not reduced to warnings
+    - warnings: type errors specified to show as warnings (such as type defined but not used)
+    - performance metrics:
+        - **AST build time**:  how long did it take to create an AST out of the file)
+        - **Perf per Lines of Code**: build time by lines of code
+        - **Perf per Symbol**: build time by symbols in file
+
 3. Dependency Graph:
 
 
 
-You can interactively use the tool by running:
 
-```sh
-npx typed [tests-folder]
-```
-
-But in general it is recommended to add a _script_ to your `package.json`:
-
-```json
-"scripts": {
-    "test:types": "typed [test-folder]"
-}
-```
 
 There are configuration options available if you want to go beyond the basics and
 the best way to get an overview of this is to just run:
