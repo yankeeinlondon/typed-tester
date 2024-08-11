@@ -3,7 +3,7 @@
   "version": "0.4.0",
   "description": "Test all your type-tests and incorporate into your CI-CD and deployment strategy",
   "scripts": {
-    "build": "./scripts/build",
+    "build": "node scripts/build.mjs",
     "try": "./bin/typed",
     "test": "echo \"no tests until after refactor of CLI interface\"",
     "watch": "tsup src/typed.ts --format=esm -d bin --sourcemap --watch",

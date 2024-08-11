@@ -15,14 +15,14 @@ const rimraf = join(node_modules_bin, "rimraf");
 const tsup = join(node_modules_bin, "tsup");
 
 const clear_path = platform === "win32"
-? `.\bin\*`
+? `bin\*`
 : `./bin/*`;
 
 execSync(`${rimraf} ${clear_path}`);
 console.log(`- cleared ${chalk.bold("bin")} directory of stale artifacts`);
 
 const build_target = platform === "win32"
-  ? `.\src\typed.ts`
+  ? `src\typed.ts`
   : `./src/typed.ts`;
 
 if(execSync(`${tsup} ${build_target} --format=esm -d bin --sourcemap`)) {
@@ -34,11 +34,11 @@ if(execSync(`${tsup} ${build_target} --format=esm -d bin --sourcemap`)) {
 
 
 const copy_src = platform === "win32"
-  ? `.\src\typed`
+  ? `src\typed`
   : `./src/typed`;
 
 const copy_dest = platform === "win32"
-  ? `.\bin\typed`
+  ? `bin\typed`
   : `./bin/typed`;
 
 copyFileSync(copy_src, copy_dest);
@@ -46,9 +46,3 @@ console.log(`- copied ${chalk.bold(`${copy_src}`)} bash script to from ${chalk.b
 
 console.log();
 console.log(`- 🚀 build successful`);
-
-
-
-
-
-
