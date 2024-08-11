@@ -1,4 +1,4 @@
-import {  platform } from "node:process";
+import {  platform, cwd } from "node:process";
 import chalk from "chalk";
 import { execSync } from "node:child_process";
 import { copyFileSync } from "fs"
