@@ -4,8 +4,8 @@ import { execSync } from "node:child_process";
 import { copyFileSync } from "fs"
 import { join } from "pathe";
 
-console.log(`Building Typed`);
-console.log(`--------------`);
+console.log(`Building Typed for ${platform}`);
+console.log(`------------------------------`);
 
 const node_modules_bin = platform === "win32"
 ? `node_modules\\.bin`
