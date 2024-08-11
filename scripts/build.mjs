@@ -8,7 +8,7 @@ console.log(`Building Typed for ${platform}`);
 console.log(`------------------------------`);
 
 const node_modules_bin = platform === "win32"
-? `node_modules\\.bin`
+? 'node_modules\.bin'
 : `./node_modules/.bin`;
 
 const rimraf = join(node_modules_bin, "rimraf");
@@ -18,8 +18,16 @@ const clear_path = platform === "win32"
 ? `bin\\*`
 : `./bin/*`;
 
-execSync(`${rimraf} ${clear_path}`);
-console.log(`- cleared ${chalk.bold("bin")} directory of stale artifacts`);
+try {
+  execSync(`${rimraf} ${clear_path}`);
+  console.log(`- cleared ${chalk.bold("bin")} directory of stale artifacts`);
+} catch (e) {
+  console.log(`- 💩 failed to clear bin directory of stale artifacts`);
+  console.log(`   msg: ${String(e)}`);
+  
+  console.log(rimraf, clear_path);
+  process.exit(1);
+}
 
 const build_target = platform === "win32"
   ? `src\\typed.ts`
