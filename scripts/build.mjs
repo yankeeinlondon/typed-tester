@@ -8,7 +8,7 @@ console.log(`Building Typed for ${platform}`);
 console.log(`------------------------------`);
 
 const node_modules_bin = platform === "win32"
-? 'node_modules\.bin'
+? join("node_modules",".bin")
 : `./node_modules/.bin`;
 
 const rimraf = join(node_modules_bin, "rimraf");
@@ -23,7 +23,7 @@ try {
   console.log(`- cleared ${chalk.bold("bin")} directory of stale artifacts`);
 } catch (e) {
   console.log(`- 💩 failed to clear bin directory of stale artifacts`);
-  console.log(`   msg: ${String(e)}`);
+  console.log(`   ${String(e)}`);
   
   console.log(rimraf, clear_path);
   process.exit(1);
@@ -33,10 +33,13 @@ const build_target = platform === "win32"
   ? `src\\typed.ts`
   : `./src/typed.ts`;
 
-if(execSync(`${tsup} ${build_target} --format=esm -d bin --sourcemap`)) {
+try {
+  execSync(`${tsup} ${build_target} --format=esm -d bin --sourcemap`);
   console.log(`- transpiled ${chalk.bold("JS")} files from ${chalk.bold("TS")} source using ${chalk.bold("tsup")} build utility`);
-} else {
+} catch(e) {
   console.error(`- failed to transpile TS source!`);
+  console.error(`  ${String(e)}`);
+  
   process.exit(1);
 }
 
@@ -50,7 +53,15 @@ const copy_dest = platform === "win32"
   : `./bin/typed`;
 
 copyFileSync(copy_src, copy_dest);
-console.log(`- copied ${chalk.bold(`${copy_src}`)} bash script to from ${chalk.bold(`${copy_dest}`)}`);
-
-console.log();
-console.log(`- 🚀 build successful`);
+try {
+  console.log(`- copied ${chalk.bold(`${copy_src}`)} bash script to from ${chalk.blue(copy_src)} to ${chalk.blue(copy_dest)}`);
+  
+  console.log();
+  console.log(`- 🚀 build successful`);
+} catch (e) {
+  console.log(`- 💩 failed to copy bash script from ${chalk.blue(copy_src)}} to ${chalk.blue(copy_dest)}!`);
+  console.log(`   ${String(e)}`);
+  
+  console.log();
+  process.exit(1);
+}
