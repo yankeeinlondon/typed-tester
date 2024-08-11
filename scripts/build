@@ -1,0 +1,210 @@
+#!/usr/bin/env bash
+
+export RESET='\033[0m'
+
+export GREEN='\033[38;5;2m'
+export RED='\033[38;5;1m'
+export YELLOW2='\033[38;5;3m'
+export BLACK='\033[30m'
+export RED='\033[31m'
+export GREEN='\033[32m'
+export YELLOW='\033[33m'
+export BLUE='\033[34m'
+export MAGENTA='\033[35m'
+export CYAN='\033[36m'
+export WHITE='\033[37m'
+
+export BOLD='\033[1m'
+export NO_BOLD='\033[21m'
+export DIM='\033[2m'
+export NO_DIM='\033[22m'
+export ITALIC='\033[3m'
+export NO_ITALIC='\033[23m'
+export STRIKE='\033[9m'
+export NO_STRIKE='\033[29m'
+export REVERSE='\033[7m'
+export NO_REVERSE='\033[27m'
+
+# log
+#
+# Logs the parameters passed to STDERR
+function log() {
+    printf "%b\\n" "${*}" >&2
+}
+
+# starts_with <look-for> <content>
+function starts_with() {
+    local -r look_for="${1:?No look-for string provided to starts_with}"
+    local -r content="${2:-}"
+
+    if [[ -z "${content}" ]]; then
+        return 1;
+    fi
+
+    if [[ "${content}" == "${content#"$look_for"}" ]]; then
+        return 1; # was not present
+    else
+        return 0; #: found "look_for"
+    fi
+}
+
+# lc() <str>
+#
+# converts the passed in <str> to lowercase
+function lc() {
+    local -r str="${1-}"
+    echo "${str}" | tr '[:upper:]' '[:lower:]'
+}
+
+# strip_before <find> <content>
+#
+# Retains all the characters after the first instance of <find> is
+# found.
+#
+# Ex: strip_after ":" "hello:world:of:tomorrow" → "world:of:tomorrow"
+function strip_before() {
+    local -r find="${1:?strip_before() requires that a find parameter be passed!}"
+    local -r content="${2:-}"
+
+    echo "${content#*"${find}"}"
+}
+
+# catch_errors()
+#
+# Catches all errors found in a script -- including pipeline errors -- and
+# sends them to an error handler to report the error.
+function catch_errors() {
+    set -Eeuo pipefail
+    trap 'error_handler $LINENO "$BASH_COMMAND"' ERR
+}
+
+# allow_errors()
+#
+# Allows for non-zero return-codes to avoid being sent to the error_handler
+# and is typically used to temporarily check on an external state from the shell
+# where an error might be encountered but which will be handled locally
+function allow_errors() {
+    set +Eeuo pipefail
+    trap - ERR
+}
+
+# distro_version() <[vmid]>
+#
+# will try to detect the linux distro's version id and name 
+# of the host computer or the <vmid> if specified.
+function distro_version() {
+    local -r vm_id="$1:-"
+
+    if [[ $(os "$vm_id") == "linux" ]]; then
+        if file_exists "/etc/os-release"; then
+            local -r id="$(find_in_file "VERSION_ID=" "/etc/os-release")"
+            local -r codename="$(find_in_file "VERSION_CODENAME=" "/etc/os-release")"
+            echo "${id}/${codename}"
+            return 0
+        fi
+    else
+        error "Called distro() on a non-linux OS [$(os "$vm_id")]!"
+    fi
+}
+
+# distro() <[vmid]>
+#
+# will try to detect the linux distro of the host computer
+# or the <vmid> if specified.
+function distro() {
+    local -r vm_id="$1:-"
+
+    if [[ $(os "$vm_id") == "linux" ]]; then
+        if file_exists "/etc/os-release"; then
+            local -r name="$(find_in_file "ID=" "/etc/os-release")" || "$(find_in_file "NAME=" "/etc/os-release")"
+            echo "${name}"
+            return 0
+        fi
+    else
+        error "Called distro() on a non-linux OS [$(os "$vm_id")]!"
+    fi
+}
+
+# os() <[vmid]>
+#
+# will try to detect the operating system of the host computer
+# or a container if a <vmid> is passed in as a parameter.
+function os() {
+    allow_errors
+    local -r os_type=$(lc "${OSTYPE}") || "$(lc "$(uname)")" || "unknown"
+    
+    case "$os_type" in
+        'linux'*)
+            if distro "$vm_id"; then 
+                echo "linux/$(distro "${vm_id}")/$(distro_version "$vm_id")"
+            else
+                echo "linux"
+            fi
+            ;;
+        'freebsd'*)
+            echo "freebsd"
+            ;;
+        'windowsnt'*)
+            echo "windows"
+            ;;
+        'darwin'*) 
+            echo "macos/$(strip_before "darwin" "${OSTYPE}")"
+            ;;
+        'sunos'*)
+            echo "solaris"
+            ;;
+        'aix'*) 
+            echo "aix"
+            ;;
+        *) echo "unknown/${os_type}"
+        esac
+}
+
+function os_path_delimiter() {
+    if starts_with "windows" "$(os)"; then
+        echo "\\"
+    else
+        echo "/"
+    fi
+}
+
+PATH_DELIM=$(os_path_delimiter)
+
+if pnpm rimraf ".${PATH_DELIM}bin${PATH_DELIM}*"; then
+    log "- cleared all files in ${BLUE}.bin${PATH_DELIM}*${RESET} directory"
+    log ""
+else
+    log "- failed to clear all files in ${BLUE}.${PATH_DELIM}bin${PATH_DELIM}*${RESET} directory"
+    exit 1
+fi
+
+if pnpm tsup "src${PATH_DELIM}typed.ts" --format=esm -d bin --sourcemap; then
+    log ""
+    log "- transpiled ${BOLD}JS${RESET} files from ${BOLD}TS${RESET} source using ${BOLD}tsup${RESET} build utility"
+else
+    log ""
+    log "- ${RED}ERROR:${RESET} failed to transpile JS files from TS source using ${BOLD}tsup${RESET}"
+    log ""
+    exit 1
+fi
+
+if [[ "$(os)" == "windows" ]]; then 
+    if copy ".${PATH_DELIM}src${PATH_DELIM}typed" ".${PATH_DELIM}bin"; then
+        log "- copied ${BLUE}.${PATH_DELIM}src${PATH_DELIM}typed${RESET} ${ITALIC}shell script${NO_ITALIC} to ${BLUE}.${PATH_DELIM}bin${RESET} directory"
+    else
+        log "- ${RED}ERROR:${RESET} failed to copy ${BLUE}src${PATH_DELIM}typed${RESET} ${ITALIC}shell script${NO_ITALIC} to ${BLUE}.${PATH_DELIM}bin${RESET} directory"
+        exit 1
+    fi
+
+else 
+    if cp "./src/typed" "./bin/"; then
+        log "- copied ${BLUE}./src/typed${RESET} ${ITALIC}shell script${NO_ITALIC} to ${BLUE}./bin${RESET} directory"
+    else 
+        log "- ${RED}ERROR:${RESET} failed to copy ${BLUE}src/typed${RESET} ${ITALIC}shell script${NO_ITALIC} to ${BLUE}./bin${RESET} directory"
+        exit 1
+    fi
+fi
+
+log ""
+log "- 🚀 build successful"
+log ""

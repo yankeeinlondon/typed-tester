@@ -3,9 +3,7 @@
   "version": "0.4.0",
   "description": "Test all your type-tests and incorporate into your CI-CD and deployment strategy",
   "scripts": {
-    "build": "run-s clear build:*",
-    "build:sh": "cp -f src/typed bin/",
-    "build:esm": "tsup src/typed.ts --format=esm -d bin --sourcemap",
+    "build": "scripts/build",
     "clear": "rimraf bin/*",
     "try": "./bin/typed",
     "test": "echo \"no tests until after refactor of CLI interface\"",
