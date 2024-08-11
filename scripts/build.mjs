@@ -15,7 +15,7 @@ const rimraf = join(node_modules_bin, "rimraf");
 const tsup = join(node_modules_bin, "tsup");
 
 const clear_path = platform === "win32"
-? `bin\\*`
+? join(cwd(),"/bin/")
 : `./bin/*`;
 
 try {
@@ -30,7 +30,7 @@ try {
 }
 
 const build_target = platform === "win32"
-  ? `src\\typed.ts`
+  ? join(cwd(), "/bin", "typed.ts")
   : `./src/typed.ts`;
 
 try {
@@ -45,11 +45,11 @@ try {
 
 
 const copy_src = platform === "win32"
-  ? `src\\typed`
+  ? join(cwd(),"src/", "typed")
   : `./src/typed`;
 
 const copy_dest = platform === "win32"
-  ? `bin\\typed`
+  ? join(cwd(),"bin/", "typed")
   : `./bin/typed`;
 
 copyFileSync(copy_src, copy_dest);
