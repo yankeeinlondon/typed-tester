@@ -4,6 +4,7 @@ import { FileDiagnostics } from "src/getFileDiagnostics";
 import { ValidationOptions } from "src/typeValidation";
 import { rel } from "src/utils";
 import {  updatedGlobalMetrics } from "./globalMetrics";
+import { AsOption } from "src/create_cli";
 
 export type CacheState = {
   warnings: number;
@@ -13,7 +14,7 @@ export type CacheState = {
   errReport: string;
 }
 
-const state = (input: FileDiagnostics, opts: ValidationOptions): CacheState => {
+const state = (input: FileDiagnostics, opts: AsOption<"test">): CacheState => {
   const warnings = input.diagnostics
     ?.filter(i => opts.warn.includes(String(i.code)) )
     .length || 0;
@@ -49,7 +50,7 @@ const state = (input: FileDiagnostics, opts: ValidationOptions): CacheState => {
 /**
  * _execute_ and _report_ on a core file having changed
  */
-export const coreFileChange = (file: string, opts: ValidationOptions, fromDep: boolean = false) => {
+export const coreFileChange = (file: string, opts: AsOption<"test">, fromDep: boolean = false) => {
   const oldState = getCacheEntry(file);
   const old: ReturnType<typeof state> = state(oldState, opts);
 

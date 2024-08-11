@@ -3,8 +3,8 @@ import { getCache, h, validateCache } from "./cache";
 import chalk from "chalk";
 import { getFileDependencies } from "./getFileDependencies";
 import { getProject } from "./setupProject";
-import { ValidationOptions } from "./typeValidation";
 import { calcErrorsAndWarnings } from "./calcErrorsAndWarnings";
+import { AsOption } from "./create_cli";
 
 
 /** a cachable summary of a file's diagnostic state */
@@ -43,7 +43,7 @@ export type FileDiagnostics = {
 /**
  * Retrieves the file's diagnostics (from cache or static analysis)
  */
-export const getFileDiagnostics = (file: string, opts: ValidationOptions ): FileDiagnostics => {
+export const getFileDiagnostics = (file: string, opts: AsOption<"test"> ): FileDiagnostics => {
   const start_time = Date.now();
 
   let cache = getCache();
@@ -94,6 +94,7 @@ export const getFileDiagnostics = (file: string, opts: ValidationOptions ): File
     const txt = typeof d.getMessageText() === "string"
       ? d.getMessageText()
       : (d.getMessageText() as DiagnosticMessageChain).getMessageText();
+
   
     const msg = `(${lineNumber}, ${column}, ${code}): ${txt} ${related}`
 
@@ -106,7 +107,6 @@ export const getFileDiagnostics = (file: string, opts: ValidationOptions ): File
   }
 
   const hash = h(source.getText());
-
   const deps = getFileDependencies(file, source);
 
   const partial = {

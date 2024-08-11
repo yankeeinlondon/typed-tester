@@ -3,9 +3,13 @@
   "version": "0.4.0",
   "description": "Test all your type-tests and incorporate into your CI-CD and deployment strategy",
   "scripts": {
-    "build": "./build",
+    "build": "run-s clear build:*",
+    "build:sh": "cp -f src/typed bin/",
+    "build:esm": "tsup src/typed.ts --format=esm -d bin --sourcemap",
+    "clear": "rimraf bin/*",
     "try": "./bin/typed",
     "test": "echo \"no tests until after refactor of CLI interface\"",
+    "watch": "tsup src/typed.ts --format=esm -d bin --sourcemap --watch",
     "release": "bumpp"
   },
   "bin": {
@@ -17,7 +21,7 @@
   ],
   "tsup": {
     "entry": [
-      "src/ts-test.ts"
+      "src/typed.ts"
     ],
     "splitting": false,
     "sourcemap": true,
@@ -31,6 +35,7 @@
     "command-line-args": "^6.0.0",
     "command-line-usage": "^7.0.3",
     "fast-glob": "^3.3.2",
+    "find-root": "^1.1.0",
     "inferred-types": "^0.46.1",
     "pathe": "^1.1.2",
     "play-sound": "^1.1.6",
@@ -46,6 +51,7 @@
     "@type-challenges/utils": "^0.1.1",
     "@types/command-line-args": "^5.2.3",
     "@types/command-line-usage": "^5.0.4",
+    "@types/find-root": "^1.1.4",
     "@types/node": "^20.14.14",
     "bumpp": "^9.4.2",
     "npm-run-all": "^4.1.5",

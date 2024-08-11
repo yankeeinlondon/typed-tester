@@ -2,10 +2,10 @@ import { existsSync, readFileSync, unlinkSync, writeFileSync } from "fs";
 import { FileDiagnostics, getFileDiagnostics } from "./getFileDiagnostics";
 import chalk from "chalk";
 import xxhash from "xxhash-wasm";
-import { ValidationOptions } from "./typeValidation";
 import { isFileDiagnostic } from "./type-guards/isFileDiagnostic";
 import { error } from "./logging/error";
 import { rel } from "./utils";
+import { AsOption } from "./create_cli";
 export type Hasher = Awaited<ReturnType<typeof xxhash>>["h32"];
 
 export const CACHE_FILE = ".ts-test-cache";
@@ -133,7 +133,7 @@ export const hasDependency = (file: string) => {
  */
 export const updateCache = (
   fd: FileDiagnostics, 
-  opts: ValidationOptions
+  opts: AsOption<"test">
 ) => {
   if(!isFileDiagnostic(fd)) {
     error(`Call to updateCash(${chalk.dim("fd,opts")}) was passed an invalid FileDiagnostics structure`, {fd});

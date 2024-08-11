@@ -1,22 +1,22 @@
 import { getCache, getCacheEntry } from "./cache";
+import { AsOption } from "./create_cli";
 import { FileDiagnostics } from "./getFileDiagnostics";
 import { GlobalMetrics } from "./reporting/globalMetrics";
-import { ValidationOptions } from "./typeValidation";
 
 
-export const calcErrorsAndWarnings = (file: FileDiagnostics, opts: ValidationOptions) => {
+export const calcErrorsAndWarnings = (file: FileDiagnostics, opts: AsOption<"test">) => {
   const hasErrors = file.diagnostics
-  .filter(i => !opts.warn.includes(String(i.code)) )
+  .filter(i => !opts.ignore.includes(Number(i.code)) )
   .length > 0 ? true : false;
   const hasWarnings = file.diagnostics
-    .filter(i => opts.warn.includes(String(i.code)) )
+    .filter(i => opts.ignore.includes(Number(i.code) || 0) )
     .length > 0 ? true : false;
 
   return { hasErrors, hasWarnings }
 }
 
 
-export const summarizeGlobalErrorsAndWarnings = (opts: ValidationOptions) => {
+export const summarizeGlobalErrorsAndWarnings = (opts: AsOption<"test">) => {
   const cache = getCache();
   let err_count = 0;
   let err_files = 0;

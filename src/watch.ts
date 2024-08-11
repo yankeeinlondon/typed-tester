@@ -5,6 +5,7 @@ import { getCache, getDependencies, getDependency, hasDependency, removeFromCach
 import chalk from "chalk";
 import { FileDiagnostics, getFileDiagnostics } from "./getFileDiagnostics";
 import { coreFileChange } from "./reporting/coreFileChange";
+import { AsOption } from "./create_cli";
 
 const rel = (file: string) => relative(process.cwd(), file);
 
@@ -12,27 +13,27 @@ const state = (input: FileDiagnostics, opts: ValidationOptions) => {
   const warnings = input.diagnostics
     ?.filter(i => opts.warn.includes(String(i.code)) )
     .length || 0;
-    const errors = input.diagnostics
+  const errors = input.diagnostics
     ?.filter(i => !opts.warn.includes(String(i.code)) )
     .length || 0;
 
-    const err_msg = errors >0 ? `${chalk.red("errors: ")}${chalk.redBright(errors)}` : "";
-    const warn_msg = warnings > 0 
-      ? `chalk.yellow("warnings: ")${chalk.yellowBright(warnings)}`
-      : "";
-    const success = warnings === 0 && errors === 0;
-    const success_msg = success ? chalk.greenBright("success") : ""
-    const diagReport: string[] = [];
-    for (const item of input?.diagnostics?.filter(i => !opts.warn.includes(String(i.code)) ) || []) {
-      diagReport.push( item.msg);
-    }
-    const errReport = errors === 0
-    ? ""
-    : `\n  ${diagReport.join("\n  ")}`;
+  const err_msg = errors >0 ? `${chalk.red("errors: ")}${chalk.redBright(errors)}` : "";
+  const warn_msg = warnings > 0 
+    ? `chalk.yellow("warnings: ")${chalk.yellowBright(warnings)}`
+    : "";
+  const success = warnings === 0 && errors === 0;
+  const success_msg = success ? chalk.greenBright("success") : ""
+  const diagReport: string[] = [];
+  for (const item of input?.diagnostics?.filter(i => !opts.warn.includes(String(i.code)) ) || []) {
+    diagReport.push( item.msg);
+  }
+  const errReport = errors === 0
+  ? ""
+  : `\n  ${diagReport.join("\n  ")}`;
 
-    const msg = `[ ${[err_msg, warn_msg, success_msg].filter(i => i !== "").join(", ")} ]${errReport}`;
-    
-    return {
+  const msg = `[ ${[err_msg, warn_msg, success_msg].filter(i => i !== "").join(", ")} ]${errReport}`;
+  
+  return {
     warnings,
     errors,
     msg,
@@ -41,10 +42,10 @@ const state = (input: FileDiagnostics, opts: ValidationOptions) => {
   }
 }
 
-export const watch = (folder: string, files: string[], opts: ValidationOptions) => {
+export const watch = (files: string[], opts: AsOption<"test">) => {
   let cache = getCache();
-  const core_dir = join(process.cwd(), folder);
-  const watcher_core = new Watcher(core_dir);
+  // const core_dir = join(process.cwd(), folder);
+  // const watcher_core = new Watcher(core_dir);
 
   const deps = getDependencies();
   const deps_dirs = Array.from(new Set<string>(Object.keys(deps).map(i => dirname(i))));

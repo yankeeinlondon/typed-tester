@@ -100,25 +100,28 @@ function has_command() {
 }
 
 function main() {
-    local -r command="${1}";
+    local -r js_file="${1}";
     shift
-    local -r params="$*";
+    local -ra params=("${@}");
 
-    if ! file_exists "$command"; then
-        log "${RED}ERROR:${RESET} unable to run ${BOLD}typed${RESET} due to missing \"${command}\" file!"
+    if ! file_exists "$js_file"; then
+        log "${RED}ERROR:${RESET} unable to run ${BOLD}typed${RESET} due to missing \"${js_file}\" file!"
         log ""
         exit 1
     fi
 
-    if has_command "bun"; then 
-        bun run "${command}" "${params}"
-    elif has_command "deno"; then 
-        deno run "${command}" "${params}"
-    elif has_command "node"; then 
-        node "${command}"  "${params}"
-    else 
+    if command -v bun &> /dev/null; then
+        JS_RUNTIME="bun"
+    elif command -v node &> /dev/null; then
+        JS_RUNTIME="node"
+    elif command -v deno &> /dev/null; then
+        JS_RUNTIME="deno"
+    else
         error "${BOLD}${RED}Error:${RESET} failed to find a JS/TS runtime to run ${BLUE}${1}${RESET}\n\nTo run you must install any of the following:  - bun, deno, node\n"
     fi
+
+    "${JS_RUNTIME}" "${js_file}" "$@"
 }
 
-main "./bin/typed.mjs" "$*"
+SCRIPT_DIR="$(dirname "$0")"
+main "${SCRIPT_DIR}/typed.mjs" "$@"
