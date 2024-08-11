@@ -19,7 +19,7 @@ const clear_path = platform === "win32"
 : `./bin/*`;
 
 try {
-  execSync(`${rimraf} ${clear_path}`);
+  execSync(`${rimraf} "${clear_path}"`);
   console.log(`- cleared ${chalk.bold("bin")} directory of stale artifacts`);
 } catch (e) {
   console.log(`- 💩 failed to clear bin directory of stale artifacts`);
@@ -34,7 +34,7 @@ const build_target = platform === "win32"
   : `./src/typed.ts`;
 
 try {
-  execSync(`${tsup} ${build_target} --format=esm -d bin --sourcemap`);
+  execSync(`${tsup} ${build_target} --format="esm" -d bin --sourcemap`);
   console.log(`- transpiled ${chalk.bold("JS")} files from ${chalk.bold("TS")} source using ${chalk.bold("tsup")} build utility`);
 } catch(e) {
   console.error(`- failed to transpile TS source!`);
