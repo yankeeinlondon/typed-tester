@@ -8,7 +8,7 @@ console.log(`Building Typed`);
 console.log(`--------------`);
 
 const node_modules_bin = platform === "win32"
-? `.\node_modules\.bin`
+? `node_modules\.bin`
 : `./node_modules/.bin`;
 
 const rimraf = join(node_modules_bin, "rimraf");
