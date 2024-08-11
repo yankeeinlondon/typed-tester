@@ -30,7 +30,7 @@ try {
 }
 
 const build_target = platform === "win32"
-  ? join(cwd(), "/bin", "typed.ts")
+  ? join(cwd(), "/src", "typed.ts")
   : `./src/typed.ts`;
 
 try {
