@@ -1,19 +1,9 @@
-import { getCache, getCacheEntry } from "./cache";
-import { AsOption } from "./create_cli";
-import { FileDiagnostics } from "./getFileDiagnostics";
+import { getCache, getCacheEntry } from "./cache/cache";
+import { AsOption } from "./cli/create_cli";
 import { GlobalMetrics } from "./reporting/globalMetrics";
 
 
-export const calcErrorsAndWarnings = (file: FileDiagnostics, opts: AsOption<"test">) => {
-  const hasErrors = file.diagnostics
-  .filter(i => !opts.ignore.includes(Number(i.code)) )
-  .length > 0 ? true : false;
-  const hasWarnings = file.diagnostics
-    .filter(i => opts.ignore.includes(Number(i.code) || 0) )
-    .length > 0 ? true : false;
 
-  return { hasErrors, hasWarnings }
-}
 
 
 export const summarizeGlobalErrorsAndWarnings = (opts: AsOption<"test">) => {

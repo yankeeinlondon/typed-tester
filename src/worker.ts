@@ -1,5 +1,5 @@
 import { DiagnosticMessageChain, Project, ts } from "ts-morph";
-import { getCache, h, initializeHasher, validateCache } from "./cache";
+import { getCache, h, initializeHasher, validateCache } from "./cache/cache";
 import { getProject, setupProject } from "./setupProject";
 import { ValidationOptions } from "./typeValidation";
 import { calcErrorsAndWarnings } from "./calcErrorsAndWarnings";

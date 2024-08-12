@@ -1,7 +1,9 @@
 import chalk from "chalk";
-import { Command, command_descriptions, command_options, global_options, isCommand } from "./create_cli";
-import commandLineUsage from "command-line-usage";
 
+import commandLineUsage from "command-line-usage";
+import { command_descriptions, command_options, global_options } from "./cli/options";
+import { Command } from "./cli/cli-types";
+import { isCommand } from "./type-guards";
 
 
 export const sections = (cmd?: string) => [

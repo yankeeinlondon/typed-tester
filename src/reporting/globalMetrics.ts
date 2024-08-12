@@ -1,6 +1,8 @@
 import chalk from "chalk";
-import { ValidationOptions } from "src/typeValidation";
+
 import { summarizeGlobalErrorsAndWarnings } from "src/calcErrorsAndWarnings";
+import { AsOption } from "src/cli/cli-types";
+
 
 export type GlobalMetrics = {
   /**
@@ -49,7 +51,7 @@ export type GlobalMetrics = {
 let metrics_cache: GlobalMetrics;
 
 export const updatedGlobalMetrics = (
-  opts: ValidationOptions
+  opts: AsOption<"test">
 ) => {
   const summary = summarizeGlobalErrorsAndWarnings(opts);
   if(
@@ -66,7 +68,10 @@ export const updatedGlobalMetrics = (
   }
 }
 
-export const reportGlobalMetrics = (metrics: GlobalMetrics, isWatcher: boolean = false) => {
+export const reportGlobalMetrics = (
+  metrics: GlobalMetrics, 
+  isWatcher: boolean = false
+) => {
   metrics_cache = metrics
 
   if(isWatcher) {

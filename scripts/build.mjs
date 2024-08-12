@@ -20,12 +20,10 @@ const clear_path = platform === "win32"
 
 try {
   execSync(`${rimraf} "${clear_path}"`);
-  console.log(`- cleared ${chalk.bold("bin")} directory of stale artifacts`);
+  console.log(`- cleared ${chalk.bold("./bin")} directory of stale artifacts`);
 } catch (e) {
   console.log(`- 💩 failed to clear bin directory of stale artifacts`);
   console.log(`   ${String(e)}`);
-  
-  console.log(rimraf, clear_path);
   process.exit(1);
 }
 
@@ -35,7 +33,7 @@ const build_target = platform === "win32"
 
 try {
   execSync(`${tsup} ${build_target} --format="esm" -d bin --sourcemap`);
-  console.log(`- transpiled ${chalk.bold("JS")} files from ${chalk.bold("TS")} source using ${chalk.bold("tsup")} build utility`);
+  console.log(`- transpiled ${chalk.bold("TS")} source files to ${chalk.bold("JS")} using ${chalk.bold.italic("tsup")} build utility`);
 } catch(e) {
   console.error(`- failed to transpile TS source!`);
   console.error(`  ${String(e)}`);
@@ -54,7 +52,7 @@ const copy_dest = platform === "win32"
 
 copyFileSync(copy_src, copy_dest);
 try {
-  console.log(`- copied ${chalk.bold(`${copy_src}`)} bash script to from ${chalk.blue(copy_src)} to ${chalk.blue(copy_dest)}`);
+  console.log(`- copied ${chalk.blue(`${copy_src}`)} runner ${chalk.italic("bash script")} to ${chalk.blue(copy_dest)}`);
   
   console.log();
   console.log(`- 🚀 build successful`);

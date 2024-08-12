@@ -1,48 +1,16 @@
 import chalk from "chalk";
 import  { join, relative } from "pathe";
-import { FileDiagnostics, getFileDiagnostics } from "../getFileDiagnostics";
+import { CacheDiagnostic, FileDiagnostics, getFileDiagnostics } from "./testing/getFileDiagnostics";
 import { setupProject } from "../setupProject";
-import {  clearCache, initializeHasher, saveCache } from "../cache";
+import {  clearCache, initializeHasher, saveCache } from "../cache/cache";
 import { watch } from "../watch";
-import { reportGlobalMetrics } from "../reporting/globalMetrics";
+import { GlobalMetrics, reportGlobalMetrics } from "../reporting/globalMetrics";
 import { error } from "../logging/error";
-import { AsOption } from "src/create_cli";
+import { AsOption } from "src/cli/create_cli";
 import findRoot from "find-root";
 import { existsSync } from "fs";
 import FastGlob from "fast-glob";
 
-export type ValidationOptions = {
-  /**
-   * optionally an explicit pointer to the Typescript config file;
-   * by default it will look in the specified folder for a `tsconfig.json`
-   * and then afterward in the root of the repo.
-   */
-  configFile: string | undefined;
-
-  /** the **watch** flag from the CLI user */
-  watchMode: boolean,
-  /**
-   * the **clean** flag from the CLI user
-   */
-  cleanFlag: boolean,
-
-  /**
-   * Whether or not the user has specified any additional
-   * glob patterns to further filter the TS files to be
-   * included.
-   */
-  filter: string[],
-
-  /**
-   * Error codes which should be treated only as a warning
-   */
-  warn: string[],
-  quiet: boolean,
-  json: boolean,
-  /** not exposed to CLI but used by watcher */
-  force: boolean,
-  verbose: boolean
-}
 
 /**
  * **test_command**`(opt)`
@@ -94,8 +62,8 @@ export const test_command = async (opt: AsOption<"test">) => {
       
       if(!opt.quiet) {
         console.log(chalk.bold(`Typed Testing [${chalk.dim(relative(root, config))}] -> ${describe_files}`));
-        console.log(`---------------------------------`);
-        console.log(`ignore: ${typeof opt.ignore}, ${Object.keys(opt.ignore)} ${opt.ignore.join(", ")}`);
+        console.log(`---------------------------------------------------------------`);
+        console.log(`ignore: ${opt.ignore}`);
         
       }
       // initial analysis
@@ -113,7 +81,7 @@ export const test_command = async (opt: AsOption<"test">) => {
 
       if(!opt.quiet) {
         console.log(chalk.bold(`\n\nType Errors`));
-        console.log(`---------------`);
+        console.log(`-------------------------------`);
       }
 
       for (const key of Object.keys(cache)) {
@@ -129,9 +97,15 @@ export const test_command = async (opt: AsOption<"test">) => {
         }
       }
 
-      const err_count = results.reduce((acc,i) => acc + i.diagnostics.filter(e => !opt.ignore.includes(e.code)).length, 0);
-      const err_files = results.reduce((acc,i) => acc + (i.hasErrors ? 1 : 0), 0);
+      const filterOutWarning = (e: CacheDiagnostic) => !opt.ignore.includes(e.code);
+      /**
+       * Files with errors (not deemed to be just a warning)
+       */
+      const err_files = results.filter(f => f.diagnostics.filter(filterOutWarning).length > 0);
+
+      const err_count = results.reduce((acc,i) => acc + i.diagnostics.filter(filterOutWarning).length, 0);
       const hits = results.reduce((acc,i) => acc + (i.cacheHit ? 1 : 0), 0);
+      const misses = () => results.filter((i) => !i.cacheHit);
       const ratio = Math.floor(hits/Object.keys(cache).length * 100);
       const warn_files = new Set<string>();
       const warn_count = opt?.warn?.length || 0 > 0
@@ -156,10 +130,10 @@ export const test_command = async (opt: AsOption<"test">) => {
 
       const end = performance.now();
       const duration = Math.floor((end-start))/1000;
-      const metrics = {
+      const metrics: GlobalMetrics = {
         code: err_count > 0 ? 1 : 0,
         file_count: test_files.length,
-        err_files,
+        err_files: err_files.length,
         err_count,
         warn_count,
         warn_files: Array.from(warn_files).length,
@@ -171,6 +145,23 @@ export const test_command = async (opt: AsOption<"test">) => {
       // summary reporting
       if(!opt.quiet) {
         reportGlobalMetrics(metrics);
+      }
+
+      // cache miss reporting
+      if(opt.miss) {
+        const status = (f: FileDiagnostics) => f.hasErrors
+          ? chalk.black.bgRed(`err`)
+          : f.hasWarnings
+          ? chalk.black.bgYellow(`warn`)
+          : chalk.black.bgGreen(`ok`);
+        console.log();
+        console.log(`Cache Misses:`);
+        console.log(`-----------------------------------------------------`)
+        
+        for (const miss of misses()) {
+          console.log(`- ${chalk.blue(`./${miss.file}`)} [ ${status(miss)}, ${miss.duration}${chalk.dim.italic("ms")} ]`);
+        }
+
       }
 
       if(opt.json) {

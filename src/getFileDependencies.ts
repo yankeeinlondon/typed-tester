@@ -1,6 +1,6 @@
 import {  SourceFile } from "ts-morph";
 import { getProject } from "./setupProject";
-import { addDependency } from "./cache";
+import { addDependency } from "./cache/cache";
 
 let baseUrl: string;
 let paths: { [key: string]: string[] };

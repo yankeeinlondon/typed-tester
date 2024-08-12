@@ -1,14 +1,21 @@
 import { existsSync, readFileSync, unlinkSync, writeFileSync } from "fs";
-import { FileDiagnostics, getFileDiagnostics } from "./getFileDiagnostics";
+import { FileDiagnostics, getFileDiagnostics } from "../commands/testing/getFileDiagnostics";
 import chalk from "chalk";
-import xxhash from "xxhash-wasm";
-import { isFileDiagnostic } from "./type-guards/isFileDiagnostic";
-import { error } from "./logging/error";
-import { rel } from "./utils";
-import { AsOption } from "./create_cli";
+import xxhash, { XXHashAPI } from "xxhash-wasm";
+import { isFileDiagnostic } from "../type-guards/isFileDiagnostic";
+import { error } from "../logging/error";
+import { rel } from "../utils";
+import { AsOption } from "../cli/cli-types";
+import { SymbolInfo } from "../ast/symbols";
+import { Never } from "inferred-types";
+import { createFileHashes, hashSymbol } from "../hashing";
+import { FileLookup } from "../ast/files";
+import { Symbol } from "ts-morph";
 export type Hasher = Awaited<ReturnType<typeof xxhash>>["h32"];
 
 export const CACHE_FILE = ".ts-test-cache";
+
+
 
 export type Dependency = {
   /** files which are _dependant_ on the given **dependency** */
@@ -19,7 +26,78 @@ export type Dependency = {
 
 let hasher: Hasher | null = null;
 
-let cache: Record<string, FileDiagnostics> = {};
+/**
+ * cache for hashed symbols table
+ */
+let symbol_lookup: Map<
+  string, 
+  WithHash<SymbolInfo>
+> = new Map<string, WithHash<SymbolInfo>>();
+
+/**
+ * cache for a file lookup which maps to the symbols contained
+ * in a file.
+ */
+let file_lookup: Map<
+  string,
+  FileLookup
+> = new Map<string, FileLookup>;
+
+
+export const getSymbolHash = (sym: Symbol): number => {
+  const name = sym.getName();
+  return (
+    symbol_lookup.has(name)
+    ? symbol_lookup.get(name)?.hash
+    // TODO: make sure we can ensure that this code path will never be taken
+    : Never
+  ) as number;
+}
+
+/**
+ * receives a lookup map of symbols to files and updates both the
+ * symbols lookup table in cache along with the files lookup table.
+ */
+export const refreshCacheWithSymbolsLookup = async (symbols: Map<string, SymbolInfo>) => {
+  let h: XXHashAPI["h32"] = hasher
+    ? hasher
+    : await initializeHasher();
+  
+  symbols.forEach(s => {
+    symbol_lookup.set(s.symbol.getName(), {
+      ...s,
+      hash: hashSymbol(h)(s)
+    })
+  })
+
+  symbols.forEach(s => {
+    // UPDATE EXISTING FILE LOOKUP
+    if (file_lookup.has(s.filepath)) {
+      /** current state */
+      const state = file_lookup.get(s.filepath) as FileLookup;
+      const name = s.symbol.getName();
+      state.symbols.set(name, getSymbolHash(s.symbol));
+
+      file_lookup.set(s.filepath, {
+        ...state,
+      })
+    } else {
+      // ADD NEW FILE LOOKUP
+      const [baseHash, trimmedHash] = createFileHashes(h)(s);
+      const symbolMap = new Map<string, number>;
+      symbolMap.set(s.symbol.getName(), getSymbolHash(s.symbol));
+
+      file_lookup.set(s.filepath, {
+        baseHash,
+        trimmedHash,
+        symbols: symbolMap
+      });
+    }
+  })
+
+}
+
+
 
 /**
  * A dictionary lookup where:
@@ -34,6 +112,7 @@ let dependencyGraph: Record<string, Dependency> = {};
 export const initializeHasher = async() => {
   const {h32} = await xxhash();
   hasher = h32;
+  return  h32;
 }
 
 export const hasCacheFile = (file: string) => {

@@ -1,4 +1,4 @@
-# `typed`
+# `typed-tester`
 
 > a CLI and Vite plugin which runs "type tests" for your Typescript projects
 
@@ -8,9 +8,9 @@ You can install locally in a project or globally via `npm`:
 
 ```sh
 # install globally
-npm install -g typed
+npm install -g typed-tester
 # install locally to a project (preferred)
-npm install -D typed
+npm install -D typed-tester
 ```
 
 > **Note:**

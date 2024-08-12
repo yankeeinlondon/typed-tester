@@ -1,10 +1,10 @@
 import { DiagnosticMessageChain, ts } from "ts-morph";
-import { getCache, h, validateCache } from "./cache";
+import { getCache, h, validateCache } from "../../cache/cache";
 import chalk from "chalk";
-import { getFileDependencies } from "./getFileDependencies";
-import { getProject } from "./setupProject";
-import { calcErrorsAndWarnings } from "./calcErrorsAndWarnings";
-import { AsOption } from "./create_cli";
+import { getFileDependencies } from "../../getFileDependencies";
+import { getProject } from "../../setupProject";
+
+import { AsOption } from "../../cli/create_cli";
 
 
 /** a cachable summary of a file's diagnostic state */
@@ -13,6 +13,7 @@ export type CacheDiagnostic = {
   column: number;
   code: number;
   msg: string;
+  duration: number;
 }
 
 export type FileDiagnostics = {
@@ -36,14 +37,35 @@ export type FileDiagnostics = {
    * a warning will have the flag set to `false`.
    */
   hasErrors: boolean;
-
+  /**
+   * Has errors that were downgraded to warnings by CLI options passed in
+   */
   hasWarnings: boolean;
+
+  /**
+   * the number of milliseconds required to parse and evaluate a given test file
+   */
+  duration: number;
+}
+
+const calcErrorsAndWarnings = (file: FileDiagnostics, opts: AsOption<"test">) => {
+  const hasErrors = file.diagnostics
+  .filter(i => !opts.ignore.includes(Number(i.code)) )
+  .length > 0 ? true : false;
+  const hasWarnings = file.diagnostics
+    .filter(i => opts.ignore.includes(Number(i.code) || 0) )
+    .length > 0 ? true : false;
+
+  return { hasErrors, hasWarnings }
 }
 
 /**
  * Retrieves the file's diagnostics (from cache or static analysis)
  */
-export const getFileDiagnostics = (file: string, opts: AsOption<"test"> ): FileDiagnostics => {
+export const getFileDiagnostics = (
+  file: string, 
+  opts: AsOption<"test"> 
+): FileDiagnostics => {
   const start_time = Date.now();
 
   let cache = getCache();
@@ -65,6 +87,7 @@ export const getFileDiagnostics = (file: string, opts: AsOption<"test"> ): FileD
     return {
       ...refreshed,
       cacheHit: true,
+      duration: Date.now() - start_time
     } as FileDiagnostics
 
   }
@@ -103,6 +126,7 @@ export const getFileDiagnostics = (file: string, opts: AsOption<"test"> ): FileD
       lineNumber: line + 1,
       column: character + 1,
       code: d.getCode(),
+      duration: Date.now() - start_time
     })
   }
 
@@ -116,7 +140,8 @@ export const getFileDiagnostics = (file: string, opts: AsOption<"test"> ): FileD
     hasWarnings: false,
     deps,
     diagnostics,
-    cacheHit: false
+    cacheHit: false,
+    duration: Date.now() - start_time
   } as FileDiagnostics;
 
   const result = {
