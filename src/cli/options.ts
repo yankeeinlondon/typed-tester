@@ -47,7 +47,7 @@ export const command_options = {
     { name: "json", type: Boolean, description: `output JSON to stdout rather than screen friendly format`}
   ],
   /** source graph options */
-  graph: [
+  symbols: [
     CMD,
     { name: "filter", type: String, alias: "f", multiple: true, 
       typeLabel: chalk.underline("substr[]"),
@@ -60,6 +60,8 @@ export const command_options = {
     },
   ]
 } as const satisfies  Record<string, Option[]>;
+
+export const commands_union = Object.keys(command_options).join(`${chalk.gray(" | ")}`);
 
 /**
  * options which are available to all commands
@@ -93,6 +95,6 @@ export const only_global_options = [
 export const command_descriptions = {
   test: `runs through test files and looks for type errors`,
   diagnostics: ``,
-  deps: ``,
-  graph: ``,
+  deps: `shows what symbols are ${chalk.italic("dependant")} on a given symbol`,
+  symbols: `shows a symbol (or set of symbols) and the symbols characteristics`,
 } as const satisfies Record<keyof typeof command_options, string>

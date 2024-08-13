@@ -1,5 +1,12 @@
 import { OptionDefinition } from "command-line-args";
-import { AfterFirst, Dictionary, ExpandDictionary, First, If,  IsUndefined } from "inferred-types";
+import { 
+  AfterFirst, 
+  Dictionary, 
+  ExpandDictionary, 
+  First, 
+  If,  
+  IsUndefined 
+} from "inferred-types";
 import { command_options, global_options } from "./options";
 
 /**
@@ -65,5 +72,6 @@ export type AsOption<
 
 export type CommandOptions = {
   test: AsOption<"test">,
+  symbols: AsOption<"symbols">,
 
 }

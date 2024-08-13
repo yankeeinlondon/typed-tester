@@ -10,7 +10,7 @@ export const MAX_SYMBOLS = 35;
 
 
 
-export const graph_command = async (opt: AsOption<"graph">) => {
+export const symbols_command = async (opt: AsOption<"symbols">) => {
 
   if (!opt.quiet) {
     if (opt.filter) {
