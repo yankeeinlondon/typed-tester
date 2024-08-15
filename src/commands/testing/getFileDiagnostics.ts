@@ -1,10 +1,9 @@
 import { DiagnosticMessageChain, ts } from "ts-morph";
-import { getCache, h, validateCache } from "../../cache/cache";
 import chalk from "chalk";
-import { getFileDependencies } from "../../getFileDependencies";
-import { getProject } from "../../setupProject";
 
-import { AsOption } from "../../cli/create_cli";
+import { AsOption } from "src/cli/cli-types";
+import { getProject } from "src/ast/projectUsing";
+
 
 
 /** a cachable summary of a file's diagnostic state */

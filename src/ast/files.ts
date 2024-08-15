@@ -1,12 +1,6 @@
-import { Symbol } from "ts-morph";
+import { Project, Symbol } from "ts-morph";
 
-export type SymbolMeta = {
-  /** symbol name */
-  name: string;
-  /** symbol AST */
-  symbol: Symbol;
-  symbolHash: string;
-}
+
 
 
 /**
@@ -26,4 +20,12 @@ export type FileLookup = {
    * a map of the symbol's name to the hash value (as last measured)
    */
   symbols: Map<string, number>;
+}
+
+
+/**
+ * Provides a list of symbols for the provided file
+ */
+export const importedSymbolsForFile = (p: Project, file: string) => {
+  // 
 }

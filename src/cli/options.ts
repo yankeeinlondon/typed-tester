@@ -67,6 +67,10 @@ export const commands_union = Object.keys(command_options).join(`${chalk.gray(" 
  * options which are available to all commands
  */
 export const global_options = [
+  { 
+    name: "json", type: Boolean, defaultValue: false,
+    description: `output in a JSON format versus a screen oriented format` 
+  },
   {
     name: "quiet", alias: "q", defaultValue: false,
     type: Boolean, description: `quiet stdout output to a minimum`

@@ -1,8 +1,6 @@
 import { DiagnosticMessageChain, Project, ts } from "ts-morph";
-import { getCache, h, initializeHasher, validateCache } from "./cache/cache";
+import { getCache, h, initializeHasher } from "./cache/cache";
 import { getProject, setupProject } from "./setupProject";
-import { ValidationOptions } from "./typeValidation";
-import { calcErrorsAndWarnings } from "./calcErrorsAndWarnings";
 import chalk from "chalk";
 import { getFileDependencies } from "./getFileDependencies";
 

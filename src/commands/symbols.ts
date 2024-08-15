@@ -1,28 +1,33 @@
 import chalk from "chalk";
-import { relative } from "pathe";
-import { cwd } from "process";
-import { project_using } from "src/ast/project_using";
-import { findDependenciesFor, getExportedSymbols,  SymbolInfo } from "src/ast/symbols";
-import { refreshCacheWithSymbolsLookup } from "src/cache/cache";
-import { AsOption } from "src/cli/index";
+import { projectUsing, SymbolMeta } from "src/ast"
+import { 
+  cacheExportedSymbols, 
+  fuzzyFindSymbol, 
+  getSymbolCacheSummary, 
+  getSymbolLookupKeys,
+  getSymbols, 
+  initializeHasher,
+  saveSymbolLookup 
+} from "src/cache";
+import { AsOption } from "src/cli";
+import { symbolsJson, symbolsScreen } from "src/report";
+import { msg } from "src/utils";
 
-export const MAX_SYMBOLS = 35;
-
-
+export const MAX_SYMBOLS = 10;
 
 export const symbols_command = async (opt: AsOption<"symbols">) => {
-
   if (!opt.quiet) {
     if (opt.filter) {
-      console.log(`${chalk.bold("Source Graph")} (filter: ${chalk.dim(opt.filter)})`);
-      console.log(`----------------------------------------------------------`);
+      msg(chalk.bold(`Symbols (filter: ${chalk.dim(opt.filter)})`));
+      msg(`----------------------------------------------------------`);
     } else {
       const filter = opt.verbose ? chalk.dim("all symbols") : chalk.dim("exported symbols");
-      console.log(`${chalk.bold("Source Graph")} ( ${filter} )`);
-      console.log(`----------------------------------------------------------`);
+      msg(chalk.bold(`Symbols`));
+      msg(`----------------------------------------------------------`);
     }
-
-    const [project, config_file] = project_using(opt.config 
+    await initializeHasher();
+    
+    const [project, config_file] = projectUsing(opt.config 
       ? [ opt.config ] 
       : [`src/tsconfig.json`, `tsconfig.json`]
     );
@@ -30,52 +35,32 @@ export const symbols_command = async (opt: AsOption<"symbols">) => {
     const sourceFiles = project.getSourceFiles();
 
     if(!opt.quiet) {
-      console.log(`- project found ${chalk.bold(sourceFiles.length)} source files [${chalk.dim(config_file)}]`);
+      msg(`- project found ${chalk.bold(sourceFiles.length)} source files [${chalk.dim(config_file)}]`);
     }
 
-    /** Symbol-to-Meta Lookup */
-    const symbols = getExportedSymbols(project, sourceFiles);
-    await refreshCacheWithSymbolsLookup(symbols);
-    
-
-    let keys = opt.filter 
-      ? Array.from(symbols.keys()).filter(k => opt.filter.some(f => k.includes(f)))
-      : Array.from(symbols.keys())
-
-    const show = (name: string, info: SymbolInfo | undefined) => {
-      if (!info) {
-        console.log(`- ${chalk.bold(name)}[${chalk.red("error")}]`);
-      } else {
-        const deps = findDependenciesFor(project,info.symbol);
-
-        console.log(`- ${chalk.bold(name)}[${chalk.dim(relative(cwd(), info.filepath))}] → [ ${chalk.dim.red(deps.map(i => i.name).join(", "))} ]`);
-
-      }
-    }
+    // cache
+    cacheExportedSymbols(sourceFiles);
+    // save cache to disk
+    saveSymbolLookup();
+    const summary = getSymbolCacheSummary();
 
     if(!opt.quiet) {
-      console.log(`- there were ${chalk.bold(symbols.size)} exported symbols across the project`);
-      if (opt.filter) {
-        console.log(`- there remain ${chalk.bold(keys.length)} symbol(${chalk.dim("s")}) after applying filter [ ${chalk.dim(opt.filter)} ]`);
-      }
-      console.log();
-      
-      if (keys.length > MAX_SYMBOLS && !opt.verbose) {
-        console.log(`- limiting output to first ${MAX_SYMBOLS}; add --verbose flag for all`);
-        keys = keys.slice(0,MAX_SYMBOLS)
-      }
-
-      for (const k of keys) {
-        let info = symbols.get(k) as SymbolInfo | undefined;
-        show(k, info);
-      }
+      msg(`- found and cached ${chalk.bold(summary.exported)} ${chalk.italic("exported")} symbols, ${chalk.bold(summary.local)} ${chalk.italic("local")} symbols, and ${chalk.bold(summary.external)} symbols from external packages`);
+      msg(`- the symbols ${chalk.italic("cached")} represent just the exported type definitions in this repo plus those\n   type definitions which these types depend on.`)
     }
 
+    let symbols: SymbolMeta[] = opt?.filter?.length || 0 > 0
+      ? opt.filter.flatMap(f => fuzzyFindSymbol(f, "contains"))
+      : getSymbols( ...getSymbolLookupKeys(true).slice(0,MAX_SYMBOLS) );
 
-    // console.log(symbols.slice(-25).map(s => `${s.name} {  file: ${chalk.dim(relative(cwd(), s.file))}  }`).join("\n"));
-    
-
-  }
+    if (opt?.filter?.length === 0 && !opt.quiet) {
+      msg(`- here is a sample of some of the symbols (use --filter in CLI to filter to a subset you're interested in)`);
+    }
   
-
+    if (opt.json) {
+      console.log(symbolsJson(symbols));
+    } else {
+      symbolsScreen(symbols);
+    }
+  }
 }
