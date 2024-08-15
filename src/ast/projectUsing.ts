@@ -7,6 +7,7 @@ import { Project, TypeChecker } from "ts-morph";
 
 let typeChecker: TypeChecker | null = null;
 let project: Project | null = null;
+let projectRoot: string | null = null;
 
 export const initializeProjectTypeChecker = (p: Project) => {
   typeChecker = p.getTypeChecker();
@@ -17,6 +18,15 @@ export const getProjectTypeChecker = () => {
     return typeChecker;
   } else {
     throw new Error(`call to getProjectTypeChecker() called prior to type checker being initialized!`)
+  }
+}
+
+export const getProjectRoot = () => {
+  if (projectRoot) {
+    return projectRoot;
+  } else {
+    projectRoot = findRoot(process.cwd()) || process.cwd();
+    return projectRoot;
   }
 }
 
@@ -32,7 +42,7 @@ export const getProject = () => {
  * Returns a **ts-morph** project from an array of possible **tsconfig** files, 
  * using the first match in the file system.
  * 
- * @returns [ prj: Project, location: string ]
+ * @returns [ prj: Project, location: string, root: string ]
  * 
  * Note: the search for files will start from the nearest repo's root filesystem
  * or the current working directory if that is not found.
@@ -47,6 +57,6 @@ export const projectUsing = (candidates: string[]) => {
     project = new Project({tsConfigFilePath: found});
     initializeProjectTypeChecker(project);
 
-    return [ project, found] as [Project, string];
+    return [ project, found, getProjectRoot()] as [Project, string, string];
   }
 }

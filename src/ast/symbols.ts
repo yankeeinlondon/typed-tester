@@ -24,7 +24,7 @@ import {
 } from "./symbol-ast-types";
 import { getHasher } from "src/cache/cache";
 import { getProjectTypeChecker } from "./projectUsing";
-import { updateSymbolsInCache } from "src/cache";
+import { lookupSymbol, updateSymbolsInCache } from "src/cache";
 
 
 function getSymbolsJSDocInfo(symbol: Symbol): JsDocInfo[] {
@@ -594,4 +594,81 @@ export const getSymbolDependencies = (
   return deps;
 }
 
+export type GraphNode = {
+  symbol: string;
+  requiredBy: string;
+  depth: number;
+}
 
+const removeInitial = (graph: Map<string, GraphNode>): Map<string, GraphNode> => {
+  const lvl0: string[] = [];
+
+  for (const sym  of graph.values()) {
+    if (sym.depth === 0) {
+      lvl0.push(sym.symbol);
+    }
+  }
+  
+  for (const sym of lvl0) {
+    graph.delete(sym);
+  }
+
+  return graph;
+}
+
+/**
+ * **getDependencyGraph**`(symbols,[excludeInitial=false], [stopDepth=4])
+ * 
+ * Given a set of dependencies, will recursively iterate through 
+ * dependencies and find _new_ dependencies which this collective
+ * group of dependencies depends on.
+ * 
+ * Note: this works off the cache so it assumes this has been loaded.
+ */
+export const getDependencyGraph = (
+  /** the fully qualified names for items in the  */
+  symbols: string[],
+  excludeInitial: boolean = false,
+  stopDepth: number = 4,
+  depth: number = 0,
+  graph: Map<string, GraphNode> = new Map<string, GraphNode>()
+): Map<string, GraphNode> => {
+
+  if (depth === stopDepth) {
+    return excludeInitial
+      ? removeInitial(graph)
+      : graph;
+  }
+
+  const newSymbols = symbols
+    .filter(s => !graph.has(s)) // no duplicates
+    .map(s => lookupSymbol(s))
+    .filter(s => s) as SymbolMeta[];
+  // now add symbols to graph
+  for (const s of newSymbols) {
+    graph.set(s.fqn, { symbol: s.fqn, requiredBy: s.name, depth });
+  }
+  
+  // new deps are only those which now are new
+  const newDeps = Array.from(
+    new Set(
+      newSymbols
+        .flatMap(s => s.deps) // all the deps which existed before
+    ) // ensure unique
+  ).filter(s => !graph.has(s)) // removing newly added symbols
+  
+
+  if (newSymbols.length === 0) {
+    return excludeInitial
+    ? removeInitial(graph)
+    : graph;
+  }
+
+  return getDependencyGraph(
+    newDeps,
+    excludeInitial,
+    stopDepth,
+    depth+1,
+    graph
+  )
+}

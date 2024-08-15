@@ -44,7 +44,10 @@ export const command_options = {
       typeLabel: chalk.underline("str,re"),
       description: `only report on symbols which match filter string` 
     },
-    { name: "json", type: Boolean, description: `output JSON to stdout rather than screen friendly format`}
+    { 
+      name: "json", type: Boolean, 
+      description: `output JSON to stdout rather than screen friendly format`
+    },
   ],
   /** source graph options */
   symbols: [
@@ -58,6 +61,11 @@ export const command_options = {
       typeLabel: chalk.underline("tsconfig"), multiple: false, 
       description: `explicitly state which tsconfig file to use (otherwise will search in common locations)` 
     },
+    { 
+      name: "clear", type: Boolean, 
+      description: `clear the symbol cache and rebuild from scratch`
+    },
+
   ]
 } as const satisfies  Record<string, Option[]>;
 

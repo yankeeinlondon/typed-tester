@@ -1,7 +1,11 @@
-import { getProject } from "src/ast/projectUsing";
+import { existsSync, readFileSync, unlinkSync, writeFileSync } from "fs";
+import { join } from "pathe";
+import { getProject, getProjectRoot } from "src/ast/projectUsing";
 import { SymbolMeta } from "src/ast/symbol-ast-types";
 import { asSymbolMeta } from "src/ast/symbols";
 import { SourceFile } from "ts-morph";
+import { SYMBOL_CACHE_FILE } from "./cache";
+import chalk from "chalk";
 
 /** maps fully qualified symbol names to their metadata */
 let symbolLookup = new Map<string, SymbolMeta>();
@@ -23,18 +27,50 @@ const symbolSummary: SymbolSummary = {
   external : 0
 }
 
+const cache_file = () => join(getProjectRoot(), SYMBOL_CACHE_FILE);
+
 export const getSymbolCacheSummary = () => {
   return symbolSummary;
 }
+/**
+ * clears the in-memory symbols cache and reloads from 
+ * file where it exists, otherwise starts with a clean
+ * slate.
+ */
+export const initializeSymbolLookup = () => {
 
-export const initializeSymbolLookup = async() => {
-  // TODO: try to load cache from file
+  symbolLookup = new Map<string, SymbolMeta>();
+  fuzzySymbols = new Map<string, Set<string>>();
+
+  if (existsSync(cache_file())) {
+    try {
+      const data = JSON.parse(readFileSync(cache_file(), "utf-8")) as SymbolMeta[];
+      updateSymbolsInCache(...data);
+    } catch(e) {
+      throw new Error(`Problems loading the symbol cache file: ${chalk.blue(cache_file())}\nErr msg: ${String(e)}`)
+    }
+  } else {
+    cacheExportedSymbols();
+    saveSymbolLookup();
+  }
   return symbolLookup;
 }
 
+export const hasSymbolCacheFile = (): boolean => {
+  return existsSync(cache_file());
+}
+
+/**
+ * clears the in-memory symbol lookup cache, the
+ * fuzzy symbol lookup, and then removes the file based
+ * cache for symbols.
+ */
 export const clearSymbolsCache = () => {
   symbolLookup = new Map<string, SymbolMeta>();
   fuzzySymbols = new Map<string, Set<string>>;
+  if(hasSymbolCacheFile()) {
+    unlinkSync(join(getProjectRoot(), SYMBOL_CACHE_FILE));
+  }
 }
 
 export const getSymbolLookup = () => {
@@ -42,13 +78,12 @@ export const getSymbolLookup = () => {
 }
 
 /**
- * Provides a list of the symbol lookup table.
+ * Provides all the _keys_ of the symbol lookup table.
  * 
  * If you pass in a `true` value to the optional _onlyExported_ 
  * parameter then this lookup will be filtered down to only the 
- * exported symbols.
+ * exported symbol keys.
  */
-
 export const getSymbolLookupKeys = (onlyExported?: boolean): string[] => {
   return onlyExported 
     ? symbolSummary.export_keys
@@ -60,7 +95,9 @@ export const getSymbols = (...keys:  string[]) => {
 }
 
 export const saveSymbolLookup = () => {
-
+  const data = JSON.stringify(Array.from(symbolLookup.values()));
+  const file = join(getProjectRoot(), SYMBOL_CACHE_FILE);
+  writeFileSync(file, data, "utf-8");
 }
 
 export const lookupSymbol = (sym: string) => {
@@ -106,7 +143,6 @@ export const cacheExportedSymbols = (
   // push the exported symbols into cache
   // dependencies will have already been added to the cache
   updateSymbolsInCache(...symbols);
- 
 }
 
 

@@ -13,8 +13,11 @@ import {
  * - `module`: a symbol that _is_ exported by the repo being analyzed and
  * available anywhere the symbol is imported
  * - `external`: a symbol defined in an external repo/module 
+ * 
+ * In addition there is a `graph` scope which indicates that it is
+ * a graph dependency of another Symbol.
  */
-export type SymbolScope = "local" |  "module" | "external";
+export type SymbolScope = "local" |  "module" | "external" | "graph";
 
 /**
  * Describes a generic parameter

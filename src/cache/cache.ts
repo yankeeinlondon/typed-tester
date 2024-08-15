@@ -1,9 +1,11 @@
 import xxhash from "xxhash-wasm";
-
 import { clearSymbolsCache, saveSymbolLookup } from "./symbolCache";
+
+export const SYMBOL_CACHE_FILE = `/.symbol-lookup.json` as const;
+export const FILE_CACHE_FILE = `/.file-lookup.json` as const;
+
 export type Hasher = Awaited<ReturnType<typeof xxhash>>["h32"];
 
-export const CACHE_FILE = ".ts-test-cache";
 /** hasher for XXHash algo */
 let hasher: Hasher | null = null;
 
