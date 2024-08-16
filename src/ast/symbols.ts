@@ -8,7 +8,8 @@ import {
   SyntaxKind, 
   ModifierableNode, 
   SymbolFlags,
-  ImportDeclaration, 
+  ImportDeclaration,
+  VariableDeclaration, 
 } from "ts-morph";
 import {  
   isSymbol, 
@@ -19,11 +20,12 @@ import {
   SymbolFlagKey,  
   SymbolKind, 
   SymbolMeta, 
+  SymbolReference, 
   SymbolScope, 
   TypeGeneric 
 } from "./symbol-ast-types";
 import { getHasher } from "src/cache/cache";
-import { getProjectTypeChecker } from "./projectUsing";
+import {  getProjectTypeChecker } from "./project";
 import { lookupSymbol, updateSymbolsInCache } from "src/cache";
 
 
@@ -84,32 +86,54 @@ export function isSymbolExported(symbol: Symbol): boolean {
   const declarations = symbol.getDeclarations();
 
   for (const declaration of declarations) {
-      // Check if the declaration itself has the 'export' keyword
+    const sourceFile = declaration.getSourceFile();
+
+    // Check if the declaration itself has the 'export' keyword
+    if (
+      Node.isModifierable(declaration) &&
+      declaration.getModifiers().some(mod => mod.getKind() === SyntaxKind.ExportKeyword)
+    ) {
+      return true;
+    }
+
+    // Specifically check for exported const/let/var declarations
+    if (Node.isVariableDeclaration(declaration)) {
+      const variableStatement = declaration.getParent().getParentIfKind(SyntaxKind.VariableStatement);
       if (
-          Node.isModifierable(declaration) &&
-          declaration.getModifiers().some(mod => mod.getKind() === SyntaxKind.ExportKeyword)
+        variableStatement &&
+        variableStatement.getModifiers().some(mod => mod.getKind() === SyntaxKind.ExportKeyword)
       ) {
+        return true;
+      }
+    }
+
+    // Check for named exports like 'export { MySymbol };'
+    const exportDeclarations = sourceFile.getExportDeclarations();
+    for (const exportDecl of exportDeclarations) {
+      const namedExports = exportDecl.getNamedExports();
+      for (const namedExport of namedExports) {
+        const exportedSymbol = namedExport.getSymbol();
+
+        if (exportedSymbol && exportedSymbol === symbol) {
           return true;
+        }
       }
+    }
 
-      const sourceFile = declaration.getSourceFile();
+    // Check if the symbol is the default export
+    const defaultExportSymbol = sourceFile.getDefaultExportSymbol();
+    if (defaultExportSymbol && defaultExportSymbol === symbol) {
+      return true;
+    }
 
-      // Check for export statements like 'export { MySymbol };'
-      const exportDeclarations = sourceFile.getExportDeclarations();
-      for (const exportDecl of exportDeclarations) {
-          const namedExports = exportDecl.getNamedExports();
-          for (const namedExport of namedExports) {
-              if (namedExport.getName() === symbol.getName()) {
-                  return true;
-              }
-          }
+    // Check if the symbol is exported via a re-export statement like 'export * from "./module";'
+    const exportStars = sourceFile.getExportAssignments();
+    for (const exportStar of exportStars) {
+      const exportedSymbol = exportStar.getSymbol();
+      if (exportedSymbol && exportedSymbol === symbol) {
+        return true;
       }
-
-      // Check if the symbol is default exported
-      const defaultExportSymbol = sourceFile.getDefaultExportSymbol();
-      if (defaultExportSymbol && defaultExportSymbol.getName() === symbol.getName()) {
-          return true;
-      }
+    }
   }
 
   return false;
@@ -124,11 +148,14 @@ export function isSymbolExported(symbol: Symbol): boolean {
  * the analyzed project,
  *  - `external` if the symbol is from an external library
  */
-function getSymbolScope(symbol: Symbol): SymbolScope {
+export function getSymbolScope(symbol: Symbol): SymbolScope {
   const declarations = symbol.getDeclarations();
 
   // If there are no declarations, it's likely an external symbol
-  if (declarations.length === 0) {
+  if (
+    declarations.length === 0 ||
+    getSymbolKind(symbol) === "external-type"
+  ) {
       return 'external';
   }
 
@@ -141,7 +168,7 @@ function getSymbolScope(symbol: Symbol): SymbolScope {
   }
 
 
-  if (isExportedSymbol(symbol)) {
+  if (isSymbolExported(symbol)) {
       return 'module';
   }
 
@@ -259,6 +286,22 @@ const pushSymbolDepsToCache = (sym: Symbol) => {
   return deps.map(i => i.fqn);
 }
 
+export const asSymbolReference = (sym: Symbol | SymbolMeta): SymbolReference => {
+  if (isSymbolMeta(sym)) {
+    return {
+      name: sym.name,
+      fqn: sym.fqn,
+      kind: sym.kind
+    }
+  } else {
+    return {
+      name: getSymbolName(sym),
+      fqn: createFullyQualifiedNameForSymbol(sym),
+      kind: getSymbolKind(sym)
+    }
+  }
+}
+
 /**
  * **asSymbolMeta**`(sym)`
  * 
@@ -275,7 +318,10 @@ export const asSymbolMeta = (sym: Symbol, recurse?: boolean): SymbolMeta => ({
   kind: getSymbolKind(sym),
   generics: getSymbolGenerics(sym),
   jsDocs: getSymbolsJSDocInfo(sym),
-  deps: recurse !== false && getSymbolKind(sym) === "type-defn" ?  pushSymbolDepsToCache(sym) : [],
+  deps: recurse !== false && getSymbolKind(sym) === "type-defn" 
+    ? pushSymbolDepsToCache(sym) 
+    : [],
+  refs: [], // findReferencingSymbols(sym),
 
   symbolHash: createSymbolHash(sym),
   updated: Date.now()
@@ -423,6 +469,27 @@ export const getSymbolKind = (symbol: Symbol): SymbolKind => {
     return "type-constraint";
   }
 
+  // Check for function declarations
+  if (
+    declarations.some(decl => 
+      decl.getKind() === SyntaxKind.FunctionDeclaration
+    )
+  ) {
+    return "function";
+  }
+
+  // Check for const-function (variable with function initializer)
+  if (
+    valueDeclaration &&
+    valueDeclaration.getKind() === SyntaxKind.VariableDeclaration
+  ) {
+    const variableDecl = valueDeclaration as VariableDeclaration;
+    const initializer = variableDecl.getInitializer();
+    if (initializer && initializer.getKind() === SyntaxKind.ArrowFunction) {
+      return "const-function";
+    }
+  }
+
   // Check for properties with no declarations
   if (
     symbolHasSymbolFlags(
@@ -431,6 +498,7 @@ export const getSymbolKind = (symbol: Symbol): SymbolKind => {
       SymbolFlags.PropertyExcludes
     )
   ) {
+
     return "property";
   }
 
@@ -671,4 +739,33 @@ export const getDependencyGraph = (
     depth+1,
     graph
   )
+}
+
+
+
+
+export function findReferencingSymbols(targetSymbol: Symbol): Symbol[] {
+  const referencingSymbols: Symbol[] = [];
+  const declarations = targetSymbol.getDeclarations();
+
+  // Get the project from one of the symbol's declarations
+  if (declarations.length === 0) return referencingSymbols;
+  const project = declarations[0].getSourceFile().getProject();
+
+  declarations.forEach(declaration => {
+      const referencedSymbols = project.getLanguageService().findReferences(declaration);
+
+      referencedSymbols.forEach(referencedSymbol => {
+          referencedSymbol.getReferences().forEach(ref => {
+              const node = ref.getNode();
+              const referencingSymbol = node.getSymbol();
+
+              if (referencingSymbol && !referencingSymbols.includes(referencingSymbol)) {
+                  referencingSymbols.push(referencingSymbol);
+              }
+          });
+      });
+  });
+
+  return referencingSymbols;
 }
