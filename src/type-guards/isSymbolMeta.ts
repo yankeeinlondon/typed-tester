@@ -1,5 +1,6 @@
 import { isObject } from "inferred-types"
-import { SymbolMeta } from "src/ast/files";
+import { SymbolMeta } from "src/ast";
+
 
 
 /**
@@ -7,5 +8,5 @@ import { SymbolMeta } from "src/ast/files";
  * dictionary.
  */
 export const isSymbolMeta = (val: unknown): val is SymbolMeta => {
-  return isObject(val) && "name" in val && "symbol" in val && "symbolHash" in val
+  return isObject(val) && "name" in val && "symbolHash" in val
 };

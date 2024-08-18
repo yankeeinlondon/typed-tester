@@ -60,15 +60,18 @@ type _AsOption<
   >;
 
 export type AsOption<
-  TCmd extends Command,
-> = {
-  cmd: TCmd;
-} & _AsOption<
-  [
-    ...typeof command_options[TCmd], 
-    ...typeof global_options
-  ]
->;
+  TCmd extends Command | null,
+> = TCmd extends null
+? _AsOption<typeof global_options> & { cmd: string }
+
+: TCmd extends Command
+? {cmd: TCmd } & _AsOption<
+    [
+      ...typeof command_options[TCmd], 
+      ...typeof global_options
+    ]
+  >
+: never;
 
 export type CommandOptions = {
   test: AsOption<"test">,

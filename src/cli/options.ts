@@ -23,16 +23,8 @@ export const command_options = {
       type: Boolean, description: `run in watch mode`
     },
     {
-      name: "ignore",  alias: "i",  defaultValue: [], multiple: true,
-      type: Number, description: `TS error codes that just be downgraded to just warnings`
-    },
-    {
       name: "miss", alias: "m", defaultValue: false,
       type: Boolean, description: "show tests which were a cache miss"
-    },
-    {
-      name: "config", typeLabel: "filepath",
-      type: String, description: `explicitly state which tsconfig file to use`
     },
   ],
   diagnostics: [
@@ -43,11 +35,22 @@ export const command_options = {
     { name: "filter", type: String, alias: "f", multiple: true, 
       typeLabel: chalk.underline("str,re"),
       description: `only report on symbols which match filter string` 
+    }
+  ],
+  files: [
+    CMD,
+    { name: "filter", type: String, alias: "f", multiple: true, 
+      typeLabel: chalk.underline("substr[]"),
+      description: `only report on symbols which match filter string` 
     },
     { 
-      name: "json", type: Boolean, 
-      description: `output JSON to stdout rather than screen friendly format`
+      name: "clear", type: Boolean, 
+      description: `clear the symbol cache and rebuild from scratch`
     },
+    {
+      name: "test", type: Boolean, alias: "t",
+      description: `switches reporting to test files versus source files`
+    }
   ],
   /** source graph options */
   symbols: [
@@ -56,11 +59,7 @@ export const command_options = {
       typeLabel: chalk.underline("substr[]"),
       description: `only report on symbols which match filter string` 
     },
-    { 
-      name: "config", type: String, alias: "c", 
-      typeLabel: chalk.underline("tsconfig"), multiple: false, 
-      description: `explicitly state which tsconfig file to use (otherwise will search in common locations)` 
-    },
+
     { 
       name: "clear", type: Boolean, 
       description: `clear the symbol cache and rebuild from scratch`
@@ -76,6 +75,11 @@ export const commands_union = Object.keys(command_options).join(`${chalk.gray(" 
  */
 export const global_options = [
   { 
+    name: "config", type: String, alias: "c", 
+    typeLabel: chalk.underline("tsconfig"), multiple: false, 
+    description: `explicitly state which tsconfig file to use (otherwise will search in common locations)` 
+  },
+  { 
     name: "json", type: Boolean, defaultValue: false,
     description: `output in a JSON format versus a screen oriented format` 
   },
@@ -86,6 +90,10 @@ export const global_options = [
   { 
     name: "verbose", type: Boolean, alias: "v", defaultValue: false,
     description: `more verbose output when analyzing`
+  },
+  {
+    name: "warn",  alias: "w",  defaultValue: [], multiple: true,
+    type: Number, description: `TS error codes that just be downgraded to just warnings`
   },
   { 
     name: "help", alias: "h", type: Boolean, defaultValue: false,
@@ -109,4 +117,5 @@ export const command_descriptions = {
   diagnostics: ``,
   deps: `shows what symbols are ${chalk.italic("dependant")} on a given symbol`,
   symbols: `shows a symbol (or set of symbols) and the symbols characteristics`,
+  files: `shows a file(s) symbol ownership and whether it is deemed a test file or not`
 } as const satisfies Record<keyof typeof command_options, string>

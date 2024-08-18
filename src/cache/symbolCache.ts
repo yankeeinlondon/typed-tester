@@ -1,6 +1,6 @@
 import { existsSync, readFileSync, unlinkSync, writeFileSync } from "fs";
 import { join } from "pathe";
-import { getProject, getProjectRoot } from "src/ast/projectUsing";
+import { getProject, getProjectRoot } from "src/ast";
 import { SymbolMeta } from "src/ast/symbol-ast-types";
 import { asSymbolMeta } from "src/ast/symbols";
 import { SourceFile } from "ts-morph";
@@ -45,7 +45,7 @@ export const initializeSymbolLookup = () => {
   if (existsSync(cache_file())) {
     try {
       const data = JSON.parse(readFileSync(cache_file(), "utf-8")) as SymbolMeta[];
-      updateSymbolsInCache(...data);
+      updateSymbolCache(...data);
     } catch(e) {
       throw new Error(`Problems loading the symbol cache file: ${chalk.blue(cache_file())}\nErr msg: ${String(e)}`)
     }
@@ -142,7 +142,7 @@ export const cacheExportedSymbols = (
   
   // push the exported symbols into cache
   // dependencies will have already been added to the cache
-  updateSymbolsInCache(...symbols);
+  updateSymbolCache(...symbols);
 }
 
 
@@ -151,7 +151,7 @@ export const cacheExportedSymbols = (
  * while also making sure that the fuzzy finder is kept up-to-date
  * and the summary's are 
  */
-export const updateSymbolsInCache = (...symbols: SymbolMeta[]) => {
+export const updateSymbolCache = (...symbols: SymbolMeta[]) => {
 
   for (const s of symbols) {
     const isUpdate = symbolLookup.get(s.fqn) ? true : false;

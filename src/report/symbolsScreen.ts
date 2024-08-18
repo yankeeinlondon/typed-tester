@@ -1,8 +1,8 @@
-import {  getDependencyGraph, SymbolMeta, TypeGeneric } from "src/ast";
+import { getDependencyGraph, SymbolMeta, TypeGeneric } from "src/ast";
 import Table from "tty-table";
 import { prettyMultiLinePath } from "./prettyPath";
 import chalk from "chalk";
-import { lookupSymbol } from "src/cache";
+import {  lookupSymbol } from "src/cache";
 
 export const SYMBOL_COL_LEN = 32;
 
@@ -10,7 +10,9 @@ export const SYMBOL_COL_LEN = 32;
  * prints a table of symbols and their dependencies to
  * STDOUT.
  */
-export const symbolsScreen = (rows: SymbolMeta[]) => {
+export const symbolsScreen = (
+  rows: SymbolMeta[]
+) => {
   const columns: number = process.stdout.columns;
   const pathWidth: number = columns > 150
     ? 45
@@ -52,12 +54,17 @@ export const symbolsScreen = (rows: SymbolMeta[]) => {
         ).join(', ')
       }
     },
+    // {
+    //   name: "refs",
+    //   alias: "Used By",
+    //   width: 30
+    // },
     ...(
         columns > 100 
         ? [{ value: "filepath", width: pathWidth }]
         : []
     )
-  ]
+  ];
 
   const output = Table(header, rows.map(i => {
     const deps = i.deps.map(d => lookupSymbol(d)).filter(i => i) as SymbolMeta[];
@@ -67,7 +74,6 @@ export const symbolsScreen = (rows: SymbolMeta[]) => {
       scope: "graph"
     }))
 
-
     return {
     ...i, 
     name: [i.name, i.generics],
@@ -75,7 +81,8 @@ export const symbolsScreen = (rows: SymbolMeta[]) => {
     deps: [
       ...deps,
       ...depGraph
-    ]
+    ],
+    // refs: i?.refs.map(r => r.name).join(", ")
   }
 })).render();
 

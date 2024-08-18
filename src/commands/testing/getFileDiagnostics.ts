@@ -2,7 +2,7 @@ import { DiagnosticMessageChain, ts } from "ts-morph";
 import chalk from "chalk";
 
 import { AsOption } from "src/cli/cli-types";
-import { getProject } from "src/ast/projectUsing";
+import { getProject } from "src/ast";
 
 
 

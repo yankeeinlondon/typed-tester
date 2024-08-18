@@ -45,7 +45,15 @@ export type SymbolKind =
 | "instance"
 | "union-or-intersection"
 | "property" // the property on an object (or maybe other container)
+| "function"
+| "const-function"
 | "other";
+
+export type SymbolReference = {
+  name: string;
+  kind: SymbolKind;
+  fqn: string;
+}
 
 /**
  * **SymbolMeta**
@@ -120,6 +128,8 @@ export type SymbolMeta<
    * to be unique. 
    */
   deps: string[];
+
+  refs: SymbolReference[];
 
   /** the hash of the symbol */
   symbolHash: number;

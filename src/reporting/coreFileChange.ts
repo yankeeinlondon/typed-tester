@@ -1,10 +1,9 @@
 import chalk from "chalk";
-import {  getCacheEntry, updateCache } from "src/cache/cache";
-import { FileDiagnostics } from "src/getFileDiagnostics";
-import { ValidationOptions } from "src/typeValidation";
+
 import { rel } from "src/utils";
 import {  updatedGlobalMetrics } from "./globalMetrics";
-import { AsOption } from "src/cli/create_cli";
+import { FileDiagnostics } from "src/worker";
+import { AsOption } from "src/cli";
 
 export type CacheState = {
   warnings: number;

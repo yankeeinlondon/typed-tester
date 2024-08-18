@@ -5,6 +5,8 @@ import { show_help } from "./help";
 import { AsOption } from "./cli/cli-types";
 import { symbols_command } from "./commands/symbols";
 import { isCommand } from "./type-guards/isCommand";
+import { deps_command } from "./commands/deps";
+import { files_command } from "./commands/files";
 
 const [cmd, cli] = create_cli();
 
@@ -27,6 +29,13 @@ if (!cmd) {
           break;
         case "symbols":
           await symbols_command(cli as AsOption<"symbols">)
+          break;
+        case "deps":
+          await deps_command(cli as AsOption<"deps">);
+          break;
+        case "files":
+          await files_command(cli as AsOption<"files">);
+          break;
       }
     }
   }

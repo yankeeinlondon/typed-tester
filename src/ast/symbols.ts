@@ -26,7 +26,7 @@ import {
 } from "./symbol-ast-types";
 import { getHasher } from "src/cache/cache";
 import {  getProjectTypeChecker } from "./project";
-import { lookupSymbol, updateSymbolsInCache } from "src/cache";
+import { lookupSymbol, updateSymbolCache } from "src/cache";
 
 
 function getSymbolsJSDocInfo(symbol: Symbol): JsDocInfo[] {
@@ -281,7 +281,7 @@ export const createSymbolHash = (sym: Symbol) => {
  */
 const pushSymbolDepsToCache = (sym: Symbol) => {
   const deps = getSymbolDependencies(sym, false).filter(d => d.kind === "type-defn");
-  updateSymbolsInCache(...deps);
+  updateSymbolCache(...deps);
 
   return deps.map(i => i.fqn);
 }
