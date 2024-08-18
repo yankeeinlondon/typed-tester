@@ -1,12 +1,14 @@
 // CLI SCRIPT
-import { test_command } from "./commands/test";
 import {  create_cli } from "./cli/create_cli";
 import { show_help } from "./help";
 import { AsOption } from "./cli/cli-types";
-import { symbols_command } from "./commands/symbols";
 import { isCommand } from "./type-guards/isCommand";
-import { deps_command } from "./commands/deps";
-import { files_command } from "./commands/files";
+import { 
+  source_command,
+  deps_command,
+  symbols_command,
+  test_command
+} from "./commands";
 
 const [cmd, cli] = create_cli();
 
@@ -33,8 +35,8 @@ if (!cmd) {
         case "deps":
           await deps_command(cli as AsOption<"deps">);
           break;
-        case "files":
-          await files_command(cli as AsOption<"files">);
+        case "source":
+          await source_command(cli as AsOption<"source">);
           break;
       }
     }

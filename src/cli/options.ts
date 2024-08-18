@@ -27,7 +27,10 @@ export const command_options = {
       type: Boolean, description: "show tests which were a cache miss"
     },
   ],
-  diagnostics: [
+  "test-files": [
+    CMD,
+  ],
+  cache: [
     CMD,
   ],
   deps: [
@@ -37,7 +40,7 @@ export const command_options = {
       description: `only report on symbols which match filter string` 
     }
   ],
-  files: [
+  source: [
     CMD,
     { name: "filter", type: String, alias: "f", multiple: true, 
       typeLabel: chalk.underline("substr[]"),
@@ -46,10 +49,6 @@ export const command_options = {
     { 
       name: "clear", type: Boolean, 
       description: `clear the symbol cache and rebuild from scratch`
-    },
-    {
-      name: "test", type: Boolean, alias: "t",
-      description: `switches reporting to test files versus source files`
     }
   ],
   /** source graph options */
@@ -111,11 +110,13 @@ export const only_global_options = [
   },
 ]
 
-
 export const command_descriptions = {
-  test: `runs through test files and looks for type errors`,
-  diagnostics: ``,
-  deps: `shows what symbols are ${chalk.italic("dependant")} on a given symbol`,
-  symbols: `shows a symbol (or set of symbols) and the symbols characteristics`,
-  files: `shows a file(s) symbol ownership and whether it is deemed a test file or not`
+  test: `runs a ${chalk.bold("type test")} across all (or a filtered) set of the ${chalk.italic("type tests")}.`,
+  symbols: `reports on the ${chalk.italic("type symbols")} found in the project`,
+  source: `reports on the ${chalk.italic("source file")}'s general type health.`,
+
+  "test-files": `reports on the relationship between ${chalk.italic("test files")} and ${chalk.italic("type symbols")} along with test structure.`,
+  
+  deps: `shows what symbols are ${chalk.italic("dependant")} on a given symbol(s).`,
+  cache: `reports on the state of the cache as well as providing the means to refresh ${chalk.italic("parts")} or ${chalk.italic("all")} of the file caches.`
 } as const satisfies Record<keyof typeof command_options, string>

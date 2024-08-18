@@ -76,5 +76,5 @@ export type AsOption<
 export type CommandOptions = {
   test: AsOption<"test">,
   symbols: AsOption<"symbols">,
-
+  source: AsOption<"source">
 }
