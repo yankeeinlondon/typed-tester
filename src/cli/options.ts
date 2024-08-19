@@ -29,6 +29,10 @@ export const command_options = {
   ],
   "test-files": [
     CMD,
+    { name: "filter", type: String, alias: "f", multiple: true, 
+      typeLabel: chalk.underline("substr[]"),
+      description: `only report on symbols which match filter string` 
+    },
   ],
   cache: [
     CMD,

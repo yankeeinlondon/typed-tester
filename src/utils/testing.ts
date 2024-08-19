@@ -22,7 +22,6 @@ export const getTestFiles = () => {
       return globSync([glob, "!node_modules"]);
     } 
 
-
     return globSync(DEFAULT_GLOB)
   }
 }

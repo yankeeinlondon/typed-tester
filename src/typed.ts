@@ -9,6 +9,7 @@ import {
   symbols_command,
   test_command
 } from "./commands";
+import { test_files_command } from "./commands/test-files";
 
 const [cmd, cli] = create_cli();
 
@@ -37,6 +38,9 @@ if (!cmd) {
           break;
         case "source":
           await source_command(cli as AsOption<"source">);
+          break;
+        case "test-files":
+          await test_files_command(cli as AsOption<"test-files">);
           break;
       }
     }

@@ -22,18 +22,13 @@ import {  msg } from "src/utils";
 export const source_command = async (opt: AsOption<"source">) => {
   const start = performance.now();
   await initializeHasher();
-
-
-  // SOURCE FILES
-
-  if (!opt.quiet) {
-    if (opt.filter) {
-      msg(opt)(chalk.bold(`Source Files (filter: ${chalk.dim(opt.filter)})`));
-      msg(opt)(`----------------------------------------------------------`);
-    }  else {
-      msg(opt)(chalk.bold(`Source Files`));
-      msg(opt)(`----------------------------------------------------------`);
-    }
+  
+  if (opt.filter) {
+    msg(opt)(chalk.bold(`Source Files (filter: ${chalk.dim(opt.filter)})`));
+    msg(opt)(`----------------------------------------------------------`);
+  }  else {
+    msg(opt)(chalk.bold(`Source Files`));
+    msg(opt)(`----------------------------------------------------------`);
   }
 
   const [_project, configFile] = projectUsing(
@@ -118,7 +113,7 @@ export const source_command = async (opt: AsOption<"source">) => {
     }
   } // end screen reporting
 
-  const duration = performance.now() - start;
+  const duration = Math.round((performance.now() - start) * 1000) / 1000;
   if(!opt.quiet) {
     msg(opt)("")
     msg(opt)(`- command took ${chalk.bold(duration)}${chalk.italic.dim("ms")}`)

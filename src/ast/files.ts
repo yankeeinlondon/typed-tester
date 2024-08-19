@@ -1,6 +1,9 @@
 import {  Diagnostic, DiagnosticCategory, DiagnosticMessageChain, SourceFile, ts } from "ts-morph";
 import { SymbolReference } from "./symbol-ast-types";
 import {  asSymbolReference, getSymbolDependencies } from "./symbols";
+import { isTsDiagnostic, isTsMorphDiagnostic } from "src/type-guards";
+import { isString } from "inferred-types";
+import { getProject } from "./project";
 
 
 export type FileMeta = {
@@ -149,25 +152,35 @@ export type FileDiagnostic = {
 }
 
 /**
- * **asDiagnostic**`(diag)`
+ * **asFileDiagnostic**`(diag)`
  * 
  * Takes a `Diagnostic` from **ts-morph** and summarizes to a _serializable_
  * `FileDiagnostic`.
  */
-export const asFileDiagnostics = (diagnostic: Diagnostic<ts.Diagnostic>): FileDiagnostic => {
-  const code = diagnostic.getCode();
-  const msg = (
-    typeof diagnostic.getMessageText() === "string"
-    ? diagnostic.getMessageText()
-    : (diagnostic.getMessageText() as DiagnosticMessageChain).getMessageText()
-  ) as string;
-  const category = diagnostic.getCategory();
-  const start = diagnostic.getStart();
-  const length = diagnostic.getLength();
-  const { line, character } = ts.getLineAndCharacterOfPosition(
-    (diagnostic.getSourceFile() as SourceFile).compilerNode, 
-    diagnostic.getStart() || 0
-  );
+export const asFileDiagnostic = (
+  diagnostic: Diagnostic | ts.Diagnostic): FileDiagnostic => {
+
+  const code = isTsDiagnostic(diagnostic) 
+    ? diagnostic.code
+    : diagnostic.getCode();
+  
+  const msg = isTsDiagnostic(diagnostic) 
+    ? isString(diagnostic.messageText) ? diagnostic.messageText : "getMessageText" in diagnostic && typeof diagnostic.getMessageText === "function" ? diagnostic.getMessageText() : "UNKNOWN"
+    : diagnostic.getMessageText();
+
+
+  const category = isTsDiagnostic(diagnostic) 
+    ? diagnostic.category 
+    : diagnostic.getCategory();
+  const start = isTsDiagnostic(diagnostic) ? diagnostic.start : diagnostic.getStart();
+  const length = isTsDiagnostic(diagnostic) ? diagnostic.length : diagnostic.getLength();
+  const { line, character } = isTsDiagnostic(diagnostic)
+    ?  {line: start || 0, character: length || 0}
+    : 
+      ts.getLineAndCharacterOfPosition(
+        (diagnostic.getSourceFile() as SourceFile).compilerNode, 
+        diagnostic.getStart() || 0
+      );
 
   return {
     code,
@@ -210,8 +223,15 @@ export const getSymbolsDefinedInFile = (
   ];
 }
 
+/**
+ * gets all the diagnostics for a given file.
+ */
 export const getFileDiagnostics = (
-  file: SourceFile
+  file: string | SourceFile
 ): FileDiagnostic[] => {
-  return file.getPreEmitDiagnostics().map(d => asFileDiagnostics(d));
+  const fileSource = isString(file)
+    ? getProject().addSourceFileAtPath(file)
+    : file;
+
+  return fileSource.getPreEmitDiagnostics().map(d => asFileDiagnostic(d));
 }
