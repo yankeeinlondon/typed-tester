@@ -1,5 +1,13 @@
 import chalk from "chalk";
-import { getDiagnosticsOutsideBlocks, getErrorDiagnostics, getProjectRoot, getWarningDiagnostics, TestFile } from "src/ast";
+import { 
+  getDiagnosticsOutsideBlocks, 
+  getErrorDiagnostics, 
+  getProjectRoot, 
+  getWarningDiagnostics, 
+  isSlowTest, 
+  isVerySlowTest, 
+  TestFile 
+} from "src/ast";
 import { AsOption } from "src/cli";
 import { fileLink } from "src/utils";
 import { prettyPath } from "./prettyPath";
@@ -56,6 +64,7 @@ export const showTestFile = (
   if (!opt["ignore-outside"] && outsideErrors.length > 0) {
     test.blocks = [{
         filepath: test.filepath,
+        skip: false,
         description: "Areas OUTSIDE of tests blocks",
         tests: [],
         startLine: 0,
@@ -71,22 +80,24 @@ export const showTestFile = (
   : chalk.green.bold(`✓`);
   const file = relative(getProjectRoot(), test.filepath);
 
+  const testNumber = test.blocks.flatMap(b => b.tests).length;
+  const skippedTests = test.skippedTests > 0 
+    ? `, ${chalk.yellow(test.skippedTests)} ${test.skippedTests === 1 ? "test" : "tests"} skipped`
+    : ""
   const testCount = !opt.verbose && !opt["show-passing"]
-    ? chalk.dim(`${test.blocks.flatMap(b => b.tests).length}`)
+    ? chalk.dim(`${testNumber - test.skippedTests} tests${skippedTests}`)
     : "";
 
   const msPerFile = Math.floor(test.duration);
   const microSecPerLine = msPerFile === 0 || test.testLines === 0
     ? 0 
     : Math.floor(1000*(test.duration/test.testLines));
-  const perfCondition = (
-    test.duration > 300 || microSecPerLine > 2500
-  ) || (test.duration > 100 && microSecPerLine > 500);
+  const perfCondition = isSlowTest(test) || isVerySlowTest(test);
 
   const commaNoVerbose = opt.verbose ? "" : ", "
-  const timingWarning = test.duration > 300 || microSecPerLine > 2500
+  const timingWarning = isVerySlowTest(test)
     ? `${commaNoVerbose}${chalk.red.bold(Math.floor(test.duration))}${chalk.dim.italic.red("ms")}, ${chalk.red.bold(microSecPerLine)}${chalk.dim.italic.red("μs/line")}`
-    : test.duration > 100 && microSecPerLine > 500
+    : isSlowTest(test)
       ? `${commaNoVerbose}${chalk.yellowBright.bold(msPerFile)}${chalk.dim.italic.yellowBright("ms")}, ${chalk.yellowBright.bold(microSecPerLine)}${chalk.dim.italic.yellowBright("μs/line")}`
       : opt.verbose
         ? `${chalk.gray.bold(Math.floor(test.duration))}${chalk.dim.italic.gray("ms")}, ${chalk.gray.bold(microSecPerLine)}${chalk.dim.italic.gray("μs/line")}`
@@ -99,7 +110,9 @@ export const showTestFile = (
     }
   }
 
-  if(hasErrors || opt["show-passing"] || opt.verbose) {
+  if(
+    (hasErrors || opt["show-passing"] || opt.verbose) && !test.skip
+  ) {
     for (const block of test.blocks) {
       showTestBlock(block, opt);
     }

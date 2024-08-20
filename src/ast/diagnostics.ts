@@ -5,6 +5,7 @@ import {  asFileDiagnostic, getFileDiagnostics } from "./files";
 import { AsOption } from "src/cli";
 import { FileDiagnostic } from "./file-ast-types";
 import { isFileDiagnostic, isSourceFile } from "src/type-guards";
+import { TestFile } from "./testing-types";
 
 export type BlockType = {
   startLine: number;
@@ -115,4 +116,14 @@ export const getDiagnosticsOutsideBlocks = (
     : isArray(input)
       ? input.filter(notContainedBy(...blocks))
       : []
+}
+
+
+export const hasDiagnostics = (file: TestFile | SourceFile): boolean => {
+  if (isSourceFile(file)) {
+    const d = file.getPreEmitDiagnostics();
+    return d.length > 0
+  } else {
+    return file.blocks.flatMap(b => b.diagnostics).length > 0
+  }
 }

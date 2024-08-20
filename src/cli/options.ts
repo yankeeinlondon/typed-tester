@@ -31,6 +31,10 @@ export const command_options = {
       name: "only-errors", defaultValue: false,
       type: Boolean, description: `only show test files which have errors`
     },
+    {
+      name: "show-symbols", defaultValue: false,
+      type: Boolean, description: `show the type symbols imported into the test file`
+    },
   ],
   cache: [
     CMD,

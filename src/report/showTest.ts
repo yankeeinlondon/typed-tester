@@ -7,7 +7,9 @@ import { showDiagnostic } from "./showDiagnostic";
 export const showTest = (test: TypeTest, opt: AsOption<"test">) => {
   const testErrors = getErrorDiagnostics(test.diagnostics, opt);
 
-  const status = testErrors.length > 0
+  const status = test.skip
+  ? chalk.bold.dim(` ⇣ `)
+  : testErrors.length > 0
   ? chalk.bold.red(` ⛒ `)
   : test.diagnostics.length > 0
   ? chalk.bold.yellow(` ⚠️ `)
@@ -21,5 +23,4 @@ export const showTest = (test: TypeTest, opt: AsOption<"test">) => {
   for (const err of testErrors) {
     showDiagnostic(err, test.filepath, opt);
   }
-  
 }

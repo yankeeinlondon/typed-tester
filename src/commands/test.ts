@@ -3,6 +3,7 @@ import { asTestFile, projectUsing } from "src/ast";
 import { clearTestCache, initializeHasher, refreshTestCache } from "src/cache";
 import { AsOption } from "src/cli";
 import { showTestFile } from "src/report/showTestFile";
+import { showTestSummary } from "src/report/showTestSummary";
 import { getTestFiles,  msg } from "src/utils";
 import { shout } from "src/utils/shout";
 
@@ -42,7 +43,15 @@ export const test_command = async (opt: AsOption<"test">) => {
     msg(opt)(`- test file cache cleared`)
   }
 
-  const cache = await refreshTestCache(testFiles);
+  const filterDesc = opt?.filter?.length > 0
+  ? ` [ filter: ${chalk.dim(opt.filter.join(", "))} ]`
+  : "";
+
+  msg(opt)();
+  msg(opt)(chalk.bold.green(`Test Results${filterDesc}:`));
+  msg(opt)(chalk.bold.green(`---------------------------------------------`));
+
+  const cache = await refreshTestCache(testFiles, opt);
 
   if (cache.hasBeenUpdated || cache.hasGrown) {
 
@@ -59,25 +68,18 @@ export const test_command = async (opt: AsOption<"test">) => {
     shout(opt)(`- adding ${chalk.blue("--clear")} CLI flag will clear test cache prior to running this command`)
   }
 
-  const filterDesc = opt?.filter?.length > 0
-    ? ` [ filter: ${chalk.dim(opt.filter.join(", "))} ]`
-    : "";
-
   if(testFiles.length >0 && !opt.json) {
-    console.log();
-    console.log(chalk.bold.green(`Test Results${filterDesc}:`));
-    console.log(chalk.bold.green(`---------------------------------------------`));
-
-
+    
     for (const testFile of testFiles) {
       const result = await asTestFile(testFile);
       showTestFile(result, opt);
     }
-    
 
+    showTestSummary(cache)
   } else if (!opt.json) {
     console.log(`- no test files found with the give filter ${filterDesc}`);
   }
+
   if(!opt.verbose) {
     console.log();
     console.log(`- use ${chalk.blue("--verbose")} to get more details`);
@@ -91,9 +93,16 @@ export const test_command = async (opt: AsOption<"test">) => {
     console.log(JSON.stringify(data));
   } 
 
+  const early = cache.earlyCacheHits > 0 
+    ? cache.earlyCacheHits === cache.cacheHits
+      ? chalk.dim.italic(` (all were early)`)
+      : chalk.dim.italic(` (${cache.earlyCacheHits} were early)`)
+    : "";
+  const cacheSummary = chalk.italic(`with ${chalk.reset.green.bold(cache.cacheHits)} cache hits${early}, ${chalk.reset.yellowBright(cache.cacheMisses)} cache misses`);
+
   const duration = performance.now() - start;
   if(!opt.quiet) {
     msg(opt)("")
-    msg(opt)(`- command took ${chalk.bold(duration)}${chalk.italic.dim("ms")}`)
+    msg(opt)(`- command took ${chalk.bold(duration)}${chalk.italic.dim("ms")} ${cacheSummary}`)
   }
 }

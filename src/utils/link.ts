@@ -33,35 +33,13 @@ export const link = (text: string, link: string) => {
 export const fileLink = (text: string, path: string) => {
     const rawPath = resolve(stripLeading(path, "file://"));
     
-    return link(text, `file:://${hostname()}${rawPath}`);
+    return link(text, `file://${hostname()}${rawPath}`);
 }
 
 
-// export const diagnosticLink = (d: Diagnostic | FileDiagnostic) => {
-//   const text: string = isFileDiagnostic(d) || ("msg" in d && typeof d.msg === "string")
-//     ? d.msg
-//     : isTsDiagnostic(d)
-//     ? typeof d?.getMessageText === "function"
-//       ? String(d.getMessageText())
-//       : String(d.messageText)
-//     : isTsMorphDiagnostic(d)
-//     ? String(d.getMessageText())
-//     : "never";
-//   const filepath = isFileDiagnostic(d)
-//     ? d.filepath
-//     : isTsMorphDiagnostic(d) ? d.getSourceFile()?.getFilePath() : undefined;
-
-//   if (filepath) {
-//     return fileLink(text, resolve(filepath));
-//   } else {
-//     // unable to create link with no filepath
-//     return text
-//   }
-// }
-
 export const tsCodeLink = (code: number) => {
   const text = `${code}`;
+  // https://typescript.tv/errors/#ts2344
   const url= `https://typescript.tv/errors/#ts${code}`
   return link(text, url);
-  // https://typescript.tv/errors/#ts2344
 }

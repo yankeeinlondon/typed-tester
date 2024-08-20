@@ -13,11 +13,14 @@ export const showTestBlock = (
   const errors = getErrorDiagnostics(block.diagnostics, opt);
   const warnings = getWarningDiagnostics(block.diagnostics, opt);
   const hasError = errors.length > 0;
+  const skip = block.skip || block.tests.filter(t => !t.skip).length === 0;
 
   if ((hasError || opt["show-passing"] || opt.verbose)&& !opt.slow) {
-    const blockStatusIcon = hasError
-      ? chalk.red.bold(`⤬`)
-      : chalk.green.bold(`✓`);
+    const blockStatusIcon = skip
+      ? chalk.dim(`⇣`)
+      : hasError
+        ? chalk.red.bold(`⤬`)
+        : chalk.green.bold(`✓`);
   
     const testDisplay = `${block.tests.length} ${chalk.italic(block.tests.length === 1 ? "test" : "tests")}`;
     const errDisplay = errors.length >  0
@@ -33,10 +36,15 @@ export const showTestBlock = (
       : "";
   
     const blockLine = `    [ ${blockStatusIcon} ] ${fileLink(block.description, block.filepath)} [${testDisplay}, ${errDisplay}${warningDisplay}]`
+    const skipBlockLine = `    [ ${blockStatusIcon} ] ${fileLink(block.description, block.filepath)}`
   
-    console.log(blockLine);
+    if(skip) {
+      console.log(skipBlockLine);
+    } else {
+      console.log(blockLine);
+    }
   
-    if(opt["show-passing"] || hasError) {
+    if((opt["show-passing"] || hasError ) && !skip) {
       if (block.tests.length > 0 || opt["show-passing"]) {
         for (const t of block.tests) {
           showTest(t, opt)
