@@ -68,7 +68,6 @@ export const test_command = async (opt: AsOption<"test">) => {
     console.log(chalk.bold.green(`Test Results${filterDesc}:`));
     console.log(chalk.bold.green(`---------------------------------------------`));
 
-    // const tests: Promise<TestFile>[] = [];
 
     for (const testFile of testFiles) {
       const result = await asTestFile(testFile);
@@ -84,7 +83,6 @@ export const test_command = async (opt: AsOption<"test">) => {
     console.log(`- use ${chalk.blue("--verbose")} to get more details`);
     if((!opt["show-passing"])) {
       console.log(`- use ${chalk.blue("--show-passing")} to show passing tests (not just erroring tests)`);
-      
     }
   }
 

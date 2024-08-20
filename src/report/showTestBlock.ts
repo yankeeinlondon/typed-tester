@@ -14,7 +14,7 @@ export const showTestBlock = (
   const warnings = getWarningDiagnostics(block.diagnostics, opt);
   const hasError = errors.length > 0;
 
-  if (hasError || opt["show-passing"] || opt.verbose) {
+  if ((hasError || opt["show-passing"] || opt.verbose)&& !opt.slow) {
     const blockStatusIcon = hasError
       ? chalk.red.bold(`⤬`)
       : chalk.green.bold(`✓`);
@@ -37,7 +37,7 @@ export const showTestBlock = (
     console.log(blockLine);
   
     if(opt["show-passing"] || hasError) {
-      if (block.tests.length > 0) {
+      if (block.tests.length > 0 || opt["show-passing"]) {
         for (const t of block.tests) {
           showTest(t, opt)
         }

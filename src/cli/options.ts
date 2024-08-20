@@ -23,6 +23,14 @@ export const command_options = {
       name: "clear", defaultValue: false,
       type: Boolean, description: `clear the test file cache prior to analyzing`
     },
+    {
+      name: "slow", defaultValue: false,
+      type: Boolean, description: `only show test files which are slow`
+    },
+    {
+      name: "only-errors", defaultValue: false,
+      type: Boolean, description: `only show test files which have errors`
+    },
   ],
   cache: [
     CMD,

@@ -72,11 +72,32 @@ export const showTestFile = (
   const file = relative(getProjectRoot(), test.filepath);
 
   const testCount = !opt.verbose && !opt["show-passing"]
-    ? chalk.dim(`(${test.blocks.flatMap(b => b.tests).length})`)
+    ? chalk.dim(`${test.blocks.flatMap(b => b.tests).length}`)
     : "";
 
+  const msPerFile = Math.floor(test.duration);
+  const microSecPerLine = msPerFile === 0 || test.testLines === 0
+    ? 0 
+    : Math.floor(1000*(test.duration/test.testLines));
+  const perfCondition = (
+    test.duration > 300 || microSecPerLine > 2500
+  ) || (test.duration > 100 && microSecPerLine > 500);
+
+  const commaNoVerbose = opt.verbose ? "" : ", "
+  const timingWarning = test.duration > 300 || microSecPerLine > 2500
+    ? `${commaNoVerbose}${chalk.red.bold(Math.floor(test.duration))}${chalk.dim.italic.red("ms")}, ${chalk.red.bold(microSecPerLine)}${chalk.dim.italic.red("μs/line")}`
+    : test.duration > 100 && microSecPerLine > 500
+      ? `${commaNoVerbose}${chalk.yellowBright.bold(msPerFile)}${chalk.dim.italic.yellowBright("ms")}, ${chalk.yellowBright.bold(microSecPerLine)}${chalk.dim.italic.yellowBright("μs/line")}`
+      : opt.verbose
+        ? `${chalk.gray.bold(Math.floor(test.duration))}${chalk.dim.italic.gray("ms")}, ${chalk.gray.bold(microSecPerLine)}${chalk.dim.italic.gray("μs/line")}`
+        : "";
+
   // FILE LINE
-  console.log(` ${fileStatusIcon}  ${fileLink(prettyPath(file), test.filepath)} ${testCount} ${warningMsg}`);
+  if (!opt.slow || perfCondition) {
+    if(!opt["only-errors"] || hasErrors) {
+      console.log(` ${fileStatusIcon}  ${fileLink(prettyPath(file), test.filepath)} ${chalk.dim("(")}${testCount}${timingWarning}${chalk.dim(")")} ${warningMsg}`);
+    }
+  }
 
   if(hasErrors || opt["show-passing"] || opt.verbose) {
     for (const block of test.blocks) {

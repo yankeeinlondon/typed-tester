@@ -1,40 +1,14 @@
 import {  SyntaxKind, Symbol, SourceFile } from "ts-morph";
-import { TestBlock, TestFile, TypeTest } from "./testing-ast-types";
+import { SymbolFilterCallback, TestBlock, TestFile, TestFileOptions, TypeTest } from "./testing-ast-types";
 import {  getFileDiagnostics } from "./files";
 import {  asSymbolReference } from "./symbols";
-import { SymbolReference } from "./symbol-ast-types";
 import { isString } from "inferred-types";
 import { getProject } from "./project";
 import { getDiagnosticsBetweenLines } from "./diagnostics";
-import { readFileSync, statSync } from "fs";
 import { getHasher } from "src/cache";
 import { readFile, stat } from "fs/promises";
 import { relativeFile } from "src/utils";
 
-
-const TEST_SYMBOLS = ["it", "test", "describe", "Expect", "Equal", "cases", "NotEqual", "expect"]
-
-const removeTestSymbols = (symbols: SymbolReference[]) => {{
-  return symbols.filter(i => !TEST_SYMBOLS.includes(i.name))
-}}
-
-export type SymbolFilterCallback = (sym: SymbolReference) => boolean;
-
-export type TestFileOptions = {
-  /**
-   * If the caller already has cache data then they can provide
-   * it here to avoid to recomputing it.
-   */
-  cacheData?: { hash: number; atime: Date; size: number };
-
-  /**
-   * By default, the filtering function will reduce symbols
-   * captured to only those whose `kind` property is "type-defn"
-   * as this is typically what we're concerned with in testing
-   * but you can replace this function with whatever you like.
-   */
-  symbolsFilter?: SymbolFilterCallback;
-}
 
 const symbolsFilter: SymbolFilterCallback = (sym) => {
   return sym.kind === "type-defn"
@@ -54,6 +28,12 @@ const cacheData = async (source: SourceFile) => {
   }
 }
 
+const calculateTestLines  = (blocks: TestBlock[]) => {
+  return blocks.flatMap(b => b.endLine-b.startLine).reduce(
+    (sum, val) => sum + val, 0
+  )
+}
+
 /**
  * **asTestFile**`(filePath, options)` -> `Promise<TestFile>`
  * 
@@ -64,6 +44,7 @@ export async function asTestFile(
   filepath: string | SourceFile,
   options?: TestFileOptions
 ): Promise<TestFile> {
+  const start = performance.now();
     const sourceFile = isString(filepath)
       ? getProject().addSourceFileAtPath(filepath)
       : filepath;
@@ -150,5 +131,7 @@ export async function asTestFile(
       hash: config.cacheData.hash,
       size: config.cacheData.size,
       blocks,
+      duration: performance.now() - start,
+      testLines: calculateTestLines(blocks)
     };
 }
