@@ -1,27 +1,17 @@
 import chalk from "chalk";
-import { relative } from "pathe";
-import { analyzeTestFile, getErrorDiagnosticsBetweenLines, getWarningDiagnosticsBetweenLines, projectUsing } from "src/ast";
-import { initializeHasher } from "src/cache";
+import { asTestFile, projectUsing, TestFile } from "src/ast";
+import { clearTestCache, initializeHasher, refreshTestCache } from "src/cache";
 import { AsOption } from "src/cli";
-import { prettyPath } from "src/report";
-import { getTestFiles, msg } from "src/utils";
+import { showTestFile } from "src/report/showTestFile";
+import { getTestFiles,  msg } from "src/utils";
+import { shout } from "src/utils/shout";
 
 
 export const test_files_command = async (opt: AsOption<"test-files">) => {
   const start = performance.now();
   await initializeHasher();
 
-  // SOURCE FILES
-
-  if (opt.filter) {
-    msg(opt)(chalk.bold(`Test Files (filter: ${chalk.dim(opt.filter)})`));
-    msg(opt)(`----------------------------------------------------------`);
-  }  else {
-    msg(opt)(chalk.bold(`Test Files`));
-    msg(opt)(`----------------------------------------------------------`);
-  }
-
-  const [_project, configFile, root] = projectUsing(
+  const [_project, configFile] = projectUsing(
     opt.config 
       ? [ opt.config ] 
       : [
@@ -33,97 +23,79 @@ export const test_files_command = async (opt: AsOption<"test-files">) => {
   );
 
   if (!opt.config) {
-    msg(opt)(`- configuration for project's tests found in ${chalk.blue(configFile)}`);
+    shout(opt)(`- configuration for project's tests found in ${chalk.blue(configFile)}`);
   }
 
   let testFiles = getTestFiles();
-  msg(opt)(`- there are ${chalk.bold(testFiles.length)} across the project`);
+  shout(opt)(`- there are ${chalk.bold(testFiles.length)} ${chalk.italic("test files")} across the project`);
+
+  // filter test files
   if (opt?.filter?.length || 0 > 0) {
     testFiles = Array.from(new Set(
       opt.filter.flatMap(f => testFiles.filter(i => i.includes(f)))
     ));
-    msg(opt)(`- after applying filters [${chalk.dim(opt.filter.join(', '))}], ${chalk.bold(testFiles.length)} files remain to report on`)
+    shout(opt)(`- after applying filters [${chalk.dim(opt.filter.join(', '))}], ${chalk.bold(testFiles.length)} files remain to report on`)
   }
 
-  if(testFiles.length >0) {
+  if(opt.clear) {
+    clearTestCache(true);
+    msg(opt)(`- test file cache cleared`)
+  }
+
+  const cache = await refreshTestCache(testFiles);
+
+  if (cache.hasBeenUpdated || cache.hasGrown) {
+
+    shout(opt)(`- test file cache updated [${chalk.bold(cache.currentSize)} files]:`)
+    if(cache.hasGrown) {
+      shout(opt)(`    - added: ${chalk.dim(cache.updated.join(", "))}`);
+    }
+    if(cache.hasBeenUpdated) {
+      shout(opt)(`    - updated: ${chalk.dim(cache.updated.join(", "))}`)
+    }
+  }
+
+  if (!opt.clear) {
+    shout(opt)(`- adding ${chalk.blue("--clear")} CLI flag will clear test cache prior to running this command`)
+  }
+
+  const filterDesc = opt?.filter?.length > 0
+    ? ` [ filter: ${chalk.dim(opt.filter.join(", "))} ]`
+    : "";
+
+  if(testFiles.length >0 && !opt.json) {
     console.log();
-    console.log(chalk.bold.green(`Test Results:`));
+    console.log(chalk.bold.green(`Test Results${filterDesc}:`));
+    console.log(chalk.bold.green(`------------------------------------`));
+
+    // const tests: Promise<TestFile>[] = [];
+
+    for (const testFile of testFiles) {
+      const result = await asTestFile(testFile);
+      showTestFile(result, opt);
+    }
+    
+
+  } else if (!opt.json) {
+    console.log(`- no test files found with the give filter ${filterDesc}`);
+  }
+  if(!opt.verbose) {
+    console.log();
+    console.log(`- use ${chalk.blue("--verbose")} to get more details`);
+    if((!opt["show-passing"])) {
+      console.log(`- use ${chalk.blue("--show-passing")} to show passing tests (not just erroring tests)`);
+      
+    }
   }
 
   if (opt.json) {
-    const data = testFiles.map(tf => analyzeTestFile(tf));
-
+    const data = testFiles.map(tf => asTestFile(tf));
     console.log(JSON.stringify(data));
-    
-  } else {
-    // console out
+  } 
 
-    for (const testFile of testFiles) {
-      const results = analyzeTestFile(testFile);
-      const file = relative(root, testFile);
-      console.log(`\n 🗳️  ${prettyPath(file)}: `);
-      for (const block of results.blocks) {
-        const blockErrors = getErrorDiagnosticsBetweenLines(
-          testFile, 
-          block.startLine,
-          block.endLine,
-          opt
-        );
-        const blockWarnings = getWarningDiagnosticsBetweenLines(
-          testFile, 
-          block.startLine,
-          block.endLine,
-          opt
-        );
-
-        const testsInBlock = `${block.tests.length} ${chalk.italic(block.tests.length === 1 ? "test" : "tests")}`;
-        const errorsInBlock = blockErrors.length > 0
-          ? `, ${chalk.red.bold(blockErrors.length)} ${chalk.red("err")}`
-          : ``
-  
-        const warningsInBlock = blockWarnings.length > 0
-        ? `, ${chalk.yellowBright.bold(blockWarnings.length)} ${chalk.yellowBright("warn")}`
-        : ``
-  
-        if (!opt.verbose) {
-          console.log(`    - ${block.description} [${testsInBlock}${errorsInBlock}${warningsInBlock}]`);
-  
-        } else {
-          console.log(`\n    - ${block.description} [${testsInBlock}]`);
-          for (const t of block.tests) {
-            const testErrors = getErrorDiagnosticsBetweenLines(
-              testFile, 
-              t.startLine,
-              t.endLine,
-              opt
-            );
-            const testWarnings = getErrorDiagnosticsBetweenLines(
-              testFile, 
-              t.startLine,
-              t.endLine,
-              opt
-            );
-
-            
-            const status = testErrors.length > 0
-              ? chalk.bold.red(` ⛒ `)
-              : testWarnings.length > 0
-              ? chalk.bold.yellow(` ⚠️ `)
-              : chalk.bold.green(` ✔ `);
-            console.log(`      [${status}] ${t.description}`);
-            for (const err of testErrors) {
-              console.log(`          - ${err.msg} [ ${chalk.italic.dim("cd:")} ${err.code},${chalk.italic.dim("l:")} ${err.loc.lineNumber}, ${chalk.italic.dim("col:")} ${err.loc.column} ]`);
-            }
-            if (testErrors.length > 0) {
-              console.log();
-            }
-
-            
-          }
-          
-        }
-  
-      }
-    }
-  } // end console out
+  const duration = performance.now() - start;
+  if(!opt.quiet) {
+    msg(opt)("")
+    msg(opt)(`- command took ${chalk.bold(duration)}${chalk.italic.dim("ms")}`)
+  }
 }

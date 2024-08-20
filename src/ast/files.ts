@@ -1,90 +1,12 @@
-import {  Diagnostic, DiagnosticCategory, DiagnosticMessageChain, SourceFile, ts } from "ts-morph";
+import {  Diagnostic,  SourceFile, ts } from "ts-morph";
 import { SymbolReference } from "./symbol-ast-types";
 import {  asSymbolReference, getSymbolDependencies } from "./symbols";
-import { isTsDiagnostic, isTsMorphDiagnostic } from "src/type-guards";
+import { isTsDiagnostic } from "src/type-guards";
 import { isString } from "inferred-types";
 import { getProject } from "./project";
+import { FileDiagnostic, SymbolImport } from "./file-ast-types";
+import { relativeFile } from "src/utils";
 
-
-export type FileMeta = {
-  filepath: string;
-
-  /**
-   * symbols _imported_ by the file
-   */
-  imports: ImportMeta[];
-  /**
-   * symbols _defined_ in the file
-   */
-  symbols: SymbolReference[];
-  /**
-   * diagnostics found in the file
-   */
-  diagnostics: FileDiagnostic[];
-
-  /**
-   * A hash which detects whether the symbol's imported
-   * have changed. Ordering, whitespace, and other aspects
-   * are ignored.
-   */
-  importsHash: number;
-  /**
-   * A hash which detects whether the symbols which are 
-   * _defined_ on the page have changed but **not** whether
-   * the definition itself has changed.
-   */
-  symbolsHash: number;
-  /**
-   * A hash which detects change in the diagnostic status
-   * of this file.
-   */
-  diagnosticsHash: number;
-
-  /**
-   * A hash which detects whether any of the other hashes
-   * (besides `fileContentHash`) have changed.
-   */
-  fileHash: number;
-
-  /**
-   * helps to detect whether the textual content -- with edge 
-   * whitespace trimmed -- has changed.
-   */
-  fileContentHash: number;
-}
-
-export type ImportMeta = {
-  symbol: SymbolReference;
-  as: string;
-  source: string;
-  exportKind: "default" | "named";
-  /**
-   * whether the import is for an external repo or something
-   * within the current repo.
-   */
-  isExternalSource: boolean;
-}
-
-/**
- * **FileLookup**
- * 
- * Keys are relative filenames (from repo root or PWD if not repo),
- * values are the symbols which are found in the given file.
- */
-export type FileLookup = {
-  /** a hash of the last-updated date along with file contents */
-  baseHash: number;
-  /**
-   * a hash of just the content (and with surrounding whitespace removed)
-   */
-  trimmedHash: number;
-  /**
-   * a map of the symbol's name to the hash value (as last measured)
-   */
-  symbols: Map<string, number>;
-
-
-}
 
 
 const determineIfExternal = (s: string): boolean => {
@@ -96,9 +18,9 @@ const determineIfExternal = (s: string): boolean => {
 /**
  * Provides a list of symbols for the provided file
  */
-export const getImportsForFile = (file: SourceFile): ImportMeta[] => {
+export const getImportsForFile = (file: SourceFile): SymbolImport[] => {
   const importDeclarations = file.getImportDeclarations();
-  const imported: ImportMeta[] = [];
+  const imported: SymbolImport[] = [];
 
   importDeclarations.map(iDecl => {
 
@@ -114,7 +36,7 @@ export const getImportsForFile = (file: SourceFile): ImportMeta[] => {
               source: iDecl.getModuleSpecifierValue(),
               exportKind: "named",
               isExternalSource: determineIfExternal(iDecl.getModuleSpecifierValue())
-            } as ImportMeta
+            } as SymbolImport
           );
         }
     });
@@ -139,17 +61,6 @@ export const getImportsForFile = (file: SourceFile): ImportMeta[] => {
   return imported;
 }
 
-export type FileDiagnostic = {
-  code: number;
-  category: DiagnosticCategory;
-  msg: string;
-  loc: {
-    lineNumber: number;
-    column: number;
-    start: number | undefined;
-    length: number | undefined;
-  }
-}
 
 /**
  * **asFileDiagnostic**`(diag)`
@@ -181,11 +92,15 @@ export const asFileDiagnostic = (
         (diagnostic.getSourceFile() as SourceFile).compilerNode, 
         diagnostic.getStart() || 0
       );
+  const filepath = isTsDiagnostic(diagnostic)
+      ? diagnostic.file?.fileName
+      : diagnostic.getSourceFile()?.getFilePath();
 
   return {
     code,
     msg,
     category,
+    filepath: filepath ? relativeFile(filepath) : undefined,
     loc: {
       lineNumber: line + 1,
       column: character + 1,
@@ -209,7 +124,7 @@ export const asFileDiagnostic = (
  */
 export const getSymbolsDefinedInFile = (
   file: SourceFile,
-  imports?: ImportMeta[] 
+  imports?: SymbolImport[] 
 ): SymbolReference[] => {
   const imported = imports?.map(i => i.symbol.fqn) || getImportsForFile(file).map(i => i.symbol.fqn);
   const exported = file.getExportSymbols();

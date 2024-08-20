@@ -1,4 +1,5 @@
 export * from "./files"
+export * from "./file-ast-types"
 export * from "./project"
 export * from "./symbol-ast-types"
 export * from "./symbols"

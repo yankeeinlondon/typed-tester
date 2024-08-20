@@ -1,8 +1,10 @@
 
-import { FileDiagnostic } from "./files";
+
+import { FileDiagnostic } from "./file-ast-types";
 import {  SymbolReference } from "./symbol-ast-types";
 
 export type TypeTest = {
+  filepath: string;
   description: string;
   startLine: number;
   endLine: number;
@@ -11,6 +13,7 @@ export type TypeTest = {
 };
 
 export type TestBlock = {
+  filepath: string;
   description: string;
   startLine: number;
   endLine: number;
@@ -20,6 +23,12 @@ export type TestBlock = {
 
 export type TestFile = {
   filepath: string;
+  atime: Date;
+  /**
+   * the raw file text content, trimmed, and then hashed
+   */
+  hash: number;
+  size: number;
   blocks: TestBlock[];
 };
 

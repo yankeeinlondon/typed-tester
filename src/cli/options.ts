@@ -33,6 +33,16 @@ export const command_options = {
       typeLabel: chalk.underline("substr[]"),
       description: `only report on symbols which match filter string` 
     },
+    { name: "show-passing", type: Boolean,  
+      description: `show details of passing tests (must use verbose flag)` 
+    },
+    { name: "ignore-outside", type: Boolean,  
+      description: `ignore all type errors outside of test blocks` 
+    },
+    {
+      name: "clear", defaultValue: false,
+      type: Boolean, description: `clear the test file cache prior to analyzing`
+    },
   ],
   cache: [
     CMD,
