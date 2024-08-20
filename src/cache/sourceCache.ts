@@ -2,8 +2,8 @@ import { existsSync, readFileSync, unlinkSync, writeFileSync } from "node:fs";
 import { 
   FileDiagnostic,
   FileMeta, 
-  ImportMeta,
   SymbolMeta,
+  SymbolImport,
   SymbolReference,
   getConfigHash,
   getFileDiagnostics,
@@ -16,7 +16,7 @@ import {  getHasher } from "./cache";
 import { join, relative } from "pathe";
 import chalk from "chalk";
 import { SourceFile } from "ts-morph";
-import { getTestFiles, msg } from "src/utils";
+import { getTestFiles } from "src/utils";
 import { AsOption } from "src/cli";
 
 const SOURCE_CACHE_FILE = `/.ts-source-lookup` as const;
@@ -56,7 +56,7 @@ export const saveSourceLookup = () => {
   writeFileSync(sourceCacheFile(), JSON.stringify(data), "utf-8");
 }
 
-const hashFileImports = (imp: ImportMeta[]) => {
+const hashFileImports = (imp: SymbolImport[]) => {
   const hasher = getHasher();
   return hasher(imp.map(i => i.symbol.name).join(","));
 }

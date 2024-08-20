@@ -1,11 +1,8 @@
 import Watcher from "watcher";
-import { ValidationOptions } from "./typeValidation";
-import { dirname, join, relative } from "pathe";
-import { getCache, getDependencies, getDependency, hasDependency, removeFromCache } from "./cache/cache";
+import { dirname, relative } from "pathe";
+
 import chalk from "chalk";
 import { FileDiagnostics, getFileDiagnostics } from "./commands/testing/getFileDiagnostics";
-import { coreFileChange } from "./reporting/coreFileChange";
-import { AsOption } from "./cli/create_cli";
 
 const rel = (file: string) => relative(process.cwd(), file);
 

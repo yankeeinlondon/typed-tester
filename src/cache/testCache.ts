@@ -1,5 +1,4 @@
 import { asTestFile, FileDiagnostic, getErrorDiagnostics, getFileDiagnostics, getProjectRoot, getWarningDiagnostics, hasDiagnostics, isSlowTest, isVerySlowTest, TestFile, TestSummary } from "src/ast";
-import { SourceFile } from "ts-morph";
 import { getHasher, TEST_CACHE_FILE } from "./cache";
 import { existsSync, readFileSync, statSync, unlinkSync, writeFileSync } from "fs";
 import { join, relative } from "pathe";
@@ -28,11 +27,7 @@ export const clearTestCache = (file?: boolean) => {
   }
 }
 
-export const cacheTestFiles = (files?: SourceFile[]) => {
-  const hasher = getHasher();
-  clearTestCache();
 
-}
 
 export const updateTestCache = (
   ...files: TestFile[]

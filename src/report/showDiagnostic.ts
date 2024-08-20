@@ -6,7 +6,7 @@ import {  tsCodeLink } from "src/utils";
 
 export const showDiagnostic = (
   diag: FileDiagnostic,
-  filepath: string,
+  _filepath: string,
   opt: AsOption<"test">
 ) => {
 
@@ -18,6 +18,6 @@ export const showDiagnostic = (
 
 
   if (isError) {
-    console.log(chalk.dim(`           - [ ${chalk.italic("cd:")} ${tsCodeLink(diag.code)}, ${chalk.italic("l:")} ${diag.loc.lineNumber}, ${chalk.italic.dim("col:")} ${diag.loc.column} ] ${chalk.reset(diag.msg)} `));
+    console.log(chalk.dim(`           - [ ${status}, ${chalk.italic("cd:")} ${tsCodeLink(diag.code)}, ${chalk.italic("l:")} ${diag.loc.lineNumber}, ${chalk.italic.dim("col:")} ${diag.loc.column} ] ${chalk.reset(diag.msg)} `));
   }
 }

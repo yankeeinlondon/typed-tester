@@ -16,7 +16,7 @@ import {
   sourceCacheFile
 } from "src/cache";
 import { AsOption } from "src/cli";
-import {  msg } from "src/utils";
+import {  fileLink, msg } from "src/utils";
 
 
 export const source_command = async (opt: AsOption<"source">) => {
@@ -93,7 +93,9 @@ export const source_command = async (opt: AsOption<"source">) => {
       if (meta) {
         const errors = meta.diagnostics.filter(d => !opt.warn.includes(d.code));
         console.log();
-        console.log(`${chalk.bold(`./${meta.filepath} [${chalk.red(errors.length)}]`)}`);
+        console.log(fileLink(
+          chalk.bold(`${meta.filepath} [${chalk.red(errors.length)}]`), meta.filepath
+        ));
         for (const err of errors) {
           console.log(`    - [${chalk.italic.dim("c:")} ${err.code}, ${chalk.italic.dim("l:")} ${err.loc.lineNumber}, ${chalk.italic.dim("col:")} ${err.loc.column} ] - ${err.msg}`);
         }
