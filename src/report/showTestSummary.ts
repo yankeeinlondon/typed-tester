@@ -9,8 +9,11 @@ export const showTestSummary = <T extends TestSummary>(test: T) => {
   console.log(chalk.bold(`TEST SUMMARY:`));
   console.log();
   if(test.testsWithErrors === 0) {
-    console.log(`- 🎉 ${chalk.green.bold("No errors!")}`);
-    
+    if (test.testFiles - test.skipped !== 0) {
+      console.log(`- 🎉 ${chalk.green.bold("No errors!")}`);
+    } else {
+      console.log(`- no tests executed`);
+    }
   } else {
     console.log(`- ${chalk.red.bold(test.testsWithErrors)} ${chalk.italic("of")} ${test.tests} ${chalk.bold("tests")} had errors `);
     console.log(`- ${chalk.red.bold(test.filesWithErrors)} ${chalk.italic("of")} ${chalk.bold(test.testFiles)} ${chalk.bold("test files")} had errors`);

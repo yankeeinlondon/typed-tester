@@ -97,7 +97,7 @@ const getTestCacheSummary = (
       filesWithErrors = filesWithErrors + 1;
     }
     if (d.warnings.length> 0) {
-      filesWithWarnings = filesWithWarnings + d.warnings.length;
+      filesWithWarnings = filesWithWarnings + 1;
     }
     
     testsWithErrors = filesWithErrors + d.errors.length;
@@ -189,7 +189,9 @@ export const refreshTestCache = async (
             slow.push(file);
           }
           cacheHits = cacheHits + 1;
-          tests = tests + current.blocks.flatMap(b => b.tests.length).reduce(
+          tests = tests + current.blocks.flatMap(
+            b => b.skip ? 0 : b.tests.filter(t => !t.skip).length
+          ).reduce(
             (sum, val) => sum + val,
             0
           );

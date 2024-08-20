@@ -75,9 +75,11 @@ export const showTestFile = (
     ]
   }
 
-  const fileStatusIcon = hasErrors
-  ? chalk.red.bold(`⤬`)
-  : chalk.green.bold(`✓`);
+  const fileStatusIcon = test.skip
+  ? chalk.dim(`⇣`)
+  : hasErrors
+    ? chalk.red.bold(`⤬`)
+    : chalk.green.bold(`✓`);
   const file = relative(getProjectRoot(), test.filepath);
 
   const testNumber = test.blocks.flatMap(b => b.tests).length;
@@ -107,6 +109,13 @@ export const showTestFile = (
   if (!opt.slow || perfCondition) {
     if(!opt["only-errors"] || hasErrors) {
       console.log(` ${fileStatusIcon}  ${fileLink(prettyPath(file), test.filepath)} ${chalk.dim("(")}${testCount}${timingWarning}${chalk.dim(")")} ${warningMsg}`);
+      if(opt["show-symbols"]) {
+        const symbols = test.importSymbols.filter(
+          s => !s.isExternalSource && s.as !== "cases" && s.symbol.kind === "type-defn"
+        );
+        console.log(`     ${symbols.map(i => chalk.reset.bgGray.whiteBright(i.as)).join(", ")} `);
+        
+      }
     }
   }
 
