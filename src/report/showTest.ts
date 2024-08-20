@@ -4,7 +4,7 @@ import { AsOption } from "src/cli";
 import { showDiagnostic } from "./showDiagnostic";
 
 
-export const showTest = (test: TypeTest, opt: AsOption<"test-files">) => {
+export const showTest = (test: TypeTest, opt: AsOption<"test">) => {
   const testErrors = getErrorDiagnostics(test.diagnostics, opt);
 
   const status = testErrors.length > 0

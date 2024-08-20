@@ -9,26 +9,6 @@ const CMD = {name: "cmd", type: String, defaultOption: true, multiple: false};
 export const command_options = {
   test: [
     CMD,
-    {
-      name: "filter", alias: "f", typeLabel: "glob",
-      type: String, description: `only evaluate tests which contain the filter string` 
-    },
-    {
-      name: "clear", alias: "c", defaultValue: false,
-      type: Boolean, description: `clear the cache prior to analyzing`
-    },
-
-    {
-      name: "watch", alias: "w", defaultValue: false,
-      type: Boolean, description: `run in watch mode`
-    },
-    {
-      name: "miss", alias: "m", defaultValue: false,
-      type: Boolean, description: "show tests which were a cache miss"
-    },
-  ],
-  "test-files": [
-    CMD,
     { name: "filter", type: String, alias: "f", multiple: true, 
       typeLabel: chalk.underline("substr[]"),
       description: `only report on symbols which match filter string` 
@@ -128,9 +108,6 @@ export const command_descriptions = {
   test: `runs a ${chalk.bold("type test")} across all (or a filtered) set of the ${chalk.italic("type tests")}.`,
   symbols: `reports on the ${chalk.italic("type symbols")} found in the project`,
   source: `reports on the ${chalk.italic("source file")}'s general type health.`,
-
-  "test-files": `reports on the relationship between ${chalk.italic("test files")} and ${chalk.italic("type symbols")} along with test structure.`,
-  
   deps: `shows what symbols are ${chalk.italic("dependant")} on a given symbol(s).`,
   cache: `reports on the state of the cache as well as providing the means to refresh ${chalk.italic("parts")} or ${chalk.italic("all")} of the file caches.`
 } as const satisfies Record<keyof typeof command_options, string>

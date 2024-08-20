@@ -7,7 +7,7 @@ import {  tsCodeLink } from "src/utils";
 export const showDiagnostic = (
   diag: FileDiagnostic,
   filepath: string,
-  opt: AsOption<"test-files">
+  opt: AsOption<"test">
 ) => {
 
   const isError = !opt.warn.includes(diag.code);

@@ -8,7 +8,7 @@ import { showTestBlock } from "./showTestBlock";
 
 export const showTestFile = (
   test: TestFile, 
-  opt: AsOption<"test-files">
+  opt: AsOption<"test">
 ) => {
   /**
    * errors contained in test blocks

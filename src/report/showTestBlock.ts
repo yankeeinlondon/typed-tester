@@ -8,7 +8,7 @@ import { showDiagnostic } from "./showDiagnostic";
 
 export const showTestBlock = (
   block: TestBlock, 
-  opt: AsOption<"test-files">
+  opt: AsOption<"test">
 ) => {
   const errors = getErrorDiagnostics(block.diagnostics, opt);
   const warnings = getWarningDiagnostics(block.diagnostics, opt);
@@ -45,8 +45,7 @@ export const showTestBlock = (
         for (const d of errors) {
           showDiagnostic(d, block.filepath, opt)
         }
-      } 
+      }
     }
   }
-
 }
