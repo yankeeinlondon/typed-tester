@@ -26,7 +26,6 @@ export const getHasher = (): Hasher => {
 
 export const saveCache = () => {
   saveSymbolLookup();
-
 }
 
 export const clearCache = (save?: boolean) => {
