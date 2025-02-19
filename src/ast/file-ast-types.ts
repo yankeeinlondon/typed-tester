@@ -4,16 +4,16 @@ import { SymbolReference } from "./symbol-ast-types";
 
 export type FileDiagnostic = {
   /** the TS Error code */
-  code: number;
-  category: DiagnosticCategory;
+  readonly code: number;
+  readonly category: DiagnosticCategory;
   /** the error message */
-  msg: string;
-  filepath: string | undefined;
-  loc: {
-    lineNumber: number;
-    column: number;
-    start: number | undefined;
-    length: number | undefined;
+  readonly msg: string;
+  readonly filepath: string | undefined;
+  readonly loc: {
+    readonly lineNumber: number;
+    readonly column: number;
+    readonly start: number | undefined;
+    readonly length: number | undefined;
   }
 }
 
@@ -52,18 +52,24 @@ export type FileLookup = {
 
 
 export type FileMeta = {
+  /** The relative path to the file from the project root */
   filepath: string;
 
   /**
-   * symbols _imported_ by the file
+   * Symbols _imported_ by the file. This includes both internal
+   * imports from the current project and external dependencies.
    */
   imports: SymbolImport[];
+
   /**
-   * symbols _defined_ in the file
+   * Symbols _defined_ in the file. This includes types, interfaces,
+   * classes and other exported symbols.
    */
   symbols: SymbolReference[];
+
   /**
-   * diagnostics found in the file
+   * TypeScript compiler diagnostics found in the file.
+   * Includes errors, warnings and suggestions.
    */
   diagnostics: FileDiagnostic[];
 

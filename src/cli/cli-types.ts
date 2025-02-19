@@ -24,6 +24,12 @@ export type Option = OptionDefinition & { description?: string; typeLabel?: stri
 export type Command = keyof typeof command_options;
 
 
+/**
+ * Maps CLI option constructor types to their TypeScript equivalents
+ * @param TVal - The constructor type (String, Number, Boolean, Date)
+ * @param TDef - The default value type
+ * @param TMulti - Whether the option accepts multiple values
+ */
 type FromConstructor<
   TVal extends ((input: string) => any) | undefined,
   TDef,
