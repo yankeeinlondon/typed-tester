@@ -38,13 +38,12 @@ export type SymbolKind =
 | "type-defn" // a type's definition
 | "type-constraint" // this is a "type" which is defined in an external repo
 | "external-type"
-| "property"
+| "property" // the property on an object (or maybe other container)
 | "scalar"
 | "container"
 | "class"
 | "instance"
 | "union-or-intersection"
-| "property" // the property on an object (or maybe other container)
 | "function"
 | "const-function"
 | "other";
@@ -52,7 +51,7 @@ export type SymbolKind =
 export type SymbolReference = {
   name: string;
   kind: SymbolKind;
-  fqn: string;
+  fqn: `${"local" | "module" | "ext"}::${number}::${string}`;
 }
 
 /**

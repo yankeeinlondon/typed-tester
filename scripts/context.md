@@ -1,7 +1,3 @@
-#!/usr/bin/env bash
-
-
-CONTEXT=$(cat << 'EOF'
 ## CONTEXT
 
 This repo is written in Typescript and provides a CLI whose utility is to provide insights to a caller
@@ -34,7 +30,3 @@ Your audience (aka, the person chatting with you) is an experienced Typescript d
 - Take time to think through issues and challenge your thinking before responding to the user.
 
 ## QUESTION
-EOF
-)
-
-export CONTEXT

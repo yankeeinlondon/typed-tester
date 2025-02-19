@@ -9,8 +9,8 @@ export type TypeTest = {
   startLine: number;
   endLine: number;
   skip: boolean;
-  diagnostics: FileDiagnostic[];
-  symbols: SymbolReference[];
+  readonly diagnostics: readonly FileDiagnostic[];
+  readonly symbols: readonly SymbolReference[];
 };
 
 export type TestBlock = {
