@@ -1,43 +1,19 @@
 #!/usr/bin/env bash
 
-# CONTEXT="$(cat << 'EOF'
-# ## CONTEXT
-
-# This repo is written in Typescript and provides a CLI whose utility is to provide insights to a caller
-# about their repo's type system through static analysis.
-
-# This repo's base command which is made available to callers is **typed**. This base command is combined with a _sub-command_ to complete most operations. For example:
-
-# - `typed test` will run a report on all type tests
-# - `typed symbols` will build a type symbol dependency graph
-# - `typed files` will build a file depedency graph which shows which files depend on each other
-
-# Key helper libraries:
-
-# - the static analysis code is found in the "src/ast" folder and it all leverages the popular [`ts-morph`](https://github.com/dsherret/ts-morph) library.
-# - the CLI functionality is leveraging the `command-line-args` and `command-line-usage` **npm** libraries
-# - hashing uses the `xxhash-wasm` library
-# - terminal outputs to table formats uses the `tty-table` library
-# - `fast-glob` is used for glob pattern matching
-# - `find-root` is used to move up from the CWD to the root of the repo (if possible)
-# - `inferred-types` is used for deep type inferencing
-# - `chalk` is used for sending ANSI color and formatting codes to the terminal
-
-# ## AUDIENCE
-
-# Your audience (aka, the person chatting with you) is an experienced Typescript developer. You can be realively concise in your responses with a focus on moving toward working code. 
-
-# ## GUIDELINES
-
-# - If you don't know something it's ok to say so; this is better than saying something that is wrong.
-# - Take time to think through issues and challenge your thinking before responding to the user.
-
-# ## QUESTION
-# EOF
-# )"
-
-
-# echo "SOURCED"
+# get_file() <filepath>
+#
+# Gets the content from a file at the given <filepath>
+function get_file() {
+    local -r filepath="${1:?get_file() called but no filepath passed in!}"
+    
+    if file_exists "${filepath}"; then
+        local content
+        { IFS= read -rd '' content <"${filepath}";}  2>/dev/null
+        printf '%s' "${content}"
+    else
+        return 1
+    fi
+}
 
 MODEL="${MODEL:-o3-mini}"
 EDITOR_MODEL="${EDITOR_MODEL:-sonnet}"
@@ -60,12 +36,18 @@ function has_command() {
 
 function chat() {
     local -r prompt="${1:?no prompt passed into chat!}"
+    local -r CONTEXT="$(get_file "./scripts/context.md")"
+
+    if [[ -z "$CONTEXT}" ]]; then
+        echo "Context not found!"
+        exit 1;
+    fi
 
     if has_command "aider"; then
 
-        echo "Starting "
+        echo "Starting ..."
 
-        aider --model "${MODEL}" --architect --reasoning-effort "${REASONING}" --editor-model "${EDITOR_MODEL}" --no-detect-urls --no-auto-commit --yes-always --file "src/cli/cli-types.ts" --file "src/type-guards/*.ts" --file "src/ast/symbol-ast-types" --file "src/ast/testing-types.ts" --file "src/ast/file-ast-types.ts" --message "${CONTEXT}${prompt}"
+        aider --model "${MODEL}" --architect --reasoning-effort "${REASONING}" --editor-model "${EDITOR_MODEL}" --no-detect-urls --no-auto-commit --yes-always --file "src/cli/cli-types.ts" --file 'src/type-guards/*.ts' --file "src/ast/symbol-ast-types.ts" --file "src/ast/testing-types.ts" --file "src/ast/file-ast-types.ts" --message "${CONTEXT}${prompt}"
 
     else 
         echo "- you don\'t have the aider assistant installed"
