@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+source "./context"
+
+
+# has_command <cmd>
+#
+# checks whether a particular program passed in via $1 is installed 
+# on the OS or not (at least within the $PATH)
+function has_command() {
+    local -r cmd="${1:?cmd is missing}"
+
+    if command -v "${cmd}" &> /dev/null; then
+        return 0
+    else 
+        return 1
+    fi
+}
+
+
+function chat() {
+    local -r prompt="${1:?no prompt passed into chat!}"
+
+    if has_command "aider"; then
+
+        aider --model o3-mini --architect --reasoning-effort high --editor-model sonnet --no-detect-urls --no-auto-commit --yes-always --file "src/cli/cli-types.ts" --file "src/type-guards/*.ts" --file "src/ast/symbol-ast-types" --file "src/ast/testing-types.ts" --file "src/ast/file-ast-types.ts" --message "${CONTEXT}${prompt}"
+
+    else 
+        echo "- you don't have the aider assistant installed"
+        echo "- this is a requirement for running this chat prompt"
+        echo ""
+        echo "- install aider and then rerun"
+    fi
+}
+
+chat "${@}"
