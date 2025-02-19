@@ -47,7 +47,6 @@ function chat() {
     if has_command "aider"; then
 
         echo "Starting ..."
-        echo "Starting ..."
 
         aider --model "${MODEL}" --architect --reasoning-effort "${REASONING}" --editor-model "${EDITOR_MODEL}" --no-detect-urls --no-auto-commit --yes-always --file "src/cli/cli-types.ts" --file 'src/type-guards/*.ts' --file "src/ast/symbol-ast-types.ts" --file "src/ast/testing-types.ts" --file "src/ast/file-ast-types.ts" --message "${CONTEXT}${prompt}"
 

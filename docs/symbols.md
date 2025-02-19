@@ -54,7 +54,7 @@ It provides info on:
 
 ### JSON format
 
-The JSON format is available by adding `--json` to the CLI and you will get an array of `SymbolImport` objects returned to you. Each imported symbol has a 0:M set of dependencies which are represented by the `SymbolReference` type.
+The JSON format is available by adding `--json` to the CLI and you will get an array of `SymbolMeta` objects returned to you. 
 
 ### SVG Graph
 
