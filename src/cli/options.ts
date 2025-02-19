@@ -24,6 +24,10 @@ export const command_options = {
       type: Boolean, description: `clear the test file cache prior to analyzing`
     },
     {
+        name: "files",
+        type: Boolean, description: `list all files deemed to be "test files"`
+    },
+    {
       name: "slow", defaultValue: false,
       type: Boolean, description: `only show test files which are slow`
     },

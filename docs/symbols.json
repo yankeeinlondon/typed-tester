@@ -1,0 +1,424 @@
+[
+    {
+        "name": "SymbolImport",
+        "fqn": "module::1372500761::SymbolImport",
+        "filepath": "src/ast/file-ast-types.ts",
+        "startLine": 20,
+        "endLine": 30,
+        "scope": "module",
+        "flags": [
+            "None",
+            "TypeAlias",
+            "PropertyExcludes",
+            "NamespaceModuleExcludes"
+        ],
+        "kind": "type-defn",
+        "generics": [],
+        "jsDocs": [
+            {
+                "comment": "",
+                "tags": []
+            }
+        ],
+        "deps": [
+            {
+                "name": "SymbolReference",
+                "fqn": "local::645790288::SymbolReference",
+                "filepath": "src/ast/file-ast-types.ts",
+                "startLine": 2,
+                "endLine": 2,
+                "scope": "local",
+                "flags": [
+                    "None",
+                    "Alias",
+                    "PropertyExcludes",
+                    "NamespaceModuleExcludes",
+                    "AliasExcludes"
+                ],
+                "kind": "type-defn",
+                "generics": [],
+                "jsDocs": [],
+                "deps": [],
+                "refs": [],
+                "symbolHash": 2423297157,
+                "updated": 1738435394324
+            },
+            [
+                "local::645790288::SymbolReference",
+                {
+                    "symbol": "local::645790288::SymbolReference",
+                    "requiredBy": "SymbolReference",
+                    "depth": 0
+                }
+            ]
+        ],
+        "refs": [],
+        "symbolHash": 3539241414,
+        "updated": 1738435394319
+    },
+    {
+        "name": "FileDiagnostic",
+        "fqn": "module::4143699450::FileDiagnostic",
+        "filepath": "src/ast/file-ast-types.ts",
+        "startLine": 5,
+        "endLine": 18,
+        "scope": "module",
+        "flags": [
+            "None",
+            "TypeAlias",
+            "PropertyExcludes",
+            "NamespaceModuleExcludes"
+        ],
+        "kind": "type-defn",
+        "generics": [],
+        "jsDocs": [
+            {
+                "comment": "",
+                "tags": []
+            }
+        ],
+        "deps": [],
+        "refs": [],
+        "symbolHash": 3250706160,
+        "updated": 1738435394318
+    },
+    {
+        "name": "SymbolKind",
+        "fqn": "module::914150118::SymbolKind",
+        "filepath": "src/ast/symbol-ast-types.ts",
+        "startLine": 37,
+        "endLine": 50,
+        "scope": "module",
+        "flags": [
+            "None",
+            "TypeAlias",
+            "PropertyExcludes",
+            "NamespaceModuleExcludes"
+        ],
+        "kind": "type-defn",
+        "generics": [],
+        "jsDocs": [
+            {
+                "comment": "",
+                "tags": []
+            }
+        ],
+        "deps": [],
+        "refs": [],
+        "symbolHash": 3956361228,
+        "updated": 1738435394328
+    },
+    {
+        "name": "SymbolScope",
+        "fqn": "module::647062484::SymbolScope",
+        "filepath": "src/ast/symbol-ast-types.ts",
+        "startLine": 20,
+        "endLine": 20,
+        "scope": "module",
+        "flags": [
+            "None",
+            "TypeAlias",
+            "PropertyExcludes",
+            "NamespaceModuleExcludes"
+        ],
+        "kind": "type-defn",
+        "generics": [],
+        "jsDocs": [
+            {
+                "comment": "specifies the scope of where the symbol is available:\n\n- `local`: defined in a file and not exported so isolated to use within that file\n- `module`: a symbol that _is_ exported by the repo being analyzed and\navailable anywhere the symbol is imported\n- `external`: a symbol defined in an external repo/module \n\nIn addition there is a `graph` scope which indicates that it is\na graph dependency of another Symbol.",
+                "tags": []
+            }
+        ],
+        "deps": [],
+        "refs": [],
+        "symbolHash": 3891381351,
+        "updated": 1738435394324
+    },
+    {
+        "name": "SymbolFlagKey",
+        "fqn": "module::2576131042::SymbolFlagKey",
+        "filepath": "src/ast/symbol-ast-types.ts",
+        "startLine": 33,
+        "endLine": 35,
+        "scope": "module",
+        "flags": [
+            "None",
+            "TypeAlias",
+            "PropertyExcludes",
+            "NamespaceModuleExcludes"
+        ],
+        "kind": "type-defn",
+        "generics": [],
+        "jsDocs": [
+            {
+                "comment": "The union type which represents all the _keys_ to the `ts.SymbolFlags` enumeration.",
+                "tags": []
+            }
+        ],
+        "deps": [],
+        "refs": [],
+        "symbolHash": 2345275127,
+        "updated": 1738435394328
+    },
+    {
+        "name": "TypeGeneric",
+        "fqn": "module::3777453072::TypeGeneric",
+        "filepath": "src/ast/symbol-ast-types.ts",
+        "startLine": 25,
+        "endLine": 28,
+        "scope": "module",
+        "flags": [
+            "None",
+            "TypeAlias",
+            "PropertyExcludes",
+            "NamespaceModuleExcludes"
+        ],
+        "kind": "type-defn",
+        "generics": [],
+        "jsDocs": [
+            {
+                "comment": "Describes a generic parameter",
+                "tags": []
+            }
+        ],
+        "deps": [],
+        "refs": [],
+        "symbolHash": 997644223,
+        "updated": 1738435394325
+    },
+    {
+        "name": "JsDocInfo",
+        "fqn": "module::3253524738::JsDocInfo",
+        "filepath": "src/ast/symbol-ast-types.ts",
+        "startLine": 146,
+        "endLine": 149,
+        "scope": "module",
+        "flags": [
+            "None",
+            "TypeAlias",
+            "PropertyExcludes",
+            "NamespaceModuleExcludes"
+        ],
+        "kind": "type-defn",
+        "generics": [],
+        "jsDocs": [
+            {
+                "comment": "",
+                "tags": []
+            }
+        ],
+        "deps": [
+            {
+                "name": "JsDocTag",
+                "fqn": "module::3612916201::JsDocTag",
+                "filepath": "src/ast/symbol-ast-types.ts",
+                "startLine": 141,
+                "endLine": 144,
+                "scope": "module",
+                "flags": [
+                    "None",
+                    "TypeAlias",
+                    "PropertyExcludes",
+                    "NamespaceModuleExcludes"
+                ],
+                "kind": "type-defn",
+                "generics": [],
+                "jsDocs": [
+                    {
+                        "comment": "",
+                        "tags": []
+                    }
+                ],
+                "deps": [],
+                "refs": [],
+                "symbolHash": 3493625031,
+                "updated": 1738435394330
+            },
+            [
+                "module::3612916201::JsDocTag",
+                {
+                    "symbol": "module::3612916201::JsDocTag",
+                    "requiredBy": "JsDocTag",
+                    "depth": 0
+                }
+            ]
+        ],
+        "refs": [],
+        "symbolHash": 3450552296,
+        "updated": 1738435394330
+    },
+    {
+        "name": "SymbolReference",
+        "fqn": "module::1914148931::SymbolReference",
+        "filepath": "src/ast/symbol-ast-types.ts",
+        "startLine": 52,
+        "endLine": 56,
+        "scope": "module",
+        "flags": [
+            "None",
+            "TypeAlias",
+            "PropertyExcludes",
+            "NamespaceModuleExcludes"
+        ],
+        "kind": "type-defn",
+        "generics": [],
+        "jsDocs": [
+            {
+                "comment": "",
+                "tags": []
+            }
+        ],
+        "deps": [
+            {
+                "name": "SymbolKind",
+                "fqn": "module::914150118::SymbolKind",
+                "filepath": "src/ast/symbol-ast-types.ts",
+                "startLine": 37,
+                "endLine": 50,
+                "scope": "module",
+                "flags": [
+                    "None",
+                    "TypeAlias",
+                    "PropertyExcludes",
+                    "NamespaceModuleExcludes"
+                ],
+                "kind": "type-defn",
+                "generics": [],
+                "jsDocs": [
+                    {
+                        "comment": "",
+                        "tags": []
+                    }
+                ],
+                "deps": [],
+                "refs": [],
+                "symbolHash": 3956361228,
+                "updated": 1738435394328
+            },
+            [
+                "module::914150118::SymbolKind",
+                {
+                    "symbol": "module::914150118::SymbolKind",
+                    "requiredBy": "SymbolKind",
+                    "depth": 0
+                }
+            ]
+        ],
+        "refs": [],
+        "symbolHash": 1807084356,
+        "updated": 1738435394328
+    },
+    {
+        "name": "JsDocTag",
+        "fqn": "module::3612916201::JsDocTag",
+        "filepath": "src/ast/symbol-ast-types.ts",
+        "startLine": 141,
+        "endLine": 144,
+        "scope": "module",
+        "flags": [
+            "None",
+            "TypeAlias",
+            "PropertyExcludes",
+            "NamespaceModuleExcludes"
+        ],
+        "kind": "type-defn",
+        "generics": [],
+        "jsDocs": [
+            {
+                "comment": "",
+                "tags": []
+            }
+        ],
+        "deps": [],
+        "refs": [],
+        "symbolHash": 3493625031,
+        "updated": 1738435394330
+    },
+    {
+        "name": "TypeTest",
+        "fqn": "module::3925440401::TypeTest",
+        "filepath": "src/ast/testing-types.ts",
+        "startLine": 6,
+        "endLine": 14,
+        "scope": "module",
+        "flags": [
+            "None",
+            "TypeAlias",
+            "PropertyExcludes",
+            "NamespaceModuleExcludes"
+        ],
+        "kind": "type-defn",
+        "generics": [],
+        "jsDocs": [
+            {
+                "comment": "",
+                "tags": []
+            }
+        ],
+        "deps": [
+            {
+                "name": "FileDiagnostic",
+                "fqn": "local::2491369185::FileDiagnostic",
+                "filepath": "src/ast/testing-types.ts",
+                "startLine": 3,
+                "endLine": 3,
+                "scope": "local",
+                "flags": [
+                    "None",
+                    "Alias",
+                    "PropertyExcludes",
+                    "NamespaceModuleExcludes",
+                    "AliasExcludes"
+                ],
+                "kind": "type-defn",
+                "generics": [],
+                "jsDocs": [],
+                "deps": [],
+                "refs": [],
+                "symbolHash": 2915829545,
+                "updated": 1738435394344
+            },
+            {
+                "name": "SymbolReference",
+                "fqn": "local::2491369185::SymbolReference",
+                "filepath": "src/ast/testing-types.ts",
+                "startLine": 4,
+                "endLine": 4,
+                "scope": "local",
+                "flags": [
+                    "None",
+                    "Alias",
+                    "PropertyExcludes",
+                    "NamespaceModuleExcludes",
+                    "AliasExcludes"
+                ],
+                "kind": "type-defn",
+                "generics": [],
+                "jsDocs": [],
+                "deps": [],
+                "refs": [],
+                "symbolHash": 1195224906,
+                "updated": 1738435394345
+            },
+            [
+                "local::2491369185::FileDiagnostic",
+                {
+                    "symbol": "local::2491369185::FileDiagnostic",
+                    "requiredBy": "FileDiagnostic",
+                    "depth": 0
+                }
+            ],
+            [
+                "local::2491369185::SymbolReference",
+                {
+                    "symbol": "local::2491369185::SymbolReference",
+                    "requiredBy": "SymbolReference",
+                    "depth": 0
+                }
+            ]
+        ],
+        "refs": [],
+        "symbolHash": 3136554204,
+        "updated": 1738435394335
+    }
+]
