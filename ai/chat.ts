@@ -4,6 +4,8 @@ import * as fs from 'fs';
 import { spawnSync, execSync } from 'child_process';
 import process from 'process';
 import chalk from 'chalk';
+import {globSync} from 'fast-glob';
+import "dotenv/config";
 
 /**
  * Reads and returns the content of a file.
@@ -29,7 +31,7 @@ export function getFile(filepath: string): string {
 export function hasCommand(cmd: string): boolean {
   try {
     // Using shell built-in to check if command exists
-    execSync(`command -v ${cmd}`, { stdio: 'ignore' });
+    execSync(`command -v ${cmd}`, { stdio: 'ignore', env: process.env });
     return true;
   } catch {
     return false;
@@ -62,7 +64,7 @@ export function chat(prompt: string, files: string[]): void {
   const REASONING = process.env.REASONING || 'high';
 
   if (hasCommand('aider')) {
-    console.log('Starting ...');
+    console.log(`Starting [ ${MODEL}, ${EDITOR_MODEL}, ${REASONING} ]...`);
 
     const args: string[] = [
         '--model', MODEL,
@@ -74,13 +76,17 @@ export function chat(prompt: string, files: string[]): void {
         '--yes-always',
 
         ...files.reduce(
-            (acc, i) => [ ...acc, "--file", i ], [] as string[]
+            (acc, i) => i.includes("*")
+                ? [...acc, ...(globSync(i).reduce(
+                    (group, file) => [ ...group, "--file", file], [] as string[]
+                ))]
+                : [ ...acc, "--file", i], [] as string[]
         ),
         '--message', context + prompt
     ];
 
     // Spawn the aider command with the specified arguments
-    const result = spawnSync('aider', args, { stdio: 'inherit' });
+    const result = spawnSync('aider', args, { stdio: 'inherit', env: process.env });
     if (result.error) {
       console.error('Error running aider:', result.error);
       process.exit(1);

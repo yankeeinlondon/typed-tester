@@ -6,3 +6,4 @@ bin
 .ts-*
 ai/prompts/*.md
 !ai/prompts/context.md
+.env

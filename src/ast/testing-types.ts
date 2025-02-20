@@ -13,6 +13,8 @@ export type TypeTest = {
   readonly symbols: readonly SymbolReference[];
 };
 
+export type Foo<T extends string> = `${T}Bar`;
+
 export type TestBlock = {
   filepath: string;
   description: string;
