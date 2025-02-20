@@ -1,6 +1,19 @@
 #!/usr/bin/env bash
 
 
+# file_exists <filepath>
+#
+# tests whether a given filepath exists in the filesystem
+function file_exists() {
+    local filepath="${1:?filepath is missing in call to file_exists!}"
+
+    if [ -f "${filepath}" ]; then
+        return 0;
+    else
+        return 1;
+    fi
+}
+
 # get_file() <filepath>
 #
 # Gets the content from a file at the given <filepath>
@@ -34,13 +47,12 @@ function has_command() {
     fi
 }
 
-
 function chat() {
     local -r prompt="${1:?no prompt passed into chat!}"
-    local -r CONTEXT="$(get_file "./scripts/context.md")"
+    local -r CONTEXT="$(get_file "${PWD}/scripts/context.md")"
 
     if [[ -z "${CONTEXT}" ]]; then
-        echo "Context not found!"
+        echo "Context file not found (${PWD}/scripts/context.md) !"
         exit 1;
     fi
 
@@ -49,7 +61,7 @@ function chat() {
         echo "Starting ..."
         echo "Starting ..."
 
-        aider --model "${MODEL}" --architect --reasoning-effort "${REASONING}" --editor-model "${EDITOR_MODEL}" --no-detect-urls --no-auto-commit --yes-always --file "src/cli/cli-types.ts" --file 'src/type-guards/*.ts' --file "src/ast/symbol-ast-types.ts" --file "src/ast/testing-types.ts" --file "src/ast/file-ast-types.ts" --message "${CONTEXT}${prompt}"
+        aider --model "${MODEL}" --architect --reasoning-effort "${REASONING}" --editor-model "${EDITOR_MODEL}" --no-detect-urls --no-auto-commit --yes-always --file src/**/*.ts --file "package.json" --message "${CONTEXT}${prompt}"
 
     else 
         echo "- you don\'t have the aider assistant installed"

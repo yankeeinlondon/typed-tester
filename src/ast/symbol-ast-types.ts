@@ -48,10 +48,12 @@ export type SymbolKind =
 | "const-function"
 | "other";
 
+export type FQN = `${"local" | "module" | "ext"}::${number}::${string}`
+
 export type SymbolReference = {
   name: string;
   kind: SymbolKind;
-  fqn: `${"local" | "module" | "ext"}::${number}::${string}`;
+  fqn: FQN;
 }
 
 /**
@@ -80,7 +82,7 @@ export type SymbolMeta<
    * like: `module::<fqn-hash>::<name>`
    * - any reference to an external symbol will be: `ext::<source-hash>::<name>`
    */
-  fqn: string;
+  fqn: FQN;
   /**
    * The scope for which the symbol is available (`local`, 
    * `module`, `external`).

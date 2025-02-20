@@ -16,6 +16,7 @@ import {
 } from "src/type-guards";
 import { isSymbolMeta } from "src/type-guards/isSymbolMeta";
 import { 
+    FQN,
   JsDocInfo, 
   SymbolFlagKey,  
   SymbolKind, 
@@ -258,11 +259,13 @@ export const createFullyQualifiedNameForSymbol = (sym: Symbol) => {
   const scope = getSymbolScope(sym);
   const hasher = getHasher();
 
-  return scope === "external"
+  return (
+    scope === "external"
     ? `ext::${hasher(String(getSymbolSourcePackage(sym)))}::${name}`
     : scope === "local"
     ? `local::${hasher(String(filepath))}::${name}`
     : `module::${hasher(sym.getFullyQualifiedName())}::${name}`
+  ) as FQN
 }
 
 export const createSymbolHash = (sym: Symbol) => {

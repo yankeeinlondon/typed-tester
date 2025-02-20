@@ -5,6 +5,7 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "try": "./bin/typed",
+    "ast": "bun run ai/ast.ts",
     "test": "echo \"no tests until after refactor of CLI interface\"",
     "watch": "tsup src/typed.ts --format=esm -d bin --sourcemap --watch",
     "release": "bumpp"
