@@ -11,11 +11,9 @@ if (args.length === 0) {
 
 const files = [
     "package.json",
-    "src/typed.ts",
-    "src/cli/cli-types.ts",
-    "src/commands/symbols.ts",
-    "src/type-guards/*.ts",
-    "src/ast/*.ts",
+    "docs/overview.md",
+    "docs/symbols.md",
+    "src/**/*.ts",
     ...args.slice(1).filter(i => !i.startsWith("-"))
 ]
 

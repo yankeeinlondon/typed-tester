@@ -1,81 +1,82 @@
 import { relative } from "pathe";
 import { cwd } from "process";
-import { 
-  Node, 
-  Symbol, 
-  TypeChecker, 
-  ts, 
-  SyntaxKind, 
-  ModifierableNode, 
-  SymbolFlags,
-  ImportDeclaration,
-  VariableDeclaration, 
+import {
+    Node,
+    Symbol,
+    TypeChecker,
+    ts,
+    SyntaxKind,
+    ModifierableNode,
+    SymbolFlags,
+    ImportDeclaration,
+    VariableDeclaration,
 } from "ts-morph";
-import {  
-  isSymbol, 
+import {
+    isSymbol,
 } from "src/type-guards";
 import { isSymbolMeta } from "src/type-guards/isSymbolMeta";
-import { 
+import {
     FQN,
-  JsDocInfo, 
-  SymbolFlagKey,  
-  SymbolKind, 
-  SymbolMeta, 
-  SymbolReference, 
-  SymbolScope, 
-  TypeGeneric 
+    JsDocInfo,
+    SymbolFlagKey,
+    SymbolKind,
+    SymbolMeta,
+    SymbolReference,
+    SymbolScope,
+    TypeGeneric
 } from "./symbol-ast-types";
 import { getHasher } from "src/cache/cache";
-import {  getProjectTypeChecker } from "./project";
+import { getProjectTypeChecker } from "./project";
 import { lookupSymbol, updateSymbolCache } from "src/cache";
+import chalk from "chalk";
 
 
 function getSymbolsJSDocInfo(symbol: Symbol): JsDocInfo[] {
-  const declarations = symbol.getDeclarations();
-  const jsDocInfo = declarations.map(declaration => {
-      if (Node.isJSDocable(declaration)) {
-          const jsDocs = declaration.getJsDocs();
-          const tags = jsDocs.flatMap(jsDoc => jsDoc.getTags().map(tag => ({
-              tagName: tag.getTagName(),
-              comment: tag.getComment(),
-          })));
+    const declarations = symbol.getDeclarations();
+    const jsDocInfo = declarations.map(declaration => {
+        if (Node.isJSDocable(declaration)) {
+            const jsDocs = declaration.getJsDocs();
+            const tags = jsDocs.flatMap(jsDoc => jsDoc.getTags().map(tag => ({
+                tagName: tag.getTagName(),
+                comment: tag.getComment(),
+            })));
 
-          const comment = jsDocs.map(jsDoc => jsDoc.getComment()).join("\n");
+            const comment = jsDocs.map(jsDoc => jsDoc.getComment()).join("\n");
 
-          return {
-              comment,
-              tags
-          };
-      } else {
-          return null;
-      }
-  }).filter(info => info !== null); // Filter out any null entries
+            return {
+                comment,
+                tags
+            };
+        } else {
+            return null;
+        }
+    }).filter(info => info !== null); // Filter out any null entries
 
     return jsDocInfo;
 }
 
 function getSymbolGenerics(symbol: Symbol): TypeGeneric[] {
-  const declarations = symbol.getDeclarations();
-  const generics: TypeGeneric[] = [];
+    const declarations = (symbol.getAliasedSymbol() || symbol).getDeclarations()
+    const generics: TypeGeneric[] = [];
 
-  declarations.forEach(declaration => {
-    if (Node.isFunctionLikeDeclaration(declaration) || Node.isClassDeclaration(declaration) || Node.isInterfaceDeclaration(declaration) || Node.isTypeAliasDeclaration(declaration)) {
-        const typeParameters = declaration.getTypeParameters();
-        typeParameters.forEach(typeParam => {
-            generics.push({
-                name: typeParam.getName(),
-                type: typeParam.getType().getText()
+    declarations.forEach(declaration => {
+        if (Node.isFunctionLikeDeclaration(declaration) || Node.isClassDeclaration(declaration) || Node.isInterfaceDeclaration(declaration) || Node.isTypeAliasDeclaration(declaration)) {
+            const typeParameters = declaration.getTypeParameters();
+            typeParameters.forEach(typeParam => {
+                generics.push({
+                    name: typeParam.getName(),
+                    type: typeParam.getType().getText()
+                });
             });
-        });
-    }
-  });
+        }
+    });
 
-  return generics;
+    return generics;
 }
 
 export const isExternalSymbol = (sym: Symbol): boolean => {
-  const name = getSymbolName(sym);
-  return name === sym.getFullyQualifiedName();
+    const name = getSymbolName(sym);
+    return name === sym.getFullyQualifiedName();
 }
 
 /**
@@ -84,60 +85,67 @@ export const isExternalSymbol = (sym: Symbol): boolean => {
  * @returns True if the symbol is exported; otherwise, false.
  */
 export function isSymbolExported(symbol: Symbol): boolean {
-  const declarations = symbol.getDeclarations();
+    const declarations = symbol.getDeclarations();
 
-  for (const declaration of declarations) {
-    const sourceFile = declaration.getSourceFile();
+    for (const declaration of declarations) {
+        try {
+            const sourceFile = declaration.getSourceFile();
 
-    // Check if the declaration itself has the 'export' keyword
-    if (
-      Node.isModifierable(declaration) &&
-      declaration.getModifiers().some(mod => mod.getKind() === SyntaxKind.ExportKeyword)
-    ) {
-      return true;
-    }
+            // Check if the declaration itself has the 'export' keyword
+            if (
+                Node.isModifierable(declaration) &&
+                declaration.getModifiers().some(mod => mod.getKind() === SyntaxKind.ExportKeyword)
+            ) {
+                return true;
+            }
 
-    // Specifically check for exported const/let/var declarations
-    if (Node.isVariableDeclaration(declaration)) {
-      const variableStatement = declaration.getParent().getParentIfKind(SyntaxKind.VariableStatement);
-      if (
-        variableStatement &&
-        variableStatement.getModifiers().some(mod => mod.getKind() === SyntaxKind.ExportKeyword)
-      ) {
-        return true;
-      }
-    }
+            // Specifically check for exported const/let/var declarations
+            if (Node.isVariableDeclaration(declaration)) {
+                const variableStatement = declaration.getParent().getParentIfKind(SyntaxKind.VariableStatement);
+                if (
+                    variableStatement &&
+                    variableStatement.getModifiers().some(mod => mod.getKind() === SyntaxKind.ExportKeyword)
+                ) {
+                    return true;
+                }
+            }
 
-    // Check for named exports like 'export { MySymbol };'
-    const exportDeclarations = sourceFile.getExportDeclarations();
-    for (const exportDecl of exportDeclarations) {
-      const namedExports = exportDecl.getNamedExports();
-      for (const namedExport of namedExports) {
-        const exportedSymbol = namedExport.getSymbol();
+            // Check for named exports like 'export { MySymbol };'
+            const exportDeclarations = sourceFile.getExportDeclarations();
+            for (const exportDecl of exportDeclarations) {
+                const namedExports = exportDecl.getNamedExports();
+                for (const namedExport of namedExports) {
+                    const exportedSymbol = namedExport.getSymbol();
 
-        if (exportedSymbol && exportedSymbol === symbol) {
-          return true;
+                    if (exportedSymbol && exportedSymbol === symbol) {
+                        return true;
+                    }
+                }
+            }
+
+            // Check if the symbol is the default export
+            const defaultExportSymbol = sourceFile.getDefaultExportSymbol();
+            if (defaultExportSymbol && defaultExportSymbol === symbol) {
+                return true;
+            }
+
+            // Check if the symbol is exported via a re-export statement like 'export * from "./module";'
+            const exportStars = sourceFile.getExportAssignments();
+            for (const exportStar of exportStars) {
+                const exportedSymbol = exportStar.getSymbol();
+                if (exportedSymbol && exportedSymbol === symbol) {
+                    return true;
+                }
+            }
+
+        } catch (err) {
+            console.log(chalk.red("- Error: ") + `ran into problems interogating ${symbol.getFullyQualifiedName()}`);
+            console.error(err);
         }
-      }
     }
 
-    // Check if the symbol is the default export
-    const defaultExportSymbol = sourceFile.getDefaultExportSymbol();
-    if (defaultExportSymbol && defaultExportSymbol === symbol) {
-      return true;
-    }
 
-    // Check if the symbol is exported via a re-export statement like 'export * from "./module";'
-    const exportStars = sourceFile.getExportAssignments();
-    for (const exportStar of exportStars) {
-      const exportedSymbol = exportStar.getSymbol();
-      if (exportedSymbol && exportedSymbol === symbol) {
-        return true;
-      }
-    }
-  }
-
-  return false;
+    return false;
 }
 
 /**
@@ -150,31 +158,31 @@ export function isSymbolExported(symbol: Symbol): boolean {
  *  - `external` if the symbol is from an external library
  */
 export function getSymbolScope(symbol: Symbol): SymbolScope {
-  const declarations = symbol.getDeclarations();
+    const declarations = symbol.getDeclarations();
 
-  // If there are no declarations, it's likely an external symbol
-  if (
-    declarations.length === 0 ||
-    getSymbolKind(symbol) === "external-type"
-  ) {
-      return 'external';
-  }
+    // If there are no declarations, it's likely an external symbol
+    if (
+        declarations.length === 0 ||
+        getSymbolKind(symbol) === "external-type"
+    ) {
+        return 'external';
+    }
 
-  // Check if the symbol is declared in an external library
-  const firstDeclaration = declarations[0];
-  const sourceFile = firstDeclaration.getSourceFile();
+    // Check if the symbol is declared in an external library
+    const firstDeclaration = declarations[0];
+    const sourceFile = firstDeclaration.getSourceFile();
 
-  if (sourceFile.isInNodeModules()) {
-      return 'external';
-  }
+    if (sourceFile.isInNodeModules()) {
+        return 'external';
+    }
 
 
-  if (isSymbolExported(symbol)) {
-      return 'module';
-  }
+    if (isSymbolExported(symbol)) {
+        return 'module';
+    }
 
-  // If not exported and not from an external library, it's local
-  return 'local';
+    // If not exported and not from an external library, it's local
+    return 'local';
 }
 
 /**
@@ -184,7 +192,7 @@ export function getSymbolScope(symbol: Symbol): SymbolScope {
  * otherwise returns the name of the package.
  */
 const getSymbolSourcePackage = (symbol: Symbol): string | null => {
-  const declarations = symbol.getDeclarations();
+    const declarations = symbol.getDeclarations();
 
     // If there are no declarations, it's likely an external symbol
     if (declarations.length === 0) {
@@ -238,43 +246,43 @@ const getSymbolSourcePackage = (symbol: Symbol): string | null => {
 };
 
 export function getSymbolDefinition(symbol: Symbol): string {
-  // Get the declarations associated with the symbol
-  const declarations = symbol.getDeclarations();
+    // Get the declarations associated with the symbol
+    const declarations = symbol.getDeclarations();
 
-  // If there are no declarations, return undefined
-  if (declarations.length === 0) {
-      throw new Error(`Could not get the definition code for the symbol "${symbol.getName()}"`)
-  }
+    // If there are no declarations, return undefined
+    if (declarations.length === 0) {
+        throw new Error(`Could not get the definition code for the symbol "${symbol.getName()}"`)
+    }
 
-  // Get the first declaration (typically, there's only one primary declaration)
-  const declaration = declarations[0];
+    // Get the first declaration (typically, there's only one primary declaration)
+    const declaration = declarations[0];
 
-  // Return the full text of the declaration
-  return declaration.getFullText();
+    // Return the full text of the declaration
+    return declaration.getFullText();
 }
 
 export const createFullyQualifiedNameForSymbol = (sym: Symbol) => {
-  const name = getSymbolName(sym);
-  const {filepath} = getSymbolFileDefinition(sym);
-  const scope = getSymbolScope(sym);
-  const hasher = getHasher();
+    const name = getSymbolName(sym);
+    const { filepath } = getSymbolFileDefinition(sym);
+    const scope = getSymbolScope(sym);
+    const hasher = getHasher();
 
-  return (
-    scope === "external"
-    ? `ext::${hasher(String(getSymbolSourcePackage(sym)))}::${name}`
-    : scope === "local"
-    ? `local::${hasher(String(filepath))}::${name}`
-    : `module::${hasher(sym.getFullyQualifiedName())}::${name}`
-  ) as FQN
+    return (
+        scope === "external"
+            ? `ext::${hasher(String(getSymbolSourcePackage(sym)))}::${name}`
+            : scope === "local"
+                ? `local::${hasher(String(filepath))}::${name}`
+                : `module::${hasher(sym.getFullyQualifiedName())}::${name}`
+    ) as FQN
 }
 
 export const createSymbolHash = (sym: Symbol) => {
-  const hasher = getHasher();
-  const scope = getSymbolScope(sym);
+    const hasher = getHasher();
+    const scope = getSymbolScope(sym);
 
-  return scope === "external"
-    ? hasher(String(getSymbolSourcePackage(sym)))
-    : hasher(getSymbolDefinition(sym));
+    return scope === "external"
+        ? hasher(String(getSymbolSourcePackage(sym)))
+        : hasher(getSymbolDefinition(sym));
 }
 
 /**
@@ -283,26 +291,26 @@ export const createSymbolHash = (sym: Symbol) => {
  * can be stored in the parent symbol's `deps` property.
  */
 const pushSymbolDepsToCache = (sym: Symbol) => {
-  const deps = getSymbolDependencies(sym, false).filter(d => d.kind === "type-defn");
-  updateSymbolCache(...deps);
+    const deps = getSymbolDependencies(sym, false).filter(d => d.kind === "type-defn");
+    updateSymbolCache(...deps);
 
-  return deps.map(i => i.fqn);
+    return deps.map(i => i.fqn);
 }
 
 export const asSymbolReference = (sym: Symbol | SymbolMeta): SymbolReference => {
-  if (isSymbolMeta(sym)) {
-    return {
-      name: sym.name,
-      fqn: sym.fqn,
-      kind: sym.kind
+    if (isSymbolMeta(sym)) {
+        return {
+            name: sym.name,
+            fqn: sym.fqn,
+            kind: sym.kind
+        }
+    } else {
+        return {
+            name: getSymbolName(sym),
+            fqn: createFullyQualifiedNameForSymbol(sym),
+            kind: getSymbolKind(sym)
+        }
     }
-  } else {
-    return {
-      name: getSymbolName(sym),
-      fqn: createFullyQualifiedNameForSymbol(sym),
-      kind: getSymbolKind(sym)
-    }
-  }
 }
 
 /**
@@ -312,31 +320,31 @@ export const asSymbolReference = (sym: Symbol | SymbolMeta): SymbolReference => 
  * contains useful summary information and is serializable.
  */
 export const asSymbolMeta = (sym: Symbol, recurse?: boolean): SymbolMeta => ({
-  name: getSymbolName(sym),
-  fqn: createFullyQualifiedNameForSymbol(sym),
-  // brings in filepath, startLine, and endLine
-  ...getSymbolFileDefinition(sym),
-  scope: getSymbolScope(sym),
-  flags: getSymbolFlags(sym),
-  kind: getSymbolKind(sym),
-  generics: getSymbolGenerics(sym),
-  jsDocs: getSymbolsJSDocInfo(sym),
-  deps: recurse !== false && getSymbolKind(sym) === "type-defn" 
-    ? pushSymbolDepsToCache(sym) 
-    : [],
-  refs: [], // findReferencingSymbols(sym),
+    name: getSymbolName(sym),
+    fqn: createFullyQualifiedNameForSymbol(sym),
+    // brings in filepath, startLine, and endLine
+    ...getSymbolFileDefinition(sym),
+    scope: getSymbolScope(sym),
+    flags: getSymbolFlags(sym),
+    kind: getSymbolKind(sym),
+    generics: getSymbolGenerics(sym),
+    jsDocs: getSymbolsJSDocInfo(sym),
+    deps: recurse !== false && getSymbolKind(sym) === "type-defn"
+        ? pushSymbolDepsToCache(sym)
+        : [],
+    refs: [], // findReferencingSymbols(sym),
 
-  symbolHash: createSymbolHash(sym),
-  updated: Date.now()
+    symbolHash: createSymbolHash(sym),
+    updated: Date.now()
 });
 
 /**
  * Distinguishes between a true symbol definition and a generic.
  */
 export function isGenericSymbol(symbol: Symbol): boolean {
-  // Check if the symbol is a type parameter (generic type)
-  const flags = symbol.getFlags();
-  return (flags & ts.SymbolFlags.TypeParameter) !== 0;
+    // Check if the symbol is a type parameter (generic type)
+    const flags = symbol.getFlags();
+    return (flags & ts.SymbolFlags.TypeParameter) !== 0;
 }
 
 /**
@@ -344,66 +352,66 @@ export function isGenericSymbol(symbol: Symbol): boolean {
  * in `ts.SymbolFlags`
  */
 export function symbolHasSymbolFlags(symbol: Symbol, ...find: ts.SymbolFlags[]) {
-  const flags = symbol.getFlags();
-  return find.some(f => (flags & f) == f)
+    const flags = symbol.getFlags();
+    return find.some(f => (flags & f) == f)
 }
 
 export function isExportedSymbol(symbol: Symbol): boolean {
-  const declarations = symbol.getDeclarations();
+    const declarations = symbol.getDeclarations();
 
-  if (declarations.length === 0) {
-    return false;
-  }
-
-  // Check if the symbol is imported
-  if (declarations.some(declaration => Node.isImportSpecifier(declaration) || Node.isImportClause(declaration))) {
-    return true;
-  }
-
-  // Check if the symbol is exported in the current file
-  return declarations.some(declaration => {
-    const parent = declaration.getParent();
-
-    // For variable declarations, check the parent VariableStatement
-    if (Node.isVariableDeclaration(declaration) && parent && Node.isVariableStatement(parent)) {
-      return parent.getModifiers().some(modifier => 
-        modifier.getKind() === SyntaxKind.ExportKeyword || 
-        modifier.getKind() === SyntaxKind.DefaultKeyword
-      );
+    if (declarations.length === 0) {
+        return false;
     }
 
-    // For other declarations, check for export keyword directly
-    if (
-      Node.isFunctionDeclaration(declaration) ||
-      Node.isClassDeclaration(declaration) ||
-      Node.isInterfaceDeclaration(declaration) ||
-      Node.isEnumDeclaration(declaration) ||
-      Node.isTypeAliasDeclaration(declaration)
-    ) {
-      return (declaration as ModifierableNode).getModifiers().some(modifier =>
-        modifier.getKind() === SyntaxKind.ExportKeyword || 
-        modifier.getKind() === SyntaxKind.DefaultKeyword
-      );
+    // Check if the symbol is imported
+    if (declarations.some(declaration => Node.isImportSpecifier(declaration) || Node.isImportClause(declaration))) {
+        return true;
     }
 
-    return false;
-  });
+    // Check if the symbol is exported in the current file
+    return declarations.some(declaration => {
+        const parent = declaration.getParent();
+
+        // For variable declarations, check the parent VariableStatement
+        if (Node.isVariableDeclaration(declaration) && parent && Node.isVariableStatement(parent)) {
+            return parent.getModifiers().some(modifier =>
+                modifier.getKind() === SyntaxKind.ExportKeyword ||
+                modifier.getKind() === SyntaxKind.DefaultKeyword
+            );
+        }
+
+        // For other declarations, check for export keyword directly
+        if (
+            Node.isFunctionDeclaration(declaration) ||
+            Node.isClassDeclaration(declaration) ||
+            Node.isInterfaceDeclaration(declaration) ||
+            Node.isEnumDeclaration(declaration) ||
+            Node.isTypeAliasDeclaration(declaration)
+        ) {
+            return (declaration as ModifierableNode).getModifiers().some(modifier =>
+                modifier.getKind() === SyntaxKind.ExportKeyword ||
+                modifier.getKind() === SyntaxKind.DefaultKeyword
+            );
+        }
+
+        return false;
+    });
 }
 
 function getReferencedSymbols(node: Node, typeChecker: TypeChecker): Node[] {
-  const referencedSymbols: Node[] = [];
+    const referencedSymbols: Node[] = [];
 
-  // Recursively find all referenced symbols within the node
-  node.forEachDescendant(descendant => {
-    if (Node.isIdentifier(descendant)) {
-      const symbol = typeChecker.getSymbolAtLocation(descendant);
-      if (symbol && !isGenericSymbol(symbol)) {
-        referencedSymbols.push(descendant);
-      }
-    }
-  });
+    // Recursively find all referenced symbols within the node
+    node.forEachDescendant(descendant => {
+        if (Node.isIdentifier(descendant)) {
+            const symbol = typeChecker.getSymbolAtLocation(descendant);
+            if (symbol && !isGenericSymbol(symbol)) {
+                referencedSymbols.push(descendant);
+            }
+        }
+    });
 
-  return referencedSymbols;
+    return referencedSymbols;
 }
 
 /**
@@ -411,172 +419,172 @@ function getReferencedSymbols(node: Node, typeChecker: TypeChecker): Node[] {
  * structure.
  */
 export const getSymbolName = (sym: Symbol | SymbolMeta): string => {
-  const name: string | undefined = isSymbol(sym)
-    ? sym.getName()
-    : isSymbolMeta(sym)
-    ? sym.name
-    : undefined;
+    const name: string | undefined = isSymbol(sym)
+        ? sym.getName()
+        : isSymbolMeta(sym)
+            ? sym.name
+            : undefined;
 
-  if (!name) {
-    throw new Error(`Invalid symbol provided to symbolName()!`);
-  }
+    if (!name) {
+        throw new Error(`Invalid symbol provided to symbolName()!`);
+    }
 
-  return name;
+    return name;
 }
 /**
  * categorizes a **ts-morph** `Symbol` into a broad category defined
  * the `SymbolKind` type alias.
  */
 export const getSymbolKind = (symbol: Symbol): SymbolKind => {
-  const sym =  symbol.getAliasedSymbol() || symbol;
-  const declarations = sym.getDeclarations();
-  const valueDeclaration = sym.getValueDeclaration();
+    const sym = symbol.getAliasedSymbol() || symbol;
+    const declarations = sym.getDeclarations();
+    const valueDeclaration = sym.getValueDeclaration();
 
-  // Check if it's an external type
-  if (declarations.some(decl => decl.getSourceFile().isFromExternalLibrary())) {
-    return "external-type";
-  }
-
-  // Check for type definitions or constraints using SymbolFlags
-  if (
-    symbolHasSymbolFlags(
-      sym,
-      SymbolFlags.TypeAlias,
-      SymbolFlags.Type,
-      SymbolFlags.TypeLiteral,
-      SymbolFlags.Interface,
-      SymbolFlags.TypeParameter,
-      SymbolFlags.TypeAliasExcludes
-    ) || 
-    declarations.some(decl => 
-      decl.getKind() === SyntaxKind.TypeAliasDeclaration || 
-      decl.getKind() === SyntaxKind.InterfaceDeclaration ||
-      decl.getKind() === SyntaxKind.TypeReference
-    )
-  ) {
-    return "type-defn";
-  }
-
-  // Check for type constraints using SymbolFlags
-  if (
-    symbolHasSymbolFlags(
-      sym,
-      SymbolFlags.TypeParameter,
-      SymbolFlags.TypeParameterExcludes,
-      SymbolFlags.Type
-    ) || 
-    declarations.some(decl => 
-      decl.getKind() === SyntaxKind.TypeParameter
-    )
-  ) {
-    return "type-constraint";
-  }
-
-  // Check for function declarations
-  if (
-    declarations.some(decl => 
-      decl.getKind() === SyntaxKind.FunctionDeclaration
-    )
-  ) {
-    return "function";
-  }
-
-  // Check for const-function (variable with function initializer)
-  if (
-    valueDeclaration &&
-    valueDeclaration.getKind() === SyntaxKind.VariableDeclaration
-  ) {
-    const variableDecl = valueDeclaration as VariableDeclaration;
-    const initializer = variableDecl.getInitializer();
-    if (initializer && initializer.getKind() === SyntaxKind.ArrowFunction) {
-      return "const-function";
+    // Check if it's an external type
+    if (declarations.some(decl => decl.getSourceFile().isFromExternalLibrary())) {
+        return "external-type";
     }
-  }
 
-  // Check for properties with no declarations
-  if (
-    symbolHasSymbolFlags(
-      sym, 
-      SymbolFlags.Property, 
-      SymbolFlags.PropertyExcludes
-    )
-  ) {
+    // Check for type definitions or constraints using SymbolFlags
+    if (
+        symbolHasSymbolFlags(
+            sym,
+            SymbolFlags.TypeAlias,
+            SymbolFlags.Type,
+            SymbolFlags.TypeLiteral,
+            SymbolFlags.Interface,
+            SymbolFlags.TypeParameter,
+            SymbolFlags.TypeAliasExcludes
+        ) ||
+        declarations.some(decl =>
+            decl.getKind() === SyntaxKind.TypeAliasDeclaration ||
+            decl.getKind() === SyntaxKind.InterfaceDeclaration ||
+            decl.getKind() === SyntaxKind.TypeReference
+        )
+    ) {
+        return "type-defn";
+    }
 
-    return "property";
-  }
+    // Check for type constraints using SymbolFlags
+    if (
+        symbolHasSymbolFlags(
+            sym,
+            SymbolFlags.TypeParameter,
+            SymbolFlags.TypeParameterExcludes,
+            SymbolFlags.Type
+        ) ||
+        declarations.some(decl =>
+            decl.getKind() === SyntaxKind.TypeParameter
+        )
+    ) {
+        return "type-constraint";
+    }
 
-  // If no declarations are available, return "other"
-  if (!declarations.length && !valueDeclaration) {
+    // Check for function declarations
+    if (
+        declarations.some(decl =>
+            decl.getKind() === SyntaxKind.FunctionDeclaration
+        )
+    ) {
+        return "function";
+    }
+
+    // Check for const-function (variable with function initializer)
+    if (
+        valueDeclaration &&
+        valueDeclaration.getKind() === SyntaxKind.VariableDeclaration
+    ) {
+        const variableDecl = valueDeclaration as VariableDeclaration;
+        const initializer = variableDecl.getInitializer();
+        if (initializer && initializer.getKind() === SyntaxKind.ArrowFunction) {
+            return "const-function";
+        }
+    }
+
+    // Check for properties with no declarations
+    if (
+        symbolHasSymbolFlags(
+            sym,
+            SymbolFlags.Property,
+            SymbolFlags.PropertyExcludes
+        )
+    ) {
+
+        return "property";
+    }
+
+    // If no declarations are available, return "other"
+    if (!declarations.length && !valueDeclaration) {
+        return "other";
+    }
+
+    const symbolType = sym.getTypeAtLocation(
+        valueDeclaration || declarations[0]
+    );
+
+    // Check if it's an instance of a class
+    if (symbolType.isObject() && symbolType.getSymbol()?.getName() !== 'Object') {
+        const isInstance = symbolType.getSymbol()?.getDeclarations().some(decl => decl.getKind() === SyntaxKind.ClassDeclaration);
+        if (isInstance) {
+            return "instance";
+        }
+    }
+
+    // Check if it's a class
+    if (symbolType.isClass()) {
+        return "class";
+    }
+
+    // Check if it's a scalar type (number, string, boolean, etc.)
+    if (symbolType.isString() || symbolType.isNumber() || symbolType.isBoolean() || symbolType.isEnum() || symbolType.isLiteral()) {
+        return "scalar";
+    }
+
+    if (symbolType.isUnionOrIntersection()) {
+        return "union-or-intersection"
+    }
+
+    // Check if it's a container (object, array, Map, Set, etc.)
+    if (
+        symbolType.isObject() ||
+        symbolType.isArray()
+    ) {
+        return "container";
+    }
+
+    // Default to "other"
     return "other";
-  }
-
-  const symbolType = sym.getTypeAtLocation(
-    valueDeclaration || declarations[0]
-  );
-
-  // Check if it's an instance of a class
-  if (symbolType.isObject() && symbolType.getSymbol()?.getName() !== 'Object') {
-    const isInstance = symbolType.getSymbol()?.getDeclarations().some(decl => decl.getKind() === SyntaxKind.ClassDeclaration);
-    if (isInstance) {
-      return "instance";
-    }
-  }
-
-  // Check if it's a class
-  if (symbolType.isClass()) {
-    return "class";
-  }
-
-  // Check if it's a scalar type (number, string, boolean, etc.)
-  if (symbolType.isString() || symbolType.isNumber() || symbolType.isBoolean() || symbolType.isEnum() || symbolType.isLiteral()) {
-    return "scalar";
-  }
-
-  if (symbolType.isUnionOrIntersection()) {
-    return "union-or-intersection"
-  }
-
-  // Check if it's a container (object, array, Map, Set, etc.)
-  if (
-    symbolType.isObject() ||
-     symbolType.isArray()
-  ) {
-    return "container";
-  }
-
-  // Default to "other"
-  return "other";
 }
 
 
-export const getSymbolFileDefinition = (sym: Symbol): { 
-  filepath: string; 
-  startLine: number;
-  endLine: number;
+export const getSymbolFileDefinition = (sym: Symbol): {
+    filepath: string;
+    startLine: number;
+    endLine: number;
 } => {
-  // Try to get the first declaration of the symbol
-  const decl = sym.getDeclarations()[0];
+    // Try to get the first declaration of the symbol
+    const decl = sym.getDeclarations()[0];
 
-  if (!decl) {
-    // If no declarations are found, return undefined values
+    if (!decl) {
+        // If no declarations are found, return undefined values
+        return {
+            filepath: "",
+            startLine: -1,
+            endLine: -1
+        };
+    }
+
+    // Get the source file from the declaration
+    const sourceFile = decl.getSourceFile();
+    const filepath = relative(cwd(), sourceFile.getFilePath());
+    const startLine = decl.getStartLineNumber();
+    const endLine = decl.getEndLineNumber();
+
     return {
-      filepath: "",
-      startLine: -1,
-      endLine: -1
+        filepath,
+        startLine,
+        endLine
     };
-  }
-
-  // Get the source file from the declaration
-  const sourceFile = decl.getSourceFile();
-  const filepath = relative(cwd(), sourceFile.getFilePath());
-  const startLine = decl.getStartLineNumber();
-  const endLine = decl.getEndLineNumber();
-
-  return {
-    filepath,
-    startLine,
-    endLine
-  };
 };
 
 /**
@@ -591,13 +599,13 @@ export const getSymbolFileDefinition = (sym: Symbol): {
  * ```
  */
 export type SymbolFlagLookup<T extends number> = keyof {
-  [K in keyof typeof ts.SymbolFlags as T extends typeof ts.SymbolFlags[K] ? K : never]: K;
+    [K in keyof typeof ts.SymbolFlags as T extends typeof ts.SymbolFlags[K] ? K : never]: K;
 };
 
 const reverseLookupEnum = (enumObj: object) => (value: number): SymbolFlagKey[] => {
-  return Object.entries(enumObj)
-    .filter(([_key, val]) => typeof val === "number" && (value & val) === val)
-    .map(([key]) => key as SymbolFlagKey) || `unknown(${value})`;
+    return Object.entries(enumObj)
+        .filter(([_key, val]) => typeof val === "number" && (value & val) === val)
+        .map(([key]) => key as SymbolFlagKey) || `unknown(${value})`;
 };
 
 /**
@@ -614,8 +622,8 @@ const reverseLookupEnum = (enumObj: object) => (value: number): SymbolFlagKey[] 
  * be a union too.
  */
 export const getSymbolFlags = <T extends Symbol>(sym: T): SymbolFlagKey[] => {
-  const flag = sym.getFlags();
-  return reverseLookupEnum(SymbolFlags)(flag);
+    const flag = sym.getFlags();
+    return reverseLookupEnum(SymbolFlags)(flag);
 }
 
 /**
@@ -627,64 +635,66 @@ export const getSymbolFlags = <T extends Symbol>(sym: T): SymbolFlagKey[] => {
  * of this function by leveraging the `kind` of the returned `SymbolMeta`
  */
 export const getSymbolDependencies = (
-  symbol: Symbol,
-  recurse: boolean = true
+    symbol: Symbol,
+    recurse: boolean = true
 ): SymbolMeta[] => {
-  const dependencies: Map<string, Symbol> = new Map<string, Symbol>;
-  const typeChecker: TypeChecker = getProjectTypeChecker();
+    const dependencies: Map<string, Symbol> = new Map<string, Symbol>;
+    const typeChecker: TypeChecker = getProjectTypeChecker();
 
-  // Get the declaration node for the symbol
-  const declarations = symbol.getDeclarations();
-  if (declarations.length === 0) {
-    return [];
-  }
+    // Get the declaration node for the symbol
+    const declarations = symbol.getDeclarations();
+    if (declarations.length === 0) {
+        return [];
+    }
 
-  // Analyze each declaration of the symbol
-  declarations.forEach(declaration => {
-    /** the symbols which a given declaration uses */
-    const references = getReferencedSymbols(declaration, typeChecker);
+    // Analyze each declaration of the symbol
+    declarations.forEach(declaration => {
+        /** the symbols which a given declaration uses */
+        const references = getReferencedSymbols(declaration, typeChecker);
 
-    references.forEach(ref => {
-      const refSymbol = typeChecker.getSymbolAtLocation(ref);
-      if (refSymbol) {
-        let name = refSymbol.getName();
-        if (name !== symbol.getName() && !isGenericSymbol(refSymbol)) {
-          if (!dependencies.has(name) ) {{
-            dependencies.set(name, refSymbol)
-          }}
-        }
-      }
+        references.forEach(ref => {
+            const refSymbol = typeChecker.getSymbolAtLocation(ref);
+            if (refSymbol) {
+                let name = refSymbol.getName();
+                if (name !== symbol.getName() && !isGenericSymbol(refSymbol)) {
+                    if (!dependencies.has(name)) {
+                        {
+                            dependencies.set(name, refSymbol)
+                        }
+                    }
+                }
+            }
+        });
     });
-  });
 
-  const deps: SymbolMeta[] = [];
-  for (const [_name, sym] of dependencies) {
-    deps.push(asSymbolMeta(sym, recurse));
-  }
+    const deps: SymbolMeta[] = [];
+    for (const [_name, sym] of dependencies) {
+        deps.push(asSymbolMeta(sym, recurse));
+    }
 
-  return deps;
+    return deps;
 }
 
 export type GraphNode = {
-  symbol: string;
-  requiredBy: string;
-  depth: number;
+    symbol: string;
+    requiredBy: string;
+    depth: number;
 }
 
 const removeInitial = (graph: Map<string, GraphNode>): Map<string, GraphNode> => {
-  const lvl0: string[] = [];
+    const lvl0: string[] = [];
 
-  for (const sym  of graph.values()) {
-    if (sym.depth === 0) {
-      lvl0.push(sym.symbol);
+    for (const sym of graph.values()) {
+        if (sym.depth === 0) {
+            lvl0.push(sym.symbol);
+        }
     }
-  }
-  
-  for (const sym of lvl0) {
-    graph.delete(sym);
-  }
 
-  return graph;
+    for (const sym of lvl0) {
+        graph.delete(sym);
+    }
+
+    return graph;
 }
 
 /**
@@ -697,78 +707,78 @@ const removeInitial = (graph: Map<string, GraphNode>): Map<string, GraphNode> =>
  * Note: this works off the cache so it assumes this has been loaded.
  */
 export const getDependencyGraph = (
-  /** the fully qualified names for items in the  */
-  symbols: string[],
-  excludeInitial: boolean = false,
-  stopDepth: number = 4,
-  depth: number = 0,
-  graph: Map<string, GraphNode> = new Map<string, GraphNode>()
+    /** the fully qualified names for items in the  */
+    symbols: string[],
+    excludeInitial: boolean = false,
+    stopDepth: number = 4,
+    depth: number = 0,
+    graph: Map<string, GraphNode> = new Map<string, GraphNode>()
 ): Map<string, GraphNode> => {
 
-  if (depth === stopDepth) {
-    return excludeInitial
-      ? removeInitial(graph)
-      : graph;
-  }
+    if (depth === stopDepth) {
+        return excludeInitial
+            ? removeInitial(graph)
+            : graph;
+    }
 
-  const newSymbols = symbols
-    .filter(s => !graph.has(s)) // no duplicates
-    .map(s => lookupSymbol(s))
-    .filter(s => s) as SymbolMeta[];
-  // now add symbols to graph
-  for (const s of newSymbols) {
-    graph.set(s.fqn, { symbol: s.fqn, requiredBy: s.name, depth });
-  }
-  
-  // new deps are only those which now are new
-  const newDeps = Array.from(
-    new Set(
-      newSymbols
-        .flatMap(s => s.deps) // all the deps which existed before
-    ) // ensure unique
-  ).filter(s => !graph.has(s)) // removing newly added symbols
-  
+    const newSymbols = symbols
+        .filter(s => !graph.has(s)) // no duplicates
+        .map(s => lookupSymbol(s))
+        .filter(s => s) as SymbolMeta[];
+    // now add symbols to graph
+    for (const s of newSymbols) {
+        graph.set(s.fqn, { symbol: s.fqn, requiredBy: s.name, depth });
+    }
 
-  if (newSymbols.length === 0) {
-    return excludeInitial
-    ? removeInitial(graph)
-    : graph;
-  }
+    // new deps are only those which now are new
+    const newDeps = Array.from(
+        new Set(
+            newSymbols
+                .flatMap(s => s.deps) // all the deps which existed before
+        ) // ensure unique
+    ).filter(s => !graph.has(s)) // removing newly added symbols
 
-  return getDependencyGraph(
-    newDeps,
-    excludeInitial,
-    stopDepth,
-    depth+1,
-    graph
-  )
+
+    if (newSymbols.length === 0) {
+        return excludeInitial
+            ? removeInitial(graph)
+            : graph;
+    }
+
+    return getDependencyGraph(
+        newDeps,
+        excludeInitial,
+        stopDepth,
+        depth + 1,
+        graph
+    )
 }
 
 
 
 
 export function findReferencingSymbols(targetSymbol: Symbol): Symbol[] {
-  const referencingSymbols: Symbol[] = [];
-  const declarations = targetSymbol.getDeclarations();
+    const referencingSymbols: Symbol[] = [];
+    const declarations = targetSymbol.getDeclarations();
 
-  // Get the project from one of the symbol's declarations
-  if (declarations.length === 0) return referencingSymbols;
-  const project = declarations[0].getSourceFile().getProject();
+    // Get the project from one of the symbol's declarations
+    if (declarations.length === 0) return referencingSymbols;
+    const project = declarations[0].getSourceFile().getProject();
 
-  declarations.forEach(declaration => {
-      const referencedSymbols = project.getLanguageService().findReferences(declaration);
+    declarations.forEach(declaration => {
+        const referencedSymbols = project.getLanguageService().findReferences(declaration);
 
-      referencedSymbols.forEach(referencedSymbol => {
-          referencedSymbol.getReferences().forEach(ref => {
-              const node = ref.getNode();
-              const referencingSymbol = node.getSymbol();
+        referencedSymbols.forEach(referencedSymbol => {
+            referencedSymbol.getReferences().forEach(ref => {
+                const node = ref.getNode();
+                const referencingSymbol = node.getSymbol();
 
-              if (referencingSymbol && !referencingSymbols.includes(referencingSymbol)) {
-                  referencingSymbols.push(referencingSymbol);
-              }
-          });
-      });
-  });
+                if (referencingSymbol && !referencingSymbols.includes(referencingSymbol)) {
+                    referencingSymbols.push(referencingSymbol);
+                }
+            });
+        });
+    });
 
-  return referencingSymbols;
+    return referencingSymbols;
 }
