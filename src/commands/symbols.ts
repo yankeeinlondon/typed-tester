@@ -70,8 +70,8 @@ export const symbols_command = async (opt: AsOption<"symbols">) => {
   // REPORTING
 
   let symbols: SymbolMeta[] = opt?.filter?.length || 0 > 0
-    ? opt.filter.flatMap(f => fuzzyFindSymbol(f, "contains"))
-    : getSymbols( ...getSymbolLookupKeys(true) );
+    ? opt.filter.flatMap(f => fuzzyFindSymbol(f, "contains")).filter(i => i.isTypeSymbol)
+    : getSymbols( ...getSymbolLookupKeys(true) ).filter(i => i.isTypeSymbol);
 
   if (opt?.filter?.length === 0 && !opt.quiet) {
     msg(opt)(`- here is a sample of some of the symbols (use --filter in CLI to filter to a subset you're interested in)`);

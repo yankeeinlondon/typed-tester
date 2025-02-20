@@ -37,7 +37,7 @@ export const symbolsScreen = (
           : chalk.bold(name)
       }
     },
-    { value: "symbolHash", alias: "Hash", width: 15 },
+    { value: "filepath", width: pathWidth },
     { 
       alias: "Dependencies",
       value: "deps", 
@@ -54,14 +54,9 @@ export const symbolsScreen = (
         ).join(', ')
       }
     },
-    // {
-    //   name: "refs",
-    //   alias: "Used By",
-    //   width: 30
-    // },
     ...(
         columns > 100 
-        ? [{ value: "filepath", width: pathWidth }]
+        ? [{ value: "symbolHash", alias: "Hash", width: 15 }]
         : []
     )
   ];

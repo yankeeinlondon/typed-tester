@@ -15,9 +15,10 @@ import { resolve } from "pathe";
  * - `mailto`
  * - `
  */
-export const link = (text: string, link: string) => {
-  return `\x1b]8;;${link}\x1b\\${text}\x1b]8;;\x1b\\`
-}
+export function link(text: string, link: string) {
+    return `\x1B]8;;${link}\x1B\\${text}\x1B]8;;\x1B\\`;
+  }
+  
 // '\x1b]8;;http://example.com\x1b\\This is a link\x1b]8;;\x1b\\'
 /**
  * **fileLink**`(text, path)`
