@@ -73,11 +73,22 @@ export const command_options = {
       name: "clear", type: Boolean, 
       description: `clear the symbol cache and rebuild from scratch`
     },
-
+  ],
+  files: [
+    CMD,
+    { 
+        name: "filter", type: String, alias: "f", multiple: true, 
+        typeLabel: chalk.underline("substr[]"),
+        description: `only report on symbols which match filter string` 
+    }
   ]
 } as const satisfies  Record<string, Option[]>;
 
 export const commands_union = Object.keys(command_options).join(`${chalk.gray(" | ")}`);
+
+type CommandOptions = typeof command_options;
+
+export type Command = keyof CommandOptions;
 
 /**
  * options which are available to all commands
@@ -123,7 +134,8 @@ export const only_global_options = [
 export const command_descriptions = {
   test: `runs a ${chalk.bold("type test")} across all (or a filtered) set of the ${chalk.italic("type tests")}.`,
   symbols: `reports on the ${chalk.italic("type symbols")} found in the project`,
+  files: `shows every source file which defines a types symbol and the symbols it defines`,
   source: `reports on the ${chalk.italic("source file")}'s general type health.`,
   deps: `shows what symbols are ${chalk.italic("dependant")} on a given symbol(s).`,
   cache: `reports on the state of the cache as well as providing the means to refresh ${chalk.italic("parts")} or ${chalk.italic("all")} of the file caches.`
-} as const satisfies Record<keyof typeof command_options, string>
+} as const satisfies Record<Command, string>

@@ -18,13 +18,18 @@ export type SymbolSummary = {
   export_keys: string[],
   local: number;
   external: number;
+  /**
+   * The count of Type symbols
+   */
+  typeSymbols: number;
 }
 
 const symbolSummary: SymbolSummary = {
   exported: 0,
   export_keys: [],
   local: 0,
-  external : 0
+  external : 0,
+  typeSymbols: 0,
 }
 
 const cache_file = () => join(getProjectRoot(), SYMBOL_CACHE_FILE);
@@ -131,7 +136,6 @@ export const cacheExportedSymbols = (
       .map(s => asSymbolMeta(s, true))
       .sort((a,b) => b.name.localeCompare(a.name));
     
-
     for (const s  of symbolsForFile) {
       if (!projectSymbols.has(s.fqn)) {
         projectSymbols.set(s.fqn, s);
@@ -152,6 +156,7 @@ export const cacheExportedSymbols = (
  * and the summary's are 
  */
 export const updateSymbolCache = (...symbols: SymbolMeta[]) => {
+    symbolSummary.typeSymbols = symbols.filter(i => i.isTypeSymbol).length
 
   for (const s of symbols) {
     const isUpdate = symbolLookup.get(s.fqn) ? true : false;

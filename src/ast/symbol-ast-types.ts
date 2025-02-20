@@ -96,6 +96,11 @@ export type SymbolMeta<
    */
   filepath: string;
 
+  isTypeSymbol: boolean;
+
+  isVariable: boolean;
+isFunction: boolean;
+
   reExportPaths?: string[];
 
   startLine: TKind extends "type-defn" ? number : number | undefined;

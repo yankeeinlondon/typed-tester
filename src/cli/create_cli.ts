@@ -3,13 +3,10 @@ import { Command } from "./cli-types";
 import { command_options, global_options } from "./options";
 import { isCommand } from "src/type-guards";
 
-
-
 /**
  * used to define CLI variable as a numeric array
  */
 export const NumericArray = (): number[] => [];
-
 
 
 export type CliResponse = [Command, CommandLineOptions] | [undefined, CommandLineOptions];

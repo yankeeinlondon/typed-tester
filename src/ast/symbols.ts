@@ -10,6 +10,7 @@ import {
     SymbolFlags,
     ImportDeclaration,
     VariableDeclaration,
+    TypeAliasDeclaration,
 } from "ts-morph";
 import {
     isSymbol,
@@ -319,13 +320,30 @@ export const asSymbolReference = (sym: Symbol | SymbolMeta): SymbolReference => 
  * Converts a **ts-morph** `Symbol` into a `SymbolMeta` object which
  * contains useful summary information and is serializable.
  */
-export const asSymbolMeta = (sym: Symbol, recurse?: boolean): SymbolMeta => ({
+export const asSymbolMeta = (sym: Symbol, recurse?: boolean): SymbolMeta => {
+    const flags = getSymbolFlags(sym);
+    const isTypeSymbol: boolean = flags.includes("Type") 
+    || flags.includes("TypeAlias")
+    || flags.includes("TypeLiteral")
+    || flags.includes("Interface");
+
+    const isVariable: boolean = flags.includes("Variable")
+    || flags.includes("BlockScopedVariable")
+    || flags.includes("ConstEnum");
+
+    const isFunction: boolean = flags.includes("Function")
+    || flags.includes("FunctionScopedVariable");
+
+    return {
     name: getSymbolName(sym),
     fqn: createFullyQualifiedNameForSymbol(sym),
     // brings in filepath, startLine, and endLine
     ...getSymbolFileDefinition(sym),
     scope: getSymbolScope(sym),
-    flags: getSymbolFlags(sym),
+    flags,
+    isTypeSymbol,
+    isVariable,
+    isFunction,
     kind: getSymbolKind(sym),
     generics: getSymbolGenerics(sym),
     jsDocs: getSymbolsJSDocInfo(sym),
@@ -336,7 +354,8 @@ export const asSymbolMeta = (sym: Symbol, recurse?: boolean): SymbolMeta => ({
 
     symbolHash: createSymbolHash(sym),
     updated: Date.now()
-});
+    };
+}
 
 /**
  * Distinguishes between a true symbol definition and a generic.
