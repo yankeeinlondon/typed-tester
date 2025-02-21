@@ -2,6 +2,7 @@ import xxhash from "xxhash-wasm";
 import { clearSymbolsCache, saveSymbolLookup } from "./symbolCache";
 
 export const SYMBOL_CACHE_FILE = `/.ts-symbol-lookup.json` as const;
+export const FILE_CACHE_FILE = `/.ts-file-lookup.json` as const;
 export const TEST_CACHE_FILE = `/.ts-test-lookup.json` as const;
 
 export type Hasher = Awaited<ReturnType<typeof xxhash>>["h32"];

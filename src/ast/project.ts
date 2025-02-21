@@ -4,7 +4,7 @@ import { cwd } from "node:process";
 import { join } from "pathe";
 import { LanguageService, Project, TypeChecker } from "ts-morph";
 import { createFullyQualifiedNameForSymbol, getSymbolKind, getSymbolScope } from "./symbols";
-import { SymbolKind } from "./symbol-ast-types";
+import { SymbolKind } from "../types/symbol-ast-types";
 import { getHasher } from "src/cache";
 
 /** the TypeChecker for the evaluated project */

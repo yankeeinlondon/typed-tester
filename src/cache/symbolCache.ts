@@ -1,7 +1,7 @@
 import { existsSync, readFileSync, unlinkSync, writeFileSync } from "fs";
 import { join } from "pathe";
 import { getProject, getProjectRoot } from "src/ast";
-import { SymbolMeta } from "src/ast/symbol-ast-types";
+import { SymbolMeta } from "src/types/symbol-ast-types";
 import { asSymbolMeta } from "src/ast/symbols";
 import { SourceFile } from "ts-morph";
 import { SYMBOL_CACHE_FILE } from "./cache";

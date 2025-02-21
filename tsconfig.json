@@ -16,6 +16,11 @@
       "baseUrl": ".",
       "outDir": "bin",
       "tsBuildInfoFile": ".tsbuildinfo",
+      "paths": {
+        "~/*": [
+            "src/*"
+        ]
+      }
     },
     "include": [
       "src",

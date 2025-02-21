@@ -1,7 +1,7 @@
 
 
-import { FileDiagnostic, SymbolImport } from "./file-ast-types";
-import {  SymbolReference } from "./symbol-ast-types";
+import { FileDiagnostic, SymbolImport } from "../types/file-ast-types";
+import {  SymbolReference } from "../types/symbol-ast-types";
 
 export type TypeTest = {
   filepath: string;

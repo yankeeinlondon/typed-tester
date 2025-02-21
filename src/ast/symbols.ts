@@ -10,7 +10,6 @@ import {
     SymbolFlags,
     ImportDeclaration,
     VariableDeclaration,
-    TypeAliasDeclaration,
 } from "ts-morph";
 import {
     isSymbol,
@@ -25,7 +24,7 @@ import {
     SymbolReference,
     SymbolScope,
     TypeGeneric
-} from "./symbol-ast-types";
+} from "~/types";
 import { getHasher } from "src/cache/cache";
 import { getProjectTypeChecker } from "./project";
 import { lookupSymbol, updateSymbolCache } from "src/cache";
@@ -75,6 +74,10 @@ function getSymbolGenerics(symbol: Symbol): TypeGeneric[] {
     return generics;
 }
 
+/**
+ * Tests whether the passed in symbol is external to the repo
+ * being evaluated.
+ */
 export const isExternalSymbol = (sym: Symbol): boolean => {
     const name = getSymbolName(sym);
     return name === sym.getFullyQualifiedName();
@@ -315,45 +318,46 @@ export const asSymbolReference = (sym: Symbol | SymbolMeta): SymbolReference => 
 }
 
 /**
- * **asSymbolMeta**`(sym)`
+ * **asSymbolMeta**`(sym) -> SymbolMeta`
  * 
  * Converts a **ts-morph** `Symbol` into a `SymbolMeta` object which
  * contains useful summary information and is serializable.
+ * 
+ * - Note this step _does not_ add in the dependencies this symbol
+ * has on other symbols.
  */
-export const asSymbolMeta = (sym: Symbol, recurse?: boolean): SymbolMeta => {
+export const asSymbolMeta = (sym: Symbol): SymbolMeta => {
     const flags = getSymbolFlags(sym);
-    const isTypeSymbol: boolean = flags.includes("Type") 
-    || flags.includes("TypeAlias")
-    || flags.includes("TypeLiteral")
-    || flags.includes("Interface");
+    const isTypeSymbol: boolean = flags.includes("Type")
+        || flags.includes("TypeAlias")
+        || flags.includes("TypeLiteral")
+        || flags.includes("Interface");
 
     const isVariable: boolean = flags.includes("Variable")
-    || flags.includes("BlockScopedVariable")
-    || flags.includes("ConstEnum");
+        || flags.includes("BlockScopedVariable")
+        || flags.includes("ConstEnum");
 
     const isFunction: boolean = flags.includes("Function")
-    || flags.includes("FunctionScopedVariable");
+        || flags.includes("FunctionScopedVariable");
 
     return {
-    name: getSymbolName(sym),
-    fqn: createFullyQualifiedNameForSymbol(sym),
-    // brings in filepath, startLine, and endLine
-    ...getSymbolFileDefinition(sym),
-    scope: getSymbolScope(sym),
-    flags,
-    isTypeSymbol,
-    isVariable,
-    isFunction,
-    kind: getSymbolKind(sym),
-    generics: getSymbolGenerics(sym),
-    jsDocs: getSymbolsJSDocInfo(sym),
-    deps: recurse !== false && getSymbolKind(sym) === "type-defn"
-        ? pushSymbolDepsToCache(sym)
-        : [],
-    refs: [], // findReferencingSymbols(sym),
+        name: getSymbolName(sym),
+        fqn: createFullyQualifiedNameForSymbol(sym),
+        // brings in filepath, startLine, and endLine
+        ...getSymbolFileDefinition(sym),
+        scope: getSymbolScope(sym),
+        flags,
+        isTypeSymbol,
+        isVariable,
+        isFunction,
+        kind: getSymbolKind(sym),
+        generics: getSymbolGenerics(sym),
+        jsDocs: getSymbolsJSDocInfo(sym),
 
-    symbolHash: createSymbolHash(sym),
-    updated: Date.now()
+        refs: [],
+
+        symbolHash: createSymbolHash(sym),
+        updated: Date.now()
     };
 }
 
@@ -649,7 +653,7 @@ export const getSymbolFlags = <T extends Symbol>(sym: T): SymbolFlagKey[] => {
  * Returns an array of dependencies for a given symbol (name, 
  * Symbol, and _file path_ to symbol definition).
  * 
- * Note: we _are_ filtering out generics types from this list but properties 
+ * Note: we _are_ filtering out generic types from this list but properties 
  * and variables remain which may be filtered out by consumer (if not desirable) 
  * of this function by leveraging the `kind` of the returned `SymbolMeta`
  */

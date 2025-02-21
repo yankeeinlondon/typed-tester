@@ -1,10 +1,10 @@
 import {  Diagnostic,  SourceFile, ts } from "ts-morph";
-import { SymbolReference } from "./symbol-ast-types";
+import { SymbolReference } from "../types/symbol-ast-types";
 import {  asSymbolReference, getSymbolDependencies } from "./symbols";
 import { isTsDiagnostic } from "src/type-guards";
 import { isString } from "inferred-types";
 import { getProject } from "./project";
-import { FileDiagnostic, SymbolImport } from "./file-ast-types";
+import { FileDiagnostic, SymbolImport } from "../types/file-ast-types";
 import { relativeFile } from "src/utils";
 
 

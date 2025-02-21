@@ -46,8 +46,6 @@ export type FileLookup = {
    * a map of the symbol's name to the hash value (as last measured)
    */
   symbols: ReadonlyMap<string, number>;
-
-
 }
 
 

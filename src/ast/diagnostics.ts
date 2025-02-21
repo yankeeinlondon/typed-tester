@@ -3,7 +3,7 @@ import {  Diagnostic, SourceFile } from "ts-morph";
 import { getProject } from "./project";
 import {  asFileDiagnostic, getFileDiagnostics } from "./files";
 import { AsOption } from "src/cli";
-import { FileDiagnostic } from "./file-ast-types";
+import { FileDiagnostic } from "../types/file-ast-types";
 import { isFileDiagnostic, isSourceFile } from "src/type-guards";
 import { TestFile } from "./testing-types";
 

@@ -15,6 +15,7 @@ const files = [
     "src/cli/cli-types.ts",
     "src/commands/symbols.ts",
     "src/type-guards/*.ts",
+    "src/types/*.ts",
     "src/ast/*.ts",
     ...args.slice(1).filter(i => !i.startsWith("-"))
 ]

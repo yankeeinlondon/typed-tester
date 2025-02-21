@@ -113,7 +113,8 @@ export const global_options = [
   },
   {
     name: "warn",  alias: "w",  defaultValue: [], multiple: true,
-    type: Number, description: `TS error codes that just be downgraded to just warnings`
+    type: Number, 
+    description: `TS error codes that just be downgraded to just warnings`
   },
   { 
     name: "help", alias: "h", type: Boolean, defaultValue: false,

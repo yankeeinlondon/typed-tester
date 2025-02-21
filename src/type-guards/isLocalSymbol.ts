@@ -1,5 +1,5 @@
 import { isString } from "inferred-types"
-import { LocalSymbol } from "src/cache/cache-types"
+import { LocalSymbol } from "~/types/cache-types"
 
 /**
  * type guard which detects leading `local::` and corrects type to
