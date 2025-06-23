@@ -158,12 +158,12 @@ export type SymbolMetaWithDeps<
      * - each element is a _fully qualified name_ for dependency
      * which can be looked up in the symbols cache.
      */
-    dependsOn: string[];
+    dependsOn: FQN[];
 
     /**
      * References all the symbols which depend on this symbol
      */
-    usedBy: string[];
+    usedBy: FQN[];
 }
 
 

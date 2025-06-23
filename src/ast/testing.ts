@@ -1,5 +1,5 @@
 import {  SyntaxKind, Symbol, SourceFile } from "ts-morph";
-import { SymbolFilterCallback, TestBlock, TestFile, TestFileOptions, TypeTest } from "./testing-types";
+import { SymbolFilterCallback, TestBlock, TestFile, TestFileOptions, TypeTest } from "../types/testing-types";
 import {  getFileDiagnostics, getImportsForFile } from "./files";
 import {  asSymbolReference } from "./symbols";
 import { isString } from "inferred-types";

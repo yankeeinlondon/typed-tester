@@ -5,7 +5,7 @@ import {  asFileDiagnostic, getFileDiagnostics } from "./files";
 import { AsOption } from "src/cli";
 import { FileDiagnostic } from "../types/file-ast-types";
 import { isFileDiagnostic, isSourceFile } from "src/type-guards";
-import { TestFile } from "./testing-types";
+import { TestFile } from "../types/testing-types";
 
 export type BlockType = {
   startLine: number;

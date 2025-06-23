@@ -1,70 +1,70 @@
 {
-  "name": "typed-tester",
-  "version": "0.6.3",
-  "description": "Test all your type-tests and incorporate into your CI-CD and deployment strategy",
-  "scripts": {
-    "build": "node scripts/build.mjs",
-    "try": "./bin/typed",
-    "ast": "bun run ai/ast.ts",
-    "ask": "bun run ai/ask.ts",
-    "test": "echo \"no tests until after refactor of CLI interface\"",
-    "watch": "tsup src/typed.ts --format=esm -d bin --sourcemap --watch",
-    "release": "bumpp"
-  },
-  "bin": {
-    "typed": "bin/typed"
-  },
-  "keywords": [
-    "typescript",
-    "testing"
-  ],
-  "tsup": {
-    "entry": [
-      "src/typed.ts"
+    "name": "typed-tester",
+    "version": "0.6.3",
+    "description": "Test all your type-tests and incorporate into your CI-CD and deployment strategy",
+    "scripts": {
+        "build": "node scripts/build.mjs",
+        "try": "./bin/typed",
+        "ast": "bun run ai/ast.ts",
+        "ask": "bun run ai/ask.ts",
+        "test": "echo \"no tests until after refactor of CLI interface\"",
+        "watch": "tsup src/typed.ts --format=esm -d bin --sourcemap --watch",
+        "release": "bumpp"
+    },
+    "bin": {
+        "typed": "bin/typed"
+    },
+    "keywords": [
+        "typescript",
+        "testing"
     ],
-    "splitting": false,
-    "sourcemap": true,
-    "format": "esm"
-  },
-  "author": "Ken Snyder <ken@ken.net>",
-  "license": "MIT",
-  "dependencies": {
-    "@types/stack-trace": "^0.0.33",
-    "chalk": "^5.4.1",
-    "command-line-args": "^6.0.1",
-    "command-line-usage": "^7.0.3",
-    "cytoscape": "^3.31.0",
-    "fast-glob": "^3.3.3",
-    "find-root": "^1.1.0",
-    "graphology": "^0.26.0",
-    "inferred-types": "^0.55.23",
-    "pathe": "^2.0.3",
-    "play-sound": "^1.1.6",
-    "sigma": "^3.0.1",
-    "stack-trace": "1.0.0-pre2",
-    "ts-morph": "^25.0.1",
-    "tty-table": "^4.2.3",
-    "watcher": "^2.3.1",
-    "xxhash-wasm": "^1.1.0"
-  },
-  "peerDependencies": {
-    "typescript": "^5.4.3"
-  },
-  "devDependencies": {
-    "@antfu/eslint-config": "^4.3.0",
-    "@type-challenges/utils": "^0.1.1",
-    "@types/command-line-args": "^5.2.3",
-    "@types/command-line-usage": "^5.0.4",
-    "@types/find-root": "^1.1.4",
-    "@types/node": "^22.13.4",
-    "bumpp": "^10.0.3",
-    "eslint": "^9.20.1",
-    "eslint-plugin-format": "^1.0.1",
-    "husky": "^9.1.7",
-    "jiti": "^2.4.2",
-    "npm-run-all": "^4.1.5",
-    "rimraf": "^6.0.1",
-    "tsup": "^8.3.6",
-    "vitest": "^3.0.6"
-  }
+    "tsup": {
+        "entry": [
+            "src/typed.ts"
+        ],
+        "splitting": false,
+        "sourcemap": true,
+        "format": "esm"
+    },
+    "author": "Ken Snyder <ken@ken.net>",
+    "license": "MIT",
+    "dependencies": {
+        "chalk": "^5.4.1",
+        "command-line-args": "^6.0.1",
+        "command-line-usage": "^7.0.3",
+        "cytoscape": "^3.31.0",
+        "fast-glob": "^3.3.3",
+        "find-root": "^1.1.0",
+        "graphology": "^0.26.0",
+        "inferred-types": "^0.55.23",
+        "pathe": "^2.0.3",
+        "play-sound": "^1.1.6",
+        "sigma": "^3.0.1",
+        "stack-trace": "1.0.0-pre2",
+        "ts-morph": "^25.0.1",
+        "tty-table": "^4.2.3",
+        "watcher": "^2.3.1",
+        "xxhash-wasm": "^1.1.0"
+    },
+    "peerDependencies": {
+        "typescript": "^5.4.3"
+    },
+    "devDependencies": {
+        "@antfu/eslint-config": "^4.3.0",
+        "@type-challenges/utils": "^0.1.1",
+        "@types/command-line-args": "^5.2.3",
+        "@types/stack-trace": "^0.0.33",
+        "@types/command-line-usage": "^5.0.4",
+        "@types/find-root": "^1.1.4",
+        "@types/node": "^22.13.4",
+        "bumpp": "^10.0.3",
+        "eslint": "^9.20.1",
+        "eslint-plugin-format": "^1.0.1",
+        "husky": "^9.1.7",
+        "jiti": "^2.4.2",
+        "npm-run-all": "^4.1.5",
+        "rimraf": "^6.0.1",
+        "tsup": "^8.3.6",
+        "vitest": "^3.0.6"
+    }
 }

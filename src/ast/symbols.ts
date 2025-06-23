@@ -27,7 +27,7 @@ import {
 } from "~/types";
 import { getHasher } from "src/cache/cache";
 import { getProjectTypeChecker } from "./project";
-import { lookupSymbol, updateSymbolCache } from "src/cache";
+import { addSymbolToCache, lookupSymbol, updateSymbolCache } from "src/cache";
 import chalk from "chalk";
 
 
@@ -650,17 +650,15 @@ export const getSymbolFlags = <T extends Symbol>(sym: T): SymbolFlagKey[] => {
 }
 
 /**
- * Returns an array of dependencies for a given symbol (name, 
- * Symbol, and _file path_ to symbol definition).
+ * Returns an array of dependencies for a given symbol.
  * 
- * Note: we _are_ filtering out generic types from this list but properties 
- * and variables remain which may be filtered out by consumer (if not desirable) 
- * of this function by leveraging the `kind` of the returned `SymbolMeta`
+ * - the refences are all just fully qualified names
+ * - if any of these dependant symbols are _not_ yet in cache
+ * they will be added during this discover process
  */
 export const getSymbolDependencies = (
-    symbol: Symbol,
-    recurse: boolean = true
-): SymbolMeta[] => {
+    symbol: Symbol
+): FQN[] => {
     const dependencies: Map<string, Symbol> = new Map<string, Symbol>;
     const typeChecker: TypeChecker = getProjectTypeChecker();
 
@@ -671,6 +669,7 @@ export const getSymbolDependencies = (
     }
 
     // Analyze each declaration of the symbol
+    // and add dependencies as we find them
     declarations.forEach(declaration => {
         /** the symbols which a given declaration uses */
         const references = getReferencedSymbols(declaration, typeChecker);
@@ -690,11 +689,18 @@ export const getSymbolDependencies = (
         });
     });
 
-    const deps: SymbolMeta[] = [];
+    const deps: FQN[] = [];
     for (const [_name, sym] of dependencies) {
-        deps.push(asSymbolMeta(sym, recurse));
-    }
+        const meta = asSymbolMeta(sym);
+        const metaPlus = {
+            ...meta,
+            dependsOn: getSymbolDependencies(sym),
+            usedBy: []
+        }
+        addSymbolToCache(metaPlus);
 
+        deps.push(meta.fqn);
+    }
     return deps;
 }
 

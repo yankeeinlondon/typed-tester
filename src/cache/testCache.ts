@@ -1,5 +1,5 @@
 import { asTestFile, FileDiagnostic, getErrorDiagnostics, getFileDiagnostics, getProjectRoot, getWarningDiagnostics, hasDiagnostics, isSlowTest, isVerySlowTest, TestFile, TestSummary } from "src/ast";
-import { getHasher, TEST_CACHE_FILE } from "./cache";
+import { getHasher } from "./cache";
 import { existsSync, readFileSync, statSync, unlinkSync, writeFileSync } from "fs";
 import { join, relative } from "pathe";
 import chalk from "chalk";
@@ -18,16 +18,12 @@ export const hasTestCacheFile = () => {
   return existsSync(cache_file());
 }
 
-
-
 export const clearTestCache = (file?: boolean) => {
   TEST_LOOKUP = new Map<string, TestFile>();
   if (hasTestCacheFile() && file) {
     unlinkSync(cache_file());
   }
 }
-
-
 
 export const updateTestCache = (
   ...files: TestFile[]
