@@ -1,8 +1,7 @@
 import { AsOption } from "src/cli";
-
 import Table from "tty-table";
 import { projectUsing } from "src/ast/project";
-import { getSymbolFileDefinition, getSymbolDependencies } from "src/ast/symbols";
+import { getSymbolFileDefinition } from "src/ast/symbols";
 import { relativeFile } from "src/utils/relativeFile";
 
 
@@ -34,18 +33,8 @@ export const files_command = async (opt: AsOption<"files">) => {
       });
     }
 
-    // also include local symbols via dependencies (filtering to "local")
-    const localSymbols = exportedSymbols.flatMap(sym =>
-      getSymbolDependencies(sym).filter(dep => dep.scope === "local")
-    );
-    for (const dep of localSymbols) {
-      // note: startLine/endLine are available via asSymbolMeta from getSymbolDependencies
-      rows.push({
-        name: dep.name,
-        startLine: dep.startLine as number,
-        endLine: dep.endLine as number,
-      });
-    }
+    // Skip local symbol dependencies to avoid stack overflow issues
+    // TODO: Re-implement safer dependency analysis without recursion
 
     if (rows.length > 0) {
       fileData.push({

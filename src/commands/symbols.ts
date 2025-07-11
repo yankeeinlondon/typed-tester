@@ -1,9 +1,57 @@
 import chalk from "chalk";
 import { AsOption } from "src/cli";
-import { projectUsing } from "src/ast"
+import { projectUsing, getAllSymbolsInProject, asSymbolMeta } from "src/ast"
 import { msg } from "src/utils";
+import { symbolsJson, symbolsScreen } from "src/report";
+import type { SymbolMeta } from "src/types";
 
 export const MAX_SYMBOLS = 10;
+
+function getDirectSymbolAnalysis(project: any): SymbolMeta[] {
+  const symbols: SymbolMeta[] = [];
+  const seenSymbols = new Set<string>();
+
+  // Get all source files
+  const sourceFiles = project.getSourceFiles();
+
+  for (const sourceFile of sourceFiles) {
+    // Get exported symbols from each file
+    const exportedSymbols = sourceFile.getExportedDeclarations();
+    
+    for (const [name, declarations] of exportedSymbols) {
+      for (const declaration of declarations) {
+        const symbol = declaration.getSymbol?.();
+        if (symbol && !seenSymbols.has(symbol.getName())) {
+          try {
+            seenSymbols.add(symbol.getName());
+            const meta = asSymbolMeta(symbol);
+            if (meta && meta.isTypeSymbol) {
+              symbols.push(meta);
+            }
+          } catch (error) {
+            // Skip symbols that can't be analyzed
+            console.debug(`Skipping symbol ${symbol.getName()}: ${error}`);
+          }
+        }
+      }
+    }
+  }
+
+  return symbols;
+}
+
+function filterSymbols(symbols: SymbolMeta[], filters: string[]): SymbolMeta[] {
+  if (!filters || filters.length === 0) {
+    return symbols.slice(0, MAX_SYMBOLS); // Show sample if no filter
+  }
+
+  return symbols.filter(symbol => 
+    filters.some(filter => 
+      symbol.name.toLowerCase().includes(filter.toLowerCase()) ||
+      symbol.fqn.toLowerCase().includes(filter.toLowerCase())
+    )
+  );
+}
 
 /** COMMAND */
 export const symbols_command = async (opt: AsOption<"symbols">) => {
@@ -23,12 +71,28 @@ export const symbols_command = async (opt: AsOption<"symbols">) => {
   );
   
   const sourceFiles = project.getSourceFiles();
-
   msg(opt)(`- project found ${chalk.bold(sourceFiles.length)} source files [${chalk.dim(configFile)}]`);
   
-  // TODO: Implement direct symbol analysis without cache
-  msg(opt)(`- ${chalk.yellow("Symbol analysis temporarily disabled during cache removal")}`);
-  msg(opt)(`- This command will be restored with direct symbol analysis`);
+  // Analyze symbols directly without cache
+  msg(opt)(`- analyzing exported symbols...`);
+  const allSymbols = getDirectSymbolAnalysis(project);
+  msg(opt)(`- found ${chalk.bold(allSymbols.length)} exported type symbols`);
+
+  // Filter symbols based on user input
+  let symbols = filterSymbols(allSymbols, opt.filter || []);
+
+  if (opt?.filter?.length === 0 && !opt.quiet) {
+    msg(opt)(`- showing sample of symbols (use --filter to narrow results)`);
+  } else if (opt?.filter?.length > 0) {
+    msg(opt)(`- filtered to ${chalk.bold(symbols.length)} symbols matching: ${chalk.dim(opt.filter.join(", "))}`);
+  }
+
+  // Output results
+  if (opt.json) {
+    console.log(symbolsJson(symbols));
+  } else {
+    symbolsScreen(symbols);
+  }
 
   const duration = performance.now() - start;
   if(!opt.quiet) {
