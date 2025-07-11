@@ -1,8 +1,7 @@
 import chalk from "chalk";
 import { AsOption } from "src/cli";
 import { projectUsing, getFileDiagnostics } from "src/ast";
-import { msg, fileLink, relativeFile } from "src/utils";
-import type { FileDiagnostic } from "src/types";
+import { msg, fileLink, relativeFile, tsCodeLink } from "src/utils";
 
 interface DiagnosticSummary {
   totalFiles: number;
@@ -14,8 +13,31 @@ interface DiagnosticSummary {
   warningsByCode: Map<number, number>;
 }
 
+function isTestFile(filePath: string): boolean {
+  // Exclude files matching Vitest test patterns
+  if (filePath.match(/\.test\.(ts|js|tsx|jsx)$/)) return true;
+  if (filePath.match(/\.spec\.(ts|js|tsx|jsx)$/)) return true;
+  
+  // Exclude files under test or tests directories
+  if (filePath.includes('/test/') || filePath.includes('/tests/')) return true;
+  if (filePath.includes('\\test\\') || filePath.includes('\\tests\\')) return true;
+  
+  return false;
+}
+
 function analyzeSourceFiles(project: any, opt: AsOption<"source">): DiagnosticSummary {
-  const sourceFiles = project.getSourceFiles();
+  const allSourceFiles = project.getSourceFiles();
+  
+  // Filter out test files (Vitest patterns and test/tests directories)
+  const nonTestFiles = allSourceFiles.filter((file: any) => !isTestFile(file.getFilePath()));
+  
+  // Apply user filter if specified
+  const sourceFiles = opt.filter && opt.filter.length > 0 
+    ? nonTestFiles.filter((file: any) => 
+        opt.filter.some(filter => file.getFilePath().includes(filter))
+      )
+    : nonTestFiles;
+  
   const summary: DiagnosticSummary = {
     totalFiles: sourceFiles.length,
     filesWithErrors: 0,
@@ -71,7 +93,7 @@ function displayDiagnosticsByCode(
     .sort((a, b) => b[1] - a[1]); // Sort by count, descending
 
   for (const [code, count] of sortedCodes) {
-    console.log(`  ${color(code.toString())}: ${chalk.bold(count)} occurrences`);
+    console.log(`  ${color(tsCodeLink(code))}: ${chalk.bold(count)} occurrences`);
   }
 }
 
@@ -86,8 +108,27 @@ export async function source_command(opt: AsOption<"source">) {
     : [`src/tsconfig.json`, `tsconfig.json`]
   );
 
-  const sourceFiles = project.getSourceFiles();
-  msg(opt)(`- project found ${chalk.bold(sourceFiles.length)} source files [${chalk.dim(configFile)}]`);
+  const allSourceFiles = project.getSourceFiles();
+  
+  // Filter out test files
+  const nonTestFiles = allSourceFiles.filter(file => !isTestFile(file.getFilePath()));
+  
+  const filteredCount = opt.filter && opt.filter.length > 0 
+    ? nonTestFiles.filter(file => 
+        opt.filter.some(filter => file.getFilePath().includes(filter))
+      ).length
+    : nonTestFiles.length;
+  
+  const filterDesc = opt.filter && opt.filter.length > 0 
+    ? ` (${filteredCount} after user filtering)`
+    : '';
+  
+  const testFilesExcluded = allSourceFiles.length - nonTestFiles.length;
+  const excludeDesc = testFilesExcluded > 0 
+    ? ` (${testFilesExcluded} test files excluded)`
+    : '';
+  
+  msg(opt)(`- project found ${chalk.bold(nonTestFiles.length)} source files${excludeDesc}${filterDesc} [${chalk.dim(configFile)}]`);
 
   // Analyze diagnostics directly
   msg(opt)(`- analyzing TypeScript diagnostics...`);
@@ -109,25 +150,55 @@ export async function source_command(opt: AsOption<"source">) {
     }
   }
 
-  // Show breakdown by diagnostic code if verbose
-  if (opt.verbose && (summary.totalErrors > 0 || summary.totalWarnings > 0)) {
+  // Show breakdown by diagnostic code
+  if (summary.totalErrors > 0 || summary.totalWarnings > 0) {
     displayDiagnosticsByCode(summary.errorsByCode, "Error Codes", chalk.red);
     displayDiagnosticsByCode(summary.warningsByCode, "Warning Codes", chalk.yellow);
   }
 
-  // Show files with issues if there are any and not too many
-  if (opt.verbose && summary.filesWithErrors > 0 && summary.filesWithErrors <= 10) {
+  // Show files with issues if there are any
+  if (opt.verbose && summary.filesWithErrors > 0) {
     msg(opt)("");
     msg(opt)("Files with errors:");
     
-    for (const sourceFile of project.getSourceFiles()) {
+    // Get the same filtered source files used in analysis
+    const allSourceFiles = project.getSourceFiles();
+    
+    // Filter out test files
+    const nonTestFiles = allSourceFiles.filter(file => !isTestFile(file.getFilePath()));
+    
+    const sourceFiles = opt.filter && opt.filter.length > 0 
+      ? nonTestFiles.filter(file => 
+          opt.filter.some(filter => file.getFilePath().includes(filter))
+        )
+      : nonTestFiles;
+    
+    for (const sourceFile of sourceFiles) {
       const diagnostics = getFileDiagnostics(sourceFile);
       const errors = diagnostics.filter(d => !opt.warn.includes(d.code));
       
       if (errors.length > 0) {
         const filepath = sourceFile.getFilePath();
         msg(opt)(`  - ${fileLink(relativeFile(filepath), filepath)} (${errors.length} errors)`);
+        
+        // Show individual error details if there aren't too many total errors
+        if (summary.totalErrors <= 50) {
+          for (const error of errors.slice(0, 5)) { // Limit to first 5 per file
+            const line = error.loc?.lineNumber || '?';
+            const col = error.loc?.column || '?';
+            msg(opt)(`    ${chalk.red('•')} Line ${line}:${col} - ${chalk.dim(error.msg)} ${chalk.gray(`(${error.code})`)}`);
+          }
+          if (errors.length > 5) {
+            msg(opt)(`    ${chalk.dim(`... and ${errors.length - 5} more errors`)}`);
+          }
+        }
       }
+    }
+    
+    // If there are too many errors to show details, suggest filtering
+    if (summary.totalErrors > 50) {
+      msg(opt)("");
+      msg(opt)(`${chalk.yellow('Note:')} Too many errors to show details. Use ${chalk.blue('--filter')} to focus on specific files.`);
     }
   }
 

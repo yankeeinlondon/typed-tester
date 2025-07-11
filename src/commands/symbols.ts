@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import { AsOption } from "src/cli";
-import { projectUsing, getAllSymbolsInProject, asSymbolMeta } from "src/ast"
+import { projectUsing, asSymbolMeta } from "src/ast"
 import { msg } from "src/utils";
 import { symbolsJson, symbolsScreen } from "src/report";
 import type { SymbolMeta } from "src/types";
@@ -18,7 +18,7 @@ function getDirectSymbolAnalysis(project: any): SymbolMeta[] {
     // Get exported symbols from each file
     const exportedSymbols = sourceFile.getExportedDeclarations();
     
-    for (const [name, declarations] of exportedSymbols) {
+    for (const [, declarations] of exportedSymbols) {
       for (const declaration of declarations) {
         const symbol = declaration.getSymbol?.();
         if (symbol && !seenSymbols.has(symbol.getName())) {

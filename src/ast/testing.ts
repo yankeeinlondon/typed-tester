@@ -5,7 +5,6 @@ import {  asSymbolReference } from "./symbols";
 import { isString } from "inferred-types";
 import { getProject } from "./project";
 import { getDiagnosticsBetweenLines } from "./diagnostics";
-import { readFile, stat } from "fs/promises";
 import { relativeFile } from "src/utils";
 
 

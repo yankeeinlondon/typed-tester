@@ -1,5 +1,6 @@
 import { isString } from "inferred-types";
-import { Command, command_options } from "src/cli";
+import { Command } from "src/cli";
+import { command_options } from "src/cli/options";
 
 /**
  * type guard which checks whether the passed in value is a known command to CLI

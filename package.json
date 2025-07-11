@@ -7,7 +7,10 @@
         "try": "./bin/typed",
         "ast": "bun run ai/ast.ts",
         "ask": "bun run ai/ask.ts",
-        "test": "echo \"no tests until after refactor of CLI interface\"",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "test:ui": "vitest --ui",
+        "test:coverage": "vitest run --coverage",
         "watch": "tsup src/typed.ts --format=esm -d bin --sourcemap --watch",
         "release": "bumpp"
     },
@@ -43,10 +46,10 @@
         "stack-trace": "1.0.0-pre2",
         "ts-morph": "^25.0.1",
         "tty-table": "^4.2.3",
+        "typescript": "^5.4.3",
         "watcher": "^2.3.1"
     },
     "peerDependencies": {
-        "typescript": "^5.4.3"
     },
     "devDependencies": {
         "@antfu/eslint-config": "^4.3.0",

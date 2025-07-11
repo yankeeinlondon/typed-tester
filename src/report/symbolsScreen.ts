@@ -1,4 +1,4 @@
-import { getDependencyGraph, SymbolMeta, TypeGeneric } from "src/ast";
+import { SymbolMeta, TypeGeneric } from "src/ast";
 import Table from "tty-table";
 import { prettyMultiLinePath } from "./prettyPath";
 import chalk from "chalk";
@@ -53,11 +53,7 @@ export const symbolsScreen = (
         ).join(', ')
       }
     },
-    ...(
-        columns > 100 
-        ? [{ value: "symbolHash", alias: "Hash", width: 15 }]
-        : []
-    )
+    // Hash column removed since symbolHash property was removed with cache system
   ];
 
   const output = Table(header, rows.map(i => {
