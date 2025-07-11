@@ -4,11 +4,9 @@ import Table from "tty-table";
 import { projectUsing } from "src/ast/project";
 import { getSymbolFileDefinition, getSymbolDependencies } from "src/ast/symbols";
 import { relativeFile } from "src/utils/relativeFile";
-import { initializeHasher } from "src/cache";
 
 
 export const files_command = async (opt: AsOption<"files">) => {
-    await initializeHasher();
   // initialize the project (using same config logic as in source_command)
   const [project, _configFile] = projectUsing(
     opt.config ? [opt.config] : [`src/tsconfig.json`, `tsconfig.json`]

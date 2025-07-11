@@ -1,13 +1,11 @@
 import chalk from "chalk";
 import { getAllSymbolsInProject, projectUsing } from "src/ast";
-import { initializeHasher } from "src/cache";
 import { AsOption } from "src/cli";
 import { msg } from "src/utils";
 
 
 export const deps_command = async (opt: AsOption<"deps">) => {
   const start = performance.now();
-  await initializeHasher();
 
   const [project, _configFile] = projectUsing(opt.config 
     ? [ opt.config ] 

@@ -25,9 +25,7 @@ import {
     SymbolScope,
     TypeGeneric
 } from "~/types";
-import { getHasher } from "src/cache/cache";
 import { getProjectTypeChecker } from "./project";
-import { addSymbolToCache, lookupSymbol, updateSymbolCache } from "src/cache";
 import chalk from "chalk";
 
 
@@ -295,10 +293,11 @@ export const createSymbolHash = (sym: Symbol) => {
  * can be stored in the parent symbol's `deps` property.
  */
 const pushSymbolDepsToCache = (sym: Symbol) => {
-    const deps = getSymbolDependencies(sym, false).filter(d => d.kind === "type-defn");
-    updateSymbolCache(...deps);
-
-    return deps.map(i => i.fqn);
+    // Cache removed - return empty dependencies for now
+    // const deps = getSymbolDependencies(sym, false).filter(d => d.kind === "type-defn");
+    // updateSymbolCache(...deps);
+    // return deps.map(i => i.fqn);
+    return [];
 }
 
 export const asSymbolReference = (sym: Symbol | SymbolMeta): SymbolReference => {
@@ -697,7 +696,7 @@ export const getSymbolDependencies = (
             dependsOn: getSymbolDependencies(sym),
             usedBy: []
         }
-        addSymbolToCache(metaPlus);
+        // addSymbolToCache(metaPlus); // Cache removed
 
         deps.push(meta.fqn);
     }

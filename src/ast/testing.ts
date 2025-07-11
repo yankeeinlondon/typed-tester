@@ -5,7 +5,6 @@ import {  asSymbolReference } from "./symbols";
 import { isString } from "inferred-types";
 import { getProject } from "./project";
 import { getDiagnosticsBetweenLines } from "./diagnostics";
-import { getHasher } from "src/cache";
 import { readFile, stat } from "fs/promises";
 import { relativeFile } from "src/utils";
 
@@ -14,19 +13,6 @@ const symbolsFilter: SymbolFilterCallback = (sym) => {
   return sym.kind === "type-defn"
 }
 
-const cacheData = async (source: SourceFile) => {
-  const h = getHasher();
-  const file = source.getFilePath();
-  const [meta, contents] = await Promise.all([
-    stat(file),
-    readFile(file, "utf-8")
-  ]);
-  return {
-    size: meta.size,
-    ctime: meta.ctime,
-    hash: h(contents.trim())
-  }
-}
 
 const calculateTestLines  = (blocks: TestBlock[]) => {
   return blocks.flatMap(b => b.endLine-b.startLine).reduce(
@@ -51,7 +37,7 @@ export async function asTestFile(
 
   const config = {
     symbolsFilter: options?.symbolsFilter || symbolsFilter,
-    cacheData: options?.cacheData || await cacheData(sourceFile)
+    cacheData: {}
   };
 
   const fileDiagnostics = getFileDiagnostics(filepath);
@@ -131,9 +117,6 @@ export async function asTestFile(
   return {
     filepath: relativeFile(sourceFile.getFilePath()),
     importSymbols: getImportsForFile(sourceFile).filter(i => !i.isExternalSource),
-    ctime: config.cacheData.ctime,
-    hash: config.cacheData.hash,
-    size: config.cacheData.size,
     skip: blocks.every(b => b.skip) || blocks.flatMap(b => b.tests).every(t => t.skip),
     skippedTests: blocks.reduce(
       (sum,block) => sum + (block.skip ? block.tests.length : 0)

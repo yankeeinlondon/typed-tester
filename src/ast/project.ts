@@ -5,7 +5,6 @@ import { join } from "pathe";
 import { LanguageService, Project, TypeChecker } from "ts-morph";
 import { createFullyQualifiedNameForSymbol, getSymbolKind, getSymbolScope } from "./symbols";
 import { SymbolKind } from "../types/symbol-ast-types";
-import { getHasher } from "src/cache";
 
 /** the TypeChecker for the evaluated project */
 let typeChecker: TypeChecker | null = null;
@@ -88,7 +87,7 @@ export const projectUsing = (candidates: string[]) => {
   } else {
     project = new Project({tsConfigFilePath: found});
     configFile = found;
-    configHash = getHasher()(found);
+    configHash = 0; // Cache removed
 
     initializeProjectTypeChecker(project);
     languageService = project.getLanguageService();

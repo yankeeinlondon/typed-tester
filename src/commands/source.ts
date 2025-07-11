@@ -1,123 +1,29 @@
 import chalk from "chalk";
-import { cwd } from "node:process";
-import {  relative } from "pathe";
-import {  
-  getProjectRoot, 
-  projectUsing 
-} from "src/ast";
-import { 
-  cacheSourceFiles, 
-  hasSourceCacheFile, 
-  initializeHasher, 
-  initializeSourceCache,
-  getCachedSourceFiles,
-  getDiagnosticsByCode,
-  lookupSourceFile,
-  sourceCacheFile
-} from "src/cache";
 import { AsOption } from "src/cli";
-import {  fileLink, msg } from "src/utils";
+import { projectUsing } from "src/ast";
+import { msg } from "src/utils";
 
-
-export const source_command = async (opt: AsOption<"source">) => {
+export async function source_command(opt: AsOption<"source">) {
   const start = performance.now();
-  await initializeHasher();
-  
-  if (opt.filter) {
-    msg(opt)(chalk.bold(`Source Files (filter: ${chalk.dim(opt.filter)})`));
-    msg(opt)(`----------------------------------------------------------`);
-  }  else {
-    msg(opt)(chalk.bold(`Source Files`));
-    msg(opt)(`----------------------------------------------------------`);
-  }
 
-  const [_project, configFile] = projectUsing(
-    opt.config 
-    ? [ opt.config ] 
+  msg(opt)(chalk.bold(`Source File Analysis`));
+  msg(opt)(`-------------------------------`);
+
+  const [project, configFile] = projectUsing(opt.config 
+    ? [opt.config] 
     : [`src/tsconfig.json`, `tsconfig.json`]
   );
 
-  if (!opt.config) {
-    msg(opt)(`- configuration for project found in ${chalk.blue(configFile)}`);
-  }
+  const sourceFiles = project.getSourceFiles();
+  msg(opt)(`- project found ${chalk.bold(sourceFiles.length)} source files [${chalk.dim(configFile)}]`);
 
-  if (opt.clear) {
-    let file = chalk.blue(relative(cwd(), sourceCacheFile()))
-    msg(opt)(`- clearing and re-caching all source files to ${file}`);
-    
-    cacheSourceFiles(opt)();
-  } else {
-    if(hasSourceCacheFile()) {
-      msg(opt)(`- leveraging existing source cache [${chalk.blue(relative(cwd(), sourceCacheFile()))}]`)
-      msg(opt)(`- use ${chalk.blue("--clear")} CLI flag to re-cache all source files)`)
-    } else if (!hasSourceCacheFile()) {
-      if (!opt.quiet) {
-        const file = chalk.blue(relative(
-          getProjectRoot(),
-          sourceCacheFile()
-        ))
-        msg(opt)(`- no cache file found, re-caching source file to: ${file}`)
-      }
-    } 
-    initializeSourceCache(opt);
-  }
-  const sourceFiles = getCachedSourceFiles();
-  msg(opt)(`- there are ${chalk.bold(sourceFiles)} source files`);
-  
-  const {errors, warnings, filesWithError} = getDiagnosticsByCode(opt);
-  const errorCount = chalk.bold.red(errors.map(i => i[1]).reduce((total,val) => total+val, 0))
-  const errorCodes = errors.map(i => chalk.red(i[0]));
+  // TODO: Implement direct source analysis without cache
+  msg(opt)(`- ${chalk.yellow("Source analysis temporarily disabled during cache removal")}`);
+  msg(opt)(`- This command will be restored with direct source file analysis`);
 
-  const warningCount = chalk.bold.yellow(warnings.map(i => i[1]).reduce((total,val) => total+val, 0))
-
-  const actualWarningCodes = warnings.map(i => i[0]);
-  const warningCodes = opt.warn.map( c => actualWarningCodes.includes(c) ? chalk.yellow(c) : chalk.dim(c)).join(",")
-
-  const errCodesMsg = errorCodes.length > 0
-    ? `[${errorCodes.join(",")}]`
-    : "";
-  msg(opt)(`- ${errorCount} type errors in the source code ${errCodesMsg}`)
-  msg(opt)(`- ${warningCount} type warnings in the source code [${warningCodes}]`)
-
-  if(opt.json) {
-    console.log(JSON.stringify({errors, warnings}));
-  } else {
-    // ERROR REPORTING
-    if(errorCodes.length > 0) {
-      console.log();
-      console.log(chalk.redBright(`Errors`));
-      console.log(chalk.redBright(`-----------------------`));
-    }
-    for (const file of filesWithError) {
-      const meta = lookupSourceFile(file);
-      if (meta) {
-        const errors = meta.diagnostics.filter(d => !opt.warn.includes(d.code));
-        console.log();
-        console.log(fileLink(
-          chalk.bold(`${meta.filepath} [${chalk.red(errors.length)}]`), meta.filepath
-        ));
-        for (const err of errors) {
-          console.log(`    - [${chalk.italic.dim("c:")} ${err.code}, ${chalk.italic.dim("l:")} ${err.loc.lineNumber}, ${chalk.italic.dim("col:")} ${err.loc.column} ] - ${err.msg}`);
-        }
-      }
-    }
-    // WARNING REPORTING
-    if(warningCodes.length > 0) {
-      console.log();
-      if(warningCount.length > 0) {
-        console.log(chalk.yellowBright(`Warnings`));
-        console.log(chalk.yellowBright(`-----------------------`));
-
-        for (const [code, files] of warnings.map(i => [i[0],i[2]] as [number, string[]])) {
-          console.log(`- code ${chalk.yellowBright.bold(code)}:\n  - ${files.map(f => chalk.blue(f)).join("\n  - ")}`);
-        }
-      }
-    }
-  } // end screen reporting
-
-  const duration = Math.round((performance.now() - start) * 1000) / 1000;
-  if(!opt.quiet) {
-    msg(opt)("")
-    msg(opt)(`- command took ${chalk.bold(duration)}${chalk.italic.dim("ms")}`)
+  const duration = performance.now() - start;
+  if (!opt.quiet) {
+    msg(opt)("");
+    msg(opt)(`- command took ${chalk.bold(duration)}${chalk.italic.dim("ms")}`);
   }
 }
