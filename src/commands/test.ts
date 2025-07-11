@@ -24,7 +24,18 @@ function calculateTestSummary(testFiles: TestFile[], opt: AsOption<"test">): Tes
     
     if (errors.length > 0) filesWithErrors++;
     if (warnings.length > 0) filesWithWarnings++;
-    testsWithErrors += errors.length;
+    
+    // Count individual tests that have errors, not total error count
+    let testsWithErrorsInThisFile = 0;
+    for (const block of testFile.blocks) {
+      for (const test of block.tests) {
+        const testErrors = test.diagnostics.filter(d => !opt.warn.includes(d.code));
+        if (testErrors.length > 0) {
+          testsWithErrorsInThisFile++;
+        }
+      }
+    }
+    testsWithErrors += testsWithErrorsInThisFile;
     
     tests += testFile.blocks.flatMap(b => b.tests).length;
     skipped += testFile.skippedTests;

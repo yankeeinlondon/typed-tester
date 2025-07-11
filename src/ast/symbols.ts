@@ -26,6 +26,17 @@ import {
     TypeGeneric
 } from "~/types";
 import { getProjectTypeChecker } from "./project";
+
+// Simple string hash function to replace xxhash
+const simpleHash = (str: string): number => {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash; // Convert to 32-bit integer
+    }
+    return Math.abs(hash);
+};
 import chalk from "chalk";
 
 
@@ -267,7 +278,7 @@ export const createFullyQualifiedNameForSymbol = (sym: Symbol) => {
     const name = getSymbolName(sym);
     const { filepath } = getSymbolFileDefinition(sym);
     const scope = getSymbolScope(sym);
-    const hasher = getHasher();
+    const hasher = simpleHash;
 
     return (
         scope === "external"
@@ -279,7 +290,7 @@ export const createFullyQualifiedNameForSymbol = (sym: Symbol) => {
 }
 
 export const createSymbolHash = (sym: Symbol) => {
-    const hasher = getHasher();
+    const hasher = simpleHash;
     const scope = getSymbolScope(sym);
 
     return scope === "external"
