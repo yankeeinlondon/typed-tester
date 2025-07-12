@@ -30,13 +30,6 @@ export type TestFile = {
 
   importSymbols: SymbolImport[];
 
-  /** time file was created */
-  ctime: Date;
-  /**
-   * the raw file text content, trimmed, and then hashed
-   */
-  hash: number;
-  size: number;
   /**
    * Sets the whole file to be skipped if all the blocks
    * or all the tests are set to be skipped.
@@ -60,11 +53,6 @@ export type TestFile = {
 export type SymbolFilterCallback = (sym: SymbolReference) => boolean;
 
 export type TestFileOptions = {
-  /**
-   * If the caller already has cache data then they can provide
-   * it here to avoid to recomputing it.
-   */
-  cacheData?: { hash: number; ctime: Date; size: number };
 
   /**
    * By default, the filtering function will reduce symbols

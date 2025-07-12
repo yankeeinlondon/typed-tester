@@ -132,10 +132,6 @@ export type SymbolMeta<
 
     refs: SymbolReference[];
 
-    /** the hash of the symbol */
-    symbolHash: number;
-    /** the epoch date of when this symbol was last hashed */
-    updated: number;
 }
 
 /**

@@ -1,6 +1,6 @@
 import {  Diagnostic,  SourceFile, ts } from "ts-morph";
 import { SymbolReference } from "../types/symbol-ast-types";
-import {  asSymbolReference, getSymbolDependencies } from "./symbols";
+import { asSymbolReference } from "./symbols";
 import { isTsDiagnostic } from "src/type-guards";
 import { isString } from "inferred-types";
 import { getProject } from "./project";
@@ -128,14 +128,12 @@ export const getSymbolsDefinedInFile = (
 ): SymbolReference[] => {
   const imported = imports?.map(i => i.symbol.fqn) || getImportsForFile(file).map(i => i.symbol.fqn);
   const exported = file.getExportSymbols();
-  const local = exported.flatMap(s => getSymbolDependencies(s).filter(i => i.scope === "local"))
+  // Local dependencies tracking was removed with cache system
+  // Only return exported symbols for now
 
-  return [
-    ...exported.map(i => asSymbolReference(i)),
-    ...local.map(i => asSymbolReference(i))
-      .filter(i => i.kind !== "property") // cuts down on noise
-      .filter(i => !imported.includes(i.fqn)) // avoid imported symbols
-  ];
+  return exported.map(i => asSymbolReference(i))
+    .filter(i => i.kind !== "property") // cuts down on noise
+    .filter(i => !imported.includes(i.fqn)); // avoid imported symbols
 }
 
 /**

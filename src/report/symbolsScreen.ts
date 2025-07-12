@@ -1,8 +1,7 @@
-import { getDependencyGraph, SymbolMeta, TypeGeneric } from "src/ast";
+import { SymbolMeta, TypeGeneric } from "src/ast";
 import Table from "tty-table";
 import { prettyMultiLinePath } from "./prettyPath";
 import chalk from "chalk";
-import {  lookupSymbol } from "src/cache";
 
 export const SYMBOL_COL_LEN = 32;
 
@@ -54,20 +53,13 @@ export const symbolsScreen = (
         ).join(', ')
       }
     },
-    ...(
-        columns > 100 
-        ? [{ value: "symbolHash", alias: "Hash", width: 15 }]
-        : []
-    )
+    // Hash column removed since symbolHash property was removed with cache system
   ];
 
   const output = Table(header, rows.map(i => {
-    const deps = i.deps.map(d => lookupSymbol(d)).filter(i => i) as SymbolMeta[];
-    const graphKeys = Array.from(getDependencyGraph(i.deps, true).keys());
-    const depGraph = graphKeys.map(k => ({
-      ...(lookupSymbol(k) as SymbolMeta),
-      scope: "graph"
-    }))
+    const deps: SymbolMeta[] = []; // Cache removed - deps temporarily disabled
+    // const graphKeys = Array.from(getDependencyGraph(i.deps, true).keys());
+    const depGraph: SymbolMeta[] = []; // Cache removed - dep graph temporarily disabled
 
     return {
     ...i, 

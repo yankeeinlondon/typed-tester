@@ -1,30 +1,61 @@
 import chalk from "chalk";
-import { join, relative } from "pathe";
-import { cwd } from "process";
-import {  getProjectRoot, projectUsing, SymbolMeta } from "src/ast"
-import { 
-  cacheExportedSymbols, 
-  clearSymbolsCache, 
-  fuzzyFindSymbol, 
-  getSymbolCacheSummary, 
-  getSymbolLookupKeys,
-  getSymbols, 
-  hasSymbolCacheFile, 
-  initializeHasher,
-  initializeSymbolLookup,
-  saveSymbolLookup, 
-  SYMBOL_CACHE_FILE
-} from "src/cache";
 import { AsOption } from "src/cli";
-import { symbolsJson, symbolsScreen } from "src/report";
+import { projectUsing, asSymbolMeta } from "src/ast"
 import { msg } from "src/utils";
+import { symbolsJson, symbolsScreen } from "src/report";
+import type { SymbolMeta } from "src/types";
 
 export const MAX_SYMBOLS = 10;
+
+function getDirectSymbolAnalysis(project: any): SymbolMeta[] {
+  const symbols: SymbolMeta[] = [];
+  const seenSymbols = new Set<string>();
+
+  // Get all source files
+  const sourceFiles = project.getSourceFiles();
+
+  for (const sourceFile of sourceFiles) {
+    // Get exported symbols from each file
+    const exportedSymbols = sourceFile.getExportedDeclarations();
+    
+    for (const [, declarations] of exportedSymbols) {
+      for (const declaration of declarations) {
+        const symbol = declaration.getSymbol?.();
+        if (symbol && !seenSymbols.has(symbol.getName())) {
+          try {
+            seenSymbols.add(symbol.getName());
+            const meta = asSymbolMeta(symbol);
+            if (meta && meta.isTypeSymbol) {
+              symbols.push(meta);
+            }
+          } catch (error) {
+            // Skip symbols that can't be analyzed
+            console.debug(`Skipping symbol ${symbol.getName()}: ${error}`);
+          }
+        }
+      }
+    }
+  }
+
+  return symbols;
+}
+
+function filterSymbols(symbols: SymbolMeta[], filters: string[]): SymbolMeta[] {
+  if (!filters || filters.length === 0) {
+    return symbols.slice(0, MAX_SYMBOLS); // Show sample if no filter
+  }
+
+  return symbols.filter(symbol => 
+    filters.some(filter => 
+      symbol.name.toLowerCase().includes(filter.toLowerCase()) ||
+      symbol.fqn.toLowerCase().includes(filter.toLowerCase())
+    )
+  );
+}
 
 /** COMMAND */
 export const symbols_command = async (opt: AsOption<"symbols">) => {
   const start = performance.now();
-  await initializeHasher();
 
   if (opt.filter) {
     msg(opt)(chalk.bold(`Symbols (filter: ${chalk.dim(opt.filter)})`));
@@ -40,43 +71,23 @@ export const symbols_command = async (opt: AsOption<"symbols">) => {
   );
   
   const sourceFiles = project.getSourceFiles();
-
   msg(opt)(`- project found ${chalk.bold(sourceFiles.length)} source files [${chalk.dim(configFile)}]`);
   
-  if (opt.clear) {
-    msg(opt)(`- clearing symbols cache from disk and memory`)
-    clearSymbolsCache();
-    // cache
-    cacheExportedSymbols(sourceFiles);
-    const summary = getSymbolCacheSummary();
-      msg(opt)(`- found and cached ${chalk.bold(summary.exported)} ${chalk.italic("exported")} symbols, ${chalk.bold(summary.local)} ${chalk.italic("local")} symbols, and ${chalk.bold(summary.external)} symbols from external packages`);
-      msg(opt)(`- the symbols ${chalk.italic("cached")} represent just the exported type definitions in this repo plus those\n   type definitions which these types depend on.`)
-    // save cache to disk
-    saveSymbolLookup();
-  } else {
-    if (!opt.quiet) {
-      const file = chalk.blue(relative(cwd(), join(getProjectRoot(), SYMBOL_CACHE_FILE)))
-      if(hasSymbolCacheFile()) {
-        msg(opt)(`- using cache file [${file}] to report on symbols`)
-      } else {
-        msg(opt)(`- no cache file [${file}] found so build cache first`)
-      }
-      initializeSymbolLookup();
-      const summary = getSymbolCacheSummary();
-      msg(opt)(`- cache has ${chalk.bold(summary.exported)} ${chalk.italic("exported")} symbols, ${chalk.bold(summary.local)} ${chalk.italic("local")} symbols, and ${chalk.bold(summary.external)} symbols from external packages`);
-    }
-  }
+  // Analyze symbols directly without cache
+  msg(opt)(`- analyzing exported symbols...`);
+  const allSymbols = getDirectSymbolAnalysis(project);
+  msg(opt)(`- found ${chalk.bold(allSymbols.length)} exported type symbols`);
 
-  // REPORTING
-
-  let symbols: SymbolMeta[] = opt?.filter?.length || 0 > 0
-    ? opt.filter.flatMap(f => fuzzyFindSymbol(f, "contains")).filter(i => i.isTypeSymbol)
-    : getSymbols( ...getSymbolLookupKeys(true) ).filter(i => i.isTypeSymbol);
+  // Filter symbols based on user input
+  let symbols = filterSymbols(allSymbols, opt.filter || []);
 
   if (opt?.filter?.length === 0 && !opt.quiet) {
-    msg(opt)(`- here is a sample of some of the symbols (use --filter in CLI to filter to a subset you're interested in)`);
+    msg(opt)(`- showing sample of symbols (use --filter to narrow results)`);
+  } else if (opt?.filter?.length > 0) {
+    msg(opt)(`- filtered to ${chalk.bold(symbols.length)} symbols matching: ${chalk.dim(opt.filter.join(", "))}`);
   }
 
+  // Output results
   if (opt.json) {
     console.log(symbolsJson(symbols));
   } else {
@@ -89,4 +100,3 @@ export const symbols_command = async (opt: AsOption<"symbols">) => {
     msg(opt)(`- command took ${chalk.bold(duration)}${chalk.italic.dim("ms")}`)
   }
 }
-

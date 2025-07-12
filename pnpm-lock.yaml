@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@types/stack-trace':
-        specifier: ^0.0.33
-        version: 0.0.33
       chalk:
         specifier: ^5.4.1
         version: 5.4.1
@@ -59,9 +56,6 @@ importers:
       watcher:
         specifier: ^2.3.1
         version: 2.3.1
-      xxhash-wasm:
-        specifier: ^1.1.0
-        version: 1.1.0
     devDependencies:
       '@antfu/eslint-config':
         specifier: ^4.3.0
@@ -81,6 +75,9 @@ importers:
       '@types/node':
         specifier: ^22.13.4
         version: 22.13.4
+      '@types/stack-trace':
+        specifier: ^0.0.33
+        version: 0.0.33
       bumpp:
         specifier: ^10.0.3
         version: 10.0.3
@@ -2919,9 +2916,6 @@ packages:
   xml-name-validator@4.0.0:
     resolution: {integrity: sha512-ICP2e+jsHvAj2E2lIHxa5tjXRlKDJo4IdvPvCXbXQGdzSfmSpNVyIKMvoZHjDY9DP0zV17iI85o90vRFXNccRw==}
     engines: {node: '>=12'}
-
-  xxhash-wasm@1.1.0:
-    resolution: {integrity: sha512-147y/6YNh+tlp6nd/2pWq38i9h6mz/EuQ6njIrmW8D1BS5nCqs0P6DG+m6zTGnNz5I+uhZ0SHxBs9BsPrwcKDA==}
 
   y18n@4.0.3:
     resolution: {integrity: sha512-JKhqTOwSrqNA1NY5lSztJ1GrBiUodLMmIZuLiDaMRJ+itFd+ABVE8XBjOvIWL+rSqNDC74LCSFmlb/U4UZ4hJQ==}
@@ -6132,8 +6126,6 @@ snapshots:
       strip-ansi: 7.1.0
 
   xml-name-validator@4.0.0: {}
-
-  xxhash-wasm@1.1.0: {}
 
   y18n@4.0.3: {}
 

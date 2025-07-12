@@ -25,9 +25,18 @@ import {
     SymbolScope,
     TypeGeneric
 } from "~/types";
-import { getHasher } from "src/cache/cache";
 import { getProjectTypeChecker } from "./project";
-import { addSymbolToCache, lookupSymbol, updateSymbolCache } from "src/cache";
+
+// Simple string hash function to replace xxhash
+const simpleHash = (str: string): number => {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash; // Convert to 32-bit integer
+    }
+    return Math.abs(hash);
+};
 import chalk from "chalk";
 
 
@@ -269,7 +278,7 @@ export const createFullyQualifiedNameForSymbol = (sym: Symbol) => {
     const name = getSymbolName(sym);
     const { filepath } = getSymbolFileDefinition(sym);
     const scope = getSymbolScope(sym);
-    const hasher = getHasher();
+    const hasher = simpleHash;
 
     return (
         scope === "external"
@@ -281,7 +290,7 @@ export const createFullyQualifiedNameForSymbol = (sym: Symbol) => {
 }
 
 export const createSymbolHash = (sym: Symbol) => {
-    const hasher = getHasher();
+    const hasher = simpleHash;
     const scope = getSymbolScope(sym);
 
     return scope === "external"
@@ -289,17 +298,6 @@ export const createSymbolHash = (sym: Symbol) => {
         : hasher(getSymbolDefinition(sym));
 }
 
-/**
- * Ensures the symbol's dependencies are pushed into cache (memory only)
- * and then returns an array of fully-qualified names back so these 
- * can be stored in the parent symbol's `deps` property.
- */
-const pushSymbolDepsToCache = (sym: Symbol) => {
-    const deps = getSymbolDependencies(sym, false).filter(d => d.kind === "type-defn");
-    updateSymbolCache(...deps);
-
-    return deps.map(i => i.fqn);
-}
 
 export const asSymbolReference = (sym: Symbol | SymbolMeta): SymbolReference => {
     if (isSymbolMeta(sym)) {
@@ -354,10 +352,7 @@ export const asSymbolMeta = (sym: Symbol): SymbolMeta => {
         generics: getSymbolGenerics(sym),
         jsDocs: getSymbolsJSDocInfo(sym),
 
-        refs: [],
-
-        symbolHash: createSymbolHash(sym),
-        updated: Date.now()
+        refs: []
     };
 }
 
@@ -692,13 +687,7 @@ export const getSymbolDependencies = (
     const deps: FQN[] = [];
     for (const [_name, sym] of dependencies) {
         const meta = asSymbolMeta(sym);
-        const metaPlus = {
-            ...meta,
-            dependsOn: getSymbolDependencies(sym),
-            usedBy: []
-        }
-        addSymbolToCache(metaPlus);
-
+        // Cache was removed, just collect the FQNs
         deps.push(meta.fqn);
     }
     return deps;
@@ -710,21 +699,6 @@ export type GraphNode = {
     depth: number;
 }
 
-const removeInitial = (graph: Map<string, GraphNode>): Map<string, GraphNode> => {
-    const lvl0: string[] = [];
-
-    for (const sym of graph.values()) {
-        if (sym.depth === 0) {
-            lvl0.push(sym.symbol);
-        }
-    }
-
-    for (const sym of lvl0) {
-        graph.delete(sym);
-    }
-
-    return graph;
-}
 
 /**
  * **getDependencyGraph**`(symbols,[excludeInitial=false], [stopDepth=4])
@@ -737,50 +711,16 @@ const removeInitial = (graph: Map<string, GraphNode>): Map<string, GraphNode> =>
  */
 export const getDependencyGraph = (
     /** the fully qualified names for items in the  */
-    symbols: string[],
-    excludeInitial: boolean = false,
-    stopDepth: number = 4,
-    depth: number = 0,
-    graph: Map<string, GraphNode> = new Map<string, GraphNode>()
+    _symbols: string[],
+    _excludeInitial: boolean = false,
+    _stopDepth: number = 4,
+    _depth: number = 0,
+    _graph: Map<string, GraphNode> = new Map<string, GraphNode>()
 ): Map<string, GraphNode> => {
 
-    if (depth === stopDepth) {
-        return excludeInitial
-            ? removeInitial(graph)
-            : graph;
-    }
-
-    const newSymbols = symbols
-        .filter(s => !graph.has(s)) // no duplicates
-        .map(s => lookupSymbol(s))
-        .filter(s => s) as SymbolMeta[];
-    // now add symbols to graph
-    for (const s of newSymbols) {
-        graph.set(s.fqn, { symbol: s.fqn, requiredBy: s.name, depth });
-    }
-
-    // new deps are only those which now are new
-    const newDeps = Array.from(
-        new Set(
-            newSymbols
-                .flatMap(s => s.deps) // all the deps which existed before
-        ) // ensure unique
-    ).filter(s => !graph.has(s)) // removing newly added symbols
-
-
-    if (newSymbols.length === 0) {
-        return excludeInitial
-            ? removeInitial(graph)
-            : graph;
-    }
-
-    return getDependencyGraph(
-        newDeps,
-        excludeInitial,
-        stopDepth,
-        depth + 1,
-        graph
-    )
+    // Since cache system was removed, dependency graph functionality is not available
+    // Return empty graph for now
+    return new Map<string, GraphNode>();
 }
 
 

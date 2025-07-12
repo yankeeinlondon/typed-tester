@@ -5,17 +5,12 @@ import { join } from "pathe";
 import { LanguageService, Project, TypeChecker } from "ts-morph";
 import { createFullyQualifiedNameForSymbol, getSymbolKind, getSymbolScope } from "./symbols";
 import { SymbolKind } from "../types/symbol-ast-types";
-import { getHasher } from "src/cache";
 
 /** the TypeChecker for the evaluated project */
 let typeChecker: TypeChecker | null = null;
 /** the **ts-morph** `Project` */
 let project: Project | null = null;
 
-/**
- * the `tsconfig.json` file used to define project
- */
-let configFile: string | null = null;
 
 /**
  * the _hash_ of the config file used to define the project
@@ -87,8 +82,7 @@ export const projectUsing = (candidates: string[]) => {
     throw new Error(`No tsconfig file found in: ${candidates.join(', ')}`);
   } else {
     project = new Project({tsConfigFilePath: found});
-    configFile = found;
-    configHash = getHasher()(found);
+    configHash = 0; // Cache removed
 
     initializeProjectTypeChecker(project);
     languageService = project.getLanguageService();

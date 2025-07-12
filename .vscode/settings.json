@@ -3,5 +3,6 @@
         "Docable",
         "Modifierable",
         "rifraf"
-    ]
+    ],
+    "terminal.integrated.sendKeybindingsToShell": true
 }

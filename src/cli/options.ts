@@ -20,10 +20,6 @@ export const command_options = {
       description: `ignore all type errors outside of test blocks` 
     },
     {
-      name: "clear", defaultValue: false,
-      type: Boolean, description: `clear the test file cache prior to analyzing`
-    },
-    {
         name: "files",
         type: Boolean, description: `list all files deemed to be "test files"`
     },
@@ -40,9 +36,6 @@ export const command_options = {
       type: Boolean, description: `show the type symbols imported into the test file`
     },
   ],
-  cache: [
-    CMD,
-  ],
   deps: [
     CMD,
     { name: "filter", type: String, alias: "f", multiple: true, 
@@ -56,10 +49,6 @@ export const command_options = {
       typeLabel: chalk.underline("substr[]"),
       description: `only report on symbols which match filter string` 
     },
-    { 
-      name: "clear", type: Boolean, 
-      description: `clear the symbol cache and rebuild from scratch`
-    }
   ],
   /** source graph options */
   symbols: [
@@ -125,12 +114,7 @@ export const global_options = [
 /**
  * options which are available only when _no_ command is expressed
  */
-export const only_global_options = [
-  { 
-    name: "cache", type: Boolean, defaultValue: false,
-    description: `show a summary of what is in cache currently` 
-  },
-]
+export const only_global_options: any[] = []
 
 export const command_descriptions = {
   test: `runs a ${chalk.bold("type test")} across all (or a filtered) set of the ${chalk.italic("type tests")}.`,
@@ -138,5 +122,4 @@ export const command_descriptions = {
   files: `shows every source file which defines a types symbol and the symbols it defines`,
   source: `reports on the ${chalk.italic("source file")}'s general type health.`,
   deps: `shows what symbols are ${chalk.italic("dependant")} on a given symbol(s).`,
-  cache: `reports on the state of the cache as well as providing the means to refresh ${chalk.italic("parts")} or ${chalk.italic("all")} of the file caches.`
 } as const satisfies Record<Command, string>

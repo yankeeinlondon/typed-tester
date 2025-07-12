@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { TestSummary } from "src/ast";
+import { TestSummary } from "src/types";
 import { prettyPath } from "./prettyPath";
 import { fileLink, relativeFile } from "src/utils";
 
