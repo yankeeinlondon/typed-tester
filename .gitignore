@@ -9,3 +9,4 @@ ai/prompts/*.md
 .env
 cytoscape/*
 vizdom/*
+.claude-trace
