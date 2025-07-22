@@ -9,12 +9,21 @@
         "fmt": "deno fmt src/"
     },
     "imports": {
+        "~/errors": "./src/errors.ts",
+        "~/types": "./src/types.ts",
+        "~/type-guards": "./src/type-guards/index.ts",
         "@yankeeinlondon/kind-error": "npm:@yankeeinlondon/kind-error@^1.4.1",
         "inferred-types": "npm:inferred-types@^0.55.23",
         "undici": "npm:undici@^7.10.0",
-        "~/errors": "./src/errors.ts",
-        "~/types": "./src/types.ts",
-        "~/type-guards": "./src/type-guards/index.ts"
+        "src/": "./src/",
+        "src/ast": "./src/ast/index.ts",
+        "src/cli": "./src/cli/index.ts", 
+        "src/commands": "./src/commands/index.ts",
+        "src/report": "./src/report/index.ts",
+        "src/type-guards": "./src/type-guards/index.ts",
+        "src/types": "./src/types/index.ts",
+        "src/utils": "./src/utils/index.ts",
+        "src/logging": "./src/logging/error.ts"
     },
     "compilerOptions": {
         "strict": true,
@@ -26,23 +35,28 @@
     "publish": {
         "include": [
             "README.md",
-            "package.json",
             "deno.jsonc",
-            "src"
+            "src/**/*.ts",
+            "!src/**/*.test.ts",
+            "!src/sounds/**/*"
         ],
         "exclude": [
             ".env",
             ".ai/",
             ".claude/",
             "CLAUDE.md",
+            "test/",
             "tests/",
             "dist/",
+            "bin/",
             "node_modules/",
             ".github/",
             "*.config.*",
             "package.json",
             "package-lock.json",
-            "pnpm-lock.yaml"
+            "pnpm-lock.yaml",
+            "scripts/",
+            "sigma/"
         ]
     }
 }
