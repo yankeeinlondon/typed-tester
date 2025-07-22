@@ -13,5 +13,3 @@ on:
 jobs:
   testing:
     uses: yankeeinlondon/gha/.github/workflows/test.yml@main
-
-    

@@ -3,8 +3,7 @@
     "version": "0.7.0",
     "description": "Test all your type-tests and incorporate into your CI-CD and deployment strategy",
     "scripts": {
-        "build": "node scripts/build.mjs",
-        "try": "./bin/typed",
+        "build": "scripts/build",
         "ast": "bun run ai/ast.ts",
         "ask": "bun run ai/ask.ts",
         "test": "vitest run",
@@ -64,6 +63,7 @@
         "jiti": "^2.4.2",
         "npm-run-all": "^4.1.5",
         "rimraf": "^6.0.1",
+        "tsdown": "^0.12.9",
         "tsup": "^8.5.0",
         "vitest": "^3.2.4"
     }

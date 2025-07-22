@@ -178,9 +178,9 @@ else
     exit 1
 fi
 
-if pnpm tsup "src${PATH_DELIM}typed.ts" --format=esm -d bin --sourcemap; then
+if pnpm tsdown "src${PATH_DELIM}typed.ts" --format=esm -d bin --sourcemap; then
     log ""
-    log "- transpiled ${BOLD}JS${RESET} files from ${BOLD}TS${RESET} source using ${BOLD}tsup${RESET} build utility"
+    log "- transpiled ${BOLD}JS${RESET} files from ${BOLD}TS${RESET} source using ${BOLD}tsdown${RESET} build utility"
 else
     log ""
     log "- ${RED}ERROR:${RESET} failed to transpile JS files from TS source using ${BOLD}tsup${RESET}"

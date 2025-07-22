@@ -1,3 +1,5 @@
+#!/usr/bin/env bun run
+
 // CLI SCRIPT
 import { create_cli } from "./cli/create_cli";
 import { show_help } from "./help";
@@ -12,7 +14,7 @@ import {
 } from "./commands";
 
 
-const [cmd, cli] = create_cli();
+const [cmd, cli, positionalArgs] = create_cli();
 
 if (!cmd) {
     show_help();
@@ -29,7 +31,7 @@ if (!cmd) {
         if (isCommand(cmd)) {
             switch (cmd) {
                 case "test":
-                    await test_command(cli as AsOption<"test">)
+                    await test_command(cli as AsOption<"test">, positionalArgs)
                     break;
                 case "symbols":
                     await symbols_command(cli as AsOption<"symbols">)

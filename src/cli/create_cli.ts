@@ -9,28 +9,34 @@ import { isCommand } from "src/type-guards";
 export const NumericArray = (): number[] => [];
 
 
-export type CliResponse = [Command, CommandLineOptions] | [undefined, CommandLineOptions];
+export type CliResponse = [Command, CommandLineOptions, string[]] | [undefined, CommandLineOptions, string[]];
 
 export const create_cli = (): CliResponse =>  {
-  const argv = process.argv[2]?.split(" ") || [];
+  const argv = process.argv.slice(2);
   const cmd_candidate: string = argv[0] || "not-command";
 
-  return isCommand(cmd_candidate)
-  ? [
-      cmd_candidate,
-      commandLineArgs(
-        [
-          ...command_options[cmd_candidate],
-          ...global_options
-        ],
-        { stopAtFirstUnknown: true }
-      )
-  ]
-  : [
-      undefined,
-      commandLineArgs(
-        global_options,
-        { stopAtFirstUnknown: true }
-      )
-  ];
+  if (isCommand(cmd_candidate)) {
+    // Parse command-line arguments excluding the command itself
+    const parsed = commandLineArgs(
+      [
+        ...command_options[cmd_candidate],
+        ...global_options
+      ],
+      { argv: argv.slice(1), stopAtFirstUnknown: true }
+    );
+    
+    // Extract positional arguments (any arguments that weren't parsed as options)
+    const positionalArgs = parsed._unknown || [];
+    
+    return [cmd_candidate, parsed, positionalArgs];
+  } else {
+    const parsed = commandLineArgs(
+      global_options,
+      { argv, stopAtFirstUnknown: true }
+    );
+    
+    const positionalArgs = parsed._unknown || [];
+    
+    return [undefined, parsed, positionalArgs];
+  }
 }

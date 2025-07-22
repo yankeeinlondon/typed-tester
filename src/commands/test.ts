@@ -62,7 +62,7 @@ function calculateTestSummary(testFiles: TestFile[], opt: AsOption<"test">): Tes
   };
 }
 
-export async function test_command(opt: AsOption<"test">) {
+export async function test_command(opt: AsOption<"test">, filters: string[] = []) {
   const start = performance.now();
 
   const [_project, configFile] = projectUsing(
@@ -84,15 +84,15 @@ export async function test_command(opt: AsOption<"test">) {
   shout(opt)(`- there are ${chalk.bold(testFileList.length)} ${chalk.italic("test files")} across the project`);
 
   // filter test files
-  if ((opt?.filter?.length || 0) > 0) {
+  if (filters.length > 0) {
     testFileList = Array.from(new Set(
-      opt.filter.flatMap(f => testFileList.filter(i => i.includes(f))),
+      filters.flatMap(f => testFileList.filter(i => i.includes(f))),
     ));
-    shout(opt)(`- after applying filters [${chalk.dim(opt.filter.join(", "))}], ${chalk.bold(testFileList.length)} files remain to report on`);
+    shout(opt)(`- after applying filters [${chalk.dim(filters.join(", "))}], ${chalk.bold(testFileList.length)} files remain to report on`);
   }
 
-  const filterDesc = opt?.filter?.length > 0
-    ? ` [ filter: ${chalk.dim(opt.filter.join(", "))} ]`
+  const filterDesc = filters.length > 0
+    ? ` [ filter: ${chalk.dim(filters.join(", "))} ]`
     : "";
 
   msg(opt)();
@@ -113,7 +113,7 @@ export async function test_command(opt: AsOption<"test">) {
     showTestSummary(summary);
   }
   else if (!opt.json) {
-    msg(opt)(`- no test files found with the give filter ${filterDesc}`);
+    msg(opt)(`- no test files found with the given filter ${filterDesc}`);
   }
 
   if (!opt.verbose) {

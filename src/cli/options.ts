@@ -8,11 +8,6 @@ const CMD = {name: "cmd", type: String, defaultOption: true, multiple: false};
 
 export const command_options = {
   test: [
-    CMD,
-    { name: "filter", type: String, alias: "f", multiple: true, 
-      typeLabel: chalk.underline("substr[]"),
-      description: `only report on symbols which match filter string` 
-    },
     { name: "show-passing", type: Boolean,  
       description: `show details of passing tests (must use verbose flag)` 
     },
