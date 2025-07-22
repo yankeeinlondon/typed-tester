@@ -1,0 +1,48 @@
+{
+    "name": "@yankeeinlondon/typed-tester",
+    "version": "0.7.0",
+    "license": "MIT",
+    "exports": "./src/index.ts",
+    "tasks": {
+        "test": "deno test --allow-net",
+        "lint": "deno lint src/",
+        "fmt": "deno fmt src/"
+    },
+    "imports": {
+        "@yankeeinlondon/kind-error": "npm:@yankeeinlondon/kind-error@^1.4.1",
+        "inferred-types": "npm:inferred-types@^0.55.23",
+        "undici": "npm:undici@^7.10.0",
+        "~/errors": "./src/errors.ts",
+        "~/types": "./src/types.ts",
+        "~/type-guards": "./src/type-guards/index.ts"
+    },
+    "compilerOptions": {
+        "strict": true,
+        "lib": [
+            "deno.ns",
+            "es2022"
+        ]
+    },
+    "publish": {
+        "include": [
+            "README.md",
+            "package.json",
+            "deno.jsonc",
+            "src"
+        ],
+        "exclude": [
+            ".env",
+            ".ai/",
+            ".claude/",
+            "CLAUDE.md",
+            "tests/",
+            "dist/",
+            "node_modules/",
+            ".github/",
+            "*.config.*",
+            "package.json",
+            "package-lock.json",
+            "pnpm-lock.yaml"
+        ]
+    }
+}
