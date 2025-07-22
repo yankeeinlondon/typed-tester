@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+#
+# DEPRECATED: This bash script has been replaced with cross-platform npm scripts.
+# See package.json build scripts. This file is kept for reference only.
+#
 
 export RESET='\033[0m'
 

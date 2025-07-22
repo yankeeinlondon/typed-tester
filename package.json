@@ -3,7 +3,12 @@
     "version": "0.7.0",
     "description": "Test all your type-tests and incorporate into your CI-CD and deployment strategy",
     "scripts": {
-        "build": "scripts/build",
+        "build": "npm-run-all build:clean build:transpile build:copy build:chmod build:success",
+        "build:clean": "rimraf \"./bin/*\"",
+        "build:transpile": "tsdown src/typed.ts --format=esm -d bin --sourcemap",
+        "build:copy": "node -e \"require('fs').copyFileSync('./src/typed', './bin/typed'); console.log('- copied ./src/typed shell script to ./bin directory');\"",
+        "build:chmod": "node -e \"const fs = require('fs'); const os = require('os'); if (os.platform() !== 'win32') { fs.chmodSync('./bin/typed', '755'); console.log('- granted execute permissions to ./bin/typed'); } else { console.log('- skipped chmod on Windows (not needed)'); }\"",
+        "build:success": "node -e \"console.log('\\n- 🚀 build successful\\n');\"",
         "ast": "bun run ai/ast.ts",
         "ask": "bun run ai/ask.ts",
         "test": "vitest run",
