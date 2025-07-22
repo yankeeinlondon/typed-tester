@@ -10,7 +10,7 @@
     },
     "imports": {
         "~/errors": "./src/errors.ts",
-        "~/types": "./src/types.ts",
+        "~/types": "./src/types/index.ts",
         "~/type-guards": "./src/type-guards/index.ts",
         "@yankeeinlondon/kind-error": "npm:@yankeeinlondon/kind-error@^1.4.1",
         "inferred-types": "npm:inferred-types@^0.55.23",
