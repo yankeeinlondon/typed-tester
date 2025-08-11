@@ -102,7 +102,7 @@ function has_command() {
 function main() {
     local -r js_file="${1}";
     shift
-    local -ra params=("${@}");
+    # local -ra params=("${@}");
 
     if ! file_exists "$js_file"; then
         log "${RED}ERROR:${RESET} unable to run ${BOLD}typed${RESET} due to missing \"${js_file}\" file!"
@@ -120,8 +120,8 @@ function main() {
         error "${BOLD}${RED}Error:${RESET} failed to find a JS/TS runtime to run ${BLUE}${1}${RESET}\n\nTo run you must install any of the following:  - bun, deno, node\n"
     fi
 
-    "${JS_RUNTIME}" "${js_file}" "$@"
+    "${JS_RUNTIME}" "${js_file}" "${@}"
 }
 
 SCRIPT_DIR="$(dirname "$0")"
-main "${SCRIPT_DIR}/typed.mjs" "$@"
+main "${SCRIPT_DIR}/typed.js" "${@}"

@@ -1,0 +1,11 @@
+node_modules
+dist
+.DS_Store
+.aider*
+.ts-*
+ai/prompts/*.md
+!ai/prompts/context.md
+.env
+cytoscape/*
+vizdom/*
+.claude-trace

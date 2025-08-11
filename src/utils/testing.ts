@@ -1,4 +1,4 @@
-import { globSync } from "fast-glob";
+import fg from "fast-glob";
 import { existsSync, readFileSync } from "fs";
 import { relative } from "pathe";
 import { getProjectRoot } from "src/ast";
@@ -12,16 +12,16 @@ export const getTestFiles = () => {
   const env = process.env.TEST_FILES || process.env.VITE_TEST_FILES;
 
   if (env) {
-    return globSync([env, "!node_modules"]);
+    return fg.globSync([env, "!node_modules"]);
   } else {
     if (existsSync(relative(getProjectRoot(), "/.typed-tester-glob"))) {
       const glob = readFileSync(
         relative(getProjectRoot(), "/.typed-tester-glob"), 
         "utf-8"
       );
-      return globSync([glob, "!node_modules"]);
+      return fg.globSync([glob, "!node_modules"]);
     } 
 
-    return globSync(DEFAULT_GLOB)
+    return fg.globSync(DEFAULT_GLOB)
   }
 }

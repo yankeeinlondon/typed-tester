@@ -1,6 +1,7 @@
 {
     "name": "@yankeeinlondon/typed-tester",
     "version": "0.8.2",
+    "type": "module",
     "description": "Test all your type-tests and incorporate into your CI-CD and deployment strategy",
     "scripts": {
         "build": "npm-run-all build:clean build:mkdir build:transpile build:copy build:chmod build:success",
@@ -20,6 +21,10 @@
     "bin": {
         "typed": "bin/typed"
     },
+    "files": [
+        "package.json",
+        "bin"
+    ],
     "keywords": [
         "typescript",
         "testing"
