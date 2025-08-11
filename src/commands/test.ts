@@ -95,16 +95,47 @@ export async function test_command(opt: AsOption<"test">, filters: string[] = []
     ? ` [ filter: ${chalk.dim(filters.join(", "))} ]`
     : "";
 
-  msg(opt)();
-  msg(opt)(chalk.bold.green(`Test Results${filterDesc}:`));
-  msg(opt)(chalk.bold.green(`---------------------------------------------`));
+  if (!opt.json) {
+    msg(opt)();
+    msg(opt)(chalk.bold.green(`Test Results${filterDesc}:`));
+    msg(opt)(chalk.bold.green(`---------------------------------------------`));
+  }
 
   // Analyze all test files directly
   const testFiles = await Promise.all(
     testFileList.map(file => asTestFile(file))
   );
 
-  if (testFiles.length > 0 && !opt.json) {
+  // Handle --files flag to show only files with errors and error count
+  if (opt.files && !opt.json) {
+    const filesWithErrors: Array<{ filepath: string; errorCount: number }> = [];
+    
+    for (const testFile of testFiles) {
+      const allDiagnostics = testFile.blocks.flatMap(b => b.diagnostics);
+      const errors = allDiagnostics.filter(d => !opt.warn.includes(d.code));
+      
+      if (errors.length > 0) {
+        filesWithErrors.push({
+          filepath: testFile.filepath,
+          errorCount: errors.length
+        });
+      }
+    }
+    
+    if (filesWithErrors.length > 0) {
+      msg(opt)();
+      msg(opt)(chalk.bold.red("Files with errors:"));
+      msg(opt)(chalk.red("-------------------"));
+      for (const file of filesWithErrors) {
+        msg(opt)(`${chalk.yellow(file.filepath)} - ${chalk.red(file.errorCount)} error${file.errorCount === 1 ? '' : 's'}`);
+      }
+      msg(opt)();
+      msg(opt)(`Total: ${chalk.bold(filesWithErrors.length)} file${filesWithErrors.length === 1 ? '' : 's'} with errors`);
+    } else {
+      msg(opt)(chalk.green("No files with errors found!"));
+    }
+  }
+  else if (testFiles.length > 0 && !opt.json) {
     for (const testFile of testFiles) {
       showTestFile(testFile, opt);
     }
@@ -116,17 +147,37 @@ export async function test_command(opt: AsOption<"test">, filters: string[] = []
     msg(opt)(`- no test files found with the given filter ${filterDesc}`);
   }
 
-  if (!opt.verbose) {
+  if (!opt.verbose && !opt.json) {
     msg(opt)();
     msg(opt)(`- use ${chalk.blue("--verbose")} to get more details`);
-    if ((!opt["show-passing"])) {
+    if ((!opt["show-passing"]) && !opt.files) {
       msg(opt)(`- use ${chalk.blue("--show-passing")} to show passing tests (not just erroring tests)`);
     }
   }
 
   if (opt.json) {
-    // eslint-disable-next-line no-console
-    console.log(JSON.stringify(testFiles));
+    if (opt.files) {
+      // Output only files with errors in JSON format
+      const filesWithErrors: Array<{ filepath: string; errorCount: number }> = [];
+      
+      for (const testFile of testFiles) {
+        const allDiagnostics = testFile.blocks.flatMap(b => b.diagnostics);
+        const errors = allDiagnostics.filter(d => !opt.warn.includes(d.code));
+        
+        if (errors.length > 0) {
+          filesWithErrors.push({
+            filepath: testFile.filepath,
+            errorCount: errors.length
+          });
+        }
+      }
+      
+      // eslint-disable-next-line no-console
+      console.log(JSON.stringify(filesWithErrors));
+    } else {
+      // eslint-disable-next-line no-console
+      console.log(JSON.stringify(testFiles));
+    }
   }
 
   // Determine exit code based on error types
@@ -172,7 +223,7 @@ export async function test_command(opt: AsOption<"test">, filters: string[] = []
   }
 
   const duration = performance.now() - start;
-  if (!opt.quiet) {
+  if (!opt.quiet && !opt.json) {
     msg(opt)("");
     msg(opt)(`- command took ${chalk.bold(duration)}${chalk.italic.dim("ms")}`);
   }

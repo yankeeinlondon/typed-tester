@@ -24,7 +24,8 @@
     },
     "include": [
       "src",
-      "test"
+      "test",
+      ".claude/hooks"
     ],
     "exclude": [
       "bin",

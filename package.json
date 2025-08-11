@@ -60,6 +60,7 @@
         "@types/find-root": "^1.1.4",
         "@types/node": "^22.16.5",
         "@types/stack-trace": "^0.0.33",
+        "@yankeeinlondon/claudine": "^0.4.1",
         "bumpp": "^10.2.0",
         "eslint": "^9.31.0",
         "eslint-plugin-format": "^1.0.1",

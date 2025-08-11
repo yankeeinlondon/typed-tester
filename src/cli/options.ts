@@ -16,7 +16,7 @@ export const command_options = {
     },
     {
         name: "files",
-        type: Boolean, description: `list all files deemed to be "test files"`
+        type: Boolean, description: `list only files with errors and their error counts`
     },
     {
       name: "slow", defaultValue: false,
