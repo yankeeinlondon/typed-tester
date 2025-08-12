@@ -4,7 +4,7 @@ import chalk from "chalk";
 import { asTestFile, getDiagnosticsOutsideBlocks, getErrorDiagnostics, projectUsing } from "src/ast";
 import { showTestFile } from "src/report/showTestFile";
 import { showTestSummary } from "src/report/showTestSummary";
-import { getTestFiles, msg } from "src/utils";
+import { getTestFiles, msg, filterTestFilesByPattern } from "src/utils";
 import { shout } from "src/utils/shout";
 import type { TestFile, TestSummary } from "src/types";
 
@@ -83,11 +83,9 @@ export async function test_command(opt: AsOption<"test">, filters: string[] = []
   let testFileList = getTestFiles();
   shout(opt)(`- there are ${chalk.bold(testFileList.length)} ${chalk.italic("test files")} across the project`);
 
-  // filter test files
+  // filter test files using enhanced pattern matching with negation support
   if (filters.length > 0) {
-    testFileList = Array.from(new Set(
-      filters.flatMap(f => testFileList.filter(i => i.includes(f))),
-    ));
+    testFileList = filterTestFilesByPattern(testFileList, filters);
     shout(opt)(`- after applying filters [${chalk.dim(filters.join(", "))}], ${chalk.bold(testFileList.length)} files remain to report on`);
   }
 

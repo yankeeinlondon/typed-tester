@@ -9,11 +9,12 @@ import {
 } from "./cli/options";
 import { Command } from "./cli/cli-types";
 import { isCommand } from "./type-guards";
+import packageJson from "../package.json";
 
 
 export const sections = (cmd?: string) => [
   {
-    header: 'Typed',
+    header: `${chalk.bold('Typed')} ${chalk.dim('v')}${packageJson.version}`,
     content: 'Typescript type testing and diagnostics.',
   },
   {

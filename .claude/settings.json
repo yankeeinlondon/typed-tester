@@ -31,7 +31,17 @@
                 "hooks": [
                     {
                         "type": "command",
-                        "command": "./.claude/hooks/session-management.js"
+                        "command": "node ./.claude/hooks/session-announcement.js"
+                    }
+                ]
+            }
+        ],
+        "SubagentStop": [
+            {
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "node ./.claude/hooks/subagent-complete.js"
                     }
                 ]
             }
