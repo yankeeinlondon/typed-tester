@@ -25,6 +25,7 @@
     "include": [
       "src",
       "test",
+      "scripts",
       ".claude/hooks"
     ],
     "exclude": [

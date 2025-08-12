@@ -16,7 +16,8 @@
         "test:ui": "vitest --ui",
         "test:coverage": "vitest run --coverage",
         "watch": "tsup src/typed.ts --format=esm -d bin --sourcemap --watch",
-        "release": "bumpp"
+        "release": "bumpp",
+        "diagnostics": "bun run ./scripts/get-diagnostics.ts"
     },
     "bin": {
         "typed": "bin/typed"
@@ -40,7 +41,7 @@
     "author": "Ken Snyder <ken@ken.net>",
     "license": "MIT",
     "dependencies": {
-        "chalk": "^5.5.0",
+        "@yankeeinlondon/kind-error": "^1.4.1",
         "command-line-args": "^6.0.1",
         "command-line-usage": "^7.0.3",
         "cytoscape": "^3.33.0",
@@ -57,7 +58,8 @@
         "watcher": "^2.3.1"
     },
     "peerDependencies": {
-        "typescript": "^5.9.2"
+        "typescript": "^5.9.2",
+        "chalk": "^5.5.0"
     },
     "devDependencies": {
         "@antfu/eslint-config": "^4.19.0",
@@ -68,7 +70,9 @@
         "@types/node": "^22.17.1",
         "@types/stack-trace": "^0.0.33",
         "@yankeeinlondon/claudine": "^0.4.1",
+        "@yankeeinlondon/gotcha": "^0.2.3",
         "bumpp": "^10.2.2",
+        "chalk": "^5.5.0",
         "eslint": "^9.33.0",
         "eslint-plugin-format": "^1.0.1",
         "husky": "^9.1.7",
