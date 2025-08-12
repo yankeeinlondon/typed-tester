@@ -1,5 +1,5 @@
 import { isNumberLike, hasKeys, asString } from "inferred-types";
-import type { NumberLike } from "inferred-types";
+import type { NumberLike, Mutable } from "inferred-types";
 import type { TypescriptDiagnostic, DiagnosticMessageLookup, DiagnosticCodeLookup } from "~/types/diagnostics";
 import { InvalidDiagnosticCode, InvalidDiagnosticMessage } from "~/errors";
 
@@ -19,17 +19,31 @@ const DIAGNOSTIC_CODE_LOOKUP = {"1002":{"code":1002,"category":"Error","message"
  * Provides a lookup of a Typescript error code _or_ a Typescript error message to a fully formed
  * `TypescriptDiagnostic`.
  */
-export function diagnosticLookup<T extends NumberLike | string>(ref: T): TypescriptDiagnostic | Error {
+export function diagnosticLookup<T extends NumberLike | string>(ref: T): T extends keyof typeof DIAGNOSTIC_CODE_LOOKUP
+    ? TypescriptDiagnostic & Mutable<(typeof DIAGNOSTIC_CODE_LOOKUP)[T]>
+    : T extends keyof typeof DIAGNOSTIC_MESSAGE_LOOKUP
+    ? TypescriptDiagnostic & Mutable<(typeof DIAGNOSTIC_MESSAGE_LOOKUP)[T]>
+    : Error
+    {
     if (isNumberLike(ref)) {
         const info = hasKeys(asString(ref))(DIAGNOSTIC_CODE_LOOKUP)
             ? DIAGNOSTIC_CODE_LOOKUP[asString(ref)] as TypescriptDiagnostic
             : InvalidDiagnosticCode(`the diagnostic code '${ref}' is not valid!`) as Error;
-        return info;
+        return info as T extends keyof typeof DIAGNOSTIC_CODE_LOOKUP
+            ? TypescriptDiagnostic & Mutable<(typeof DIAGNOSTIC_CODE_LOOKUP)[T]>
+            : T extends keyof typeof DIAGNOSTIC_MESSAGE_LOOKUP
+            ? TypescriptDiagnostic & Mutable<(typeof DIAGNOSTIC_MESSAGE_LOOKUP)[T]>
+            : Error;
     }
 
     const info = hasKeys(asString(ref))(DIAGNOSTIC_MESSAGE_LOOKUP)
         ? DIAGNOSTIC_MESSAGE_LOOKUP[asString(ref)] as TypescriptDiagnostic
         : InvalidDiagnosticMessage(`the diagnostic message '${ref}' is not recognized!`) as Error;
 
-    return info;
+    return info as T extends keyof typeof DIAGNOSTIC_CODE_LOOKUP
+        ? TypescriptDiagnostic & Mutable<(typeof DIAGNOSTIC_CODE_LOOKUP)[T]>
+        : T extends keyof typeof DIAGNOSTIC_MESSAGE_LOOKUP
+        ? TypescriptDiagnostic & Mutable<(typeof DIAGNOSTIC_MESSAGE_LOOKUP)[T]>
+        : Error;
 }
+

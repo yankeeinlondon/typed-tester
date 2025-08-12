@@ -1,7 +1,7 @@
 // Main exports for JSR
-export * from './cli/index.js';
-export * from './commands/index.js';
-export * from './ast/index.js';
-export * from './types/index.js';
-export * from './type-guards/index.js';
-export * from './utils/index.js';
+export * from './cli/index';
+export * from './commands/index';
+export * from './ast/index';
+export * from './types/index';
+export * from './type-guards/index';
+export * from './utils/index';

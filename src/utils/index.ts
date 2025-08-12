@@ -4,4 +4,5 @@ export * from "./testing";
 export * from "./rel";
 export * from "./link";
 export * from "./relativeFile";
+export * from "./diagnosticLookup";
 

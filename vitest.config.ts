@@ -9,7 +9,6 @@ export default defineConfig({
   resolve: {
     alias: {
       "~": path.resolve(__dirname, "./src"), // Map "~/" to "./src"
-      "src": path.resolve(__dirname, "./src"),
     },
   },
   test: {
@@ -36,8 +35,7 @@ export default defineConfig({
         'bin/',
         'dist/',
         'ai/',
-        '*.config.*',
-        'scripts/'
+        '*.config.*'
       ]
     }
   },
