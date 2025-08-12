@@ -124,8 +124,10 @@ function displayDiagnosticsByCode(
 export async function source_command(opt: AsOption<"source">, positionalArgs: string[] = []) {
   const start = performance.now();
 
-  msg(opt)(chalk.bold(`Source File Analysis`));
-  msg(opt)(`-------------------------------`);
+  if (!opt.json) {
+    msg(opt)(chalk.bold(`Source File Analysis`));
+    msg(opt)(`-------------------------------`);
+  }
 
   const [project, configFile] = projectUsing(opt.config 
     ? [opt.config] 
@@ -151,56 +153,82 @@ export async function source_command(opt: AsOption<"source">, positionalArgs: st
     excludedByFilter = nonTestFiles.length - filteredFiles.length;
   }
   
-  // Enhanced file analysis reporting
-  msg(opt)(`- of ${chalk.bold(allSourceFiles.length)} source files, the analysis will focus on ${chalk.bold(filteredFiles.length)} files after removing:`);
-  
-  if (testFilesExcluded > 0) {
-    msg(opt)(`  - ${chalk.yellow(testFilesExcluded)} test files were ignored`);
+  if (!opt.json) {
+    // Enhanced file analysis reporting
+    msg(opt)(`- of ${chalk.bold(allSourceFiles.length)} source files, the analysis will focus on ${chalk.bold(filteredFiles.length)} files after removing:`);
+    
+    if (testFilesExcluded > 0) {
+      msg(opt)(`  - ${chalk.yellow(testFilesExcluded)} test files were ignored`);
+    }
+    
+    if (excludedByFilter > 0) {
+      msg(opt)(`  - ${chalk.yellow(excludedByFilter)} files were excluded because they didn't match the filter expression`);
+    }
+    
+    if (testFilesExcluded === 0 && excludedByFilter === 0) {
+      msg(opt)(`  - no files were excluded`);
+    }
+    
+    if (positionalArgs.length > 0) {
+      msg(opt)(`  - filter patterns applied: ${chalk.dim(positionalArgs.join(', '))}`);
+    }
+    
+    msg(opt)(`  - using config: ${chalk.dim(configFile)}`);
   }
-  
-  if (excludedByFilter > 0) {
-    msg(opt)(`  - ${chalk.yellow(excludedByFilter)} files were excluded because they didn't match the filter expression`);
-  }
-  
-  if (testFilesExcluded === 0 && excludedByFilter === 0) {
-    msg(opt)(`  - no files were excluded`);
-  }
-  
-  if (positionalArgs.length > 0) {
-    msg(opt)(`  - filter patterns applied: ${chalk.dim(positionalArgs.join(', '))}`);
-  }
-  
-  msg(opt)(`  - using config: ${chalk.dim(configFile)}`);
 
   // Analyze diagnostics directly
-  msg(opt)(`- analyzing TypeScript diagnostics...`);
+  if (!opt.json) msg(opt)(`- analyzing TypeScript diagnostics...`);
   const summary = analyzeSourceFiles(opt, filteredFiles);
 
-  // Display summary
-  msg(opt)("");
-  msg(opt)(chalk.bold("DIAGNOSTICS SUMMARY:"));
-  msg(opt)("");
-
-  if (summary.totalErrors === 0 && summary.totalWarnings === 0) {
-    msg(opt)(`- 🎉 ${chalk.green.bold("No diagnostics found!")}`);
-  } else {
-    if (summary.totalErrors > 0) {
-      msg(opt)(`- ${chalk.red.bold(summary.totalErrors)} ${chalk.italic("errors")} across ${chalk.bold(summary.filesWithErrors)} files`);
-    }
-    if (summary.totalWarnings > 0) {
-      msg(opt)(`- ${chalk.yellow.bold(summary.totalWarnings)} ${chalk.italic("warnings")} across ${chalk.bold(summary.filesWithWarnings)} files`);
-    }
-  }
-
-  // Show breakdown by diagnostic code
-  if (summary.totalErrors > 0 || summary.totalWarnings > 0) {
-    displayDiagnosticsByCode(summary.errorsByCode, summary.errorsByCodeAndFile, "Error Codes", chalk.red, opt);
-    displayDiagnosticsByCode(summary.warningsByCode, summary.warningsByCodeAndFile, "Warning Codes", chalk.yellow, opt);
-  }
-
   const duration = performance.now() - start;
-  if (!opt.quiet) {
+
+  if (opt.json) {
+    const jsonOutput = {
+      files: {
+        total: allSourceFiles.length,
+        analyzed: filteredFiles.length,
+        testFilesExcluded,
+        excludedByFilter
+      },
+      diagnostics: {
+        totalErrors: summary.totalErrors,
+        totalWarnings: summary.totalWarnings,
+        filesWithErrors: summary.filesWithErrors,
+        filesWithWarnings: summary.filesWithWarnings,
+        errorsByCode: Object.fromEntries(summary.errorsByCode),
+        warningsByCode: Object.fromEntries(summary.warningsByCode)
+      },
+      config: configFile,
+      filters: positionalArgs,
+      duration
+    };
+    console.log(JSON.stringify(jsonOutput, null, 2));
+  } else {
+    // Display summary
     msg(opt)("");
-    msg(opt)(`- command took ${chalk.bold(duration)}${chalk.italic.dim("ms")}`);
+    msg(opt)(chalk.bold("DIAGNOSTICS SUMMARY:"));
+    msg(opt)("");
+
+    if (summary.totalErrors === 0 && summary.totalWarnings === 0) {
+      msg(opt)(`- 🎉 ${chalk.green.bold("No diagnostics found!")}`);
+    } else {
+      if (summary.totalErrors > 0) {
+        msg(opt)(`- ${chalk.red.bold(summary.totalErrors)} ${chalk.italic("errors")} across ${chalk.bold(summary.filesWithErrors)} files`);
+      }
+      if (summary.totalWarnings > 0) {
+        msg(opt)(`- ${chalk.yellow.bold(summary.totalWarnings)} ${chalk.italic("warnings")} across ${chalk.bold(summary.filesWithWarnings)} files`);
+      }
+    }
+
+    // Show breakdown by diagnostic code
+    if (summary.totalErrors > 0 || summary.totalWarnings > 0) {
+      displayDiagnosticsByCode(summary.errorsByCode, summary.errorsByCodeAndFile, "Error Codes", chalk.red, opt);
+      displayDiagnosticsByCode(summary.warningsByCode, summary.warningsByCodeAndFile, "Warning Codes", chalk.yellow, opt);
+    }
+
+    if (!opt.quiet) {
+      msg(opt)("");
+      msg(opt)(`- command took ${chalk.bold(duration)}${chalk.italic.dim("ms")}`);
+    }
   }
 }

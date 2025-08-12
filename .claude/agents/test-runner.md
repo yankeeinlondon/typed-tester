@@ -11,6 +11,7 @@ While you can handle most problems, if you find an issue that you're struggling 
 
 **Core Testing Philosophy**:
 You recognize that TypeScript projects require dual-layer testing:
+
 1. Runtime validation through Vitest to ensure functions behave correctly when executed
 2. Type-level validation through the `typed test` command to ensure type utilities and complex type manipulations work as intended
 

@@ -14,15 +14,28 @@ export const deps_command = async (opt: AsOption<"deps">) => {
 
   const symbols = getAllSymbolsInProject(project);
 
-  msg(opt)(`- ${symbols.length} symbols found`)
-  for (const s of symbols.slice(0,50)) {
-    console.log(`- ${s.name} [${s.kind}] => ${s.fqn}`);
-    
-  }
+  if (opt.json) {
+    const jsonOutput = {
+      symbols: symbols.slice(0, 50).map(s => ({
+        name: s.name,
+        kind: s.kind,
+        fqn: s.fqn
+      })),
+      total: symbols.length,
+      duration: performance.now() - start
+    };
+    console.log(JSON.stringify(jsonOutput, null, 2));
+  } else {
+    msg(opt)(`- ${symbols.length} symbols found`)
+    for (const s of symbols.slice(0,50)) {
+      console.log(`- ${s.name} [${s.kind}] => ${s.fqn}`);
+      
+    }
 
-  const duration = performance.now() - start;
-  if(!opt.quiet) {
-    msg(opt)("")
-    msg(opt)(`- command took ${chalk.bold(duration)}${chalk.italic.dim("ms")}`)
+    const duration = performance.now() - start;
+    if(!opt.quiet) {
+      msg(opt)("")
+      msg(opt)(`- command took ${chalk.bold(duration)}${chalk.italic.dim("ms")}`)
+    }
   }
 }

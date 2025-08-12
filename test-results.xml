@@ -1,0 +1,732 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="190" failures="43" errors="0" time="37.0612395">
+    <testsuite name="tests/unit/basic.test.ts" timestamp="2025-08-12T22:53:42.612Z" hostname="Shazam.local" tests="1" failures="0" errors="0" skipped="0" time="0.000875333">
+        <testcase classname="tests/unit/basic.test.ts" name="basic test &gt; should pass" time="0.000479417">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/unit/lookups.test.ts" timestamp="2025-08-12T22:53:42.613Z" hostname="Shazam.local" tests="1" failures="0" errors="0" skipped="0" time="0.001648167">
+        <testcase classname="tests/unit/lookups.test.ts" name="diagnosticLookup() &gt; happy path" time="0.00121725">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/unit/prettyPath.test.ts" timestamp="2025-08-12T22:53:42.613Z" hostname="Shazam.local" tests="12" failures="0" errors="0" skipped="0" time="0.002203209">
+        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should format a path with directory and filename" time="0.000843208">
+        </testcase>
+        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle relative paths" time="0.000750334">
+        </testcase>
+        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle filename only (no directory)" time="0.000737917">
+        </testcase>
+        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle current directory paths" time="0.00073">
+        </testcase>
+        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle nested directories" time="0.000722834">
+        </testcase>
+        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle Windows-style paths" time="0.000657875">
+        </testcase>
+        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle paths with special characters" time="0.000643792">
+        </testcase>
+        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle paths with spaces" time="0.0006335">
+        </testcase>
+        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle empty string" time="0.000627458">
+        </testcase>
+        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle root path" time="0.000571209">
+        </testcase>
+        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle parent directory references" time="0.000060458">
+        </testcase>
+        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle multiple parent directory references" time="0.000053583">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/unit/source-command-enhanced.test.ts" timestamp="2025-08-12T22:53:42.614Z" hostname="Shazam.local" tests="19" failures="0" errors="0" skipped="0" time="0.015062083">
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; diagnostic lookup integration &gt; should get diagnostic message for known error codes" time="0.013144792">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; diagnostic lookup integration &gt; should handle unknown error codes gracefully" time="0.012998375">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; diagnostic lookup integration &gt; should format error display with description" time="0.012982625">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; file filtering with positional arguments &gt; should filter files by single pattern" time="0.012974458">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; file filtering with positional arguments &gt; should filter files by multiple patterns" time="0.01296725">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; file filtering with positional arguments &gt; should handle negation patterns" time="0.00072375">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; file filtering with positional arguments &gt; should report excluded file counts" time="0.000704041">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; verbose mode enhancements &gt; should group files by error code" time="0.000695583">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; verbose mode enhancements &gt; should format files with prettyPath" time="0.000690083">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; verbose mode enhancements &gt; should show error count per file" time="0.000646416">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; verbose mode enhancements &gt; should format complete verbose error section" time="0.000305166">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; error code link formatting &gt; should create clickable links for error codes" time="0.000297708">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; error code link formatting &gt; should integrate code links in error display" time="0.000293125">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; file reporting improvements &gt; should show clear file exclusion reasons" time="0.000289292">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; file reporting improvements &gt; should show filter patterns when applied" time="0.000283292">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; file reporting improvements &gt; should handle no filters gracefully" time="0.000192209">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; integration scenarios &gt; should handle large error counts gracefully" time="0.000187">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; integration scenarios &gt; should handle multiple error codes in order of frequency" time="0.000182041">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; integration scenarios &gt; should format complete diagnostic summary" time="0.000178291">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/unit/source-command.test.ts" timestamp="2025-08-12T22:53:42.615Z" hostname="Shazam.local" tests="7" failures="0" errors="0" skipped="0" time="0.002367791">
+        <testcase classname="tests/unit/source-command.test.ts" name="source command functionality &gt; analyzeDiagnostics &gt; should handle files with no diagnostics" time="0.001341416">
+        </testcase>
+        <testcase classname="tests/unit/source-command.test.ts" name="source command functionality &gt; analyzeDiagnostics &gt; should count errors correctly" time="0.001234">
+        </testcase>
+        <testcase classname="tests/unit/source-command.test.ts" name="source command functionality &gt; analyzeDiagnostics &gt; should handle warnings when warn codes are specified" time="0.001218417">
+        </testcase>
+        <testcase classname="tests/unit/source-command.test.ts" name="source command functionality &gt; analyzeDiagnostics &gt; should aggregate error codes correctly" time="0.001202167">
+        </testcase>
+        <testcase classname="tests/unit/source-command.test.ts" name="source command functionality &gt; analyzeDiagnostics &gt; should handle mixed errors and warnings in same file" time="0.001192083">
+        </testcase>
+        <testcase classname="tests/unit/source-command.test.ts" name="source command functionality &gt; analyzeDiagnostics &gt; should handle empty files list" time="0.0003725">
+        </testcase>
+        <testcase classname="tests/unit/source-command.test.ts" name="source command functionality &gt; diagnostic code aggregation &gt; should sort error codes by frequency" time="0.000356375">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/unit/symbols-command.test.ts" timestamp="2025-08-12T22:53:42.616Z" hostname="Shazam.local" tests="11" failures="0" errors="0" skipped="0" time="0.003088333">
+        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; filterSymbols &gt; should return limited symbols when no filter is provided" time="0.001712375">
+        </testcase>
+        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; filterSymbols &gt; should return limited symbols when empty filter array is provided" time="0.001605542">
+        </testcase>
+        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; filterSymbols &gt; should filter symbols by name (case insensitive)" time="0.001592959">
+        </testcase>
+        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; filterSymbols &gt; should filter symbols by FQN" time="0.001585334">
+        </testcase>
+        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; filterSymbols &gt; should handle multiple filters (OR logic)" time="0.001578125">
+        </testcase>
+        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; filterSymbols &gt; should handle case insensitive filtering" time="0.000609292">
+        </testcase>
+        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; filterSymbols &gt; should return empty array when no matches found" time="0.000592917">
+        </testcase>
+        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; filterSymbols &gt; should handle partial name matches" time="0.000585208">
+        </testcase>
+        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; symbol analysis &gt; should identify type symbols correctly" time="0.000605375">
+        </testcase>
+        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; symbol analysis &gt; should have valid file paths" time="0.000561625">
+        </testcase>
+        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; symbol analysis &gt; should have properly formatted FQNs" time="0.000215459">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/unit/test-command.test.ts" timestamp="2025-08-12T22:53:42.616Z" hostname="Shazam.local" tests="5" failures="0" errors="0" skipped="0" time="0.002110459">
+        <testcase classname="tests/unit/test-command.test.ts" name="calculateTestSummary &gt; should correctly count errors when no tests have errors" time="0.001426792">
+        </testcase>
+        <testcase classname="tests/unit/test-command.test.ts" name="calculateTestSummary &gt; should correctly count errors when tests have errors (regression test for main bug)" time="0.001305334">
+        </testcase>
+        <testcase classname="tests/unit/test-command.test.ts" name="calculateTestSummary &gt; should handle warnings correctly when warn codes are specified" time="0.001289084">
+        </testcase>
+        <testcase classname="tests/unit/test-command.test.ts" name="calculateTestSummary &gt; should identify slow tests correctly" time="0.001279458">
+        </testcase>
+        <testcase classname="tests/unit/test-command.test.ts" name="calculateTestSummary &gt; should count skipped tests correctly" time="0.001271167">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/fast/deps.fast.test.ts" timestamp="2025-08-12T22:53:42.616Z" hostname="Shazam.local" tests="29" failures="0" errors="0" skipped="29" time="0">
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Basic Dependency Analysis &gt; should analyze dependencies with default options" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Basic Dependency Analysis &gt; should discover symbol dependencies" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Basic Dependency Analysis &gt; should handle quiet mode efficiently" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Dependency Filtering &gt; should filter dependencies by pattern" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Dependency Filtering &gt; should handle multiple filter patterns" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Dependency Filtering &gt; should handle empty filter results gracefully" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Dependency Graph Analysis &gt; should identify direct dependencies" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Dependency Graph Analysis &gt; should identify complex dependency chains" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Dependency Graph Analysis &gt; should handle circular dependency detection" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Different Dependency Types &gt; should identify type dependencies" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Different Dependency Types &gt; should identify function dependencies" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Different Dependency Types &gt; should identify class dependencies" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Different Dependency Types &gt; should identify generic type dependencies" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Output Formats &gt; should produce JSON output when requested" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Output Formats &gt; should maintain performance in JSON mode" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Output Formats &gt; should provide verbose dependency information" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Edge Cases and Error Handling &gt; should handle invalid project directory" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Edge Cases and Error Handling &gt; should handle configuration file issues" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Edge Cases and Error Handling &gt; should handle projects with no dependencies" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Edge Cases and Error Handling &gt; should handle malformed dependency queries" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Performance Optimization &gt; should execute multiple dependency analyses efficiently" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Performance Optimization &gt; should handle large dependency graphs efficiently" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Performance Optimization &gt; should maintain performance across different filter sizes" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Warning Configuration &gt; should handle warning configurations" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Warning Configuration &gt; should handle warning suppression" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Memory and Resource Management &gt; should manage memory efficiently during analysis" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Memory and Resource Management &gt; should handle multiple consecutive analyses" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Integration with Symbol Analysis &gt; should work correctly after symbols command" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/fast/deps.fast.test.ts" name="Deps Command - Fast Integration Tests &gt; Integration with Symbol Analysis &gt; should provide consistent results across runs" time="0">
+            <skipped/>
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/fast/files.fast.test.ts" timestamp="2025-08-12T22:53:42.618Z" hostname="Shazam.local" tests="32" failures="10" errors="0" skipped="0" time="10.131629833">
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; Basic File Discovery &gt; should discover files with default options" time="1.346551292">
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; Basic File Discovery &gt; should discover TypeScript files specifically" time="1.346443417">
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; Basic File Discovery &gt; should include test files in discovery" time="1.346550959">
+            <failure message="expected 0 to be greater than 0" type="AssertionError">
+AssertionError: expected 0 to be greater than 0
+ ❯ tests/integration/fast/files.fast.test.ts:84:32
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; Basic File Discovery &gt; should handle quiet mode efficiently" time="1.346544542">
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; File Filtering &gt; should filter files by pattern" time="1.34653725">
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; File Filtering &gt; should handle multiple filter patterns" time="1.267641042">
+            <failure message="expected false to be true // Object.is equality" type="AssertionError">
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/integration/fast/files.fast.test.ts:135:67
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; File Filtering &gt; should filter by file extension patterns" time="1.267616917">
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; File Filtering &gt; should handle empty filter results gracefully" time="1.267607291">
+            <failure message="files should indicate empty results clearly. Output: 
+  ┌────────────────────────────────────────┬────────────────────┬────────────┐
+  │                  File                  │       Symbol       │ Line Range │
+  ├──────────────────────────────────────..." type="Error">
+Error: files should indicate empty results clearly. Output: 
+  ┌────────────────────────────────────────┬────────────────────┬────────────┐
+  │                  File                  │       Symbol       │ Line Range │
+  ├──────────────────────────────────────...
+ ❯ Function.validateEmptyResults tests/helpers/output-validators.ts:237:13
+ ❯ tests/integration/fast/files.fast.test.ts:163:26
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; File Type Classification &gt; should identify source files" time="1.2676015">
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; File Type Classification &gt; should identify test files" time="1.267555542">
+            <failure message="expected 0 to be greater than 0" type="AssertionError">
+AssertionError: expected 0 to be greater than 0
+ ❯ tests/integration/fast/files.fast.test.ts:203:32
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; File Type Classification &gt; should identify configuration files" time="1.349535542">
+            <failure message="expected false to be true // Object.is equality" type="AssertionError">
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/integration/fast/files.fast.test.ts:218:67
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; Output Formats &gt; should produce JSON output when requested" time="1.349517375">
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; Output Formats &gt; should maintain performance in JSON mode" time="1.349511625">
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; Output Formats &gt; should provide verbose file information" time="1.349507167">
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; File Path Handling &gt; should handle relative paths correctly" time="1.34950275">
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; File Path Handling &gt; should provide absolute or normalized paths" time="0.925327417">
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; File Path Handling &gt; should handle nested directory structures" time="0.9253145">
+            <failure message="expected false to be true // Object.is equality" type="AssertionError">
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/integration/fast/files.fast.test.ts:318:60
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; Edge Cases and Error Handling &gt; should handle invalid project directory" time="0.925309375">
+            <failure message="files did not produce expected error pattern" type="Error">
+Error: files did not produce expected error pattern
+ ❯ Function.validateGracefulErrorHandling tests/helpers/output-validators.ts:203:13
+ ❯ tests/integration/fast/files.fast.test.ts:333:28
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; Edge Cases and Error Handling &gt; should handle configuration file issues" time="0.925305458">
+            <failure message="No tsconfig file found in: nonexistent-config.json" type="Error">
+Error: No tsconfig file found in: nonexistent-config.json
+ ❯ projectUsing src/ast/project:69:11
+ ❯ files_command src/commands/files.ts:10:34
+ ❯ tests/helpers/enhanced-test-harness.ts:269:15
+ ❯ EnhancedTestHarness.captureOutput tests/helpers/enhanced-test-harness.ts:318:13
+ ❯ tests/helpers/enhanced-test-harness.ts:268:19
+ ❯ EnhancedTestHarness.executeWithMetrics tests/helpers/enhanced-test-harness.ts:164:28
+ ❯ EnhancedTestHarness.runFilesCommand tests/helpers/enhanced-test-harness.ts:267:44
+ ❯ tests/integration/fast/files.fast.test.ts:349:49
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; Edge Cases and Error Handling &gt; should handle directory permission issues gracefully" time="0.9253015">
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; Edge Cases and Error Handling &gt; should handle very specific filters that match nothing" time="2.140112667">
+            <failure message="files should indicate empty results clearly. Output: 
+  ┌────────────────────────────────────────┬────────────────────┬────────────┐
+  │                  File                  │       Symbol       │ Line Range │
+  ├──────────────────────────────────────..." type="Error">
+Error: files should indicate empty results clearly. Output: 
+  ┌────────────────────────────────────────┬────────────────────┬────────────┐
+  │                  File                  │       Symbol       │ Line Range │
+  ├──────────────────────────────────────...
+ ❯ Function.validateEmptyResults tests/helpers/output-validators.ts:237:13
+ ❯ tests/integration/fast/files.fast.test.ts:379:26
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; Performance Optimization &gt; should execute multiple file discoveries efficiently" time="3.145345791">
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; Performance Optimization &gt; should handle large directory trees efficiently" time="2.140227333">
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; Performance Optimization &gt; should maintain performance across different filter complexities" time="3.146277625">
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; Warning Configuration &gt; should handle warning configurations" time="2.140346209">
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; Warning Configuration &gt; should handle warning suppression" time="0.977609125">
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; Output Pattern Validation &gt; should produce consistent file path patterns" time="0.977733208">
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; Output Pattern Validation &gt; should show file counts and statistics" time="0.9775765">
+            <failure message="expected false to be true // Object.is equality" type="AssertionError">
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/integration/fast/files.fast.test.ts:512:45
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; Memory and Resource Management &gt; should manage memory efficiently during file discovery" time="1.106573209">
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; Memory and Resource Management &gt; should handle multiple consecutive discoveries" time="1.560782875">
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; Integration with Other Commands &gt; should work correctly after other commands" time="1.334762541">
+        </testcase>
+        <testcase classname="tests/integration/fast/files.fast.test.ts" name="Files Command - Fast Integration Tests &gt; Integration with Other Commands &gt; should provide consistent file lists" time="1.33473875">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/fast/source.fast.test.ts" timestamp="2025-08-12T22:53:42.622Z" hostname="Shazam.local" tests="22" failures="14" errors="0" skipped="0" time="5.029065">
+        <testcase classname="tests/integration/fast/source.fast.test.ts" name="Source Command - Fast Integration Tests &gt; Basic Source Analysis &gt; should analyze source files with default options" time="1.020164125">
+            <failure message="expected 0 to be greater than 0" type="AssertionError">
+AssertionError: expected 0 to be greater than 0
+ ❯ tests/integration/fast/source.fast.test.ts:47:40
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/source.fast.test.ts" name="Source Command - Fast Integration Tests &gt; Basic Source Analysis &gt; should provide comprehensive file analysis" time="1.020068459">
+            <failure message="expected 0 to be greater than 1" type="AssertionError">
+AssertionError: expected 0 to be greater than 1
+ ❯ tests/integration/fast/source.fast.test.ts:65:40
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/source.fast.test.ts" name="Source Command - Fast Integration Tests &gt; Basic Source Analysis &gt; should handle quiet mode efficiently" time="1.020056583">
+            <failure message="Source output validation failed [hasOutput]: Source command produced no output" type="Error">
+Error: Source output validation failed [hasOutput]: Source command produced no output
+ ❯ Function.validateSourceCommand tests/helpers/output-validators.ts:122:15
+ ❯ tests/integration/fast/source.fast.test.ts:82:26
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/source.fast.test.ts" name="Source Command - Fast Integration Tests &gt; Diagnostic Analysis &gt; should detect and report diagnostics appropriately" time="1.020049167">
+        </testcase>
+        <testcase classname="tests/integration/fast/source.fast.test.ts" name="Source Command - Fast Integration Tests &gt; Diagnostic Analysis &gt; should handle projects with no errors" time="1.020009791">
+            <failure message="expected 0 to be greater than 0" type="AssertionError">
+AssertionError: expected 0 to be greater than 0
+ ❯ tests/integration/fast/source.fast.test.ts:115:40
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/source.fast.test.ts" name="Source Command - Fast Integration Tests &gt; Diagnostic Analysis &gt; should categorize diagnostics by severity" time="1.448422709">
+        </testcase>
+        <testcase classname="tests/integration/fast/source.fast.test.ts" name="Source Command - Fast Integration Tests &gt; Performance Tracking &gt; should provide detailed performance metrics" time="1.44848475">
+            <failure message="expected 0 to be greater than 0" type="AssertionError">
+AssertionError: expected 0 to be greater than 0
+ ❯ tests/integration/fast/source.fast.test.ts:157:44
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/source.fast.test.ts" name="Source Command - Fast Integration Tests &gt; Performance Tracking &gt; should track performance consistently across runs" time="2.238095875">
+            <failure message="expected 0 to be greater than 0" type="AssertionError">
+AssertionError: expected 0 to be greater than 0
+ ❯ tests/integration/fast/source.fast.test.ts:193:27
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/source.fast.test.ts" name="Source Command - Fast Integration Tests &gt; Filtering and Options &gt; should filter analysis by file patterns" time="1.448482625">
+            <failure message="expected 0 to be greater than 0" type="AssertionError">
+AssertionError: expected 0 to be greater than 0
+ ❯ tests/integration/fast/source.fast.test.ts:212:40
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/source.fast.test.ts" name="Source Command - Fast Integration Tests &gt; Filtering and Options &gt; should handle multiple filter patterns" time="1.448439">
+            <failure message="expected 0 to be greater than 0" type="AssertionError">
+AssertionError: expected 0 to be greater than 0
+ ❯ tests/integration/fast/source.fast.test.ts:231:40
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/source.fast.test.ts" name="Source Command - Fast Integration Tests &gt; Filtering and Options &gt; should handle warning configuration" time="0.790174083">
+            <failure message="expected 0 to be greater than 0" type="AssertionError">
+AssertionError: expected 0 to be greater than 0
+ ❯ tests/integration/fast/source.fast.test.ts:246:40
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/source.fast.test.ts" name="Source Command - Fast Integration Tests &gt; JSON Output Mode &gt; should produce valid JSON output" time="0.790154541">
+        </testcase>
+        <testcase classname="tests/integration/fast/source.fast.test.ts" name="Source Command - Fast Integration Tests &gt; JSON Output Mode &gt; should maintain performance in JSON mode" time="0.790149333">
+        </testcase>
+        <testcase classname="tests/integration/fast/source.fast.test.ts" name="Source Command - Fast Integration Tests &gt; Error Handling &gt; should handle invalid project directory" time="0.7901455">
+            <failure message="source did not produce expected error pattern" type="Error">
+Error: source did not produce expected error pattern
+ ❯ Function.validateGracefulErrorHandling tests/helpers/output-validators.ts:203:13
+ ❯ tests/integration/fast/source.fast.test.ts:299:28
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/source.fast.test.ts" name="Source Command - Fast Integration Tests &gt; Error Handling &gt; should handle configuration file issues" time="0.865387584">
+            <failure message="No tsconfig file found in: nonexistent-config.json" type="Error">
+Error: No tsconfig file found in: nonexistent-config.json
+ ❯ projectUsing src/ast/project.ts:82:11
+ ❯ source_command src/commands/source.ts:132:33
+ ❯ tests/helpers/enhanced-test-harness.ts:235:15
+ ❯ EnhancedTestHarness.captureOutput tests/helpers/enhanced-test-harness.ts:318:13
+ ❯ tests/helpers/enhanced-test-harness.ts:234:19
+ ❯ EnhancedTestHarness.executeWithMetrics tests/helpers/enhanced-test-harness.ts:164:28
+ ❯ EnhancedTestHarness.runSourceCommand tests/helpers/enhanced-test-harness.ts:233:44
+ ❯ tests/integration/fast/source.fast.test.ts:315:49
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/source.fast.test.ts" name="Source Command - Fast Integration Tests &gt; Error Handling &gt; should handle empty filter results" time="1.09841675">
+        </testcase>
+        <testcase classname="tests/integration/fast/source.fast.test.ts" name="Source Command - Fast Integration Tests &gt; File Type Analysis &gt; should analyze TypeScript files correctly" time="1.098548958">
+            <failure message="expected 0 to be greater than 0" type="AssertionError">
+AssertionError: expected 0 to be greater than 0
+ ❯ tests/integration/fast/source.fast.test.ts:345:40
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/source.fast.test.ts" name="Source Command - Fast Integration Tests &gt; File Type Analysis &gt; should handle complex TypeScript constructs" time="1.098562417">
+        </testcase>
+        <testcase classname="tests/integration/fast/source.fast.test.ts" name="Source Command - Fast Integration Tests &gt; Output Pattern Validation &gt; should produce consistent diagnostic patterns" time="1.098558667">
+        </testcase>
+        <testcase classname="tests/integration/fast/source.fast.test.ts" name="Source Command - Fast Integration Tests &gt; Output Pattern Validation &gt; should show performance timing patterns" time="0.591291625">
+            <failure message="expected 0 to be greater than 0" type="AssertionError">
+AssertionError: expected 0 to be greater than 0
+ ❯ tests/integration/fast/source.fast.test.ts:411:36
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/source.fast.test.ts" name="Source Command - Fast Integration Tests &gt; Memory and Resource Management &gt; should manage memory efficiently during analysis" time="0.357564167">
+        </testcase>
+        <testcase classname="tests/integration/fast/source.fast.test.ts" name="Source Command - Fast Integration Tests &gt; Memory and Resource Management &gt; should handle multiple consecutive analyses" time="0.357546792">
+            <failure message="Source output validation failed [hasOutput]: Source command produced no output" type="Error">
+Error: Source output validation failed [hasOutput]: Source command produced no output
+ ❯ Function.validateSourceCommand tests/helpers/output-validators.ts:122:15
+ ❯ tests/integration/fast/source.fast.test.ts:448:28
+            </failure>
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/fast/suite-validation.fast.test.ts" timestamp="2025-08-12T22:53:42.625Z" hostname="Shazam.local" tests="12" failures="6" errors="0" skipped="0" time="8.571003917">
+        <testcase classname="tests/integration/fast/suite-validation.fast.test.ts" name="Test Suite Performance Validation &gt; Overall Suite Performance &gt; should complete full test suite under 10-second target" time="4.889955584">
+        </testcase>
+        <testcase classname="tests/integration/fast/suite-validation.fast.test.ts" name="Test Suite Performance Validation &gt; Overall Suite Performance &gt; should maintain performance consistency across multiple runs" time="5.57846475">
+        </testcase>
+        <testcase classname="tests/integration/fast/suite-validation.fast.test.ts" name="Test Suite Performance Validation &gt; Individual Command Performance Targets &gt; should meet test command performance target (2500ms)" time="2.44139225">
+            <failure message="Cannot read properties of undefined (reading &apos;raw&apos;)" type="TypeError">
+TypeError: Cannot read properties of undefined (reading &apos;raw&apos;)
+ ❯ tests/integration/fast/suite-validation.fast.test.ts:160:28
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/suite-validation.fast.test.ts" name="Test Suite Performance Validation &gt; Individual Command Performance Targets &gt; should meet symbols command performance target (2000ms)" time="2.441226833">
+            <failure message="Cannot read properties of undefined (reading &apos;raw&apos;)" type="TypeError">
+TypeError: Cannot read properties of undefined (reading &apos;raw&apos;)
+ ❯ tests/integration/fast/suite-validation.fast.test.ts:168:28
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/suite-validation.fast.test.ts" name="Test Suite Performance Validation &gt; Individual Command Performance Targets &gt; should meet source command performance target (2000ms)" time="2.441268542">
+            <failure message="Cannot read properties of undefined (reading &apos;raw&apos;)" type="TypeError">
+TypeError: Cannot read properties of undefined (reading &apos;raw&apos;)
+ ❯ tests/integration/fast/suite-validation.fast.test.ts:176:28
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/suite-validation.fast.test.ts" name="Test Suite Performance Validation &gt; Individual Command Performance Targets &gt; should meet deps command performance target (1500ms)" time="2.110742542">
+            <failure message="Cannot read properties of undefined (reading &apos;raw&apos;)" type="TypeError">
+TypeError: Cannot read properties of undefined (reading &apos;raw&apos;)
+ ❯ tests/integration/fast/suite-validation.fast.test.ts:184:28
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/suite-validation.fast.test.ts" name="Test Suite Performance Validation &gt; Individual Command Performance Targets &gt; should meet files command performance target (1500ms)" time="2.110651709">
+            <failure message="Cannot read properties of undefined (reading &apos;raw&apos;)" type="TypeError">
+TypeError: Cannot read properties of undefined (reading &apos;raw&apos;)
+ ❯ tests/integration/fast/suite-validation.fast.test.ts:192:28
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/suite-validation.fast.test.ts" name="Test Suite Performance Validation &gt; Memory Performance Validation &gt; should maintain reasonable memory usage across all commands" time="3.385258792">
+            <failure message="deps used 192.34MB memory, expected under 150MB" type="Error">
+Error: deps used 192.34MB memory, expected under 150MB
+ ❯ Function.expectMemoryUsage tests/helpers/enhanced-test-harness.ts:740:13
+ ❯ tests/integration/fast/suite-validation.fast.test.ts:222:31
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/suite-validation.fast.test.ts" name="Test Suite Performance Validation &gt; Memory Performance Validation &gt; should not leak memory across test executions" time="2.939046">
+        </testcase>
+        <testcase classname="tests/integration/fast/suite-validation.fast.test.ts" name="Test Suite Performance Validation &gt; Harness Performance Validation &gt; should validate harness initialization performance" time="1.017386375">
+        </testcase>
+        <testcase classname="tests/integration/fast/suite-validation.fast.test.ts" name="Test Suite Performance Validation &gt; Harness Performance Validation &gt; should validate environment readiness" time="1.017342417">
+        </testcase>
+        <testcase classname="tests/integration/fast/suite-validation.fast.test.ts" name="Test Suite Performance Validation &gt; Performance Regression Detection &gt; should detect performance regressions in command execution" time="2.419647125">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/fast/symbols.fast.test.ts" timestamp="2025-08-12T22:53:42.626Z" hostname="Shazam.local" tests="20" failures="13" errors="0" skipped="0" time="7.413750292">
+        <testcase classname="tests/integration/fast/symbols.fast.test.ts" name="Symbols Command - Fast Integration Tests &gt; Basic Symbol Analysis &gt; should analyze symbols with default options" time="1.357419833">
+            <failure message="expected false to be true // Object.is equality" type="AssertionError">
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/integration/fast/symbols.fast.test.ts:49:64
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/symbols.fast.test.ts" name="Symbols Command - Fast Integration Tests &gt; Basic Symbol Analysis &gt; should find all expected symbol types" time="1.3573305">
+            <failure message="expected false to be true // Object.is equality" type="AssertionError">
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/integration/fast/symbols.fast.test.ts:63:44
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/symbols.fast.test.ts" name="Symbols Command - Fast Integration Tests &gt; Basic Symbol Analysis &gt; should provide accurate file and line information" time="1.357318">
+            <failure message="expected false to be true // Object.is equality" type="AssertionError">
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/integration/fast/symbols.fast.test.ts:87:45
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/symbols.fast.test.ts" name="Symbols Command - Fast Integration Tests &gt; Symbol Filtering &gt; should filter symbols by pattern" time="1.35731025">
+            <failure message="expected [ &apos;UserInterface&apos;, &apos;UserType&apos; ] to include &apos;UserManager&apos;" type="AssertionError">
+AssertionError: expected [ &apos;UserInterface&apos;, &apos;UserType&apos; ] to include &apos;UserManager&apos;
+ ❯ tests/integration/fast/symbols.fast.test.ts:116:27
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/symbols.fast.test.ts" name="Symbols Command - Fast Integration Tests &gt; Symbol Filtering &gt; should handle multiple filter patterns" time="1.357263083">
+        </testcase>
+        <testcase classname="tests/integration/fast/symbols.fast.test.ts" name="Symbols Command - Fast Integration Tests &gt; Symbol Filtering &gt; should handle empty filter results gracefully" time="1.785872708">
+        </testcase>
+        <testcase classname="tests/integration/fast/symbols.fast.test.ts" name="Symbols Command - Fast Integration Tests &gt; Sorting Options &gt; should sort symbols by name (default)" time="1.785950875">
+            <failure message="expected [ &apos;UserInterface&apos;, &apos;UserType&apos;, …(8) ] to deeply equal [ &apos;EventName&apos;, …(9) ]" type="AssertionError">
+AssertionError: expected [ &apos;UserInterface&apos;, &apos;UserType&apos;, …(8) ] to deeply equal [ &apos;EventName&apos;, …(9) ]
+
+- Expected
++ Received
+
+  [
+-   &quot;EventName&quot;,
+-   &quot;ExtractArrayType&quot;,
+-   &quot;IsString&quot;,
+-   &quot;OptionalFields&quot;,
+-   &quot;ReadonlyDeep&quot;,
+-   &quot;Repository&quot;,
+-   &quot;RequiredFields&quot;,
+-   &quot;Result&quot;,
+    &quot;UserInterface&quot;,
+    &quot;UserType&quot;,
++   &quot;Result&quot;,
++   &quot;Repository&quot;,
++   &quot;RequiredFields&quot;,
++   &quot;OptionalFields&quot;,
++   &quot;IsString&quot;,
++   &quot;ExtractArrayType&quot;,
++   &quot;ReadonlyDeep&quot;,
++   &quot;EventName&quot;,
+  ]
+
+ ❯ tests/integration/fast/symbols.fast.test.ts:166:27
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/symbols.fast.test.ts" name="Symbols Command - Fast Integration Tests &gt; Sorting Options &gt; should handle different sorting options" time="3.107038709">
+        </testcase>
+        <testcase classname="tests/integration/fast/symbols.fast.test.ts" name="Symbols Command - Fast Integration Tests &gt; JSON Output Mode &gt; should produce valid JSON output" time="1.785973125">
+            <failure message="expected [Function] to not throw an error but &apos;SyntaxError: Unexpected token \&apos;S\&apos;, …&apos; was thrown" type="AssertionError">
+AssertionError: expected [Function] to not throw an error but &apos;SyntaxError: Unexpected token \&apos;S\&apos;, …&apos; was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+&quot;SyntaxError: Unexpected token &apos;S&apos;, \&quot;Symbols (f\&quot;... is not valid JSON&quot;
+
+ ❯ tests/integration/fast/symbols.fast.test.ts:201:48
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/symbols.fast.test.ts" name="Symbols Command - Fast Integration Tests &gt; JSON Output Mode &gt; should maintain performance in JSON mode" time="1.785923333">
+        </testcase>
+        <testcase classname="tests/integration/fast/symbols.fast.test.ts" name="Symbols Command - Fast Integration Tests &gt; Verbose Mode &gt; should provide detailed output in verbose mode" time="1.054830583">
+        </testcase>
+        <testcase classname="tests/integration/fast/symbols.fast.test.ts" name="Symbols Command - Fast Integration Tests &gt; Symbol Type Analysis &gt; should correctly identify interface symbols" time="1.0548005">
+            <failure message="expected 0 to be greater than 0" type="AssertionError">
+AssertionError: expected 0 to be greater than 0
+ ❯ tests/integration/fast/symbols.fast.test.ts:253:33
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/symbols.fast.test.ts" name="Symbols Command - Fast Integration Tests &gt; Symbol Type Analysis &gt; should correctly identify function symbols" time="1.054767">
+            <failure message="expected 0 to be greater than 0" type="AssertionError">
+AssertionError: expected 0 to be greater than 0
+ ❯ tests/integration/fast/symbols.fast.test.ts:271:32
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/symbols.fast.test.ts" name="Symbols Command - Fast Integration Tests &gt; Symbol Type Analysis &gt; should correctly identify class symbols" time="1.054761333">
+            <failure message="expected 0 to be greater than 0" type="AssertionError">
+AssertionError: expected 0 to be greater than 0
+ ❯ tests/integration/fast/symbols.fast.test.ts:290:30
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/symbols.fast.test.ts" name="Symbols Command - Fast Integration Tests &gt; Symbol Type Analysis &gt; should correctly identify type alias symbols" time="1.425693">
+            <failure message="expected 0 to be greater than 0" type="AssertionError">
+AssertionError: expected 0 to be greater than 0
+ ❯ tests/integration/fast/symbols.fast.test.ts:308:28
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/symbols.fast.test.ts" name="Symbols Command - Fast Integration Tests &gt; Error Handling &gt; should handle invalid project directory" time="1.68046975">
+            <failure message="symbols did not produce expected error pattern" type="Error">
+Error: symbols did not produce expected error pattern
+ ❯ Function.validateGracefulErrorHandling tests/helpers/output-validators.ts:203:13
+ ❯ tests/integration/fast/symbols.fast.test.ts:326:28
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/symbols.fast.test.ts" name="Symbols Command - Fast Integration Tests &gt; Error Handling &gt; should handle configuration issues gracefully" time="1.680449167">
+            <failure message="No tsconfig file found in: nonexistent-config.json" type="Error">
+Error: No tsconfig file found in: nonexistent-config.json
+ ❯ projectUsing src/ast/project.ts:82:11
+ ❯ symbols_command src/commands/symbols.ts:68:33
+ ❯ tests/helpers/enhanced-test-harness.ts:218:15
+ ❯ EnhancedTestHarness.captureOutput tests/helpers/enhanced-test-harness.ts:318:13
+ ❯ tests/helpers/enhanced-test-harness.ts:217:19
+ ❯ EnhancedTestHarness.executeWithMetrics tests/helpers/enhanced-test-harness.ts:164:28
+ ❯ EnhancedTestHarness.runSymbolsCommand tests/helpers/enhanced-test-harness.ts:216:44
+ ❯ tests/integration/fast/symbols.fast.test.ts:342:49
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/fast/symbols.fast.test.ts" name="Symbols Command - Fast Integration Tests &gt; Performance Optimization &gt; should execute multiple symbol analyses efficiently" time="2.3912225">
+        </testcase>
+        <testcase classname="tests/integration/fast/symbols.fast.test.ts" name="Symbols Command - Fast Integration Tests &gt; Performance Optimization &gt; should maintain performance across different filter patterns" time="2.391277625">
+        </testcase>
+        <testcase classname="tests/integration/fast/symbols.fast.test.ts" name="Symbols Command - Fast Integration Tests &gt; Output Pattern Validation &gt; should produce consistent output patterns" time="0.711066">
+            <failure message="expected 0 to be greater than 0" type="AssertionError">
+AssertionError: expected 0 to be greater than 0
+ ❯ tests/integration/fast/symbols.fast.test.ts:408:36
+            </failure>
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/fast/test.fast.test.ts" timestamp="2025-08-12T22:53:42.628Z" hostname="Shazam.local" tests="19" failures="0" errors="0" skipped="0" time="5.888435083">
+        <testcase classname="tests/integration/fast/test.fast.test.ts" name="Test Command - Fast Integration Tests &gt; Basic Test Execution &gt; should execute test command with default options" time="1.448175042">
+        </testcase>
+        <testcase classname="tests/integration/fast/test.fast.test.ts" name="Test Command - Fast Integration Tests &gt; Basic Test Execution &gt; should handle comprehensive test suite execution" time="1.448075459">
+        </testcase>
+        <testcase classname="tests/integration/fast/test.fast.test.ts" name="Test Command - Fast Integration Tests &gt; Basic Test Execution &gt; should execute with quiet mode for performance" time="1.448061833">
+        </testcase>
+        <testcase classname="tests/integration/fast/test.fast.test.ts" name="Test Command - Fast Integration Tests &gt; Filter Functionality &gt; should filter tests by pattern" time="1.448054292">
+        </testcase>
+        <testcase classname="tests/integration/fast/test.fast.test.ts" name="Test Command - Fast Integration Tests &gt; Filter Functionality &gt; should handle multiple filters" time="1.44801275">
+        </testcase>
+        <testcase classname="tests/integration/fast/test.fast.test.ts" name="Test Command - Fast Integration Tests &gt; Filter Functionality &gt; should handle empty filter results gracefully" time="1.326320125">
+        </testcase>
+        <testcase classname="tests/integration/fast/test.fast.test.ts" name="Test Command - Fast Integration Tests &gt; Warning Configuration &gt; should handle warning configurations" time="1.32629725">
+        </testcase>
+        <testcase classname="tests/integration/fast/test.fast.test.ts" name="Test Command - Fast Integration Tests &gt; Warning Configuration &gt; should handle warning suppression" time="1.326288167">
+        </testcase>
+        <testcase classname="tests/integration/fast/test.fast.test.ts" name="Test Command - Fast Integration Tests &gt; Output Options &gt; should show passing tests when requested" time="1.326282167">
+        </testcase>
+        <testcase classname="tests/integration/fast/test.fast.test.ts" name="Test Command - Fast Integration Tests &gt; Output Options &gt; should show only errors when requested" time="1.326234542">
+        </testcase>
+        <testcase classname="tests/integration/fast/test.fast.test.ts" name="Test Command - Fast Integration Tests &gt; Output Options &gt; should show symbols when requested" time="0.703432416">
+        </testcase>
+        <testcase classname="tests/integration/fast/test.fast.test.ts" name="Test Command - Fast Integration Tests &gt; Output Options &gt; should handle files listing mode" time="0.703414792">
+        </testcase>
+        <testcase classname="tests/integration/fast/test.fast.test.ts" name="Test Command - Fast Integration Tests &gt; Error Handling &gt; should handle invalid test directory gracefully" time="0.703369625">
+        </testcase>
+        <testcase classname="tests/integration/fast/test.fast.test.ts" name="Test Command - Fast Integration Tests &gt; Error Handling &gt; should handle malformed test files" time="0.703404458">
+        </testcase>
+        <testcase classname="tests/integration/fast/test.fast.test.ts" name="Test Command - Fast Integration Tests &gt; Error Handling &gt; should handle configuration file issues" time="0.703364333">
+        </testcase>
+        <testcase classname="tests/integration/fast/test.fast.test.ts" name="Test Command - Fast Integration Tests &gt; Performance Optimization &gt; should execute multiple test runs efficiently" time="2.102542625">
+        </testcase>
+        <testcase classname="tests/integration/fast/test.fast.test.ts" name="Test Command - Fast Integration Tests &gt; Performance Optimization &gt; should maintain performance under different option combinations" time="2.102679375">
+        </testcase>
+        <testcase classname="tests/integration/fast/test.fast.test.ts" name="Test Command - Fast Integration Tests &gt; Environment Validation &gt; should validate test environment before execution" time="1.167764625">
+        </testcase>
+        <testcase classname="tests/integration/fast/test.fast.test.ts" name="Test Command - Fast Integration Tests &gt; Environment Validation &gt; should track performance statistics" time="1.380259916">
+        </testcase>
+    </testsuite>
+</testsuites>

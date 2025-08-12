@@ -1,0 +1,16 @@
+{
+  "name": "fast-test-project",
+  "version": "1.0.0",
+  "description": "Optimized fixture project for fast integration testing",
+  "type": "module",
+  "scripts": {
+    "build": "tsc --noEmit",
+    "test": "echo 'No runtime tests - this is for type testing only'"
+  },
+  "devDependencies": {
+    "@type-challenges/utils": "^0.1.1",
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0",
+    "vitest": "^3.0.0"
+  }
+}

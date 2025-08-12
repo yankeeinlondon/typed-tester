@@ -1,0 +1,40 @@
+{
+    "permissions": {
+        "allow": [
+            "Bash(npm run build:*)",
+            "Bash(rg:*)",
+            "Bash(npm run try test:*)",
+            "Bash(chmod:*)",
+            "Bash(./bin/typed test:*)",
+            "Bash(npm run try:*)",
+            "Bash(echo \"Exit code: $?\")",
+            "Bash(rm:*)",
+            "Bash(npx tsc:*)",
+            "Bash(npx eslint:*)",
+            "Bash(mkdir:*)",
+            "Bash(git checkout:*)",
+            "Bash(git add:*)",
+            "Bash(git commit:*)",
+            "Bash(time npm run build)",
+            "Bash(./bin/typed:*)",
+            "Bash(time:*)",
+            "Bash(npm test)",
+            "Bash(npm test:*)",
+            "Bash(ls:*)",
+            "Bash(COLUMNS=120 ./bin/typed symbols --quiet)"
+        ],
+        "deny": []
+    },
+    "hooks": {
+        "SessionStart": [
+            {
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "./.claude/hooks/session-management.js"
+                    }
+                ]
+            }
+        ]
+    }
+}
