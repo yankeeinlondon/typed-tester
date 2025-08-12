@@ -5,4 +5,5 @@ export * from "./rel";
 export * from "./link";
 export * from "./relativeFile";
 export * from "./diagnosticLookup";
+export * from "./prettyPath";
 

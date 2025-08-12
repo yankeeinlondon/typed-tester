@@ -25,7 +25,7 @@ function runCLI(args: string[], options: { expectError?: boolean } = {}): string
   }
 }
 
-describe.concurrent('CLI Integration Tests (Fast Harness)', () => {
+describe('CLI Integration Tests (Fast Harness)', () => {
   let harness: TestHarness;
   let useHarness = false;
 
@@ -53,7 +53,7 @@ describe.concurrent('CLI Integration Tests (Fast Harness)', () => {
     }
   });
 
-  describe.concurrent('test command', () => {
+  describe('test command', () => {
     it('should run test command and show summary', async () => {
       const options = { ...getDefaultOptions('test'), quiet: false }; // Don't use quiet mode
       
@@ -123,7 +123,7 @@ describe.concurrent('CLI Integration Tests (Fast Harness)', () => {
     });
   });
 
-  describe.concurrent('symbols command', () => {
+  describe('symbols command', () => {
     it('should run symbols command successfully', async () => {
       const options = getDefaultOptions('symbols');
       
@@ -166,7 +166,7 @@ describe.concurrent('CLI Integration Tests (Fast Harness)', () => {
     });
   });
 
-  describe.concurrent('source command', () => {
+  describe('source command', () => {
     it('should run source command successfully', async () => {
       const options = getDefaultOptions('source');
       
@@ -194,7 +194,7 @@ describe.concurrent('CLI Integration Tests (Fast Harness)', () => {
     });
   });
 
-  describe.concurrent('deps command', () => {
+  describe('deps command', () => {
     it('should run deps command successfully', async () => {
       const options = getDefaultOptions('deps');
       
@@ -209,7 +209,7 @@ describe.concurrent('CLI Integration Tests (Fast Harness)', () => {
     });
   });
 
-  describe.concurrent('files command', () => {
+  describe('files command', () => {
     it('should run files command successfully', async () => {
       const options = getDefaultOptions('files');
       
@@ -239,7 +239,7 @@ describe.concurrent('CLI Integration Tests (Fast Harness)', () => {
     });
   });
 
-  describe.concurrent('performance', () => {
+  describe('performance', () => {
     it('should complete test command quickly with harness', async () => {
       if (!useHarness) {
         // Skip performance test if using CLI spawning

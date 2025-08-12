@@ -79,7 +79,7 @@ export class TestHarness {
     }) as any;
 
     try {
-      await test_command(options);
+      await test_command(options, []);
       return output;
     } finally {
       // Restore original methods
@@ -138,7 +138,7 @@ export class TestHarness {
     }) as any;
 
     try {
-      await source_command(options);
+      await source_command(options, []);
       return output;
     } finally {
       console.log = originalLog;

@@ -39,11 +39,6 @@ export const command_options = {
     }
   ],
   source: [
-    CMD,
-    { name: "filter", type: String, alias: "f", multiple: true, 
-      typeLabel: chalk.underline("substr[]"),
-      description: `only report on symbols which match filter string` 
-    },
   ],
   /** source graph options */
   symbols: [

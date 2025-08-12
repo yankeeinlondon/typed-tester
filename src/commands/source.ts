@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import { AsOption } from "src/cli";
 import { projectUsing, getFileDiagnostics } from "src/ast";
-import { msg, fileLink, relativeFile, tsCodeLink } from "src/utils";
+import { msg, fileLink, relativeFile, tsCodeLink, diagnosticLookup, prettyPath } from "src/utils";
 
 interface DiagnosticSummary {
   totalFiles: number;
@@ -11,6 +11,8 @@ interface DiagnosticSummary {
   totalWarnings: number;
   errorsByCode: Map<number, number>;
   warningsByCode: Map<number, number>;
+  errorsByCodeAndFile: Map<number, Map<string, number>>;
+  warningsByCodeAndFile: Map<number, Map<string, number>>;
 }
 
 function isTestFile(filePath: string): boolean {
@@ -25,19 +27,7 @@ function isTestFile(filePath: string): boolean {
   return false;
 }
 
-function analyzeSourceFiles(project: any, opt: AsOption<"source">): DiagnosticSummary {
-  const allSourceFiles = project.getSourceFiles();
-  
-  // Filter out test files (Vitest patterns and test/tests directories)
-  const nonTestFiles = allSourceFiles.filter((file: any) => !isTestFile(file.getFilePath()));
-  
-  // Apply user filter if specified
-  const sourceFiles = opt.filter && opt.filter.length > 0 
-    ? nonTestFiles.filter((file: any) => 
-        opt.filter.some(filter => file.getFilePath().includes(filter))
-      )
-    : nonTestFiles;
-  
+function analyzeSourceFiles(opt: AsOption<"source">, sourceFiles: any[]): DiagnosticSummary {
   const summary: DiagnosticSummary = {
     totalFiles: sourceFiles.length,
     filesWithErrors: 0,
@@ -45,7 +35,9 @@ function analyzeSourceFiles(project: any, opt: AsOption<"source">): DiagnosticSu
     totalErrors: 0,
     totalWarnings: 0,
     errorsByCode: new Map(),
-    warningsByCode: new Map()
+    warningsByCode: new Map(),
+    errorsByCodeAndFile: new Map(),
+    warningsByCodeAndFile: new Map()
   };
 
   for (const sourceFile of sourceFiles) {
@@ -57,6 +49,8 @@ function analyzeSourceFiles(project: any, opt: AsOption<"source">): DiagnosticSu
     for (const diagnostic of diagnostics) {
       const isWarning = opt.warn.includes(diagnostic.code);
       
+      const filePath = sourceFile.getFilePath();
+      
       if (isWarning) {
         summary.totalWarnings++;
         fileHasWarnings = true;
@@ -64,6 +58,13 @@ function analyzeSourceFiles(project: any, opt: AsOption<"source">): DiagnosticSu
           diagnostic.code, 
           (summary.warningsByCode.get(diagnostic.code) || 0) + 1
         );
+        
+        // Track by code and file for verbose reporting
+        if (!summary.warningsByCodeAndFile.has(diagnostic.code)) {
+          summary.warningsByCodeAndFile.set(diagnostic.code, new Map());
+        }
+        const fileMap = summary.warningsByCodeAndFile.get(diagnostic.code)!;
+        fileMap.set(filePath, (fileMap.get(filePath) || 0) + 1);
       } else {
         summary.totalErrors++;
         fileHasErrors = true;
@@ -71,6 +72,13 @@ function analyzeSourceFiles(project: any, opt: AsOption<"source">): DiagnosticSu
           diagnostic.code, 
           (summary.errorsByCode.get(diagnostic.code) || 0) + 1
         );
+        
+        // Track by code and file for verbose reporting
+        if (!summary.errorsByCodeAndFile.has(diagnostic.code)) {
+          summary.errorsByCodeAndFile.set(diagnostic.code, new Map());
+        }
+        const fileMap = summary.errorsByCodeAndFile.get(diagnostic.code)!;
+        fileMap.set(filePath, (fileMap.get(filePath) || 0) + 1);
       }
     }
 
@@ -83,8 +91,10 @@ function analyzeSourceFiles(project: any, opt: AsOption<"source">): DiagnosticSu
 
 function displayDiagnosticsByCode(
   diagnosticsByCode: Map<number, number>, 
+  diagnosticsByCodeAndFile: Map<number, Map<string, number>>,
   label: string, 
-  color: (str: string) => string
+  color: (str: string) => string,
+  opt: AsOption<"source">
 ) {
   if (diagnosticsByCode.size === 0) return;
 
@@ -93,11 +103,25 @@ function displayDiagnosticsByCode(
     .sort((a, b) => b[1] - a[1]); // Sort by count, descending
 
   for (const [code, count] of sortedCodes) {
-    console.log(`  ${color(tsCodeLink(code))}: ${chalk.bold(count)} occurrences`);
+    const diagnostic = diagnosticLookup(code);
+    const description = diagnostic instanceof Error ? "Unknown diagnostic" : (diagnostic as any).message;
+    
+    msg(opt)(`[cd: ${color(tsCodeLink(code))}, count: ${chalk.bold(count)}] - ${description}`);
+    
+    // Show affected files in verbose mode
+    if (opt.verbose && diagnosticsByCodeAndFile.has(code)) {
+      const fileMap = diagnosticsByCodeAndFile.get(code)!;
+      const sortedFiles = Array.from(fileMap.entries())
+        .sort((a, b) => b[1] - a[1]); // Sort by error count per file
+      
+      for (const [filePath, fileCount] of sortedFiles) {
+        msg(opt)(`  - ${prettyPath(relativeFile(filePath))} (${fileCount})`);
+      }
+    }
   }
 }
 
-export async function source_command(opt: AsOption<"source">) {
+export async function source_command(opt: AsOption<"source">, positionalArgs: string[] = []) {
   const start = performance.now();
 
   msg(opt)(chalk.bold(`Source File Analysis`));
@@ -112,27 +136,45 @@ export async function source_command(opt: AsOption<"source">) {
   
   // Filter out test files
   const nonTestFiles = allSourceFiles.filter(file => !isTestFile(file.getFilePath()));
-  
-  const filteredCount = opt.filter && opt.filter.length > 0 
-    ? nonTestFiles.filter(file => 
-        opt.filter.some(filter => file.getFilePath().includes(filter))
-      ).length
-    : nonTestFiles.length;
-  
-  const filterDesc = opt.filter && opt.filter.length > 0 
-    ? ` (${filteredCount} after user filtering)`
-    : '';
-  
   const testFilesExcluded = allSourceFiles.length - nonTestFiles.length;
-  const excludeDesc = testFilesExcluded > 0 
-    ? ` (${testFilesExcluded} test files excluded)`
-    : '';
   
-  msg(opt)(`- project found ${chalk.bold(nonTestFiles.length)} source files${excludeDesc}${filterDesc} [${chalk.dim(configFile)}]`);
+  // Apply positional args as filters (same approach as test command)
+  let filteredFiles = nonTestFiles;
+  let excludedByFilter = 0;
+  
+  if (positionalArgs.length > 0) {
+    filteredFiles = Array.from(new Set(
+      positionalArgs.flatMap(filter => 
+        nonTestFiles.filter(file => file.getFilePath().includes(filter))
+      )
+    ));
+    excludedByFilter = nonTestFiles.length - filteredFiles.length;
+  }
+  
+  // Enhanced file analysis reporting
+  msg(opt)(`- of ${chalk.bold(allSourceFiles.length)} source files, the analysis will focus on ${chalk.bold(filteredFiles.length)} files after removing:`);
+  
+  if (testFilesExcluded > 0) {
+    msg(opt)(`  - ${chalk.yellow(testFilesExcluded)} test files were ignored`);
+  }
+  
+  if (excludedByFilter > 0) {
+    msg(opt)(`  - ${chalk.yellow(excludedByFilter)} files were excluded because they didn't match the filter expression`);
+  }
+  
+  if (testFilesExcluded === 0 && excludedByFilter === 0) {
+    msg(opt)(`  - no files were excluded`);
+  }
+  
+  if (positionalArgs.length > 0) {
+    msg(opt)(`  - filter patterns applied: ${chalk.dim(positionalArgs.join(', '))}`);
+  }
+  
+  msg(opt)(`  - using config: ${chalk.dim(configFile)}`);
 
   // Analyze diagnostics directly
   msg(opt)(`- analyzing TypeScript diagnostics...`);
-  const summary = analyzeSourceFiles(project, opt);
+  const summary = analyzeSourceFiles(opt, filteredFiles);
 
   // Display summary
   msg(opt)("");
@@ -152,54 +194,8 @@ export async function source_command(opt: AsOption<"source">) {
 
   // Show breakdown by diagnostic code
   if (summary.totalErrors > 0 || summary.totalWarnings > 0) {
-    displayDiagnosticsByCode(summary.errorsByCode, "Error Codes", chalk.red);
-    displayDiagnosticsByCode(summary.warningsByCode, "Warning Codes", chalk.yellow);
-  }
-
-  // Show files with issues if there are any
-  if (opt.verbose && summary.filesWithErrors > 0) {
-    msg(opt)("");
-    msg(opt)("Files with errors:");
-    
-    // Get the same filtered source files used in analysis
-    const allSourceFiles = project.getSourceFiles();
-    
-    // Filter out test files
-    const nonTestFiles = allSourceFiles.filter(file => !isTestFile(file.getFilePath()));
-    
-    const sourceFiles = opt.filter && opt.filter.length > 0 
-      ? nonTestFiles.filter(file => 
-          opt.filter.some(filter => file.getFilePath().includes(filter))
-        )
-      : nonTestFiles;
-    
-    for (const sourceFile of sourceFiles) {
-      const diagnostics = getFileDiagnostics(sourceFile);
-      const errors = diagnostics.filter(d => !opt.warn.includes(d.code));
-      
-      if (errors.length > 0) {
-        const filepath = sourceFile.getFilePath();
-        msg(opt)(`  - ${fileLink(relativeFile(filepath), filepath)} (${errors.length} errors)`);
-        
-        // Show individual error details if there aren't too many total errors
-        if (summary.totalErrors <= 50) {
-          for (const error of errors.slice(0, 5)) { // Limit to first 5 per file
-            const line = error.loc?.lineNumber || '?';
-            const col = error.loc?.column || '?';
-            msg(opt)(`    ${chalk.red('•')} Line ${line}:${col} - ${chalk.dim(error.msg)} ${chalk.gray(`(${error.code})`)}`);
-          }
-          if (errors.length > 5) {
-            msg(opt)(`    ${chalk.dim(`... and ${errors.length - 5} more errors`)}`);
-          }
-        }
-      }
-    }
-    
-    // If there are too many errors to show details, suggest filtering
-    if (summary.totalErrors > 50) {
-      msg(opt)("");
-      msg(opt)(`${chalk.yellow('Note:')} Too many errors to show details. Use ${chalk.blue('--filter')} to focus on specific files.`);
-    }
+    displayDiagnosticsByCode(summary.errorsByCode, summary.errorsByCodeAndFile, "Error Codes", chalk.red, opt);
+    displayDiagnosticsByCode(summary.warningsByCode, summary.warningsByCodeAndFile, "Warning Codes", chalk.yellow, opt);
   }
 
   const duration = performance.now() - start;

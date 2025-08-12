@@ -40,7 +40,7 @@ if (!cmd) {
                     await deps_command(cli as AsOption<"deps">);
                     break;
                 case "source":
-                    await source_command(cli as AsOption<"source">);
+                    await source_command(cli as AsOption<"source">, positionalArgs);
                     break;
                 case "files":
                     await files_command(cli as AsOption<"files">);
