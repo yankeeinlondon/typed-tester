@@ -18,7 +18,8 @@
         "test:coverage": "vitest run --coverage",
         "watch": "tsup src/typed.ts --format=esm -d bin --sourcemap --watch",
         "release": "bumpp",
-        "diagnostics": "bun run ./scripts/get-diagnostics.ts"
+        "diagnostics": "bun run ./scripts/get-diagnostics.ts",
+        "try": "bun run ./src/typed.ts"
     },
     "bin": {
         "typed": "bin/typed"

@@ -207,7 +207,7 @@ describe('source command enhanced features', () => {
             const analyzed = totalFiles - testFiles - filteredOut;
             
             // Simulate the improved reporting message
-            const message = `of ${totalFiles} source files, the analysis will focus on ${analyzed} files after removing:
+            const message = `${totalFiles} files matched, analysis will consider ${chalk.bold.yellow(analyzed)} files after removing:
   - ${testFiles} test files were ignored
   - ${filteredOut} files were excluded because they didn't match the filter expression`;
             
@@ -232,7 +232,7 @@ describe('source command enhanced features', () => {
             
             const message = patterns.length > 0
                 ? `filter patterns applied: ${patterns.join(', ')}`
-                : `of ${totalFiles} source files, the analysis will focus on ${analyzed} files after removing:
+                : `${totalFiles} typescript files found, analysis will consider ${analyzed} files after removing:
   - ${testFiles} test files were ignored`;
             
             expect(message).not.toContain('filter patterns');
