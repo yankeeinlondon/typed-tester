@@ -1,18 +1,27 @@
-
-export type DependentSymbol = {
-    /** the symbol name */
-    name: string;
-    /** the filepath where this symbol is defined */
-    file: string;
-}
+import { FQN, SymbolKind, SymbolMeta, } from "./symbol-ast-types";
 
 
 
+/**
+ * **Dependency**
+ * 
+ * Represents a dependency between one symbol and another. 
+ * 
+ * - all symbols are _referenced_ using a `FQN` (fully qualified name)
+ */
 export type Dependency = {
-    /** the source symbol being evaluated */
-    source: string;
-    /** the file location of the source file */
-    sourceFile: string;
+    /**
+     * reference to the symbol being evaluated
+     */
+    symbol: FQN;
 
-    dependencies: DependentSymbol[];
+    /**
+     * a hash of the symbols implementation so change can be detected
+     */
+    hash: number;
+
+    /**
+     * A reference to all the symbols this symbol is _dependent_ on
+     */
+    dependencies: FQN[];
 }

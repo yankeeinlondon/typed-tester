@@ -13,35 +13,37 @@ const projectName = rawProjectName.includes("/")
   ? rawProjectName.split("/").pop()
   : rawProjectName;
 
-// Get environment variables that might contain subagent info
-// Claude passes information through environment variables
-const subagentType = process.env.CLAUDE_SUBAGENT_TYPE || process.env.SUBAGENT_TYPE || "unknown";
-const subagentTask = process.env.CLAUDE_SUBAGENT_TASK || process.env.SUBAGENT_TASK || "";
-const subagentDescription = process.env.CLAUDE_SUBAGENT_DESCRIPTION || process.env.SUBAGENT_DESCRIPTION || "";
+// Get environment variables that might contain prompt info
+const promptType = process.env.CLAUDE_PROMPT_TYPE || process.env.PROMPT_TYPE || "input";
+const promptContext = process.env.CLAUDE_PROMPT_CONTEXT || process.env.PROMPT_CONTEXT || "";
+const promptMessage = process.env.CLAUDE_PROMPT_MESSAGE || process.env.PROMPT_MESSAGE || "";
 
 // Also check command line arguments which might contain event data
 const args = process.argv.slice(2);
 const eventData = args.length > 0 ? args[0] : null;
 
-console.log("✅ Subagent task completed");
+console.log("⏸️  Waiting for user input");
 console.log(`📦 Project: ${projectName}`);
-if (subagentType !== "unknown") {
-  console.log(`🤖 Subagent type: ${subagentType}`);
+if (promptType !== "input") {
+  console.log(`❓ Prompt type: ${promptType}`);
 }
-if (subagentTask) {
-  console.log(`📋 Task: ${subagentTask}`);
+if (promptContext) {
+  console.log(`📋 Context: ${promptContext}`);
 }
-if (subagentDescription) {
-  console.log(`📝 Description: ${subagentDescription}`);
+if (promptMessage) {
+  console.log(`💬 Message: ${promptMessage}`);
 }
 if (eventData) {
   try {
     const parsed = JSON.parse(eventData);
-    if (parsed.subagent_type) {
-      console.log(`🤖 Subagent: ${parsed.subagent_type}`);
+    if (parsed.type) {
+      console.log(`❓ Type: ${parsed.type}`);
     }
-    if (parsed.description) {
-      console.log(`📝 Task: ${parsed.description}`);
+    if (parsed.message) {
+      console.log(`💬 Message: ${parsed.message}`);
+    }
+    if (parsed.context) {
+      console.log(`📋 Context: ${parsed.context}`);
     }
   } catch (e) {
     // Not JSON, might be plain text
@@ -50,11 +52,11 @@ if (eventData) {
     }
   }
 }
-console.log("⏰ Completed at:", new Date().toISOString());
+console.log("⏰ Waiting since:", new Date().toISOString());
 
 // Debug: Show all environment variables that might contain Claude info
 const claudeEnvVars = Object.entries(process.env)
-  .filter(([key]) => key.includes("CLAUDE") || key.includes("SUBAGENT"))
+  .filter(([key]) => key.includes("CLAUDE") || key.includes("PROMPT"))
   .map(([key, value]) => `  ${key}: ${value}`);
 
 if (claudeEnvVars.length > 0) {
@@ -65,8 +67,7 @@ if (claudeEnvVars.length > 0) {
 console.log("----------------------------------------");
 
 // Build message for audio announcement
-const agentName = subagentType !== "unknown" ? subagentType : "a sub-agent";
-const message = `${agentName} agent finished work in the project ${projectName}`;
+const message = `Claude is waiting for your input in the ${projectName} project`;
 
 // Use macOS's `say` command for audio announcement
 if (process.platform === "darwin") {

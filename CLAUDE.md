@@ -10,6 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### CLI Structure
 - **Entry point**: `src/typed.ts` - main CLI script that routes commands
+- **Shell wrapper**: `src/typed` - bash script that detects JS runtime (bun/node/deno) and executes the transpiled JS
 - **CLI creation**: `src/cli/create_cli.ts` - handles command-line argument parsing using `command-line-args`
 - **Commands**: `src/commands/` - contains implementation for each CLI command (test, symbols, deps, source, files)
 
@@ -40,51 +41,91 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
    - Runtime type validation using TypeScript type guards
    - Extensive validation for CLI commands, symbols, diagnostics, etc.
 
+5. **Test Harness** (`tests/helpers/`):
+   - `test-harness.ts` - reuses TypeScript compiler instance between tests for performance
+   - `enhanced-test-harness.ts` - extended testing capabilities
+   - `performance-tracker.ts` - tracks and validates performance metrics
+   - `output-validators.ts` - validates CLI output format
+
 ## Common Development Commands
 
 ### Build and Development
 ```bash
-# Build the project (uses custom build script)
+# Build the project (uses custom multi-step build process)
 npm run build
 
-# Watch mode during development
+# Watch mode during development (uses tsup)
 npm run watch
 
-# Try the CLI locally
-npm run try
+# Try the CLI locally using bun runtime
+npm run try [command] [options]
+# Example: npm run try test --filter="*.test.ts"
 
-# Release new version
+# Release new version (uses bumpp)
 npm run release
+
+# Get TypeScript diagnostics
+npm run diagnostics
 ```
 
-### Testing and Linting
+### Testing
 ```bash
-# No tests currently - waiting for CLI refactor
+# Run unit tests
 npm test
 
+# Run integration tests
+npm run test:integration
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with UI
+npm run test:ui
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run a single test file
+npx vitest tests/unit/basic.test.ts
+
+# Run tests matching a pattern
+npx vitest --run "test-command"
+```
+
+### Linting
+```bash
 # Lint with ESLint (uses @antfu/eslint-config)
 npx eslint .
+
+# Typecheck without emitting (fast validation)
+npx tsc --noEmit
 ```
 
-### AI Development Tools
-```bash
-# Run AST analysis tool
-npm run ast
-
-# Run AI chat tool
-npm run ask
-```
-
-## CLI Commands Structure
+## CLI Commands
 
 The tool supports these main commands:
-- `test` - Run type tests on test files
-- `symbols` - Analyze and display type symbols
+- `test` - Run type tests on test files (primary command)
+- `symbols` - Analyze and display type symbols from source files
 - `deps` - Show dependency graph between symbols
-- `source` - Analyze source file diagnostics and performance
+- `source` - Analyze source file diagnostics and performance metrics
 - `files` - List and analyze project files
 
 Each command has its own options and can be filtered. Use `--help` with any command for details.
+
+### Local CLI Usage
+```bash
+# Using npm run try (preferred for development)
+npm run try test
+npm run try symbols --filter="MyType"
+npm run try source --show-warnings
+
+# Using npx (after build)
+npx typed test
+npx typed symbols --help
+
+# Direct execution (after build)
+./bin/typed test
+```
 
 ## Key Dependencies
 
@@ -102,9 +143,27 @@ The tool generates cache files in the project root:
 
 These files can be gitignored or committed depending on team preference for build performance vs. repository size.
 
-## TypeScript Configuration
+## Project Configuration
 
+### TypeScript Configuration
 - Uses path mapping with `~/*` aliasing to `src/*`
 - Strict TypeScript settings enabled
 - ESM modules with ES2022 target
-- Builds to `bin/` directory
+- Builds to `bin/` directory using `tsdown`
+
+### Test Configuration (Vitest)
+- Test files: `tests/**/*.test.ts` and `tests/**/*.fast.test.ts`
+- Unit tests in `tests/unit/`
+- Integration tests in `tests/integration/`
+- Fast integration tests in `tests/integration/fast/` (optimized for <2s per command)
+- Test fixtures in `tests/fixtures/` (excluded from test runs)
+- Uses Vitest with Node environment
+- Concurrent test execution enabled for performance
+
+### Build Process
+The build uses a multi-step process (`npm run build`):
+1. Clean: Remove existing `bin/` directory
+2. Create: Make new `bin/` directory
+3. Transpile: Use `tsdown` to compile TypeScript to ESM JavaScript
+4. Copy: Copy shell wrapper script to `bin/`
+5. Permissions: Set execute permissions on shell script (Unix/Mac only)

@@ -152,7 +152,7 @@ export function isSymbolExported(symbol: Symbol): boolean {
             }
 
         } catch (err) {
-            console.log(chalk.red("- Error: ") + `ran into problems interogating ${symbol.getFullyQualifiedName()}`);
+            console.log(chalk.red("- Error: ") + `ran into problems interrogating ${symbol.getFullyQualifiedName()}`);
             console.error(err);
         }
     }
@@ -698,31 +698,6 @@ export type GraphNode = {
     requiredBy: string;
     depth: number;
 }
-
-
-/**
- * **getDependencyGraph**`(symbols,[excludeInitial=false], [stopDepth=4])
- * 
- * Given a set of dependencies, will recursively iterate through 
- * dependencies and find _new_ dependencies which this collective
- * group of dependencies depends on.
- * 
- * Note: this works off the cache so it assumes this has been loaded.
- */
-export const getDependencyGraph = (
-    /** the fully qualified names for items in the  */
-    _symbols: string[],
-    _excludeInitial: boolean = false,
-    _stopDepth: number = 4,
-    _depth: number = 0,
-    _graph: Map<string, GraphNode> = new Map<string, GraphNode>()
-): Map<string, GraphNode> => {
-
-    // Since cache system was removed, dependency graph functionality is not available
-    // Return empty graph for now
-    return new Map<string, GraphNode>();
-}
-
 
 
 
