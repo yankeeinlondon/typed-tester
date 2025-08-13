@@ -6,4 +6,4 @@
 
 Let's take this opportunity to refactor it:
 
-- evaluate performance and look for ways to 
+- there is a new `Dependency` and `
