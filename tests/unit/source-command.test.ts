@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import type { FileDiagnostic } from '~/types';
 import type { AsOption } from '~/cli';
+import { filterTestFilesByPattern } from '~/utils/testing';
 
 // Mock the diagnostic analysis logic from source command
 interface DiagnosticSummary {
@@ -86,17 +87,17 @@ describe('source command functionality', () => {
 
     it('should count errors correctly', () => {
       const filesDiagnostics = [
-        {
+{
           filepath: 'file1.ts',
           diagnostics: [
-            { code: 2344, msg: 'Type error 1', category: 1, loc: { lineNumber: 1, column: 1, start: 0, length: 10 }},
-            { code: 2344, msg: 'Type error 2', category: 1, loc: { lineNumber: 2, column: 1, start: 20, length: 10 }}
+            { code: 2344, msg: 'Type error 1', category: 1, filepath: 'file1.ts', loc: { lineNumber: 1, column: 1, start: 0, length: 10 }},
+            { code: 2344, msg: 'Type error 2', category: 1, filepath: 'file1.ts', loc: { lineNumber: 2, column: 1, start: 20, length: 10 }}
           ]
         },
         {
           filepath: 'file2.ts',
           diagnostics: [
-            { code: 2322, msg: 'Type error 3', category: 1, loc: { lineNumber: 1, column: 1, start: 0, length: 10 }}
+            { code: 2322, msg: 'Type error 3', category: 1, filepath: 'file2.ts', loc: { lineNumber: 1, column: 1, start: 0, length: 10 }}
           ]
         }
       ];
@@ -122,8 +123,8 @@ describe('source command functionality', () => {
         {
           filepath: 'file1.ts',
           diagnostics: [
-            { code: 2344, msg: 'Type error', category: 1, loc: { lineNumber: 1, column: 1, start: 0, length: 10 }},
-            { code: 6196, msg: 'Unused variable', category: 1, loc: { lineNumber: 2, column: 1, start: 20, length: 10 }}
+            { code: 2344, msg: 'Type error', category: 1, filepath: 'file1.ts', loc: { lineNumber: 1, column: 1, start: 0, length: 10 }},
+            { code: 6196, msg: 'Unused variable', category: 1, filepath: 'file1.ts', loc: { lineNumber: 2, column: 1, start: 20, length: 10 }}
           ]
         }
       ];
@@ -144,16 +145,16 @@ describe('source command functionality', () => {
         {
           filepath: 'file1.ts',
           diagnostics: [
-            { code: 2344, msg: 'Error 1', category: 1, loc: { lineNumber: 1, column: 1, start: 0, length: 10 }},
-            { code: 2344, msg: 'Error 2', category: 1, loc: { lineNumber: 2, column: 1, start: 20, length: 10 }},
-            { code: 2322, msg: 'Error 3', category: 1, loc: { lineNumber: 3, column: 1, start: 40, length: 10 }}
+            { code: 2344, msg: 'Error 1', category: 1, filepath: 'file1.ts', loc: { lineNumber: 1, column: 1, start: 0, length: 10 }},
+            { code: 2344, msg: 'Error 2', category: 1, filepath: 'file1.ts', loc: { lineNumber: 2, column: 1, start: 20, length: 10 }},
+            { code: 2322, msg: 'Error 3', category: 1, filepath: 'file1.ts', loc: { lineNumber: 3, column: 1, start: 40, length: 10 }}
           ]
         },
         {
           filepath: 'file2.ts',
           diagnostics: [
-            { code: 2344, msg: 'Error 4', category: 1, loc: { lineNumber: 1, column: 1, start: 0, length: 10 }},
-            { code: 2353, msg: 'Error 5', category: 1, loc: { lineNumber: 2, column: 1, start: 20, length: 10 }}
+            { code: 2344, msg: 'Error 4', category: 1, filepath: 'file2.ts', loc: { lineNumber: 1, column: 1, start: 0, length: 10 }},
+            { code: 2353, msg: 'Error 5', category: 1, filepath: 'file2.ts', loc: { lineNumber: 2, column: 1, start: 20, length: 10 }}
           ]
         }
       ];
@@ -234,3 +235,4 @@ describe('source command functionality', () => {
     });
   });
 });
+

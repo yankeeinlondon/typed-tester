@@ -69,9 +69,37 @@ I think there are two sorts of queries the "deps" command should service:
         As an example of how we might use it:
 
         ```ts
-        import { ask } from "@yankeeinlondon/ask";
+        import { createChoices, ask } from "@yankeeinlondon/ask";
 
-        const 
+        // the remaining symbol names after glob patterns applied
+        const remainingSymbols: string[] = [...];
+
+        // the available options 
+        const choices = createChoices(remainingSymbols.reduce(
+            (acc, i) => ({
+                ...acc,
+                [prettyPath(i)]: i
+            }), {}
+        ));
+
+        const answer = await ask.select("Which symbol do you want to evaluate?", choices);
         ```
 
-   - dsfasd
+   - the output of this view is hierarchical and might look something like:
+
+        ```txt
+        DoSomething<T> in filename
+          - Trim<T> in filename
+            - StringSubset<T,U> in filename
+                - IsLiteral<T> in filename
+                - WhoYurUncle<T> in filename
+            - SomethingElse<T> in filename
+          - Length<T> in filename
+        ```
+
+Both views need to be able to produce a valid JSON output if the `--json` flag is selected:
+
+- the JSON output should offer more details than the screen output as we intentionally limit information to the screen so that it stays focused on just the relevant info
+- the List View and the Detail View should probably both just return the `Dependency` graphs for the symbols which were selected.
+
+

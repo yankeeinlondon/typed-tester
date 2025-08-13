@@ -161,7 +161,23 @@ export async function source_command(opt: AsOption<"source">, positionalArgs: st
         }
 
         if (excludedByFilter > 0) {
-            msg(opt)(chalk.italic(`  - ${chalk.yellow(excludedByFilter)} files were excluded because they didn't match the filter expression: ${chalk.blue.dim(positionalArgs.join(", "))}`));
+            // Check if we have negative filters only
+            const hasNegativeFilters = positionalArgs.some(arg => arg.startsWith('!'));
+            const hasPositiveFilters = positionalArgs.some(arg => !arg.startsWith('!'));
+            
+            let reason: string;
+            if (hasNegativeFilters && !hasPositiveFilters) {
+                // Only negative filters - files were excluded because they matched the negative patterns
+                reason = `they matched the negative filter expression`;
+            } else if (hasPositiveFilters) {
+                // Has positive filters - files were excluded because they didn't match positive patterns
+                reason = `they didn't match the filter expression`;
+            } else {
+                // Only positive filters (default case)
+                reason = `they didn't match the filter expression`;
+            }
+            
+            msg(opt)(chalk.italic(`  - ${chalk.yellow(excludedByFilter)} files were excluded because ${reason}: ${chalk.blue.dim(positionalArgs.join(", "))}`));
         }
 
         if (testFilesExcluded === 0 && excludedByFilter === 0) {

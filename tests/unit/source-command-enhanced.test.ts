@@ -207,12 +207,11 @@ describe('source command enhanced features', () => {
             const analyzed = totalFiles - testFiles - filteredOut;
             
             // Simulate the improved reporting message
-            const message = `${totalFiles} files matched, analysis will consider ${chalk.bold.yellow(analyzed)} files after removing:
+            const message = `Analysis will consider ${chalk.bold.yellow(analyzed)} files of ${chalk.bold(totalFiles)} typescript files
   - ${testFiles} test files were ignored
   - ${filteredOut} files were excluded because they didn't match the filter expression`;
             
-            expect(message).toContain('of 100 source files');
-            expect(message).toContain('focus on 50 files');
+            expect(message).toContain('Analysis will consider 50 files of 100 typescript files');
             expect(message).toContain('30 test files were ignored');
             expect(message).toContain('20 files were excluded');
         });
