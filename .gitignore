@@ -10,3 +10,4 @@ ai/prompts/*.md
 cytoscape/*
 vizdom/*
 .claude-trace
+test-results.xml

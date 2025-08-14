@@ -66,7 +66,7 @@ console.log("----------------------------------------");
 
 // Build message for audio announcement
 const agentName = subagentType !== "unknown" ? subagentType : "a sub-agent";
-const message = `${agentName} agent finished work in the project ${projectName}`;
+const message = `${agentName} agent finished ${subagentTask} work in the project ${projectName}`;
 
 // Use macOS's `say` command for audio announcement
 if (process.platform === "darwin") {

@@ -9,6 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Core Architecture
 
 ### CLI Structure
+
 - **Entry point**: `src/typed.ts` - main CLI script that routes commands
 - **Shell wrapper**: `src/typed` - bash script that detects JS runtime (bun/node/deno) and executes the transpiled JS
 - **CLI creation**: `src/cli/create_cli.ts` - handles command-line argument parsing using `command-line-args`
@@ -50,49 +51,49 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Common Development Commands
 
 ### Build and Development
+
 ```bash
 # Build the project (uses custom multi-step build process)
-npm run build
+pnpm build
 
 # Watch mode during development (uses tsup)
-npm run watch
+pnpm watch
 
 # Try the CLI locally using bun runtime
-npm run try [command] [options]
-# Example: npm run try test --filter="*.test.ts"
+pnpm try [command] [options]
+# Example: pnpm try test --filter="*.test.ts"
 
 # Release new version (uses bumpp)
-npm run release
+pnpm release
 
 # Get TypeScript diagnostics
-npm run diagnostics
+pnpm diagnostics
 ```
 
 ### Testing
+
 ```bash
-# Run unit tests
-npm test
+# Run unit tests for runtime tests; optionally filtering down to a file or glob pattern
+pnpm test [FILE]
+
+# Run unit tests for type tests; optionally filtering down to a file or glob pattern
+pnpm typed [FILE]
 
 # Run integration tests
-npm run test:integration
+pnpm test:integration
 
 # Run tests in watch mode
-npm run test:watch
+pnpm test:watch
 
 # Run tests with UI
-npm run test:ui
+pnpm test:ui
 
 # Run tests with coverage
-npm run test:coverage
+pnpm test:coverage
 
-# Run a single test file
-npx vitest tests/unit/basic.test.ts
-
-# Run tests matching a pattern
-npx vitest --run "test-command"
-```
 
 ### Linting
+
 ```bash
 # Lint with ESLint (uses @antfu/eslint-config)
 npx eslint .
@@ -104,6 +105,7 @@ npx tsc --noEmit
 ## CLI Commands
 
 The tool supports these main commands:
+
 - `test` - Run type tests on test files (primary command)
 - `symbols` - Analyze and display type symbols from source files
 - `deps` - Show dependency graph between symbols
@@ -113,15 +115,12 @@ The tool supports these main commands:
 Each command has its own options and can be filtered. Use `--help` with any command for details.
 
 ### Local CLI Usage
-```bash
-# Using npm run try (preferred for development)
-npm run try test
-npm run try symbols --filter="MyType"
-npm run try source --show-warnings
 
-# Using npx (after build)
-npx typed test
-npx typed symbols --help
+```bash
+# Using npm run try (preferred for development as it runs against the latest Typescript source and is not dependent on building the TS to JS)
+pnpm try test
+pnpm try symbols --filter="MyType"
+pnpm try source --show-warnings
 
 # Direct execution (after build)
 ./bin/typed test
@@ -138,6 +137,7 @@ npx typed symbols --help
 ## Cache Files
 
 The tool generates cache files in the project root:
+
 - `.dependencies.json` - maps test files to symbol hashes
 - `.symbols.json` - cached symbol definitions and AST data
 
@@ -146,12 +146,14 @@ These files can be gitignored or committed depending on team preference for buil
 ## Project Configuration
 
 ### TypeScript Configuration
+
 - Uses path mapping with `~/*` aliasing to `src/*`
 - Strict TypeScript settings enabled
 - ESM modules with ES2022 target
 - Builds to `bin/` directory using `tsdown`
 
 ### Test Configuration (Vitest)
+
 - Test files: `tests/**/*.test.ts` and `tests/**/*.fast.test.ts`
 - Unit tests in `tests/unit/`
 - Integration tests in `tests/integration/`
@@ -161,7 +163,9 @@ These files can be gitignored or committed depending on team preference for buil
 - Concurrent test execution enabled for performance
 
 ### Build Process
+
 The build uses a multi-step process (`npm run build`):
+
 1. Clean: Remove existing `bin/` directory
 2. Create: Make new `bin/` directory
 3. Transpile: Use `tsdown` to compile TypeScript to ESM JavaScript
