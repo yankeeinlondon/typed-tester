@@ -1,0 +1,13 @@
+name: Testing
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    name: testing
+    uses: yankeeinlondon/gha/.github/workflows/test.yml@main
+    with:
+      os: '["ubuntu-latest", "windows-latest", "macos-latest"]'
+      nodeVersion: '["22.x"]'
