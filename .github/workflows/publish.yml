@@ -1,15 +1,14 @@
 name: Publish
 on:
-  push:
-    tags:
-        - 'v*'
+  workflow_run:
+    workflows: ["Testing"]
+    types: [completed]
 
 jobs:
-
   publish:
+    if: |
+      github.event.workflow_run.conclusion == 'success' && 
+      contains(github.ref, 'refs/tags/v')
     uses: yankeeinlondon/gha/.github/workflows/publish.yml@main
-    # with:
-    #   jsr_scope: '@yankeeinlondon'
-    #   github_packages_scope: '@yankeeinlondon'
     secrets:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
