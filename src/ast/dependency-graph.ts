@@ -2,9 +2,9 @@ import type { Project } from "ts-morph";
 import type {
     DependencyGraph,
     DependencyNode,
-    DependencyTraversal
-} from "~/types/dependency";
-import type { FQN } from "~/types/symbol-ast-types";
+    DependencyTraversal,
+    FQN
+} from "~/types";
 import { getAllSymbolObjectsInProject } from "./project";
 import {
     buildDependencyMap,

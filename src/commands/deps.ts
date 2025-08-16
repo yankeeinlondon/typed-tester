@@ -1,9 +1,14 @@
-import type { AsOption } from "src/cli";
-import type { DependencyGraph, DependencyNode } from "~/types/dependency";
 import chalk from "chalk";
-import { getDependencyGraph, invalidateDependencyCache, projectUsing } from "src/ast";
-import { findSymbolsByPattern, traverseDependencies } from "src/ast/dependency-graph";
-import { handleSymbolSelection } from "src/utils/interactive";
+import type { AsOption } from "~/cli";
+import type { DependencyGraph, DependencyNode } from "~/types";
+import { 
+    findSymbolsByPattern, 
+    traverseDependencies, 
+    getDependencyGraph, 
+    invalidateDependencyCache, 
+    projectUsing 
+} from "~/ast";
+import { handleSymbolSelection } from "~/utils";
 
 /**
  * Calculate comprehensive statistics from the dependency graph

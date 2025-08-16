@@ -3,9 +3,10 @@ import type {
     DependencyCacheManager,
     DependencyGraph,
     DependencyNode,
-    DependencyTraversal
-} from "~/types/dependency";
-import type { FQN, SymbolMeta } from "~/types/symbol-ast-types";
+    DependencyTraversal,
+    FQN,
+    SymbolMeta
+} from "~/types";
 import { existsSync, readFileSync, statSync, unlinkSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 

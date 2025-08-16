@@ -1,4 +1,5 @@
 export * from "./diagnosticLookup";
+export * from "./interactive";
 export * from "./link";
 export * from "./msg";
 export * from "./prettyPath";

@@ -8,7 +8,7 @@ import {
     MicrosoftDiagnosticLookup,
     TypescriptTvUrl,
     DiagnosticMessageLookup
-} from "~/types/diagnostics"
+} from "~/types"
 import { asString, hasKeys, If, isNumberLike, IsValidIndex, Mutable, NumberLike } from "inferred-types";
 import { InvalidDiagnosticCode, InvalidDiagnosticMessage, WriteFailure } from "~/errors";
 import { isError } from "@yankeeinlondon/kind-error";

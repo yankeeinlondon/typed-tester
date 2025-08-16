@@ -1,3 +1,4 @@
+export * from "./dependency";
 export * from "./diagnostics";
 export * from "./file-ast-types";
 export * from "./symbol-ast-types";

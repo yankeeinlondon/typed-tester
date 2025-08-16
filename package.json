@@ -47,6 +47,7 @@
         "@yankeeinlondon/kind-error": "^1.4.1",
         "command-line-args": "^6.0.1",
         "command-line-usage": "^7.0.3",
+        "chalk": "^5.5.0",
         "cytoscape": "^3.33.1",
         "fast-glob": "^3.3.3",
         "find-root": "^1.1.0",
@@ -61,7 +62,6 @@
         "watcher": "^2.3.1"
     },
     "peerDependencies": {
-        "chalk": "^5.5.0",
         "typescript": "^5.9.2"
     },
     "devDependencies": {

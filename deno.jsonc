@@ -13,7 +13,13 @@
         "~/types": "./src/types/index.ts",
         "~/type-guards": "./src/type-guards/index.ts",
         "@yankeeinlondon/kind-error": "npm:@yankeeinlondon/kind-error@^1.4.1",
+        "command-line-args": "npm:^6.0.1",
+        "command-line-usage": "npm:^7.0.3",
+        "chalk": "npm:^5.5.0",
         "inferred-types": "npm:inferred-types@^0.55.23",
+        "ts-morph": "npm:^26.0.0",
+        "tty-table": "^4.2.3",
+        "fast-glob": "npm:^3.3.3",
         "undici": "npm:undici@^7.10.0",
         "src/": "./src/",
         "src/ast": "./src/ast/index.ts",
@@ -23,7 +29,8 @@
         "src/type-guards": "./src/type-guards/index.ts",
         "src/types": "./src/types/index.ts",
         "src/utils": "./src/utils/index.ts",
-        "src/logging": "./src/logging/error.ts"
+        "src/logging": "./src/logging/index.ts",
+        "src/cache": "./src/cache/index.ts"
     },
     "compilerOptions": {
         "strict": true,

@@ -1,6 +1,4 @@
-export * from "../types/file-ast-types";
-export * from "../types/symbol-ast-types";
-export * from "../types/testing-types";
+export * from "./dependency-graph";
 export * from "./diagnostics";
 export * from "./files";
 export * from "./project";

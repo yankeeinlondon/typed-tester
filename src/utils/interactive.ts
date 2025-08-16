@@ -254,7 +254,7 @@ export async function askForRefinedPattern(
  *
  * Creates a pretty, relative path for display.
  */
-export function prettyPath(filePath: string): string {
+export function prettyPath2(filePath: string): string {
     return relative(cwd(), filePath);
 }
 

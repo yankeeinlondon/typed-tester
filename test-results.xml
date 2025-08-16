@@ -1,135 +1,135 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="58" failures="0" errors="0" time="0.027049458">
-    <testsuite name="tests/unit/basic.test.ts" timestamp="2025-08-13T23:20:44.980Z" hostname="Shazam.local" tests="1" failures="0" errors="0" skipped="0" time="0.000993208">
-        <testcase classname="tests/unit/basic.test.ts" name="basic test &gt; should pass" time="0.000538666">
+<testsuites name="vitest tests" tests="58" failures="0" errors="0" time="0.02911629">
+    <testsuite name="tests/unit/basic.test.ts" timestamp="2025-08-16T23:45:18.906Z" hostname="Shazam.local" tests="1" failures="0" errors="0" skipped="0" time="0.001105375">
+        <testcase classname="tests/unit/basic.test.ts" name="basic test &gt; should pass" time="0.00057375">
         </testcase>
     </testsuite>
-    <testsuite name="tests/unit/filtering.test.ts" timestamp="2025-08-13T23:20:44.981Z" hostname="Shazam.local" tests="2" failures="0" errors="0" skipped="0" time="0.001253958">
-        <testcase classname="tests/unit/filtering.test.ts" name="filterTestFilesByPattern &gt; should handle negative filters correctly" time="0.0009125">
+    <testsuite name="tests/unit/filtering.test.ts" timestamp="2025-08-16T23:45:18.906Z" hostname="Shazam.local" tests="2" failures="0" errors="0" skipped="0" time="0.001474416">
+        <testcase classname="tests/unit/filtering.test.ts" name="filterTestFilesByPattern &gt; should handle negative filters correctly" time="0.001056667">
         </testcase>
-        <testcase classname="tests/unit/filtering.test.ts" name="filterTestFilesByPattern &gt; should handle only negative filters correctly" time="0.000830667">
-        </testcase>
-    </testsuite>
-    <testsuite name="tests/unit/lookups.test.ts" timestamp="2025-08-13T23:20:44.981Z" hostname="Shazam.local" tests="1" failures="0" errors="0" skipped="0" time="0.001394458">
-        <testcase classname="tests/unit/lookups.test.ts" name="diagnosticLookup() &gt; happy path" time="0.001000292">
+        <testcase classname="tests/unit/filtering.test.ts" name="filterTestFilesByPattern &gt; should handle only negative filters correctly" time="0.0009485">
         </testcase>
     </testsuite>
-    <testsuite name="tests/unit/prettyPath.test.ts" timestamp="2025-08-13T23:20:44.981Z" hostname="Shazam.local" tests="12" failures="0" errors="0" skipped="0" time="0.002089625">
-        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should format a path with directory and filename" time="0.000826084">
-        </testcase>
-        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle relative paths" time="0.000724542">
-        </testcase>
-        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle filename only (no directory)" time="0.00071125">
-        </testcase>
-        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle current directory paths" time="0.000703041">
-        </testcase>
-        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle nested directories" time="0.000695625">
-        </testcase>
-        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle Windows-style paths" time="0.000648375">
-        </testcase>
-        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle paths with special characters" time="0.000633083">
-        </testcase>
-        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle paths with spaces" time="0.000622458">
-        </testcase>
-        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle empty string" time="0.000616084">
-        </testcase>
-        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle root path" time="0.0005665">
-        </testcase>
-        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle parent directory references" time="0.000065042">
-        </testcase>
-        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle multiple parent directory references" time="0.000056708">
+    <testsuite name="tests/unit/lookups.test.ts" timestamp="2025-08-16T23:45:18.906Z" hostname="Shazam.local" tests="1" failures="0" errors="0" skipped="0" time="0.001535875">
+        <testcase classname="tests/unit/lookups.test.ts" name="diagnosticLookup() &gt; happy path" time="0.00109375">
         </testcase>
     </testsuite>
-    <testsuite name="tests/unit/source-command-enhanced.test.ts" timestamp="2025-08-13T23:20:44.983Z" hostname="Shazam.local" tests="19" failures="0" errors="0" skipped="0" time="0.014296792">
-        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; diagnostic lookup integration &gt; should get diagnostic message for known error codes" time="0.012435041">
+    <testsuite name="tests/unit/prettyPath.test.ts" timestamp="2025-08-16T23:45:18.906Z" hostname="Shazam.local" tests="12" failures="0" errors="0" skipped="0" time="0.002584791">
+        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should format a path with directory and filename" time="0.000996083">
         </testcase>
-        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; diagnostic lookup integration &gt; should handle unknown error codes gracefully" time="0.012305416">
+        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle relative paths" time="0.00085125">
         </testcase>
-        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; diagnostic lookup integration &gt; should format error display with description" time="0.012289958">
+        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle filename only (no directory)" time="0.000820208">
         </testcase>
-        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; file filtering with positional arguments &gt; should filter files by single pattern" time="0.012281791">
+        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle current directory paths" time="0.000809417">
         </testcase>
-        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; file filtering with positional arguments &gt; should filter files by multiple patterns" time="0.012272875">
+        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle nested directories" time="0.000801583">
         </testcase>
-        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; file filtering with positional arguments &gt; should handle negation patterns" time="0.000731584">
+        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle Windows-style paths" time="0.000704917">
         </testcase>
-        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; file filtering with positional arguments &gt; should report excluded file counts" time="0.000713666">
+        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle paths with special characters" time="0.000685292">
         </testcase>
-        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; verbose mode enhancements &gt; should group files by error code" time="0.000704125">
+        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle paths with spaces" time="0.000673334">
         </testcase>
-        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; verbose mode enhancements &gt; should format files with prettyPath" time="0.0006985">
+        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle empty string" time="0.000666834">
         </testcase>
-        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; verbose mode enhancements &gt; should show error count per file" time="0.000632542">
+        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle root path" time="0.00060825">
         </testcase>
-        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; verbose mode enhancements &gt; should format complete verbose error section" time="0.000283917">
+        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle parent directory references" time="0.000081291">
         </testcase>
-        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; error code link formatting &gt; should create clickable links for error codes" time="0.000276625">
-        </testcase>
-        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; error code link formatting &gt; should integrate code links in error display" time="0.000273375">
-        </testcase>
-        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; file reporting improvements &gt; should show clear file exclusion reasons" time="0.000267292">
-        </testcase>
-        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; file reporting improvements &gt; should show filter patterns when applied" time="0.000263125">
-        </testcase>
-        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; file reporting improvements &gt; should handle no filters gracefully" time="0.000186">
-        </testcase>
-        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; integration scenarios &gt; should handle large error counts gracefully" time="0.000180584">
-        </testcase>
-        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; integration scenarios &gt; should handle multiple error codes in order of frequency" time="0.000175416">
-        </testcase>
-        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; integration scenarios &gt; should format complete diagnostic summary" time="0.0001715">
+        <testcase classname="tests/unit/prettyPath.test.ts" name="prettyPath() &gt; should handle multiple parent directory references" time="0.000072083">
         </testcase>
     </testsuite>
-    <testsuite name="tests/unit/source-command.test.ts" timestamp="2025-08-13T23:20:44.983Z" hostname="Shazam.local" tests="7" failures="0" errors="0" skipped="0" time="0.002067334">
-        <testcase classname="tests/unit/source-command.test.ts" name="source command functionality &gt; analyzeDiagnostics &gt; should handle files with no diagnostics" time="0.001134667">
+    <testsuite name="tests/unit/source-command-enhanced.test.ts" timestamp="2025-08-16T23:45:18.907Z" hostname="Shazam.local" tests="19" failures="0" errors="0" skipped="0" time="0.01429625">
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; diagnostic lookup integration &gt; should get diagnostic message for known error codes" time="0.012356209">
         </testcase>
-        <testcase classname="tests/unit/source-command.test.ts" name="source command functionality &gt; analyzeDiagnostics &gt; should count errors correctly" time="0.001041875">
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; diagnostic lookup integration &gt; should handle unknown error codes gracefully" time="0.012215833">
         </testcase>
-        <testcase classname="tests/unit/source-command.test.ts" name="source command functionality &gt; analyzeDiagnostics &gt; should handle warnings when warn codes are specified" time="0.001029208">
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; diagnostic lookup integration &gt; should format error display with description" time="0.0121975">
         </testcase>
-        <testcase classname="tests/unit/source-command.test.ts" name="source command functionality &gt; analyzeDiagnostics &gt; should aggregate error codes correctly" time="0.001021667">
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; file filtering with positional arguments &gt; should filter files by single pattern" time="0.012188583">
         </testcase>
-        <testcase classname="tests/unit/source-command.test.ts" name="source command functionality &gt; analyzeDiagnostics &gt; should handle mixed errors and warnings in same file" time="0.001014333">
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; file filtering with positional arguments &gt; should filter files by multiple patterns" time="0.012181167">
         </testcase>
-        <testcase classname="tests/unit/source-command.test.ts" name="source command functionality &gt; analyzeDiagnostics &gt; should handle empty files list" time="0.000369458">
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; file filtering with positional arguments &gt; should handle negation patterns" time="0.00072325">
         </testcase>
-        <testcase classname="tests/unit/source-command.test.ts" name="source command functionality &gt; diagnostic code aggregation &gt; should sort error codes by frequency" time="0.000355083">
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; file filtering with positional arguments &gt; should report excluded file counts" time="0.000703917">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; verbose mode enhancements &gt; should group files by error code" time="0.000695292">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; verbose mode enhancements &gt; should format files with prettyPath" time="0.000691375">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; verbose mode enhancements &gt; should show error count per file" time="0.000629166">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; verbose mode enhancements &gt; should format complete verbose error section" time="0.00029475">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; error code link formatting &gt; should create clickable links for error codes" time="0.000287542">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; error code link formatting &gt; should integrate code links in error display" time="0.000281917">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; file reporting improvements &gt; should show clear file exclusion reasons" time="0.000278708">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; file reporting improvements &gt; should show filter patterns when applied" time="0.000274708">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; file reporting improvements &gt; should handle no filters gracefully" time="0.000190708">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; integration scenarios &gt; should handle large error counts gracefully" time="0.000185917">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; integration scenarios &gt; should handle multiple error codes in order of frequency" time="0.000180416">
+        </testcase>
+        <testcase classname="tests/unit/source-command-enhanced.test.ts" name="source command enhanced features &gt; integration scenarios &gt; should format complete diagnostic summary" time="0.000176458">
         </testcase>
     </testsuite>
-    <testsuite name="tests/unit/symbols-command.test.ts" timestamp="2025-08-13T23:20:44.984Z" hostname="Shazam.local" tests="11" failures="0" errors="0" skipped="0" time="0.002975792">
-        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; filterSymbols &gt; should return limited symbols when no filter is provided" time="0.001605042">
+    <testsuite name="tests/unit/source-command.test.ts" timestamp="2025-08-16T23:45:18.908Z" hostname="Shazam.local" tests="7" failures="0" errors="0" skipped="0" time="0.002699875">
+        <testcase classname="tests/unit/source-command.test.ts" name="source command functionality &gt; analyzeDiagnostics &gt; should handle files with no diagnostics" time="0.001602167">
         </testcase>
-        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; filterSymbols &gt; should return limited symbols when empty filter array is provided" time="0.0015115">
+        <testcase classname="tests/unit/source-command.test.ts" name="source command functionality &gt; analyzeDiagnostics &gt; should count errors correctly" time="0.001500666">
         </testcase>
-        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; filterSymbols &gt; should filter symbols by name (case insensitive)" time="0.001498625">
+        <testcase classname="tests/unit/source-command.test.ts" name="source command functionality &gt; analyzeDiagnostics &gt; should handle warnings when warn codes are specified" time="0.001486916">
         </testcase>
-        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; filterSymbols &gt; should filter symbols by FQN" time="0.001490459">
+        <testcase classname="tests/unit/source-command.test.ts" name="source command functionality &gt; analyzeDiagnostics &gt; should aggregate error codes correctly" time="0.001478875">
         </testcase>
-        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; filterSymbols &gt; should handle multiple filters (OR logic)" time="0.001483208">
+        <testcase classname="tests/unit/source-command.test.ts" name="source command functionality &gt; analyzeDiagnostics &gt; should handle mixed errors and warnings in same file" time="0.001471292">
         </testcase>
-        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; filterSymbols &gt; should handle case insensitive filtering" time="0.000596459">
+        <testcase classname="tests/unit/source-command.test.ts" name="source command functionality &gt; analyzeDiagnostics &gt; should handle empty files list" time="0.000410458">
         </testcase>
-        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; filterSymbols &gt; should return empty array when no matches found" time="0.000581875">
-        </testcase>
-        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; filterSymbols &gt; should handle partial name matches" time="0.000574375">
-        </testcase>
-        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; symbol analysis &gt; should identify type symbols correctly" time="0.000593375">
-        </testcase>
-        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; symbol analysis &gt; should have valid file paths" time="0.000546042">
-        </testcase>
-        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; symbol analysis &gt; should have properly formatted FQNs" time="0.000210416">
+        <testcase classname="tests/unit/source-command.test.ts" name="source command functionality &gt; diagnostic code aggregation &gt; should sort error codes by frequency" time="0.000388583">
         </testcase>
     </testsuite>
-    <testsuite name="tests/unit/test-command.test.ts" timestamp="2025-08-13T23:20:44.984Z" hostname="Shazam.local" tests="5" failures="0" errors="0" skipped="0" time="0.001978291">
-        <testcase classname="tests/unit/test-command.test.ts" name="calculateTestSummary &gt; should correctly count errors when no tests have errors" time="0.001413791">
+    <testsuite name="tests/unit/symbols-command.test.ts" timestamp="2025-08-16T23:45:18.908Z" hostname="Shazam.local" tests="11" failures="0" errors="0" skipped="0" time="0.003340542">
+        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; filterSymbols &gt; should return limited symbols when no filter is provided" time="0.001907833">
         </testcase>
-        <testcase classname="tests/unit/test-command.test.ts" name="calculateTestSummary &gt; should correctly count errors when tests have errors (regression test for main bug)" time="0.001302833">
+        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; filterSymbols &gt; should return limited symbols when empty filter array is provided" time="0.001793875">
         </testcase>
-        <testcase classname="tests/unit/test-command.test.ts" name="calculateTestSummary &gt; should handle warnings correctly when warn codes are specified" time="0.001288959">
+        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; filterSymbols &gt; should filter symbols by name (case insensitive)" time="0.001778792">
         </testcase>
-        <testcase classname="tests/unit/test-command.test.ts" name="calculateTestSummary &gt; should identify slow tests correctly" time="0.001279875">
+        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; filterSymbols &gt; should filter symbols by FQN" time="0.001770041">
         </testcase>
-        <testcase classname="tests/unit/test-command.test.ts" name="calculateTestSummary &gt; should count skipped tests correctly" time="0.001271958">
+        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; filterSymbols &gt; should handle multiple filters (OR logic)" time="0.00176175">
+        </testcase>
+        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; filterSymbols &gt; should handle case insensitive filtering" time="0.00060925">
+        </testcase>
+        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; filterSymbols &gt; should return empty array when no matches found" time="0.000592042">
+        </testcase>
+        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; filterSymbols &gt; should handle partial name matches" time="0.000583042">
+        </testcase>
+        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; symbol analysis &gt; should identify type symbols correctly" time="0.000602459">
+        </testcase>
+        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; symbol analysis &gt; should have valid file paths" time="0.000557792">
+        </testcase>
+        <testcase classname="tests/unit/symbols-command.test.ts" name="symbols command functionality &gt; symbol analysis &gt; should have properly formatted FQNs" time="0.000219375">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/unit/test-command.test.ts" timestamp="2025-08-16T23:45:18.909Z" hostname="Shazam.local" tests="5" failures="0" errors="0" skipped="0" time="0.002079166">
+        <testcase classname="tests/unit/test-command.test.ts" name="calculateTestSummary &gt; should correctly count errors when no tests have errors" time="0.001436625">
+        </testcase>
+        <testcase classname="tests/unit/test-command.test.ts" name="calculateTestSummary &gt; should correctly count errors when tests have errors (regression test for main bug)" time="0.00131675">
+        </testcase>
+        <testcase classname="tests/unit/test-command.test.ts" name="calculateTestSummary &gt; should handle warnings correctly when warn codes are specified" time="0.001301625">
+        </testcase>
+        <testcase classname="tests/unit/test-command.test.ts" name="calculateTestSummary &gt; should identify slow tests correctly" time="0.001292583">
+        </testcase>
+        <testcase classname="tests/unit/test-command.test.ts" name="calculateTestSummary &gt; should count skipped tests correctly" time="0.001283917">
         </testcase>
     </testsuite>
 </testsuites>
