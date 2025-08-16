@@ -1,12 +1,12 @@
-import chalk from "chalk";
 import type { AsOption } from "~/cli";
 import type { DependencyGraph, DependencyNode } from "~/types";
-import { 
-    findSymbolsByPattern, 
-    traverseDependencies, 
-    getDependencyGraph, 
-    invalidateDependencyCache, 
-    projectUsing 
+import chalk from "chalk";
+import {
+    findSymbolsByPattern,
+    getDependencyGraph,
+    invalidateDependencyCache,
+    projectUsing,
+    traverseDependencies
 } from "~/ast";
 import { handleSymbolSelection } from "~/utils";
 
