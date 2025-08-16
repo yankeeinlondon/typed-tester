@@ -1,7 +1,6 @@
 import { createKindError } from "@yankeeinlondon/kind-error";
 
-
-export const WriteFailure = createKindError("WriteFailure", {  type: "write-failure", library: "typed-tester" })
+export const WriteFailure = createKindError("WriteFailure", { type: "write-failure", library: "typed-tester" });
 
 export const InvalidDiagnosticCode = createKindError("InvalidDiagnosticCode", { library: "typed-tester" });
 

@@ -1,11 +1,11 @@
-import "./play-sound";
 import playSound from "play-sound";
+import "./play-sound";
 
 export enum SoundEffect {
-  glass = "glass",
-  laser = "laser",
-  sadTrombone = "sadTrombone",
-  scream = "scream"
+    glass = "glass",
+    laser = "laser",
+    sadTrombone = "sadTrombone",
+    scream = "scream"
 }
 
 export type ISoundEffect = keyof typeof SoundEffect;
@@ -17,6 +17,6 @@ export type ISoundEffect = keyof typeof SoundEffect;
  * `mpg123` or `mpg321`.
  */
 export async function play(effect: ISoundEffect = "glass") {
-  const player = playSound();
-  player.play(`./src/shared/sound/${effect}.m4a`);
+    const player = playSound();
+    player.play(`./src/shared/sound/${effect}.m4a`);
 }

@@ -1,4 +1,4 @@
-import {
+import type {
     JSDocLink,
     JSDocLinkCode,
     JSDocLinkPlain,
@@ -8,12 +8,12 @@ import {
 
 /**
  * specifies the scope of where the symbol is available:
- * 
+ *
  * - `local`: defined in a file and not exported so isolated to use within that file
  * - `module`: a symbol that _is_ exported by the repo being analyzed and
  * available anywhere the symbol is imported
- * - `external`: a symbol defined in an external repo/module 
- * 
+ * - `external`: a symbol defined in an external repo/module
+ *
  * In addition there is a `graph` scope which indicates that it is
  * a graph dependency of another Symbol.
  */
@@ -22,7 +22,7 @@ export type SymbolScope = "local" | "module" | "external" | "graph";
 /**
  * Describes a generic parameter
  */
-export type TypeGeneric = {
+export interface TypeGeneric {
     name: string;
     type: string;
 }
@@ -34,23 +34,23 @@ export type SymbolFlagKey = keyof {
     [K in keyof typeof ts.SymbolFlags]: K
 };
 
-export type SymbolKind =
-    | "type-defn" // a type's definition
-    | "type-constraint" // this is a "type" which is defined in an external repo
-    | "external-type"
-    | "property" // the property on an object (or maybe other container)
-    | "scalar"
-    | "container"
-    | "class"
-    | "instance"
-    | "union-or-intersection"
-    | "function"
-    | "const-function"
-    | "other";
+export type SymbolKind
+    = | "type-defn" // a type's definition
+        | "type-constraint" // this is a "type" which is defined in an external repo
+        | "external-type"
+        | "property" // the property on an object (or maybe other container)
+        | "scalar"
+        | "container"
+        | "class"
+        | "instance"
+        | "union-or-intersection"
+        | "function"
+        | "const-function"
+        | "other";
 
-export type FQN = `${"local" | "module" | "ext"}::${number}::${string}`
+export type FQN = `${"local" | "module" | "ext"}::${number}::${string}`;
 
-export type SymbolReference = {
+export interface SymbolReference {
     name: string;
     kind: SymbolKind;
     fqn: FQN;
@@ -58,24 +58,24 @@ export type SymbolReference = {
 
 /**
  * **SymbolMeta**
- * 
+ *
  * Key meta-data for a `Symbol` which is serializable
  * (unlike a **ts-morph** `Symbol`).
- * 
+ *
  * **Note:** this is the _type_ to use in the cache and is meant to
  * contain all relevant data on Symbols that this plugin would
  * want to report on.
  */
-export type SymbolMeta<
+export interface SymbolMeta<
     TKind extends SymbolKind = SymbolKind
-> = {
+> {
     /** symbol name */
     name: string;
-    /** 
+    /**
      * The fully qualified name of the dependency aims to provide
      * a unique-assured token for caching and explicit referencing.
      * The scope of the symbol will depend on it's format:
-     * 
+     *
      * - a locally defined symbol within the repo being analyzed will look
      * like: `local::<filepath-hash>::<name>`
      * - an module you are exporting in the repo being analyzed will look
@@ -93,7 +93,7 @@ export type SymbolMeta<
 
     /**
      * The file path to the symbol's definition.
-     * 
+     *
      * **Note:** if the symbol is a "type" then this should always
      * be resolved but for some other _kinds_ of `Symbol` it is optional
      */
@@ -109,10 +109,10 @@ export type SymbolMeta<
 
     startLine: TKind extends "type-defn" ? number : number | undefined;
     endLine: TKind extends "type-defn" ? number : number | undefined;
-    /** 
+    /**
      * The `symbol.getFlags()` returns a bitwise operation that
      * isn't very human intelligible; this reverse engineers the
-     * `SymbolFlags` enumeration keys which went into generating 
+     * `SymbolFlags` enumeration keys which went into generating
      * this number.
      */
     flags: SymbolFlagKey[];
@@ -136,12 +136,12 @@ export type SymbolMeta<
 
 /**
  * **SymbolMetaWithDeps**
- * 
+ *
  * Extends the `SymbolMeta` with bi-directional view of direct dependencies:
- * 
+ *
  *   - `dependsOn` - direct dependencies of this symbol
  *   - `usedBy` - other symbols which depend on this symbol
- * 
+ *
  * All references are _full-qualified names_ for the symbol
  */
 export type SymbolMetaWithDeps<
@@ -150,7 +150,7 @@ export type SymbolMetaWithDeps<
     /**
      * References to all the symbol's this symbol _depends on_ to
      * perform it's job.
-     * 
+     *
      * - each element is a _fully qualified name_ for dependency
      * which can be looked up in the symbols cache.
      */
@@ -160,18 +160,17 @@ export type SymbolMetaWithDeps<
      * References all the symbols which depend on this symbol
      */
     usedBy: FQN[];
-}
-
+};
 
 /**
  * an individual tag and tag comment
  */
-export type JsDocTag = {
+export interface JsDocTag {
     tagName: string;
     comment: string | (JSDocText | JSDocLink | JSDocLinkCode | JSDocLinkPlain | undefined)[] | undefined;
 }
 
-export type JsDocInfo = {
+export interface JsDocInfo {
     comment: string;
     tags: JsDocTag[];
 }

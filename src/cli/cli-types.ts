@@ -1,28 +1,28 @@
-import { OptionDefinition } from "command-line-args";
-import { 
-  AfterFirst, 
-  Dictionary, 
-  ExpandDictionary, 
-  First, 
-  If,  
-  IsUndefined 
+import type { OptionDefinition } from "command-line-args";
+import type {
+    AfterFirst,
+    Dictionary,
+    EmptyObject,
+    ExpandDictionary,
+    First,
+    If,
+    IsUndefined
 } from "inferred-types";
-import { command_options, global_options } from "./options";
+import type { command_options, global_options } from "./options";
 
 /**
  * **Option**
- * 
- * Combines the definition of an option from `command-line-args` but adds props 
- * which `command-line-usage` understands so that you can have one complete definition 
+ *
+ * Combines the definition of an option from `command-line-args` but adds props
+ * which `command-line-usage` understands so that you can have one complete definition
  * of an option.
  */
-export type Option = OptionDefinition & { description?: string; typeLabel?: string; };
+export type Option = OptionDefinition & { description?: string; typeLabel?: string };
 
 /**
  * A valid command for the CLI
  */
 export type Command = keyof typeof command_options;
-
 
 /**
  * Maps CLI option constructor types to their TypeScript equivalents
@@ -31,32 +31,32 @@ export type Command = keyof typeof command_options;
  * @param TMulti - Whether the option accepts multiple values
  */
 type FromConstructor<
-  TVal extends ((input: string) => any) | undefined,
-  TDef,
-  TMulti extends boolean | undefined
+    TVal extends ((input: string) => any) | undefined,
+    TDef,
+    TMulti extends boolean | undefined
 > = TVal extends typeof String
-? TMulti extends true
-  ? If<IsUndefined<TDef>, string[] | undefined, string[]>
-  : If<IsUndefined<TDef>, string | undefined, string>
-: TVal extends typeof Boolean
-? If<IsUndefined<TDef>, boolean | undefined, boolean>
-: TVal extends typeof Number
-? TMulti extends true
-  ? If<IsUndefined<TDef>, number[] | undefined, number[]>
-  : If<IsUndefined<TDef>, number | undefined, number>
-: TVal extends typeof Date
-? If<IsUndefined<TDef>, Date | undefined, Date>
-: If<IsUndefined<TDef>, string | undefined, string>;
+    ? TMulti extends true
+        ? If<IsUndefined<TDef>, string[] | undefined, string[]>
+        : If<IsUndefined<TDef>, string | undefined, string>
+    : TVal extends typeof Boolean
+        ? If<IsUndefined<TDef>, boolean | undefined, boolean>
+        : TVal extends typeof Number
+            ? TMulti extends true
+                ? If<IsUndefined<TDef>, number[] | undefined, number[]>
+                : If<IsUndefined<TDef>, number | undefined, number>
+            : TVal extends typeof Date
+                ? If<IsUndefined<TDef>, Date | undefined, Date>
+                : If<IsUndefined<TDef>, string | undefined, string>;
 
 type _AsOption<
-  T extends readonly Option[],
-  Results extends Dictionary = {}
+    T extends readonly Option[],
+    Results extends Dictionary = EmptyObject
 > = [] extends T
-? ExpandDictionary<Results>
-: _AsOption<
+    ? ExpandDictionary<Results>
+    : _AsOption<
     AfterFirst<T>,
     Results & Record<
-      First<T>["name"], 
+      First<T>["name"],
       FromConstructor<
         First<T>["type"],
         First<T>["defaultValue"],
@@ -66,22 +66,22 @@ type _AsOption<
   >;
 
 export type AsOption<
-  TCmd extends Command | null,
+    TCmd extends Command | null,
 > = TCmd extends null
-? _AsOption<typeof global_options> & { cmd: string }
+    ? _AsOption<typeof global_options> & { cmd: string }
 
-: TCmd extends Command
-? {cmd: TCmd } & _AsOption<
-    [
-      ...typeof command_options[TCmd], 
-      ...typeof global_options
-    ]
-  >
-: never;
+    : TCmd extends Command
+        ? { cmd: TCmd } & _AsOption<
+        [
+            ...typeof command_options[TCmd],
+            ...typeof global_options
+        ]
+    >
+        : never;
 
-export type CommandOptions = {
-  test: AsOption<"test">,
-  symbols: AsOption<"symbols">,
-  source: AsOption<"source">
-  files: AsOption<"files">
+export interface CommandOptions {
+    test: AsOption<"test">;
+    symbols: AsOption<"symbols">;
+    source: AsOption<"source">;
+    files: AsOption<"files">;
 }

@@ -15,6 +15,7 @@
         "test:integration": "vitest run integration",
         "test:watch": "vitest",
         "test:ui": "vitest --ui",
+        "lint": "eslint src",
         "test:coverage": "vitest run --coverage",
         "watch": "tsup src/typed.ts --format=esm -d bin --sourcemap --watch",
         "release": "bumpp",

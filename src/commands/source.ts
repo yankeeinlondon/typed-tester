@@ -1,7 +1,7 @@
+import type { AsOption } from "src/cli";
 import chalk from "chalk";
-import { AsOption } from "src/cli";
-import { projectUsing, getFileDiagnostics } from "src/ast";
-import { msg, relativeFile, tsCodeLink, diagnosticLookup, prettyPath, filterTestFilesByPattern } from "src/utils";
+import { getFileDiagnostics, projectUsing } from "src/ast";
+import { diagnosticLookup, filterTestFilesByPattern, msg, prettyPath, relativeFile, tsCodeLink } from "src/utils";
 
 interface DiagnosticSummary {
     totalFiles: number;
@@ -17,12 +17,16 @@ interface DiagnosticSummary {
 
 function isTestFile(filePath: string): boolean {
     // Exclude files matching Vitest test patterns
-    if (filePath.match(/\.test\.(ts|js|tsx|jsx)$/)) return true;
-    if (filePath.match(/\.spec\.(ts|js|tsx|jsx)$/)) return true;
+    if (filePath.match(/\.test\.(ts|js|tsx|jsx)$/))
+        return true;
+    if (filePath.match(/\.spec\.(ts|js|tsx|jsx)$/))
+        return true;
 
     // Exclude files under test or tests directories
-    if (filePath.includes('/test/') || filePath.includes('/tests/')) return true;
-    if (filePath.includes('\\test\\') || filePath.includes('\\tests\\')) return true;
+    if (filePath.includes("/test/") || filePath.includes("/tests/"))
+        return true;
+    if (filePath.includes("\\test\\") || filePath.includes("\\tests\\"))
+        return true;
 
     return false;
 }
@@ -65,7 +69,8 @@ function analyzeSourceFiles(opt: AsOption<"source">, sourceFiles: any[]): Diagno
                 }
                 const fileMap = summary.warningsByCodeAndFile.get(diagnostic.code)!;
                 fileMap.set(filePath, (fileMap.get(filePath) || 0) + 1);
-            } else {
+            }
+            else {
                 summary.totalErrors++;
                 fileHasErrors = true;
                 summary.errorsByCode.set(
@@ -82,8 +87,10 @@ function analyzeSourceFiles(opt: AsOption<"source">, sourceFiles: any[]): Diagno
             }
         }
 
-        if (fileHasErrors) summary.filesWithErrors++;
-        if (fileHasWarnings) summary.filesWithWarnings++;
+        if (fileHasErrors)
+            summary.filesWithErrors++;
+        if (fileHasWarnings)
+            summary.filesWithWarnings++;
     }
 
     return summary;
@@ -96,7 +103,8 @@ function displayDiagnosticsByCode(
     color: (str: string) => string,
     opt: AsOption<"source">
 ) {
-    if (diagnosticsByCode.size === 0) return;
+    if (diagnosticsByCode.size === 0)
+        return;
 
     console.log(`\n${label}:`);
     const sortedCodes = Array.from(diagnosticsByCode.entries())
@@ -162,21 +170,23 @@ export async function source_command(opt: AsOption<"source">, positionalArgs: st
 
         if (excludedByFilter > 0) {
             // Check if we have negative filters only
-            const hasNegativeFilters = positionalArgs.some(arg => arg.startsWith('!'));
-            const hasPositiveFilters = positionalArgs.some(arg => !arg.startsWith('!'));
-            
+            const hasNegativeFilters = positionalArgs.some(arg => arg.startsWith("!"));
+            const hasPositiveFilters = positionalArgs.some(arg => !arg.startsWith("!"));
+
             let reason: string;
             if (hasNegativeFilters && !hasPositiveFilters) {
                 // Only negative filters - files were excluded because they matched the negative patterns
                 reason = `they matched the negative filter expression`;
-            } else if (hasPositiveFilters) {
+            }
+            else if (hasPositiveFilters) {
                 // Has positive filters - files were excluded because they didn't match positive patterns
                 reason = `they didn't match the filter expression`;
-            } else {
+            }
+            else {
                 // Only positive filters (default case)
                 reason = `they didn't match the filter expression`;
             }
-            
+
             msg(opt)(chalk.italic(`  - ${chalk.yellow(excludedByFilter)} files were excluded because ${reason}: ${chalk.blue.dim(positionalArgs.join(", "))}`));
         }
 
@@ -192,13 +202,14 @@ export async function source_command(opt: AsOption<"source">, positionalArgs: st
     }
 
     // Analyze diagnostics directly
-    if (!opt.json) msg(opt)(`- starting analysis`);
+    if (!opt.json)
+        msg(opt)(`- starting analysis`);
     const timing_start = performance.now();
     const summary = analyzeSourceFiles(opt, filteredFiles);
     const timing_end = performance.now();
     const analysisDuration = timing_end - timing_start;
-    if (!opt.json) msg(opt)(`- analysis complete (${analysisDuration.toFixed(2)}${chalk.dim("ms")})`);
-
+    if (!opt.json)
+        msg(opt)(`- analysis complete (${analysisDuration.toFixed(2)}${chalk.dim("ms")})`);
 
     const duration = performance.now() - start;
 
@@ -223,7 +234,8 @@ export async function source_command(opt: AsOption<"source">, positionalArgs: st
             duration
         };
         console.log(JSON.stringify(jsonOutput, null, 2));
-    } else {
+    }
+    else {
         // Display summary
         msg(opt)("");
         msg(opt)(chalk.bold("DIAGNOSTICS SUMMARY:"));
@@ -231,7 +243,8 @@ export async function source_command(opt: AsOption<"source">, positionalArgs: st
 
         if (summary.totalErrors === 0 && summary.totalWarnings === 0) {
             msg(opt)(`- 🎉 ${chalk.green.bold("No diagnostics found!")}`);
-        } else {
+        }
+        else {
             if (summary.totalErrors > 0) {
                 msg(opt)(`- ${chalk.red.bold(summary.totalErrors)} ${chalk.italic("errors")} across ${chalk.bold(summary.filesWithErrors)} files`);
             }

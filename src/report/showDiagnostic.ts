@@ -1,23 +1,16 @@
+import type { FileDiagnostic } from "src/ast";
+import type { AsOption } from "src/cli";
 import chalk from "chalk";
-import { FileDiagnostic } from "src/ast";
-import { AsOption } from "src/cli";
-import {  tsCodeLink } from "src/utils";
+import { tsCodeLink } from "src/utils";
 
+export function showDiagnostic(diag: FileDiagnostic, _filepath: string, opt: AsOption<"test">) {
+    const isError = !opt.warn.includes(diag.code);
 
-export const showDiagnostic = (
-  diag: FileDiagnostic,
-  _filepath: string,
-  opt: AsOption<"test">
-) => {
+    const status = isError
+        ? chalk.bold.red(` ⛒ `)
+        : chalk.bold.yellow(` ⚠️ `);
 
-  const isError = !opt.warn.includes(diag.code);
-
-  const status = isError
-  ? chalk.bold.red(` ⛒ `)
-  : chalk.bold.yellow(` ⚠️ `);
-
-
-  if (isError) {
-    console.log(chalk.dim(`           - [ ${status}, ${chalk.italic("cd:")} ${tsCodeLink(diag.code)}, ${chalk.italic("l:")} ${diag.loc.lineNumber}, ${chalk.italic.dim("col:")} ${diag.loc.column} ] ${chalk.reset(diag.msg)} `));
-  }
+    if (isError) {
+        console.log(chalk.dim(`           - [ ${status}, ${chalk.italic("cd:")} ${tsCodeLink(diag.code)}, ${chalk.italic("l:")} ${diag.loc.lineNumber}, ${chalk.italic.dim("col:")} ${diag.loc.column} ] ${chalk.reset(diag.msg)} `));
+    }
 }

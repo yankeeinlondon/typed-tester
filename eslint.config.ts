@@ -14,6 +14,9 @@ export default antfu(
                 "array-callback-return": ["warn"],
                 "valid-typeof": ["warn"],
                 "style/comma-dangle": ["warn", "only-multiline"],
+                "node/prefer-global/process": ["off"],
+                "antfu/no-top-level-await": ["off"],
+                "no-console": "off"
             }
         },
         regexp: {

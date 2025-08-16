@@ -1,6 +1,8 @@
 import { relative } from "pathe";
 
 /** make file reference relative from current working directory */
-export const rel = (file: string) => file.startsWith("file:")
-  ? relative(process.cwd(), file.replace(/file:/, ""))
-  : relative(process.cwd(), file);
+export function rel(file: string) {
+    return file.startsWith("file:")
+        ? relative(process.cwd(), file.replace(/file:/, ""))
+        : relative(process.cwd(), file);
+}

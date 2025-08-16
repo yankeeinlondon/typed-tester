@@ -1,9 +1,8 @@
+export * from "./diagnosticLookup";
+export * from "./link";
 export * from "./msg";
+export * from "./prettyPath";
+export * from "./rel";
+export * from "./relativeFile";
 export * from "./shout";
 export * from "./testing";
-export * from "./rel";
-export * from "./link";
-export * from "./relativeFile";
-export * from "./diagnosticLookup";
-export * from "./prettyPath";
-
