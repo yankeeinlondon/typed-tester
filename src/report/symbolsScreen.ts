@@ -57,18 +57,15 @@ export const symbolsScreen = (
   ];
 
   const output = Table(header, rows.map(i => {
-    const deps: SymbolMeta[] = []; // Cache removed - deps temporarily disabled
-    // const graphKeys = Array.from(getDependencyGraph(i.deps, true).keys());
-    const depGraph: SymbolMeta[] = []; // Cache removed - dep graph temporarily disabled
+    // Use the deps property if available (from dependency graph)
+    // or fall back to empty array for legacy compatibility
+    const deps: SymbolMeta[] = (i as any).deps || [];
 
     return {
     ...i, 
     name: [i.name, i.generics],
     filepath: prettyMultiLinePath(i.filepath, pathWidth - 8),
-    deps: [
-      ...deps,
-      ...depGraph
-    ],
+    deps: deps,
     // refs: i?.refs.map(r => r.name).join(", ")
   }
 })).render();

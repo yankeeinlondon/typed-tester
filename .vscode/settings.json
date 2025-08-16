@@ -3,7 +3,8 @@
         "Docable",
         "Modifierable",
         "rifraf",
-        "rimraf"
+        "rimraf",
+        "Wezterm"
     ],
     "terminal.integrated.sendKeybindingsToShell": true
 }

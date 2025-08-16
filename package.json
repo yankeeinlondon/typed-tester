@@ -43,6 +43,7 @@
     "author": "Ken Snyder <ken@ken.net>",
     "license": "MIT",
     "dependencies": {
+        "@yankeeinlondon/ask": "^0.7.8",
         "@yankeeinlondon/kind-error": "^1.4.1",
         "command-line-args": "^6.0.1",
         "command-line-usage": "^7.0.3",

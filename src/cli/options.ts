@@ -36,6 +36,16 @@ export const command_options = {
     { name: "filter", type: String, alias: "f", multiple: true, 
       typeLabel: chalk.underline("str,re"),
       description: `only report on symbols which match filter string` 
+    },
+    { name: "graph", type: Boolean, defaultValue: false,
+      description: `show full dependency tree for a single symbol (vs list view showing first-order dependencies)` 
+    },
+    { name: "clear-cache", type: Boolean, defaultValue: false,
+      description: `clear the dependency cache and rebuild from scratch` 
+    },
+    { name: "depth", type: Number, defaultValue: 50,
+      typeLabel: chalk.underline("N"),
+      description: `maximum depth to traverse when building dependency graph (default: 50)` 
     }
   ],
   source: [

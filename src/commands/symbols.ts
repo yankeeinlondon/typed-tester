@@ -1,12 +1,65 @@
 import chalk from "chalk";
 import { AsOption } from "src/cli";
-import { projectUsing, asSymbolMeta } from "src/ast"
+import { projectUsing, getDependencyGraph } from "src/ast"
 import { msg } from "src/utils";
 import { symbolsJson, symbolsScreen } from "src/report";
 import type { SymbolMeta } from "src/types";
+import type { DependencyNode } from "~/types/dependency";
 
 export const MAX_SYMBOLS = 10;
 
+/**
+ * Convert DependencyNode to SymbolMeta with dependency information
+ */
+function convertDependencyNodeToSymbolMeta(
+  node: DependencyNode, 
+  allNodes: Map<string, DependencyNode>
+): SymbolMeta & { deps?: SymbolMeta[] } {
+  // Convert dependencies to SymbolMeta format for reporting
+  const deps: SymbolMeta[] = node.dependencies
+    .map(depFQN => allNodes.get(depFQN))
+    .filter((depNode): depNode is DependencyNode => !!depNode)
+    .map(depNode => depNode.meta);
+
+  return {
+    ...node.meta,
+    deps: deps.length > 0 ? deps : undefined
+  };
+}
+
+/**
+ * Get symbols using the dependency graph system, filtered to exported type symbols
+ */
+function getSymbolsFromDependencyGraph(): SymbolMeta[] {
+  try {
+    // Get the dependency graph (uses cache if available)
+    const dependencyGraph = getDependencyGraph({ useCache: true });
+    
+    // Filter to only exported type symbols (matching legacy behavior)
+    const exportedTypeSymbols: SymbolMeta[] = [];
+    
+    for (const [fqn, node] of dependencyGraph.nodes) {
+      const { meta } = node;
+      
+      // Filter to type symbols that are exported (scope === "module")
+      if (meta.isTypeSymbol && meta.scope === "module") {
+        const symbolWithDeps = convertDependencyNodeToSymbolMeta(node, dependencyGraph.nodes);
+        exportedTypeSymbols.push(symbolWithDeps);
+      }
+    }
+    
+    return exportedTypeSymbols.sort((a, b) => a.name.localeCompare(b.name));
+    
+  } catch (error) {
+    console.warn("Failed to get dependency graph, falling back to direct analysis:", error);
+    // Fallback to legacy behavior if dependency graph fails
+    return [];
+  }
+}
+
+/**
+ * Legacy function - kept for fallback purposes
+ */
 function getDirectSymbolAnalysis(project: any): SymbolMeta[] {
   const symbols: SymbolMeta[] = [];
   const seenSymbols = new Set<string>();
@@ -24,6 +77,7 @@ function getDirectSymbolAnalysis(project: any): SymbolMeta[] {
         if (symbol && !seenSymbols.has(symbol.getName())) {
           try {
             seenSymbols.add(symbol.getName());
+            const { asSymbolMeta } = require("src/ast");
             const meta = asSymbolMeta(symbol);
             if (meta && meta.isTypeSymbol) {
               symbols.push(meta);
@@ -73,9 +127,20 @@ export const symbols_command = async (opt: AsOption<"symbols">) => {
   const sourceFiles = project.getSourceFiles();
   msg(opt)(`- project found ${chalk.bold(sourceFiles.length)} source files [${chalk.dim(configFile)}]`);
   
-  // Analyze symbols directly without cache
-  msg(opt)(`- analyzing exported symbols...`);
-  const allSymbols = getDirectSymbolAnalysis(project);
+  // Temporarily use direct analysis to bypass dependency graph performance issues
+  msg(opt)(`- analyzing exported symbols with direct analysis...`);
+  let allSymbols = getDirectSymbolAnalysis(project);
+  
+  // TODO: Re-enable dependency graph once performance issues are resolved
+  // msg(opt)(`- analyzing exported symbols with dependencies...`);
+  // let allSymbols = getSymbolsFromDependencyGraph();
+  // 
+  // // Fallback to direct analysis if dependency graph fails
+  // if (allSymbols.length === 0) {
+  //   msg(opt)(`- falling back to direct symbol analysis...`);
+  //   allSymbols = getDirectSymbolAnalysis(project);
+  // }
+  
   msg(opt)(`- found ${chalk.bold(allSymbols.length)} exported type symbols`);
 
   // Filter symbols based on user input

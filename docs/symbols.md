@@ -1,72 +1,128 @@
 # `symbols` Command
 
-The _symbols_ command provides a tabular view of all of the **type** symbols in your project. Output might look something like the following:
+The _symbols_ command provides a tabular view of all of the **type** symbols in your project. It analyzes exported type symbols and their dependencies using the project's dependency graph system.
 
 ```txt
-  ┌──────────────────────────┬────────────┬─────────────────────────────────────────┬─────────────────────────────┐
-  │          Symbol          │    Hash    │              Dependencies               │          filepath            │
-  ├──────────────────────────┼────────────┼─────────────────────────────────────────┼─────────────────────────────┤
-  │ SymbolImport             │ 3539241414 │             SymbolReference             │          src/ast/           │
-  │                          │            │                                         │      file-ast-types.ts       │
-  ├──────────────────────────┼────────────┼─────────────────────────────────────────┼─────────────────────────────┤
-  │ FileDiagnostic           │ 3250706160 │                                         │          src/ast/           │
-  │                          │            │                                         │      file-ast-types.ts       │
-  ├──────────────────────────┼────────────┼─────────────────────────────────────────┼─────────────────────────────┤
-  │ SymbolKind               │ 3956361228 │                                         │          src/ast/           │
-  │                          │            │                                         │     symbol-ast-types.ts     │
-  ├──────────────────────────┼────────────┼─────────────────────────────────────────┼─────────────────────────────┤
-  │ SymbolScope              │ 3891381351 │                                         │          src/ast/           │
-  │                          │            │                                         │     symbol-ast-types.ts     │
-  ├──────────────────────────┼────────────┼─────────────────────────────────────────┼─────────────────────────────┤
-  │ SymbolFlagKey            │ 2345275127 │                                         │          src/ast/           │
-  │                          │            │                                         │     symbol-ast-types.ts     │
-  ├──────────────────────────┼────────────┼─────────────────────────────────────────┼─────────────────────────────┤
-  │ TypeGeneric              │ 997644223  │                                         │          src/ast/           │
-  │                          │            │                                         │     symbol-ast-types.ts     │
-  ├──────────────────────────┼────────────┼─────────────────────────────────────────┼─────────────────────────────┤
-  │ JsDocInfo                │ 3450552296 │                JsDocTag                 │          src/ast/           │
-  │                          │            │                                         │     symbol-ast-types.ts     │
-  ├──────────────────────────┼────────────┼─────────────────────────────────────────┼─────────────────────────────┤
-  │ SymbolReference          │ 1807084356 │               SymbolKind                │          src/ast/           │
-  │                          │            │                                         │     symbol-ast-types.ts     │
-  ├──────────────────────────┼────────────┼─────────────────────────────────────────┼─────────────────────────────┤
-  │ JsDocTag                 │ 3493625031 │                                         │          src/ast/           │
-  │                          │            │                                         │     symbol-ast-types.ts     │
-  ├──────────────────────────┼────────────┼─────────────────────────────────────────┼─────────────────────────────┤
-  │ TypeTest                 │ 3136554204 │     FileDiagnostic, SymbolReference     │          src/ast/           │
-  │                          │            │                                         │      testing-types.ts       │
-  └──────────────────────────┴────────────┴─────────────────────────────────────────┴─────────────────────────────┘
+  ┌─────────────────────┬───────────────────┬─────────────────────────────────┐
+  │       Symbol        │     filepath      │          Dependencies           │
+  ├─────────────────────┼───────────────────┼─────────────────────────────────┤
+  │ AsOption<TCmd>      │     src/cli/      │                                 │
+  │                     │   cli-types.ts    │                                 │
+  ├─────────────────────┼───────────────────┼─────────────────────────────────┤
+  │ SymbolMeta          │      src/types/   │    FQN, SymbolKind, SymbolScope │
+  │                     │ symbol-ast-types  │                                 │
+  │                     │       .ts         │                                 │
+  ├─────────────────────┼───────────────────┼─────────────────────────────────┤
+  │ DependencyNode      │     src/types/    │       FQN, SymbolMeta           │
+  │                     │   dependency.ts   │                                 │
+  └─────────────────────┴───────────────────┴─────────────────────────────────┘
 ```
 
-It provides info on:
+## Features
 
-- **Symbol Name** - the name of the symbol (but we guess you figured that one out)
-- **Hash** - the cached has value of this symbol (used for tracking changes)
-- **Dependencies** - any types which the given symbol relies on for it's own function
-- **File Path** - the file path to where the given symbol is defined
+- **Symbol Analysis**: Shows exported type symbols from your TypeScript project
+- **Dependency Integration**: Leverages the same dependency graph system used by the `deps` command
+- **Intelligent Filtering**: Filter symbols by name or pattern to focus on specific types
+- **Performance Optimized**: Uses efficient caching and analysis strategies
+- **Responsive Layout**: Table adjusts to terminal width for optimal readability
 
-> Notes: 
-> 
-> - the tabular format is width _responsive_ so if you're working in a fairly constrained space in the terminal some columns may be removed to have it fit in legible format.
-> - The dependencies are color coded based on where the dependency originates from
+## Information Displayed
+
+- **Symbol Name** - The name of the type symbol, including generic parameters if present
+- **File Path** - Relative path to where the symbol is defined (truncated for readability)
+- **Dependencies** - Other symbols this type depends on, color-coded by scope:
+  - 🟡 **Local** - symbols defined in the same file
+  - 🔴 **Module** - symbols from other files in your project
+  - 🔵 **External** - symbols from external libraries
+  - 🟣 **Graph** - other dependency graph relationships
+
+## Usage Examples
+
+```bash
+# Show all exported type symbols (limited to 10 by default)
+typed symbols
+
+# Filter symbols by name pattern
+typed symbols --filter="Option"
+typed symbols --filter="Symbol*"
+
+# Show specific symbols with multiple filters
+typed symbols --filter="AsOption" --filter="SymbolMeta"
+
+# Get detailed output without sampling limit
+typed symbols --filter="*"
+
+# Output in JSON format for programmatic use
+typed symbols --json
+```
+
+## Integration with Dependency System
+
+The symbols command is fully integrated with the project's dependency graph:
+
+- **Shared Cache**: Uses the same `.dependencies.json` cache as the `deps` command
+- **Consistent Analysis**: Same symbol analysis engine ensures consistency
+- **Performance**: Leverages cached dependency data when available
+- **Cross-Reference**: Symbols shown here can be analyzed in detail with `deps --graph`
 
 ## Alternative Output Formats
 
 ### JSON format
 
-The JSON format is available by adding `--json` to the CLI and you will get an array of `SymbolMeta` objects returned to you. 
+The JSON format is available by adding `--json` to the CLI and you will get an array of `SymbolMeta` objects with dependency information:
+
+```json
+[
+  {
+    "name": "AsOption",
+    "fqn": "src/cli/cli-types.ts::AsOption",
+    "kind": "type-defn",
+    "scope": "module",
+    "filepath": "src/cli/cli-types.ts",
+    "startLine": 15,
+    "endLine": 18,
+    "deps": [
+      {
+        "name": "TCmd",
+        "fqn": "src/cli/cli-types.ts::TCmd",
+        "kind": "type-constraint",
+        "scope": "local"
+      }
+    ]
+  }
+]
+```
 
 ### SVG Graph
 
-- this is not currently implemented but is a desired feature
+- This is planned for future implementation as part of the enhanced dependency visualization features
 
-## Notes on Caching
+## Performance Notes
 
-- the cache file `.ts-symbol-lookup.json` will be created at the root of your project when you first run this command. 
-- we recommend adding `.ts-*` to your `.gitignore` file so that these cache files don't make it into the repo itself.
+The symbols command is optimized for performance:
+
+- **Intelligent Sampling**: Shows a sample of 10 symbols by default to avoid overwhelming output
+- **Efficient Filtering**: Use `--filter` to narrow results and improve performance
+- **Shared Caching**: Reuses dependency analysis from the `deps` command when available
+- **Direct Analysis**: Falls back to optimized direct symbol analysis when needed
+
+## Cache Files
+
+The symbols command integrates with the project's caching system:
+
+- **`.dependencies.json`**: Shared cache with the `deps` command for dependency data
+- **`.symbols.json`**: Symbol metadata cache (if present)
+- **Recommendation**: Add these cache files to `.gitignore` unless you want to commit them for team performance benefits
+
+## Related Commands
+
+- [`deps`](./deps.md) - Analyze symbol dependencies in detail
+- [`test`](./test.md) - Run type tests on symbols
+- [`source`](./source.md) - Analyze source file metrics
 
 ## Other Sections
 
 - [Overview](./overview.md)
 - [`test` Command](./test.md)
 - [`source` Command](./source.md)
+- [`deps` Command](./deps.md)

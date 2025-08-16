@@ -50,7 +50,7 @@ If you're using [Wezterm](https://wezterm.org/) -- or any console which support 
 
 ### Test Files
 
-In terms of identifing your "test files" this repo will try to use "magic" to identify your test files. That magic is largely just that it will look for:
+In terms of identifying your "test files" this repo will try to use "magic" to identify your test files. That magic is largely just that it will look for:
 
 - `.ts` files in _tests_, _test_, or _source_ directories which have `.test.ts` or `.spec.ts` in the filename
 

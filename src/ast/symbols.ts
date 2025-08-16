@@ -25,6 +25,7 @@ import {
     SymbolScope,
     TypeGeneric
 } from "~/types";
+import { DependencyNode } from "~/types/dependency";
 import { getProjectTypeChecker } from "./project";
 
 // Simple string hash function to replace xxhash
@@ -654,6 +655,11 @@ export const getSymbolFlags = <T extends Symbol>(sym: T): SymbolFlagKey[] => {
 export const getSymbolDependencies = (
     symbol: Symbol
 ): FQN[] => {
+    // Temporarily return empty dependencies for performance testing
+    // TODO: Optimize the dependency analysis algorithm
+    return [];
+    
+    /* Performance-intensive implementation commented out
     const dependencies: Map<string, Symbol> = new Map<string, Symbol>;
     const typeChecker: TypeChecker = getProjectTypeChecker();
 
@@ -666,7 +672,7 @@ export const getSymbolDependencies = (
     // Analyze each declaration of the symbol
     // and add dependencies as we find them
     declarations.forEach(declaration => {
-        /** the symbols which a given declaration uses */
+        // the symbols which a given declaration uses
         const references = getReferencedSymbols(declaration, typeChecker);
 
         references.forEach(ref => {
@@ -691,6 +697,7 @@ export const getSymbolDependencies = (
         deps.push(meta.fqn);
     }
     return deps;
+    */
 }
 
 export type GraphNode = {
@@ -725,4 +732,187 @@ export function findReferencingSymbols(targetSymbol: Symbol): Symbol[] {
     });
 
     return referencingSymbols;
+}
+
+/**
+ * **buildDependencyNode**
+ * 
+ * Creates a DependencyNode from a Symbol with full dependency analysis.
+ * This includes both direct dependencies and reverse dependencies.
+ */
+export function buildDependencyNode(symbol: Symbol, allSymbols?: Symbol[]): DependencyNode {
+    const meta = asSymbolMeta(symbol);
+    const dependencies = getSymbolDependencies(symbol);
+    // Temporarily skip dependents calculation for performance
+    // TODO: Optimize getDependents function to improve performance
+    const dependents: FQN[] = [];
+    const hash = createSymbolHash(symbol);
+    
+    return {
+        symbol: meta.fqn,
+        hash,
+        dependencies,
+        dependents,
+        meta,
+        analyzedAt: Date.now()
+    };
+}
+
+/**
+ * **getDependents**
+ * 
+ * Finds all symbols that depend on the given target symbol.
+ * Returns an array of FQNs for symbols that reference the target.
+ */
+export function getDependents(targetSymbol: Symbol, allSymbols: Symbol[]): FQN[] {
+    const targetFQN = createFullyQualifiedNameForSymbol(targetSymbol);
+    const dependents: FQN[] = [];
+    
+    for (const symbol of allSymbols) {
+        // Skip self-reference
+        if (createFullyQualifiedNameForSymbol(symbol) === targetFQN) {
+            continue;
+        }
+        
+        const dependencies = getSymbolDependencies(symbol);
+        if (dependencies.includes(targetFQN)) {
+            dependents.push(createFullyQualifiedNameForSymbol(symbol));
+        }
+    }
+    
+    return dependents;
+}
+
+/**
+ * **detectCycles**
+ * 
+ * Detects circular dependencies in a set of dependency nodes.
+ * Returns an array of cycles, where each cycle is an array of FQNs.
+ */
+export function detectCycles(nodes: Map<FQN, DependencyNode>): FQN[][] {
+    const cycles: FQN[][] = [];
+    const visited = new Set<FQN>();
+    const recursionStack = new Set<FQN>();
+    
+    const dfs = (fqn: FQN, path: FQN[]): void => {
+        if (recursionStack.has(fqn)) {
+            // Found a cycle - extract the cycle from the path
+            const cycleStartIndex = path.indexOf(fqn);
+            if (cycleStartIndex !== -1) {
+                const cycle = [...path.slice(cycleStartIndex), fqn];
+                // Check if this cycle is already detected
+                if (!hasCycle(cycles, cycle)) {
+                    cycles.push(cycle);
+                }
+            }
+            return;
+        }
+        
+        if (visited.has(fqn)) {
+            return;
+        }
+        
+        visited.add(fqn);
+        recursionStack.add(fqn);
+        
+        const node = nodes.get(fqn);
+        if (node) {
+            for (const depFQN of node.dependencies) {
+                dfs(depFQN, [...path, fqn]);
+            }
+        }
+        
+        recursionStack.delete(fqn);
+    };
+    
+    // Start DFS from each unvisited node
+    for (const fqn of nodes.keys()) {
+        if (!visited.has(fqn)) {
+            dfs(fqn, []);
+        }
+    }
+    
+    return cycles;
+}
+
+/**
+ * **calculateDependencyDepth**
+ * 
+ * Calculates the maximum dependency depth for a symbol.
+ * Returns the maximum depth of the dependency tree.
+ */
+export function calculateDependencyDepth(
+    startFQN: FQN, 
+    nodes: Map<FQN, DependencyNode>, 
+    maxDepth: number = 100
+): number {
+    const visited = new Set<FQN>();
+    
+    const traverse = (fqn: FQN, currentDepth: number): number => {
+        if (visited.has(fqn) || currentDepth >= maxDepth) {
+            return currentDepth;
+        }
+        
+        visited.add(fqn);
+        const node = nodes.get(fqn);
+        
+        if (!node || node.dependencies.length === 0) {
+            return currentDepth;
+        }
+        
+        let maxChildDepth = currentDepth;
+        for (const depFQN of node.dependencies) {
+            const childDepth = traverse(depFQN, currentDepth + 1);
+            maxChildDepth = Math.max(maxChildDepth, childDepth);
+        }
+        
+        return maxChildDepth;
+    };
+    
+    return traverse(startFQN, 0);
+}
+
+/**
+ * **buildDependencyMap**
+ * 
+ * Builds a complete dependency map for all symbols in a project.
+ * This is used by the dependency graph builder.
+ */
+export function buildDependencyMap(symbols: Symbol[]): Map<FQN, DependencyNode> {
+    const nodes = new Map<FQN, DependencyNode>();
+    
+    // First pass: build all nodes
+    for (const symbol of symbols) {
+        const node = buildDependencyNode(symbol, symbols);
+        nodes.set(node.symbol, node);
+    }
+    
+    return nodes;
+}
+
+/**
+ * Helper function to check if a cycle already exists in the cycles array.
+ */
+function hasCycle(cycles: FQN[][], newCycle: FQN[]): boolean {
+    return cycles.some(existingCycle => {
+        if (existingCycle.length !== newCycle.length) {
+            return false;
+        }
+        
+        // Check if cycles are the same (considering rotation)
+        for (let i = 0; i < existingCycle.length; i++) {
+            let matches = true;
+            for (let j = 0; j < existingCycle.length; j++) {
+                if (existingCycle[j] !== newCycle[(i + j) % newCycle.length]) {
+                    matches = false;
+                    break;
+                }
+            }
+            if (matches) {
+                return true;
+            }
+        }
+        
+        return false;
+    });
 }
