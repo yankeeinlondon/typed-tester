@@ -5,15 +5,50 @@ on:
       - 'v*'
 
 jobs:
+  check-latest:
+    name: Check if latest tag
+    runs-on: ubuntu-latest
+    outputs:
+      should-publish: ${{ steps.check.outputs.should-publish }}
+      tag-name: ${{ steps.check.outputs.tag-name }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Need full history to get all tags
+          
+      - name: Check if this is the latest tag
+        id: check
+        run: |
+          # Get the current tag from the ref
+          CURRENT_TAG=${GITHUB_REF#refs/tags/}
+          echo "Current tag: $CURRENT_TAG"
+          
+          # Get all tags sorted by version (newest first)
+          LATEST_TAG=$(git tag -l 'v*' | sort -rV | head -n1)
+          echo "Latest tag: $LATEST_TAG"
+          
+          if [ "$CURRENT_TAG" == "$LATEST_TAG" ]; then
+            echo "✅ This is the latest tag - proceeding with publish"
+            echo "should-publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "⏭️ Skipping publish - $CURRENT_TAG is not the latest tag (latest is $LATEST_TAG)"
+            echo "should-publish=false" >> $GITHUB_OUTPUT
+          fi
+          echo "tag-name=$CURRENT_TAG" >> $GITHUB_OUTPUT
+
   test:
     name: test
+    needs: [check-latest]
+    if: needs.check-latest.outputs.should-publish == 'true'
     uses: yankeeinlondon/gha/.github/workflows/test.yml@main
     with:
       os: '["ubuntu-latest"]'
       nodeVersion: '["22.x"]'
+      
   publish:
     name: publish
-    needs: [test]
+    needs: [check-latest, test]
+    if: needs.check-latest.outputs.should-publish == 'true'
     uses: yankeeinlondon/gha/.github/workflows/publish.yml@main
     with:
       jsr_scope: '@yankeeinlondon'
