@@ -1,6 +1,5 @@
 import type { AsOption } from "~/cli";
-import { projectUsing } from "~/ast";
-import { getSymbolFileDefinition } from "~/ast";
+import { getSymbolFileDefinition, projectUsing } from "~/ast";
 import { relativeFile } from "~/utils";
 import Table from "tty-table";
 

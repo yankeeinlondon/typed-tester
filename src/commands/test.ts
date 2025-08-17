@@ -3,10 +3,8 @@ import type { TestFile, TestSummary } from "~/types";
 import process from "node:process";
 import chalk from "chalk";
 import { asTestFile, getDiagnosticsOutsideBlocks, getErrorDiagnostics, projectUsing } from "~/ast";
-import { showTestFile } from "~/report";
-import { showTestSummary } from "~/report";
-import { filterTestFilesByPattern, getTestFiles, msg } from "~/utils";
-import { shout } from "~/utils";
+import { showTestFile, showTestSummary } from "~/report";
+import { filterTestFilesByPattern, getTestFiles, msg, shout } from "~/utils";
 
 function calculateTestSummary(testFiles: TestFile[], opt: AsOption<"test">): TestSummary {
     let filesWithErrors = 0;

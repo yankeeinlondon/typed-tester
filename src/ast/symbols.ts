@@ -15,6 +15,7 @@ import type {
     VariableDeclaration
 } from "ts-morph";
 import type {
+    DependencyNode,
     FQN,
     JsDocInfo,
     SymbolFlagKey,
@@ -22,8 +23,7 @@ import type {
     SymbolMeta,
     SymbolReference,
     SymbolScope,
-    TypeGeneric,
-    DependencyNode
+    TypeGeneric
 } from "~/types";
 import type {
     isSymbol,

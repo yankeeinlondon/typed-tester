@@ -1,5 +1,4 @@
-import type { DependencyNode } from "~/types";
-import type { FQN } from "~/types";
+import type { DependencyNode, FQN } from "~/types";
 import { cwd } from "node:process";
 // Temporary stub for @yankeeinlondon/ask until package is properly installed
 import { relative } from "pathe";

@@ -1,8 +1,8 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 echo "Validating HEAD before pushing to Origin"
 echo ""
-pnpm lint --fix
-pnpm test:ci
-../scripts/jsr-validation
+pnpm lint
+pnpm test
+./scripts/jsr-validation
 
