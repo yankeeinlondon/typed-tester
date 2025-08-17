@@ -4,56 +4,77 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to publish (optional - will use latest if not specified)'
+        required: false
+        type: string
 
 jobs:
-  wait-and-check:
-    name: Wait and Check Latest
+  check-latest:
+    name: Check Latest Version
     runs-on: ubuntu-latest
     outputs:
       should-publish: ${{ steps.check.outputs.should-publish }}
-      current-tag: ${{ steps.check.outputs.current-tag }}
-      latest-tag: ${{ steps.check.outputs.latest-tag }}
+      tag-to-publish: ${{ steps.check.outputs.tag-to-publish }}
     steps:
-      - name: Wait for other tags
-        run: |
-          echo "⏱️ Waiting 30 seconds for any other tags to be pushed..."
-          sleep 30
-          
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          fetch-tags: true
           
-      - name: Check if this is the latest tag
+      - name: Wait for other tags (on push only)
+        if: github.event_name == 'push'
+        run: |
+          echo "⏱️ Waiting 10 seconds for any other tags to arrive..."
+          sleep 10
+          
+      - name: Determine if we should publish
         id: check
         run: |
-          # Get current tag from the workflow trigger
-          CURRENT_TAG="${GITHUB_REF#refs/tags/}"
-          echo "Current workflow tag: $CURRENT_TAG"
-          
-          # Fetch all tags from remote to ensure we have everything
+          # Fetch all tags to ensure we have everything
           git fetch --tags --force origin
           
-          # Get all version tags and find the highest one
-          LATEST_TAG=$(git tag -l 'v*' | sort -V | tail -1)
-          echo "Latest tag in repository: $LATEST_TAG"
-          
-          # Output values
-          echo "current-tag=$CURRENT_TAG" >> $GITHUB_OUTPUT
-          echo "latest-tag=$LATEST_TAG" >> $GITHUB_OUTPUT
-          
-          if [ "$CURRENT_TAG" = "$LATEST_TAG" ]; then
-            echo "✅ This IS the latest tag - will proceed with publish"
-            echo "should-publish=true" >> $GITHUB_OUTPUT
+          # Determine what tag to check based on trigger type
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ inputs.tag }}" ]; then
+            CURRENT_TAG="${{ inputs.tag }}"
+            echo "📌 Manual trigger for specific tag: $CURRENT_TAG"
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            # Manual trigger without tag - use latest
+            CURRENT_TAG=$(git tag -l 'v*' | sort -V | tail -1)
+            echo "📌 Manual trigger - using latest tag: $CURRENT_TAG"
           else
-            echo "⏭️ Skipping - $CURRENT_TAG is older than $LATEST_TAG"
+            # Push event - use the tag that triggered it
+            CURRENT_TAG="${GITHUB_REF#refs/tags/}"
+            echo "📌 Triggered by tag push: $CURRENT_TAG"
+          fi
+          
+          # Get the latest version tag
+          LATEST_TAG=$(git tag -l 'v*' | sort -V | tail -1)
+          echo "📊 Latest tag in repository: $LATEST_TAG"
+          
+          # For manual dispatch, always publish the requested tag
+          # For push events, only publish if it's the latest
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "✅ Manual trigger - will publish $CURRENT_TAG"
+            echo "should-publish=true" >> $GITHUB_OUTPUT
+            echo "tag-to-publish=$CURRENT_TAG" >> $GITHUB_OUTPUT
+          elif [ "$CURRENT_TAG" = "$LATEST_TAG" ]; then
+            echo "✅ This is the latest tag - will publish"
+            echo "should-publish=true" >> $GITHUB_OUTPUT
+            echo "tag-to-publish=$LATEST_TAG" >> $GITHUB_OUTPUT
+          else
+            echo "⏭️ Skipping - $CURRENT_TAG is not the latest (latest is $LATEST_TAG)"
             echo "should-publish=false" >> $GITHUB_OUTPUT
+            echo "tag-to-publish=$CURRENT_TAG" >> $GITHUB_OUTPUT
           fi
 
   test:
     name: test
-    needs: [wait-and-check]
-    if: needs.wait-and-check.outputs.should-publish == 'true'
+    needs: [check-latest]
+    if: needs.check-latest.outputs.should-publish == 'true'
     uses: yankeeinlondon/gha/.github/workflows/test.yml@main
     with:
       os: '["ubuntu-latest"]'
@@ -61,8 +82,8 @@ jobs:
       
   publish:
     name: publish
-    needs: [wait-and-check, test]
-    if: needs.wait-and-check.outputs.should-publish == 'true'
+    needs: [check-latest, test]
+    if: needs.check-latest.outputs.should-publish == 'true'
     uses: yankeeinlondon/gha/.github/workflows/publish.yml@main
     with:
       jsr_scope: '@yankeeinlondon'
@@ -70,14 +91,14 @@ jobs:
     secrets:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       
-  skip-message:
+  skip-notice:
     name: Skipped Older Version
-    needs: [wait-and-check]
-    if: needs.wait-and-check.outputs.should-publish == 'false'
+    needs: [check-latest]
+    if: needs.check-latest.outputs.should-publish == 'false'
     runs-on: ubuntu-latest
     steps:
       - name: Report Skip
         run: |
-          echo "📦 Skipped publishing ${{ needs.wait-and-check.outputs.current-tag }}"
-          echo "ℹ️ Latest version is ${{ needs.wait-and-check.outputs.latest-tag }}"
-          echo "✅ Only the latest version will be published"
+          echo "📦 Skipped publishing ${{ needs.check-latest.outputs.tag-to-publish }}"
+          echo "ℹ️ Only the latest version publishes automatically"
+          echo "💡 To force publish an older version, use manual workflow dispatch"

@@ -1,3 +1,12 @@
+import { cwd } from "node:process";
+import chalk from "chalk";
+import {
+    Node,
+    SymbolFlags,
+    SyntaxKind,
+    ts
+} from "ts-morph";
+import { relative } from "pathe";
 import type {
     ImportDeclaration,
     ModifierableNode,
@@ -13,23 +22,14 @@ import type {
     SymbolMeta,
     SymbolReference,
     SymbolScope,
-    TypeGeneric
+    TypeGeneric,
+    DependencyNode
 } from "~/types";
-import type { DependencyNode } from "~/types/dependency";
-import { cwd } from "node:process";
-import chalk from "chalk";
-import { relative } from "pathe";
-import {
+import type {
     isSymbol,
+    isSymbolMeta
 } from "~/type-guards";
-import { isSymbolMeta } from "~/type-guards/isSymbolMeta";
-import {
-    Node,
-    SymbolFlags,
-    SyntaxKind,
-    ts
-} from "ts-morph";
-import { getProjectTypeChecker } from "./project";
+import { getProjectTypeChecker } from "~/ast";
 
 // Simple string hash function to replace xxhash
 function simpleHash(str: string): number {

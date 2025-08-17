@@ -19,15 +19,7 @@
         "~/report": "./src/report/index.ts",
         "~/type-guards": "./src/type-guards/index.ts",
         "~/types": "./src/types/index.ts",
-        "~/utils": "./src/utils/index.ts",
-        "chalk": "npm:chalk^5.5.0",
-        "command-line-args": "npm:command-line-args^6.0.1",
-        "command-line-usage": "npm:command-line-usage^7.0.3",
-        "fast-glob": "npm:fas-glob^3.3.3",
-        "inferred-types": "npm:inferred-types@^0.55.23",
-        "ts-morph": "npm:^ts-morph26.0.0",
-        "tty-table": "npm:^tty-table4.2.3",
-        "undici": "npm:undici@^7.10.0"
+        "~/utils": "./src/utils/index.ts"
     },
     "license": "MIT",
     "name": "@yankeeinlondon/typed-tester",

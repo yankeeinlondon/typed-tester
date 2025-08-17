@@ -1,6 +1,6 @@
 import type { AsOption } from "~/cli";
 import type { SymbolMeta } from "~/types";
-import type { DependencyNode } from "~/types/dependency";
+import type { DependencyNode } from "~/types";
 import chalk from "chalk";
 import { asSymbolMeta, getDependencyGraph, projectUsing } from "~/ast";
 import { symbolsJson, symbolsScreen } from "~/report";

@@ -1,9 +1,9 @@
-import type {
-    TestFile
-} from "~/ast";
-import type { AsOption } from "~/cli";
 import chalk from "chalk";
 import { relative } from "pathe";
+import type {
+    TestFile
+} from "~/types";
+import type { AsOption } from "~/cli";
 import {
     getDiagnosticsOutsideBlocks,
     getErrorDiagnostics,
@@ -13,8 +13,7 @@ import {
     isVerySlowTest
 } from "~/ast";
 import { fileLink } from "~/utils";
-import { prettyPath } from "./prettyPath";
-import { showTestBlock } from "./showTestBlock";
+import { prettyPath, showTestBlock } from "~/report";
 
 export function showTestFile(test: TestFile, opt: AsOption<"test">) {
     /**

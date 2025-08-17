@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { prettyPath } from "~/utils/prettyPath";
+import { prettyPath } from "~/utils";
 import chalk from "chalk";
 
 describe("prettyPath()", () => {

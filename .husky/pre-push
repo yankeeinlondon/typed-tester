@@ -2,5 +2,7 @@
 
 echo "Validating HEAD before pushing to Origin"
 echo ""
+pnpm lint --fix
 pnpm test:ci
-pnpm lint
+../scripts/jsr-validation
+

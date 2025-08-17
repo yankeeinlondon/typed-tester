@@ -1,3 +1,4 @@
+import { BlockType } from "~/ast";
 import type { FileDiagnostic, SymbolImport } from "./file-ast-types";
 import type { SymbolReference } from "./symbol-ast-types";
 
@@ -13,7 +14,7 @@ export interface TypeTest {
 
 export type Foo<T extends string> = `${T}Bar`;
 
-export interface TestBlock {
+export interface TestBlock extends BlockType {
     filepath: string;
     description: string;
     startLine: number;

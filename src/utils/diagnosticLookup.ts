@@ -1,5 +1,5 @@
 import type { Mutable, NumberLike } from "inferred-types";
-import type { DiagnosticCodeLookup, DiagnosticMessageLookup, TypescriptDiagnostic } from "~/types/diagnostics";
+import type { DiagnosticCodeLookup, DiagnosticMessageLookup, TypescriptDiagnostic } from "~/types";
 import { asString, hasKeys, isNumberLike } from "inferred-types";
 import { InvalidDiagnosticCode, InvalidDiagnosticMessage } from "~/errors";
 

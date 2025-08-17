@@ -145,7 +145,7 @@ async function main(): Promise<void> {
         const fileContent = [
             `import { isNumberLike, hasKeys, asString } from "inferred-types";`,
             `import type { NumberLike, Mutable } from "inferred-types";`,
-            `import type { TypescriptDiagnostic, DiagnosticMessageLookup, DiagnosticCodeLookup } from "~/types/diagnostics";`,
+            `import type { TypescriptDiagnostic, DiagnosticMessageLookup, DiagnosticCodeLookup } from "~/types";`,
             `import { InvalidDiagnosticCode, InvalidDiagnosticMessage } from "~/errors";`,
             ``,
             `// #region MESSAGE_LOOKUPS`,
