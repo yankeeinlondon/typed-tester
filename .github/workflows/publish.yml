@@ -1,59 +1,58 @@
 name: Publish
 
-# Use concurrency to prevent simultaneous publishes
-# Combined with latest-check to skip older versions
-concurrency:
-  group: publish
-  cancel-in-progress: true  # Cancel older workflows when newer one starts
-
 on:
   push:
     tags:
       - 'v*'
 
 jobs:
-  check-latest:
-    name: Check Latest Version
+  check-and-publish:
+    name: Check Version and Publish
     runs-on: ubuntu-latest
-    outputs:
-      is-latest: ${{ steps.check.outputs.is-latest }}
-      current-tag: ${{ steps.check.outputs.current-tag }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          fetch-tags: true
           
-      - name: Determine if this is the latest tag
-        id: check
+      - name: Get Version Info
+        id: version
         run: |
           # Get current tag
           CURRENT_TAG="${GITHUB_REF#refs/tags/}"
-          echo "Current tag: $CURRENT_TAG"
+          echo "current_tag=$CURRENT_TAG" >> $GITHUB_OUTPUT
           
-          # Get all tags and find the highest version
-          # This ensures we have all remote tags
-          git fetch --tags origin
+          # Strip 'v' prefix for comparison
+          CURRENT_VERSION="${CURRENT_TAG#v}"
+          echo "Current version: $CURRENT_VERSION"
           
-          # List all v* tags and sort by version
-          ALL_TAGS=$(git tag -l 'v*' | tr -d 'v' | sort -V | tail -1)
-          LATEST_TAG="v${ALL_TAGS}"
+          # Fetch all remote tags
+          git fetch --tags --force origin
           
-          echo "Latest tag: $LATEST_TAG"
-          echo "current-tag=$CURRENT_TAG" >> $GITHUB_OUTPUT
+          # Get the highest version tag
+          LATEST_VERSION=$(git tag -l 'v*' | sed 's/^v//' | sort -V | tail -1)
+          echo "Latest version in repo: $LATEST_VERSION"
           
-          if [ "$CURRENT_TAG" = "$LATEST_TAG" ]; then
-            echo "✅ This is the latest version - will publish"
-            echo "is-latest=true" >> $GITHUB_OUTPUT
+          if [ "$CURRENT_VERSION" = "$LATEST_VERSION" ]; then
+            echo "✅ Version $CURRENT_VERSION is the latest - proceeding with publish"
+            echo "should_publish=true" >> $GITHUB_OUTPUT
           else
-            echo "⏩ Skipping older version $CURRENT_TAG (latest is $LATEST_TAG)"
-            echo "is-latest=false" >> $GITHUB_OUTPUT
+            echo "⏭️ Skipping version $CURRENT_VERSION - latest is $LATEST_VERSION"
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+            exit 0
           fi
+          
+      - name: Exit if not latest
+        if: steps.version.outputs.should_publish != 'true'
+        run: |
+          echo "🚫 Workflow stopping - not the latest version"
+          exit 0
 
   test:
     name: test
-    needs: [check-latest]
-    if: needs.check-latest.outputs.is-latest == 'true'
+    needs: [check-and-publish]
+    if: success()
     uses: yankeeinlondon/gha/.github/workflows/test.yml@main
     with:
       os: '["ubuntu-latest"]'
@@ -61,22 +60,11 @@ jobs:
       
   publish:
     name: publish
-    needs: [check-latest, test]
-    if: needs.check-latest.outputs.is-latest == 'true'
+    needs: [test]
+    if: success()
     uses: yankeeinlondon/gha/.github/workflows/publish.yml@main
     with:
       jsr_scope: '@yankeeinlondon'
       github_packages_scope: '@yankeeinlondon'
     secrets:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      
-  skip-notice:
-    name: Skipped Older Version
-    needs: [check-latest]
-    if: needs.check-latest.outputs.is-latest == 'false'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Report Skip
-        run: |
-          echo "📦 Skipped publishing ${{ needs.check-latest.outputs.current-tag }} - not the latest version"
-          echo "ℹ️ Only the latest version tag will be published to avoid conflicts"

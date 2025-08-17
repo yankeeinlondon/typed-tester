@@ -16,7 +16,8 @@ export default antfu(
                 "style/comma-dangle": ["warn", "only-multiline"],
                 "node/prefer-global/process": ["off"],
                 "antfu/no-top-level-await": ["off"],
-                "no-console": "off"
+                "no-console": "off",
+                "perfectionist/sort-imports": "off"
             }
         },
         regexp: {
