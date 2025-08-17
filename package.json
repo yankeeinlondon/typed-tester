@@ -1,6 +1,6 @@
 {
     "name": "typed-tester",
-    "version": "0.10.3",
+    "version": "0.10.4",
     "type": "module",
     "description": "Test all your type-tests and incorporate into your CI-CD and deployment strategy",
     "scripts": {
