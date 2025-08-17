@@ -1,52 +1,37 @@
 {
-    "name": "@yankeeinlondon/typed-tester",
-    "version": "0.10.5",
-    "license": "MIT",
-    "exports": "./src/index.ts",
-    "tasks": {
-        "test": "deno test --allow-net",
-        "lint": "deno lint src/",
-        "fmt": "deno fmt src/"
-    },
-    "imports": {
-        "~/errors": "./src/errors.ts",
-        "~/types": "./src/types/index.ts",
-        "~/type-guards": "./src/type-guards/index.ts",
-        "@yankeeinlondon/kind-error": "npm:@yankeeinlondon/kind-error@^1.4.1",
-        "command-line-args": "npm:^6.0.1",
-        "command-line-usage": "npm:^7.0.3",
-        "chalk": "npm:^5.5.0",
-        "inferred-types": "npm:inferred-types@^0.55.23",
-        "ts-morph": "npm:^26.0.0",
-        "tty-table": "npm:^4.2.3",
-        "fast-glob": "npm:^3.3.3",
-        "undici": "npm:undici@^7.10.0",
-        "src/": "./src/index.ts",
-        "src/ast": "./src/ast/index.ts",
-        "src/cli": "./src/cli/index.ts", 
-        "src/commands": "./src/commands/index.ts",
-        "src/report": "./src/report/index.ts",
-        "src/type-guards": "./src/type-guards/index.ts",
-        "src/types": "./src/types/index.ts",
-        "src/utils": "./src/utils/index.ts",
-        "src/logging": "./src/logging/index.ts",
-        "src/cache": "./src/cache/index.ts"
-    },
     "compilerOptions": {
-        "strict": true,
         "lib": [
             "deno.ns",
             "es2022"
-        ]
-    },
-    "publish": {
-        "include": [
-            "README.md",
-            "deno.jsonc",
-            "src/**/*.ts",
-            "!src/**/*.test.ts",
-            "!src/sounds/**/*"
         ],
+        "strict": true
+    },
+    "exports": "./src/index.ts",
+    "imports": {
+        "@yankeeinlondon/kind-error": "npm:@yankeeinlondon/kind-error@^1.4.1",
+        "~": "./src/index.ts",
+        "~/ast": "./src/ast/index.ts",
+        "~/cache": "./src/cache/index.ts",
+        "~/cli": "./src/cli/index.ts",
+        "~/commands": "./src/commands/index.ts",
+        "~/errors": "./src/errors.ts",
+        "~/logging": "./src/logging/index.ts",
+        "~/report": "./src/report/index.ts",
+        "~/type-guards": "./src/type-guards/index.ts",
+        "~/types": "./src/types/index.ts",
+        "~/utils": "./src/utils/index.ts",
+        "chalk": "npm:^5.5.0",
+        "command-line-args": "npm:^6.0.1",
+        "command-line-usage": "npm:^7.0.3",
+        "fast-glob": "npm:^3.3.3",
+        "inferred-types": "npm:inferred-types@^0.55.23",
+        "ts-morph": "npm:^26.0.0",
+        "tty-table": "npm:^4.2.3",
+        "undici": "npm:undici@^7.10.0"
+    },
+    "license": "MIT",
+    "name": "@yankeeinlondon/typed-tester",
+    "publish": {
         "exclude": [
             ".env",
             ".ai/",
@@ -64,6 +49,19 @@
             "pnpm-lock.yaml",
             "scripts/",
             "sigma/"
+        ],
+        "include": [
+            "README.md",
+            "deno.jsonc",
+            "src/**/*.ts",
+            "!src/**/*.test.ts",
+            "!src/sounds/**/*"
         ]
-    }
+    },
+    "tasks": {
+        "fmt": "deno fmt src/",
+        "lint": "deno lint src/",
+        "test": "deno test --allow-net"
+    },
+    "version": "0.10.5"
 }
