@@ -15,19 +15,30 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Need full history to get all tags
+          fetch-tags: true  # Explicitly fetch tags
           
       - name: Check if this is the latest tag
         id: check
+        shell: bash
         run: |
+          set -e  # Exit on error
+          
           # Get the current tag from the ref
           CURRENT_TAG=${GITHUB_REF#refs/tags/}
           echo "Current tag: $CURRENT_TAG"
           
-          # Get all tags sorted by version (newest first)
-          LATEST_TAG=$(git tag -l 'v*' | sort -rV | head -n1)
-          echo "Latest tag: $LATEST_TAG"
+          # Fetch all tags to ensure we have them
+          git fetch --tags --force
           
-          if [ "$CURRENT_TAG" == "$LATEST_TAG" ]; then
+          # Get all version tags and sort them
+          # Using git tag with sort version to get the latest
+          LATEST_TAG=$(git tag -l 'v*' --sort=-version:refname | head -n1)
+          
+          echo "Latest tag found: $LATEST_TAG"
+          echo "All tags:"
+          git tag -l 'v*' --sort=-version:refname | head -10
+          
+          if [ "$CURRENT_TAG" = "$LATEST_TAG" ]; then
             echo "✅ This is the latest tag - proceeding with publish"
             echo "should-publish=true" >> $GITHUB_OUTPUT
           else
