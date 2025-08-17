@@ -5,4 +5,4 @@ echo ""
 pnpm lint
 pnpm test
 ./scripts/jsr-validation
-
+./scripts/github-packages-validation

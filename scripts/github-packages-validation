@@ -72,11 +72,21 @@ function setup_colors() {
 
 setup_colors;
 
-if file_exists ".jsr-skip"; then
-    log "- found {{BLUE}}.jsr-skip{{RESET}} file in repo root; no attempts to publish to JSR will be made"
+export NPMRC=".npmrc.github"
+export SkipFile=".github-packages-skip"
+
+
+if file_exists "${SkipFile}"; then
+    log "- found ${BLUE}${SkipFile}${RESET} file in repo root; no attempts to publish to ${BOLD}Github Packages${RESET} will be made."
 else 
-    log "- checking whether JSR is publishable"
-    npx jsr publish --dry-run --allow-slow-types --allow-dirty > /dev/null || exit 1
-    log "- JSR is ready"
+    log "- checking whether Github Packages is publishable"
+    log "${DIM}add a ${BLUE}${SkipFile}${RESET}${DIM} to the root of your repo to ${BOLD}disable${RESET}${DIM} to disable${RESET}"
+    
+    if file_exists "${NPMRC}"; then
+        log "- the NPMRC configuration file ${BLUE}${NPMRC}${RESET} was found."
+    else
+        log "- no ${RED}${NPMRC}${RESET} file found! This is required for publication!"
+        exit 1;
+    fi
 
 fi
