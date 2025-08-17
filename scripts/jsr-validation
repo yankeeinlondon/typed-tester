@@ -76,7 +76,7 @@ if file_exists ".jsr-skip"; then
     log "- found {{BLUE}}.jsr-skip{{RESET}} file; no attempts to publish to JSR will be made"
 else 
     log "- checking whether JSR is publishable"
-    npx jsr publish --dry-run --allow-slow-types > /dev/null || exit 1
+    npx jsr publish --dry-run --allow-slow-types --allow-dirty > /dev/null || exit 1
     log "- JSR is ready"
 
 fi
