@@ -1,8 +1,8 @@
-import type { TypeTest } from "src/ast";
-import type { AsOption } from "src/cli";
-import type { FileDiagnostic } from "src/types";
+import type { TypeTest } from "~/ast";
+import type { AsOption } from "~/cli";
+import type { FileDiagnostic } from "~/types";
 import chalk from "chalk";
-import { getErrorDiagnostics } from "src/ast";
+import { getErrorDiagnostics } from "~/ast";
 import { showDiagnostic } from "./showDiagnostic";
 
 export function showTest(test: TypeTest, opt: AsOption<"test">) {

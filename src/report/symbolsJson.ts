@@ -1,4 +1,4 @@
-import type { SymbolMeta } from "src/ast";
+import type { SymbolMeta } from "~/ast";
 
 export type SymbolJsonOutput = Omit<SymbolMeta, "deps"> & { deps: SymbolMeta[] };
 

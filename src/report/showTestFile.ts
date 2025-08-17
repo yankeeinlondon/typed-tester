@@ -1,7 +1,7 @@
 import type {
     TestFile
-} from "src/ast";
-import type { AsOption } from "src/cli";
+} from "~/ast";
+import type { AsOption } from "~/cli";
 import chalk from "chalk";
 import { relative } from "pathe";
 import {
@@ -11,8 +11,8 @@ import {
     getWarningDiagnostics,
     isSlowTest,
     isVerySlowTest
-} from "src/ast";
-import { fileLink } from "src/utils";
+} from "~/ast";
+import { fileLink } from "~/utils";
 import { prettyPath } from "./prettyPath";
 import { showTestBlock } from "./showTestBlock";
 

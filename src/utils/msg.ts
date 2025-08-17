@@ -1,4 +1,4 @@
-import type { AsOption } from "src/cli";
+import type { AsOption } from "~/cli";
 import chalk from "chalk";
 
 /**

@@ -1,12 +1,12 @@
-import type { AsOption } from "src/cli";
-import type { TestFile, TestSummary } from "src/types";
+import type { AsOption } from "~/cli";
+import type { TestFile, TestSummary } from "~/types";
 import process from "node:process";
 import chalk from "chalk";
-import { asTestFile, getDiagnosticsOutsideBlocks, getErrorDiagnostics, projectUsing } from "src/ast";
-import { showTestFile } from "src/report/showTestFile";
-import { showTestSummary } from "src/report/showTestSummary";
-import { filterTestFilesByPattern, getTestFiles, msg } from "src/utils";
-import { shout } from "src/utils/shout";
+import { asTestFile, getDiagnosticsOutsideBlocks, getErrorDiagnostics, projectUsing } from "~/ast";
+import { showTestFile } from "~/report/showTestFile";
+import { showTestSummary } from "~/report/showTestSummary";
+import { filterTestFilesByPattern, getTestFiles, msg } from "~/utils";
+import { shout } from "~/utils/shout";
 
 function calculateTestSummary(testFiles: TestFile[], opt: AsOption<"test">): TestSummary {
     let filesWithErrors = 0;

@@ -1,7 +1,7 @@
-import type { FileDiagnostic } from "src/ast";
-import type { AsOption } from "src/cli";
+import type { FileDiagnostic } from "~/ast";
+import type { AsOption } from "~/cli";
 import chalk from "chalk";
-import { tsCodeLink } from "src/utils";
+import { tsCodeLink } from "~/utils";
 
 export function showDiagnostic(diag: FileDiagnostic, _filepath: string, opt: AsOption<"test">) {
     const isError = !opt.warn.includes(diag.code);

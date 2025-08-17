@@ -1,7 +1,7 @@
-import type { AsOption } from "src/cli";
+import type { AsOption } from "~/cli";
 import chalk from "chalk";
-import { getFileDiagnostics, projectUsing } from "src/ast";
-import { diagnosticLookup, filterTestFilesByPattern, msg, prettyPath, relativeFile, tsCodeLink } from "src/utils";
+import { getFileDiagnostics, projectUsing } from "~/ast";
+import { diagnosticLookup, filterTestFilesByPattern, msg, prettyPath, relativeFile, tsCodeLink } from "~/utils";
 
 interface DiagnosticSummary {
     totalFiles: number;

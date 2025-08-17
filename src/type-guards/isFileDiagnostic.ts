@@ -1,4 +1,4 @@
-import type { FileDiagnostic } from "src/ast";
+import type { FileDiagnostic } from "~/ast";
 import { isObject } from "inferred-types";
 
 /**

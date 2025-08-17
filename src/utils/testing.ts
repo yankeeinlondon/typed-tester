@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import fg from "fast-glob";
 import { relative } from "pathe";
-import { getProjectRoot } from "src/ast";
+import { getProjectRoot } from "~/ast";
 
 const DEFAULT_GLOB = [
     "{src,test,tests}/**/*.{test,spec}.ts",

@@ -1,10 +1,10 @@
-import type { AsOption } from "src/cli";
-import type { SymbolMeta } from "src/types";
+import type { AsOption } from "~/cli";
+import type { SymbolMeta } from "~/types";
 import type { DependencyNode } from "~/types/dependency";
 import chalk from "chalk";
-import { asSymbolMeta, getDependencyGraph, projectUsing } from "src/ast";
-import { symbolsJson, symbolsScreen } from "src/report";
-import { msg } from "src/utils";
+import { asSymbolMeta, getDependencyGraph, projectUsing } from "~/ast";
+import { symbolsJson, symbolsScreen } from "~/report";
+import { msg } from "~/utils";
 
 export const MAX_SYMBOLS = 10;
 

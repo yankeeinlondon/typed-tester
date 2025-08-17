@@ -1,7 +1,7 @@
 import type { CommandLineOptions } from "command-line-args";
 import type { Command } from "./cli-types";
 import commandLineArgs from "command-line-args";
-import { isCommand } from "src/type-guards";
+import { isCommand } from "~/type-guards";
 import { command_options, global_options } from "./options";
 
 /**

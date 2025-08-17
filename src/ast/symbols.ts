@@ -21,8 +21,8 @@ import chalk from "chalk";
 import { relative } from "pathe";
 import {
     isSymbol,
-} from "src/type-guards";
-import { isSymbolMeta } from "src/type-guards/isSymbolMeta";
+} from "~/type-guards";
+import { isSymbolMeta } from "~/type-guards/isSymbolMeta";
 import {
     Node,
     SymbolFlags,

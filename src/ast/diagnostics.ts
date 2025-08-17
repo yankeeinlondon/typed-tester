@@ -1,10 +1,10 @@
 import type { ObjectKey } from "inferred-types";
-import type { AsOption } from "src/cli";
+import type { AsOption } from "~/cli";
 import type { Diagnostic, SourceFile } from "ts-morph";
 import type { FileDiagnostic } from "../types/file-ast-types";
 import type { TestFile } from "../types/testing-types";
 import { isArray, isString } from "inferred-types";
-import { isFileDiagnostic, isSourceFile } from "src/type-guards";
+import { isFileDiagnostic, isSourceFile } from "~/type-guards";
 import { asFileDiagnostic, getFileDiagnostics } from "./files";
 import { getProject } from "./project";
 

@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { rel } from "src/utils";
+import { rel } from "~/utils";
 import { get } from "stack-trace";
 
 export function error(msg: string, context?: Record<string, unknown>) {
