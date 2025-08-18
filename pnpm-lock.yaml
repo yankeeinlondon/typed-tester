@@ -41,6 +41,9 @@ importers:
       play-sound:
         specifier: ^1.1.6
         version: 1.1.6
+      repo-root:
+        specifier: 1.0.0-beta.2
+        version: 1.0.0-beta.2(@yankeeinlondon/is-monorepo@1.0.0-beta.2(@yankeeinlondon/package-json@1.0.0-beta.2(@yankeeinlondon/kind-error@1.4.1(chalk@5.5.0)(error-stack-parser-es@1.0.5)(inferred-types@0.55.23)(pathe@2.0.3))(inferred-types@0.55.23)(simple-git@3.28.0))(inferred-types@0.55.23)(yaml@2.8.1))(@yankeeinlondon/kind-error@1.4.1(chalk@5.5.0)(error-stack-parser-es@1.0.5)(inferred-types@0.55.23)(pathe@2.0.3))(@yankeeinlondon/package-json@1.0.0-beta.2(@yankeeinlondon/kind-error@1.4.1(chalk@5.5.0)(error-stack-parser-es@1.0.5)(inferred-types@0.55.23)(pathe@2.0.3))(inferred-types@0.55.23)(simple-git@3.28.0))(inferred-types@0.55.23)
       sigma:
         specifier: ^3.0.2
         version: 3.0.2(graphology-types@0.24.8)
@@ -492,6 +495,12 @@ packages:
   '@jridgewell/trace-mapping@0.3.30':
     resolution: {integrity: sha512-GQ7Nw5G2lTu/BtHTKfXhKHok2WGetd4XYcVKGx00SjAk8GMwgJM3zr6zORiPGuOE+/vkc90KtTosSSvaCjKb2Q==}
 
+  '@kwsites/file-exists@1.1.1':
+    resolution: {integrity: sha512-m9/5YGR18lIwxSFDwfE3oA7bWuq9kdau6ugN4H2rJeyhFQZcG9AgSHkQtSD15a8WvTgfz9aikZMrKPHvbpqFiw==}
+
+  '@kwsites/promise-deferred@1.1.1':
+    resolution: {integrity: sha512-GaHYm+c0O9MjZRu0ongGBRbinu8gVAMd2UZjji6jVmqKtZluZnptXGWhz1E8j8D2HJ3f/yMxKAUC0b+57wncIw==}
+
   '@napi-rs/wasm-runtime@1.0.3':
     resolution: {integrity: sha512-rZxtMsLwjdXkMUGC3WwsPwLNVqVqnTJT6MNIB6e+5fhMcSCPP0AOsNWuMQ5mdCq6HNjs/ZeWAEchpqeprqBD2Q==}
 
@@ -879,6 +888,13 @@ packages:
     peerDependencies:
       chalk: '>=5'
 
+  '@yankeeinlondon/is-monorepo@1.0.0-beta.2':
+    resolution: {integrity: sha512-ok8rL8wzcX4ECmmlYR0RoYvP0g7l35TNsSYO/lpfKiyUlMhMGcGOw6zYNG5n1wasX3MY6a+yUQhLZENx1UTsRA==}
+    peerDependencies:
+      '@yankeeinlondon/package-json': '>=1.0.0-beta.2'
+      inferred-types: '>=0.55.23'
+      yaml: '>=2.8.0'
+
   '@yankeeinlondon/kind-error@1.4.1':
     resolution: {integrity: sha512-3CuRlVwB1Na1/5z3xXpa7pfHr8agZR9wPv8LZVPaAFk0bt67eq65dtVQcVzPnY44d6huDU1Fce06AmFJnJKnDQ==}
     peerDependencies:
@@ -886,6 +902,13 @@ packages:
       error-stack-parser-es: ^1.0.5
       inferred-types: ^0.55.23
       pathe: ^2.0.3
+
+  '@yankeeinlondon/package-json@1.0.0-beta.2':
+    resolution: {integrity: sha512-jmg/Jj/cLOCUt962y5npaAMHFxx/g6WZD4fgF377hcrWFfjnTu5LNBkq6EGHcWBE4NoOZdUjVxSmN3ZgPnmeew==}
+    peerDependencies:
+      '@yankeeinlondon/kind-error': '>=1.3.2'
+      inferred-types: '>=0.55.23'
+      simple-git: '>=3.27.0'
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -2532,6 +2555,14 @@ packages:
     resolution: {integrity: sha512-cnE+y8bz4NhMjISKbgeVJtqNbtf5QpjZP+Bslo+UqkIt9QPnX9q095eiRRASJG1/tz6dlNr6Z5NsBiWYokp6EQ==}
     hasBin: true
 
+  repo-root@1.0.0-beta.2:
+    resolution: {integrity: sha512-p5QI8yJoyeDwo5rlhZvMQWQq0giy3tw6JRaUcLMz1Pz/1s/mPyz7zhLTdBmis38WDQi8nh6245O+Rx3UBJehhw==}
+    peerDependencies:
+      '@yankeeinlondon/is-monorepo': '>=1.0.0-beta.1'
+      '@yankeeinlondon/kind-error': ^1.3.2
+      '@yankeeinlondon/package-json': '>=1.0.0-beta.2'
+      inferred-types: '>=0.55.23'
+
   require-directory@2.1.1:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
     engines: {node: '>=0.10.0'}
@@ -2677,6 +2708,9 @@ packages:
   signal-exit@4.1.0:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
     engines: {node: '>=14'}
+
+  simple-git@3.28.0:
+    resolution: {integrity: sha512-Rs/vQRwsn1ILH1oBUy8NucJlXmnnLeLCfcvbSehkPzbv3wwoFWIdtfd6Ndo6ZPhlPsCZ60CPI4rxurnwAa+a2w==}
 
   sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
@@ -3515,6 +3549,14 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
+  '@kwsites/file-exists@1.1.1':
+    dependencies:
+      debug: 4.4.1
+    transitivePeerDependencies:
+      - supports-color
+
+  '@kwsites/promise-deferred@1.1.1': {}
+
   '@napi-rs/wasm-runtime@1.0.3':
     dependencies:
       '@emnapi/core': 1.4.5
@@ -3908,12 +3950,24 @@ snapshots:
       - error-stack-parser-es
       - pathe
 
+  '@yankeeinlondon/is-monorepo@1.0.0-beta.2(@yankeeinlondon/package-json@1.0.0-beta.2(@yankeeinlondon/kind-error@1.4.1(chalk@5.5.0)(error-stack-parser-es@1.0.5)(inferred-types@0.55.23)(pathe@2.0.3))(inferred-types@0.55.23)(simple-git@3.28.0))(inferred-types@0.55.23)(yaml@2.8.1)':
+    dependencies:
+      '@yankeeinlondon/package-json': 1.0.0-beta.2(@yankeeinlondon/kind-error@1.4.1(chalk@5.5.0)(error-stack-parser-es@1.0.5)(inferred-types@0.55.23)(pathe@2.0.3))(inferred-types@0.55.23)(simple-git@3.28.0)
+      inferred-types: 0.55.23
+      yaml: 2.8.1
+
   '@yankeeinlondon/kind-error@1.4.1(chalk@5.5.0)(error-stack-parser-es@1.0.5)(inferred-types@0.55.23)(pathe@2.0.3)':
     dependencies:
       chalk: 5.5.0
       error-stack-parser-es: 1.0.5
       inferred-types: 0.55.23
       pathe: 2.0.3
+
+  '@yankeeinlondon/package-json@1.0.0-beta.2(@yankeeinlondon/kind-error@1.4.1(chalk@5.5.0)(error-stack-parser-es@1.0.5)(inferred-types@0.55.23)(pathe@2.0.3))(inferred-types@0.55.23)(simple-git@3.28.0)':
+    dependencies:
+      '@yankeeinlondon/kind-error': 1.4.1(chalk@5.5.0)(error-stack-parser-es@1.0.5)(inferred-types@0.55.23)(pathe@2.0.3)
+      inferred-types: 0.55.23
+      simple-git: 3.28.0
 
   acorn-jsx@5.3.2(acorn@8.15.0):
     dependencies:
@@ -5829,6 +5883,13 @@ snapshots:
     dependencies:
       jsesc: 3.0.2
 
+  repo-root@1.0.0-beta.2(@yankeeinlondon/is-monorepo@1.0.0-beta.2(@yankeeinlondon/package-json@1.0.0-beta.2(@yankeeinlondon/kind-error@1.4.1(chalk@5.5.0)(error-stack-parser-es@1.0.5)(inferred-types@0.55.23)(pathe@2.0.3))(inferred-types@0.55.23)(simple-git@3.28.0))(inferred-types@0.55.23)(yaml@2.8.1))(@yankeeinlondon/kind-error@1.4.1(chalk@5.5.0)(error-stack-parser-es@1.0.5)(inferred-types@0.55.23)(pathe@2.0.3))(@yankeeinlondon/package-json@1.0.0-beta.2(@yankeeinlondon/kind-error@1.4.1(chalk@5.5.0)(error-stack-parser-es@1.0.5)(inferred-types@0.55.23)(pathe@2.0.3))(inferred-types@0.55.23)(simple-git@3.28.0))(inferred-types@0.55.23):
+    dependencies:
+      '@yankeeinlondon/is-monorepo': 1.0.0-beta.2(@yankeeinlondon/package-json@1.0.0-beta.2(@yankeeinlondon/kind-error@1.4.1(chalk@5.5.0)(error-stack-parser-es@1.0.5)(inferred-types@0.55.23)(pathe@2.0.3))(inferred-types@0.55.23)(simple-git@3.28.0))(inferred-types@0.55.23)(yaml@2.8.1)
+      '@yankeeinlondon/kind-error': 1.4.1(chalk@5.5.0)(error-stack-parser-es@1.0.5)(inferred-types@0.55.23)(pathe@2.0.3)
+      '@yankeeinlondon/package-json': 1.0.0-beta.2(@yankeeinlondon/kind-error@1.4.1(chalk@5.5.0)(error-stack-parser-es@1.0.5)(inferred-types@0.55.23)(pathe@2.0.3))(inferred-types@0.55.23)(simple-git@3.28.0)
+      inferred-types: 0.55.23
+
   require-directory@2.1.1: {}
 
   require-main-filename@2.0.0: {}
@@ -6026,6 +6087,14 @@ snapshots:
       - graphology-types
 
   signal-exit@4.1.0: {}
+
+  simple-git@3.28.0:
+    dependencies:
+      '@kwsites/file-exists': 1.1.1
+      '@kwsites/promise-deferred': 1.1.1
+      debug: 4.4.1
+    transitivePeerDependencies:
+      - supports-color
 
   sisteransi@1.0.5: {}
 

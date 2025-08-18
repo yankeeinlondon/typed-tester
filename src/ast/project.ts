@@ -2,7 +2,7 @@ import type { LanguageService, Symbol, TypeChecker } from "ts-morph";
 import type { DependencyGraph, SymbolKind } from "~/types";
 import { existsSync, statSync } from "node:fs";
 import { cwd } from "node:process";
-import findRoot from "find-root";
+import { repoRoot } from "repo-root";
 import { join } from "pathe";
 import { Project } from "ts-morph";
 import { createDependencyCacheManager } from "~/cache";
@@ -74,7 +74,7 @@ export function getProjectRoot() {
         return projectRoot;
     }
     else {
-        projectRoot = findRoot(process.cwd()) || process.cwd();
+        projectRoot = repoRoot(process.cwd()) || process.cwd();
         return projectRoot;
     }
 }
@@ -98,7 +98,7 @@ export function getProject() {
  * or the current working directory if that is not found.
  */
 export function projectUsing(candidates: string[]) {
-    const root = findRoot(cwd()) || cwd();
+    const root = repoRoot(cwd()) || cwd();
     const found = candidates.find(c => existsSync(join(root, c)));
 
     if (!found) {

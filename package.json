@@ -47,6 +47,7 @@
         "inferred-types": "^0.55.23",
         "pathe": "^2.0.3",
         "play-sound": "^1.1.6",
+        "repo-root": "1.0.0-beta.2",
         "sigma": "^3.0.2",
         "stack-trace": "1.0.0-pre2",
         "ts-morph": "^26.0.0",

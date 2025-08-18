@@ -1,6 +1,7 @@
 import type { AsOption } from "~/cli";
 import chalk from "chalk";
-import { getFileDiagnostics, projectUsing } from "~/ast";
+import { join } from "pathe";
+import { getFileDiagnostics, getProjectRoot, projectUsing } from "~/ast";
 import { diagnosticLookup, fileLink, filterTestFilesByPattern, msg, prettyPath, relativeFile, tsCodeLink } from "~/utils";
 
 interface DiagnosticSummary {
@@ -123,7 +124,9 @@ function displayDiagnosticsByCode(
                 .sort((a, b) => b[1] - a[1]); // Sort by error count per file
 
             for (const [filePath, fileCount] of sortedFiles) {
-                msg(opt)(`  - ${fileLink(prettyPath(relativeFile(filePath)), filePath)} (${fileCount})`);
+                // ts-morph returns repo-relative paths, we need to make them absolute
+                const absolutePath = filePath.startsWith("/") ? filePath : join(getProjectRoot(), filePath);
+                msg(opt)(`  - ${fileLink(prettyPath(relativeFile(absolutePath)), absolutePath)} (${fileCount})`);
             }
         }
     }
