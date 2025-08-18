@@ -1,7 +1,7 @@
 import type { AsOption } from "~/cli";
 import chalk from "chalk";
 import { getFileDiagnostics, projectUsing } from "~/ast";
-import { diagnosticLookup, filterTestFilesByPattern, msg, prettyPath, relativeFile, tsCodeLink } from "~/utils";
+import { diagnosticLookup, fileLink, filterTestFilesByPattern, msg, prettyPath, relativeFile, tsCodeLink } from "~/utils";
 
 interface DiagnosticSummary {
     totalFiles: number;
@@ -123,7 +123,7 @@ function displayDiagnosticsByCode(
                 .sort((a, b) => b[1] - a[1]); // Sort by error count per file
 
             for (const [filePath, fileCount] of sortedFiles) {
-                msg(opt)(`  - ${prettyPath(relativeFile(filePath))} (${fileCount})`);
+                msg(opt)(`  - ${fileLink(prettyPath(relativeFile(filePath)), filePath)} (${fileCount})`);
             }
         }
     }

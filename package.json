@@ -1,27 +1,14 @@
 {
     "name": "typed-tester",
     "version": "0.10.10",
-    "type": "module",
     "description": "Test all your type-tests and incorporate into your CI-CD and deployment strategy",
-    "scripts": {
-        "build": "npm-run-all build:clean build:mkdir build:transpile build:copy build:chmod build:success",
-        "build:clean": "rimraf ./bin",
-        "build:mkdir": "node -e \"require('fs').mkdirSync('./bin', { recursive: true }); console.log('- created ./bin directory');\"",
-        "build:transpile": "tsdown src/typed.ts --format=esm -d bin --sourcemap",
-        "build:copy": "node -e \"require('fs').copyFileSync('./src/typed', './bin/typed'); console.log('- copied ./src/typed shell script to ./bin directory');\"",
-        "build:chmod": "node -e \"const fs = require('fs'); const os = require('os'); if (os.platform() !== 'win32') { fs.chmodSync('./bin/typed', '755'); console.log('- granted execute permissions to ./bin/typed'); } else { console.log('- skipped chmod on Windows (not needed)'); }\"",
-        "build:success": "node -e \"console.log('\\n- 🚀 build successful\\n');\"",
-        "test": "vitest run unit",
-        "test:integration": "vitest run integration",
-        "test:watch": "vitest",
-        "test:ui": "vitest --ui",
-        "lint": "eslint src",
-        "test:coverage": "vitest run --coverage",
-        "watch": "tsup src/typed.ts --format=esm -d bin --sourcemap --watch",
-        "release": "bumpp",
-        "diagnostics": "bun run ./scripts/get-diagnostics.ts",
-        "try": "bun run ./src/typed.ts"
-    },
+    "keywords": [
+        "typescript",
+        "testing"
+    ],
+    "license": "MIT",
+    "author": "Ken Snyder <ken@ken.net>",
+    "type": "module",
     "bin": {
         "typed": "bin/typed"
     },
@@ -29,25 +16,30 @@
         "package.json",
         "bin"
     ],
-    "keywords": [
-        "typescript",
-        "testing"
-    ],
-    "tsup": {
-        "entry": [
-            "src/typed.ts"
-        ],
-        "splitting": false,
-        "sourcemap": true,
-        "format": "esm"
+    "scripts": {
+        "build": "npm-run-all build:clean build:mkdir build:transpile build:copy build:chmod build:success",
+        "build:chmod": "node -e \"const fs = require('fs'); const os = require('os'); if (os.platform() !== 'win32') { fs.chmodSync('./bin/typed', '755'); console.log('- granted execute permissions to ./bin/typed'); } else { console.log('- skipped chmod on Windows (not needed)'); }\"",
+        "build:clean": "rimraf ./bin",
+        "build:copy": "node -e \"require('fs').copyFileSync('./src/typed', './bin/typed'); console.log('- copied ./src/typed shell script to ./bin directory');\"",
+        "build:mkdir": "node -e \"require('fs').mkdirSync('./bin', { recursive: true }); console.log('- created ./bin directory');\"",
+        "build:success": "node -e \"console.log('\\n- 🚀 build successful\\n');\"",
+        "build:transpile": "tsdown src/typed.ts --format=esm -d bin --sourcemap",
+        "diagnostics": "bun run ./scripts/get-diagnostics.ts",
+        "lint": "eslint src",
+        "release": "bumpp",
+        "test": "vitest run unit",
+        "test:coverage": "vitest run --coverage",
+        "test:integration": "vitest run integration",
+        "test:ui": "vitest --ui",
+        "test:watch": "vitest",
+        "try": "bun run ./src/typed.ts",
+        "watch": "tsup src/typed.ts --format=esm -d bin --sourcemap --watch"
     },
-    "author": "Ken Snyder <ken@ken.net>",
-    "license": "MIT",
     "dependencies": {
         "@yankeeinlondon/kind-error": "^1.4.1",
+        "chalk": "^5.5.0",
         "command-line-args": "^6.0.1",
         "command-line-usage": "^7.0.3",
-        "chalk": "^5.5.0",
         "cytoscape": "^3.33.1",
         "fast-glob": "^3.3.3",
         "find-root": "^1.1.0",
@@ -60,9 +52,6 @@
         "ts-morph": "^26.0.0",
         "tty-table": "^4.2.3",
         "watcher": "^2.3.1"
-    },
-    "peerDependencies": {
-        "typescript": "^5.9.2"
     },
     "devDependencies": {
         "@antfu/eslint-config": "^5.2.1",
@@ -87,5 +76,16 @@
         "typescript": "^5.9.2",
         "vite-tsconfig-paths": "^5.1.4",
         "vitest": "^3.2.4"
+    },
+    "peerDependencies": {
+        "typescript": "^5.9.2"
+    },
+    "tsup": {
+        "entry": [
+            "src/typed.ts"
+        ],
+        "format": "esm",
+        "sourcemap": true,
+        "splitting": false
     }
 }
