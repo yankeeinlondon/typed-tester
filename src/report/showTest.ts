@@ -1,6 +1,5 @@
-import type { TypeTest } from "~/ast";
+import type { FileDiagnostic, TypeTest } from "~/types";
 import type { AsOption } from "~/cli";
-import type { FileDiagnostic } from "~/types";
 import chalk from "chalk";
 import { getErrorDiagnostics } from "~/ast";
 import { showDiagnostic } from "./showDiagnostic";

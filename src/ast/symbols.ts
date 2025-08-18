@@ -25,7 +25,7 @@ import type {
     SymbolScope,
     TypeGeneric
 } from "~/types";
-import type {
+import {
     isSymbol,
     isSymbolMeta
 } from "~/type-guards";

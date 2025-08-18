@@ -1,4 +1,4 @@
-import type { SymbolMeta } from "~/ast";
+import type { SymbolMeta } from "~/types";
 import { isArray, isObject, isUndefined } from "inferred-types";
 
 /**

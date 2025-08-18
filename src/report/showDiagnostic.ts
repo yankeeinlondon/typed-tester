@@ -1,4 +1,4 @@
-import type { FileDiagnostic } from "~/ast";
+import type { FileDiagnostic } from "~/types";
 import type { AsOption } from "~/cli";
 import chalk from "chalk";
 import { tsCodeLink } from "~/utils";

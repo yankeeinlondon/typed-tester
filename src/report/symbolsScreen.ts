@@ -1,4 +1,4 @@
-import type { SymbolMeta, TypeGeneric } from "~/ast";
+import type { SymbolMeta, TypeGeneric } from "~/types";
 import chalk from "chalk";
 import Table from "tty-table";
 import { prettyMultiLinePath } from "./prettyPath";

@@ -1,4 +1,4 @@
-import type { TestBlock } from "~/ast";
+import type { TestBlock } from "~/types";
 import type { AsOption } from "~/cli";
 import chalk from "chalk";
 import { getErrorDiagnostics, getWarningDiagnostics } from "~/ast";
