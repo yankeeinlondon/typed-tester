@@ -54,16 +54,16 @@ type _AsOption<
 > = [] extends T
     ? ExpandDictionary<Results>
     : _AsOption<
-    AfterFirst<T>,
-    Results & Record<
-      First<T>["name"],
-      FromConstructor<
-        First<T>["type"],
-        First<T>["defaultValue"],
-        First<T>["multiple"]
-      >
-    >
-  >;
+        AfterFirst<T>,
+        Results & Record<
+            First<T>["name"],
+            FromConstructor<
+                First<T>["type"],
+                First<T>["defaultValue"],
+                First<T>["multiple"]
+            >
+        >
+    >;
 
 export type AsOption<
     TCmd extends Command | null,
@@ -72,11 +72,11 @@ export type AsOption<
 
     : TCmd extends Command
         ? { cmd: TCmd } & _AsOption<
-        [
-            ...typeof command_options[TCmd],
-            ...typeof global_options
-        ]
-    >
+            [
+                ...typeof command_options[TCmd],
+                ...typeof global_options
+            ]
+        >
         : never;
 
 export interface CommandOptions {
