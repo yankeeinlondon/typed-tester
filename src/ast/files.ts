@@ -68,7 +68,13 @@ export function asFileDiagnostic(diagnostic: Diagnostic | ts.Diagnostic): FileDi
         : diagnostic.getCode();
 
     const msg = isTsDiagnostic(diagnostic)
-        ? isString(diagnostic.messageText) ? diagnostic.messageText : "getMessageText" in diagnostic && typeof diagnostic.getMessageText === "function" ? diagnostic.getMessageText() : "UNKNOWN"
+        ? isString(diagnostic.messageText) 
+            ? diagnostic.messageText 
+            : typeof diagnostic.messageText === "object" && diagnostic.messageText?.messageText
+                ? diagnostic.messageText.messageText
+                : "getMessageText" in diagnostic && typeof diagnostic.getMessageText === "function" 
+                    ? diagnostic.getMessageText() 
+                    : "Unable to parse diagnostic message"
         : diagnostic.getMessageText();
 
     const category = isTsDiagnostic(diagnostic)

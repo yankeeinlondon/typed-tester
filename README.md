@@ -9,34 +9,23 @@ You can install locally in a project or globally via `npm`:
 ```sh
 # install globally
 npm install -g typed-tester
-# install locally to a project (preferred)
-npm install -D typed-tester
 ```
 
-> **Note:**
->
-> in order for the _same_ version of Typescript to be used for type testing as you are using in your repo we include `typescript` as a "peer dependency" ... meaning it is required but not included. For any normal Typescript based project this is a non-issue as you'd clearly have already installed Typescript as a development dependency but if you _do_ install this globally so you can use the CLI where you like, then be sure to install a modern version of Typescript globally too.
-
-When running as a local dependency you can interactively use the tool by running:
+or 
 
 ```sh
-# run a command (e.g., "test", "diagnostics", etc.)
-npx typed [cmd]
-# get a CLI help menu
-npx typed
+# install locally to a project
+pnpm install -D typed-tester
 ```
 
-But in general it is recommended to add a _script_ to your `package.json`:
-
-```json
-"scripts": {
-    "test:types": "typed test"
-}
-```
 
 ## Usage
 
-### As a CLI
+This library's primary utility is to provide a CLI to inspect your repo's type usage and most of all to provide an opinionated way of running _type tests_.
+
+In addition to the CLI, it also exposes some type utilities as an ES Module export which are intended to be used to build your type tests.
+
+### CLI
 
 The CLI has the following commands:
 
@@ -94,9 +83,51 @@ The CLI has the following commands:
       - Where the symbol was directly tested (aka, there was a direct test that symbol result in an expected type) _or_ (less ideally) that some other symbol _used_ the type to calculate a tested outcome.
 
 
-### Using as Vite plugin
+### Type Utilities
 
-TBD. The first step is to make sure the CLI is mature and then we'll implement as a Vite plugin.
+The following type utilities can be imported from this library:
+
+- `Expect` / `Test` / `IT`
+   - all tests will be wrapped with the `Expect`/`Test`/`IT` utility; this utility will wrap one of the assertions listed below
+   > `Expect`, `Test`, and `IT` are identical but allow the developer to choose the nomenclature they prefer; in this repo we will use `Test`
+- `AssertTrue<T>` and 
+   - tests whether the **tested type** `T` is the type `true`
+- `AssertFalse<T>`
+   - tests whether the **tested type** `T` is the type `false`
+- `AssertEqual<T,E>`
+   - tests that the **tested type** `T` _equals_ the **expected type** `E`
+- `AssertExtends<T,E>`
+   - tests that the **tested type** `T` _extends_ the **expected type** `E`
+- `AssertSameValues<T,E>`
+   - tests that the **tested type** `T` is an array type and every element of `E` and `T` are the same but the order in which they arrive does not matter
+- `AssertContains<T,E>`
+   - when the **tested type** `T` is a `string`:
+       - this utility will pass when `E` is also a `string` and represents a _sub-string_ of the sting literal `T`
+   - when the **tested type** `T` is an array then:
+       - this utility 
+
+### How to Write Type Tests
+
+Type tests should be created for a repos "type utilities" as well as for most if not all of it's exported runtime functions.
+
+- obviously for a "type utility" the test file will **only** have type tests, but
+- anytime you're adding type tests for runtime symbols in your repo it is a good practice to intermingle runtime tests and type tests.
+- below is an example of intermingling type and runtime tests:
+
+    ```ts
+    import { describe, it, expect } from "vitest";
+    import { Test, AssertTrue, AssertFalse } from "typed-tester";
+    import { isValidSyntax } from "src";
+
+    describe("isValidSyntax(val) -> boolean", () => {
+        it("positive testing", () => {
+            const t1 = isValidTest
+        })
+    })
+
+    ```
+
+    > **Note:** the example uses `vitest` as test runner for runtime tests but you can use any test runner. Plus most test runners have some conception or corollary of `describe` and `it` that provide the structure to tests.
 
 
 ## Details

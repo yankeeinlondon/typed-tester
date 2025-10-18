@@ -37,56 +37,46 @@
     },
     "dependencies": {
         "@yankeeinlondon/kind-error": "^1.4.1",
-        "chalk": "^5.6.0",
+        "chalk": "^5.6.2",
         "command-line-args": "^6.0.1",
         "command-line-usage": "^7.0.3",
         "cytoscape": "^3.33.1",
         "fast-glob": "^3.3.3",
         "find-root": "^1.1.0",
         "graphology": "^0.26.0",
-        "inferred-types": "^0.55.23",
         "pathe": "^2.0.3",
         "play-sound": "^1.1.6",
         "repo-root": "1.0.0-beta.2",
         "sigma": "^3.0.2",
         "stack-trace": "1.0.0-pre2",
-        "ts-morph": "^26.0.0",
+        "ts-morph": "^27.0.2",
         "tty-table": "^4.2.3",
         "watcher": "^2.3.1"
     },
     "devDependencies": {
-        "@antfu/eslint-config": "^5.2.2",
+        "@antfu/eslint-config": "^6.0.0",
         "@type-challenges/utils": "^0.1.1",
         "@types/command-line-args": "^5.2.3",
         "@types/command-line-usage": "^5.0.4",
         "@types/find-root": "^1.1.4",
-        "@types/node": "^22.18.1",
+        "@types/node": "^22.18.10",
         "@types/stack-trace": "^0.0.33",
         "@yankeeinlondon/claudine": "^0.4.1",
         "@yankeeinlondon/gotcha": "^0.2.3",
-        "bumpp": "^10.2.3",
+        "bumpp": "^10.3.1",
         "chalk": "^5.5.0",
-        "eslint": "^9.35.0",
-        "eslint-plugin-format": "^1.0.1",
+        "eslint": "^9.37.0",
+        "eslint-plugin-format": "^1.0.2",
         "husky": "^9.1.7",
-        "jiti": "^2.5.1",
+        "jiti": "^2.6.1",
         "npm-run-all": "^4.1.5",
         "rimraf": "^6.0.1",
-        "tsdown": "^0.14.2",
-        "tsup": "^8.5.0",
-        "typescript": "^5.9.2",
-        "vite-tsconfig-paths": "^5.1.4",
+        "tsdown": "^0.15.7",
+        "typescript": "^5.9.3",
         "vitest": "^3.2.4"
     },
     "peerDependencies": {
+        "inferred-types": "^1.2.3",
         "typescript": "~5.9.2"
-    },
-    "tsup": {
-        "entry": [
-            "src/typed.ts"
-        ],
-        "format": "esm",
-        "sourcemap": true,
-        "splitting": false
     }
 }
