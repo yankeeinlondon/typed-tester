@@ -4,6 +4,7 @@
         "Docable",
         "fooding",
         "Modifierable",
+        "revparse",
         "rifraf",
         "rimraf",
         "Wezterm"
