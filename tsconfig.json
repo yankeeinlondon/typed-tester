@@ -25,7 +25,8 @@
     "src",
     "tests",
     "tests",
-    "scripts"
+    "scripts",
+    "claude/tasks"
   ],
   "exclude": [
     "bin",

@@ -1,5 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import type { AsOption } from '~/cli';
+import { describe, it, expect } from 'vitest';
 import { diagnosticLookup } from '~/utils/diagnosticLookup';
 import { prettyPath } from '~/utils/prettyPath';
 import { tsCodeLink } from '~/utils/link';
