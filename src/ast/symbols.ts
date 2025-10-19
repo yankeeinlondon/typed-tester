@@ -133,7 +133,8 @@ export function isSymbolExported(symbol: Symbol): boolean {
                 for (const namedExport of namedExports) {
                     const exportedSymbol = namedExport.getSymbol();
 
-                    if (exportedSymbol && exportedSymbol === symbol) {
+                    // Compare both the symbol and its aliased version since named exports create alias symbols
+                    if (exportedSymbol && (exportedSymbol === symbol || exportedSymbol.getAliasedSymbol() === symbol)) {
                         return true;
                     }
                 }
