@@ -1,5 +1,5 @@
 import { Project, type CompilerOptions } from 'ts-morph';
-import { join } from 'path';
+import { join, dirname } from 'path';
 import { mkdirSync, writeFileSync, rmSync, existsSync } from 'fs';
 import { tmpdir } from 'os';
 
@@ -57,7 +57,7 @@ export class FixtureManager {
     // Create all specified files
     for (const [filepath, content] of Object.entries(files)) {
       const fullPath = join(tempDir, filepath);
-      const dir = fullPath.substring(0, fullPath.lastIndexOf('/'));
+      const dir = dirname(fullPath);
 
       if (!existsSync(dir)) {
         mkdirSync(dir, { recursive: true });
@@ -120,7 +120,7 @@ export class FixtureManager {
     }
 
     const fullPath = join(this.currentRoot, filepath);
-    const dir = fullPath.substring(0, fullPath.lastIndexOf('/'));
+    const dir = dirname(fullPath);
 
     if (!existsSync(dir)) {
       mkdirSync(dir, { recursive: true });
