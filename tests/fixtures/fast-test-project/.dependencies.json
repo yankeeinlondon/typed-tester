@@ -1,0 +1,827 @@
+{
+  "graph": {
+    "nodes": [
+      [
+        "module::1047557235::createUser",
+        {
+          "symbol": "module::1047557235::createUser",
+          "hash": 369964950,
+          "dependencies": [
+            "module::621081384::UserInterface"
+          ],
+          "dependents": [],
+          "meta": {
+            "name": "createUser",
+            "fqn": "module::1047557235::createUser",
+            "filepath": "src/complex-types.ts",
+            "startLine": 20,
+            "endLine": 27,
+            "scope": "module",
+            "flags": [
+              "None",
+              "Function",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": false,
+            "isVariable": false,
+            "isFunction": true,
+            "kind": "function",
+            "generics": [],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760842646209
+        }
+      ],
+      [
+        "module::2104349991::validateUser",
+        {
+          "symbol": "module::2104349991::validateUser",
+          "hash": 569539365,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "validateUser",
+            "fqn": "module::2104349991::validateUser",
+            "filepath": "src/complex-types.ts",
+            "startLine": 29,
+            "endLine": 31,
+            "scope": "module",
+            "flags": [
+              "None",
+              "Function",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": false,
+            "isVariable": false,
+            "isFunction": true,
+            "kind": "function",
+            "generics": [],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760842646209
+        }
+      ],
+      [
+        "module::1704632621::processData",
+        {
+          "symbol": "module::1704632621::processData",
+          "hash": 731774457,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "processData",
+            "fqn": "module::1704632621::processData",
+            "filepath": "src/complex-types.ts",
+            "startLine": 92,
+            "endLine": 92,
+            "scope": "module",
+            "flags": [
+              "None",
+              "Function",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": false,
+            "isVariable": false,
+            "isFunction": true,
+            "kind": "function",
+            "generics": [],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              },
+              {
+                "comment": "",
+                "tags": []
+              },
+              {
+                "comment": "",
+                "tags": []
+              },
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760842646210
+        }
+      ],
+      [
+        "module::621081384::UserInterface",
+        {
+          "symbol": "module::621081384::UserInterface",
+          "hash": 1431766707,
+          "dependencies": [],
+          "dependents": [
+            "module::1047557235::createUser"
+          ],
+          "meta": {
+            "name": "UserInterface",
+            "fqn": "module::621081384::UserInterface",
+            "filepath": "src/complex-types.ts",
+            "startLine": 6,
+            "endLine": 11,
+            "scope": "module",
+            "flags": [
+              "None",
+              "Interface",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": true,
+            "isVariable": false,
+            "isFunction": false,
+            "kind": "type-defn",
+            "generics": [],
+            "jsDocs": [
+              {
+                "comment": "Complex type definitions for comprehensive CLI testing",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760842646210
+        }
+      ],
+      [
+        "module::1969696789::UserType",
+        {
+          "symbol": "module::1969696789::UserType",
+          "hash": 170766941,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "UserType",
+            "fqn": "module::1969696789::UserType",
+            "filepath": "src/complex-types.ts",
+            "startLine": 13,
+            "endLine": 17,
+            "scope": "module",
+            "flags": [
+              "None",
+              "TypeAlias",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": true,
+            "isVariable": false,
+            "isFunction": false,
+            "kind": "type-defn",
+            "generics": [],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760842646210
+        }
+      ],
+      [
+        "module::294602076::UserManager",
+        {
+          "symbol": "module::294602076::UserManager",
+          "hash": 1903764085,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "UserManager",
+            "fqn": "module::294602076::UserManager",
+            "filepath": "src/complex-types.ts",
+            "startLine": 34,
+            "endLine": 48,
+            "scope": "module",
+            "flags": [
+              "None",
+              "Class",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": false,
+            "isVariable": false,
+            "isFunction": false,
+            "kind": "property",
+            "generics": [],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760842646211
+        }
+      ],
+      [
+        "module::2093965283::Result",
+        {
+          "symbol": "module::2093965283::Result",
+          "hash": 1797037669,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "Result",
+            "fqn": "module::2093965283::Result",
+            "filepath": "src/complex-types.ts",
+            "startLine": 51,
+            "endLine": 53,
+            "scope": "module",
+            "flags": [
+              "None",
+              "TypeAlias",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": true,
+            "isVariable": false,
+            "isFunction": false,
+            "kind": "type-defn",
+            "generics": [
+              {
+                "name": "T",
+                "type": "T"
+              },
+              {
+                "name": "E",
+                "type": "E"
+              }
+            ],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760842646211
+        }
+      ],
+      [
+        "module::1527455760::Repository",
+        {
+          "symbol": "module::1527455760::Repository",
+          "hash": 86130893,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "Repository",
+            "fqn": "module::1527455760::Repository",
+            "filepath": "src/complex-types.ts",
+            "startLine": 55,
+            "endLine": 59,
+            "scope": "module",
+            "flags": [
+              "None",
+              "Interface",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": true,
+            "isVariable": false,
+            "isFunction": false,
+            "kind": "type-defn",
+            "generics": [
+              {
+                "name": "T",
+                "type": "T"
+              }
+            ],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760842646212
+        }
+      ],
+      [
+        "module::706123006::RequiredFields",
+        {
+          "symbol": "module::706123006::RequiredFields",
+          "hash": 1641973308,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "RequiredFields",
+            "fqn": "module::706123006::RequiredFields",
+            "filepath": "src/complex-types.ts",
+            "startLine": 62,
+            "endLine": 62,
+            "scope": "module",
+            "flags": [
+              "None",
+              "TypeAlias",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": true,
+            "isVariable": false,
+            "isFunction": false,
+            "kind": "type-defn",
+            "generics": [
+              {
+                "name": "T",
+                "type": "T"
+              },
+              {
+                "name": "K",
+                "type": "K"
+              }
+            ],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760842646212
+        }
+      ],
+      [
+        "module::1355751423::OptionalFields",
+        {
+          "symbol": "module::1355751423::OptionalFields",
+          "hash": 473574784,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "OptionalFields",
+            "fqn": "module::1355751423::OptionalFields",
+            "filepath": "src/complex-types.ts",
+            "startLine": 63,
+            "endLine": 63,
+            "scope": "module",
+            "flags": [
+              "None",
+              "TypeAlias",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": true,
+            "isVariable": false,
+            "isFunction": false,
+            "kind": "type-defn",
+            "generics": [
+              {
+                "name": "T",
+                "type": "T"
+              },
+              {
+                "name": "K",
+                "type": "K"
+              }
+            ],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760842646212
+        }
+      ],
+      [
+        "module::1921183711::IsString",
+        {
+          "symbol": "module::1921183711::IsString",
+          "hash": 649246480,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "IsString",
+            "fqn": "module::1921183711::IsString",
+            "filepath": "src/complex-types.ts",
+            "startLine": 66,
+            "endLine": 66,
+            "scope": "module",
+            "flags": [
+              "None",
+              "TypeAlias",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": true,
+            "isVariable": false,
+            "isFunction": false,
+            "kind": "type-defn",
+            "generics": [
+              {
+                "name": "T",
+                "type": "T"
+              }
+            ],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760842646212
+        }
+      ],
+      [
+        "module::732070408::ExtractArrayType",
+        {
+          "symbol": "module::732070408::ExtractArrayType",
+          "hash": 926814935,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "ExtractArrayType",
+            "fqn": "module::732070408::ExtractArrayType",
+            "filepath": "src/complex-types.ts",
+            "startLine": 67,
+            "endLine": 67,
+            "scope": "module",
+            "flags": [
+              "None",
+              "TypeAlias",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": true,
+            "isVariable": false,
+            "isFunction": false,
+            "kind": "type-defn",
+            "generics": [
+              {
+                "name": "T",
+                "type": "T"
+              }
+            ],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760842646213
+        }
+      ],
+      [
+        "module::1901095316::ReadonlyDeep",
+        {
+          "symbol": "module::1901095316::ReadonlyDeep",
+          "hash": 982346551,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "ReadonlyDeep",
+            "fqn": "module::1901095316::ReadonlyDeep",
+            "filepath": "src/complex-types.ts",
+            "startLine": 70,
+            "endLine": 72,
+            "scope": "module",
+            "flags": [
+              "None",
+              "TypeAlias",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": true,
+            "isVariable": false,
+            "isFunction": false,
+            "kind": "type-defn",
+            "generics": [
+              {
+                "name": "T",
+                "type": "T"
+              }
+            ],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760842646213
+        }
+      ],
+      [
+        "module::1229353281::EventName",
+        {
+          "symbol": "module::1229353281::EventName",
+          "hash": 324511758,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "EventName",
+            "fqn": "module::1229353281::EventName",
+            "filepath": "src/complex-types.ts",
+            "startLine": 75,
+            "endLine": 75,
+            "scope": "module",
+            "flags": [
+              "None",
+              "TypeAlias",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": true,
+            "isVariable": false,
+            "isFunction": false,
+            "kind": "type-defn",
+            "generics": [
+              {
+                "name": "T",
+                "type": "T"
+              }
+            ],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760842646213
+        }
+      ],
+      [
+        "module::327779407::HttpMethod",
+        {
+          "symbol": "module::327779407::HttpMethod",
+          "hash": 348772353,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "HttpMethod",
+            "fqn": "module::327779407::HttpMethod",
+            "filepath": "src/complex-types.ts",
+            "startLine": 76,
+            "endLine": 76,
+            "scope": "module",
+            "flags": [
+              "None",
+              "TypeAlias",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": true,
+            "isVariable": false,
+            "isFunction": false,
+            "kind": "type-defn",
+            "generics": [],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760842646213
+        }
+      ],
+      [
+        "module::2017498569::ApiEndpoint",
+        {
+          "symbol": "module::2017498569::ApiEndpoint",
+          "hash": 347067815,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "ApiEndpoint",
+            "fqn": "module::2017498569::ApiEndpoint",
+            "filepath": "src/complex-types.ts",
+            "startLine": 77,
+            "endLine": 77,
+            "scope": "module",
+            "flags": [
+              "None",
+              "TypeAlias",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": true,
+            "isVariable": false,
+            "isFunction": false,
+            "kind": "type-defn",
+            "generics": [
+              {
+                "name": "T",
+                "type": "T"
+              }
+            ],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760842646213
+        }
+      ],
+      [
+        "module::317238010::TreeNode",
+        {
+          "symbol": "module::317238010::TreeNode",
+          "hash": 366251884,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "TreeNode",
+            "fqn": "module::317238010::TreeNode",
+            "filepath": "src/complex-types.ts",
+            "startLine": 80,
+            "endLine": 83,
+            "scope": "module",
+            "flags": [
+              "None",
+              "Interface",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": true,
+            "isVariable": false,
+            "isFunction": false,
+            "kind": "type-defn",
+            "generics": [
+              {
+                "name": "T",
+                "type": "T"
+              }
+            ],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760842646213
+        }
+      ],
+      [
+        "module::1987640152::MenuItem",
+        {
+          "symbol": "module::1987640152::MenuItem",
+          "hash": 1160716349,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "MenuItem",
+            "fqn": "module::1987640152::MenuItem",
+            "filepath": "src/complex-types.ts",
+            "startLine": 85,
+            "endLine": 89,
+            "scope": "module",
+            "flags": [
+              "None",
+              "Interface",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": true,
+            "isVariable": false,
+            "isFunction": false,
+            "kind": "type-defn",
+            "generics": [],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760842646214
+        }
+      ],
+      [
+        "module::745804603::ApiTypes",
+        {
+          "symbol": "module::745804603::ApiTypes",
+          "hash": 1287197512,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "ApiTypes",
+            "fqn": "module::745804603::ApiTypes",
+            "filepath": "src/complex-types.ts",
+            "startLine": 100,
+            "endLine": 114,
+            "scope": "module",
+            "flags": [
+              "None",
+              "NamespaceModule",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": false,
+            "isVariable": false,
+            "isFunction": false,
+            "kind": "property",
+            "generics": [],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760842646214
+        }
+      ],
+      [
+        "module::67180700::COMPLEX_TYPES_EXPORTS",
+        {
+          "symbol": "module::67180700::COMPLEX_TYPES_EXPORTS",
+          "hash": 1440699273,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "COMPLEX_TYPES_EXPORTS",
+            "fqn": "module::67180700::COMPLEX_TYPES_EXPORTS",
+            "filepath": "src/complex-types.ts",
+            "startLine": 124,
+            "endLine": 144,
+            "scope": "module",
+            "flags": [
+              "None",
+              "BlockScopedVariable",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": false,
+            "isVariable": true,
+            "isFunction": false,
+            "kind": "property",
+            "generics": [],
+            "jsDocs": [],
+            "refs": []
+          },
+          "analyzedAt": 1760842646214
+        }
+      ]
+    ],
+    "projectHash": 1553276769,
+    "lastUpdated": 1760842646214,
+    "stats": {
+      "totalSymbols": 20,
+      "totalDependencies": 1,
+      "circularDependencies": [],
+      "maxDepth": 1
+    }
+  },
+  "fileHashes": [
+    [
+      "/Volumes/coding/personal/typed-tester/tests/fixtures/fast-test-project/src/complex-types.ts",
+      1755036017508.9822
+    ],
+    [
+      "/Volumes/coding/personal/typed-tester/tests/fixtures/fast-test-project/tests/simple-failing.test.ts",
+      1755037604563.3372
+    ],
+    [
+      "/Volumes/coding/personal/typed-tester/tests/fixtures/fast-test-project/tests/simple-passing.test.ts",
+      1755037595736.4983
+    ]
+  ],
+  "configHash": 744818566,
+  "metadata": {
+    "version": "0.9.5",
+    "createdAt": 1760842646214,
+    "lastAccessed": 1760842646214
+  }
+}

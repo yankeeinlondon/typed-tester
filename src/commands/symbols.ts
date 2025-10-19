@@ -95,7 +95,7 @@ function getDirectSymbolAnalysis(project: any): SymbolMeta[] {
 
 function filterSymbols(symbols: SymbolMeta[], filters: string[]): SymbolMeta[] {
     if (!filters || filters.length === 0) {
-        return symbols.slice(0, MAX_SYMBOLS); // Show sample if no filter
+        return symbols; // Return all symbols (no limit)
     }
 
     return symbols.filter(symbol =>

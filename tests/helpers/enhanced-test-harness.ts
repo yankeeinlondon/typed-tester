@@ -1,5 +1,5 @@
 import { Project } from 'ts-morph';
-import { projectUsing } from '~/ast/project';
+import { projectUsing, resetProjectCache } from '~/ast/project';
 import { test_command } from '~/commands/test';
 import { symbols_command } from '~/commands/symbols';
 import { source_command } from '~/commands/source';
@@ -101,11 +101,14 @@ export class EnhancedTestHarness {
 
     const startTime = performance.now();
     const memoryBefore = process.memoryUsage();
-    
+
     // Store original cwd to restore later
     const originalCwd = process.cwd();
 
     try {
+      // Reset any cached project from previous test runs
+      resetProjectCache();
+
       // Switch to fixture project directory if specified
       if (projectPath) {
         process.chdir(projectPath);
@@ -118,12 +121,12 @@ export class EnhancedTestHarness {
         'tsconfig.json',
         'jsconfig.json'
       ]);
-      
+
       this.project = project;
       this.projectRoot = root || this.projectRoot || process.cwd();
       this.initialized = true;
       this.initializationTime = performance.now() - startTime;
-      
+
       const memoryAfter = process.memoryUsage();
       console.log(`TestHarness initialized in ${this.initializationTime.toFixed(2)}ms`);
       console.log(`Memory usage: ${(memoryAfter.heapUsed - memoryBefore.heapUsed) / 1024 / 1024} MB`);
@@ -467,27 +470,73 @@ export class EnhancedTestHarness {
   }
 
   /**
+   * Extract symbol type from JSON symbol data
+   */
+  private extractSymbolType(symbolData: any): string {
+    // Check flags array for type information
+    if (Array.isArray(symbolData.flags)) {
+      if (symbolData.flags.includes('Interface')) return 'interface';
+      if (symbolData.flags.includes('TypeAlias')) return 'type';
+      if (symbolData.flags.includes('Class')) return 'class';
+      if (symbolData.flags.includes('Function')) return 'function';
+      if (symbolData.flags.includes('Enum')) return 'enum';
+    }
+
+    // Fall back to kind field
+    if (symbolData.kind) {
+      if (symbolData.kind === 'type-defn') return 'type';
+      if (symbolData.kind === 'class') return 'class';
+      if (symbolData.kind === 'function') return 'function';
+      return symbolData.kind;
+    }
+
+    return 'unknown';
+  }
+
+  /**
    * Parse symbols command output into structured format
    */
   private parseSymbolsOutput(output: string): SymbolsCommandOutput {
     // Try to parse as JSON first (if json option was used)
     try {
-      if (output.trim().startsWith('[') || output.trim().startsWith('{')) {
-        const jsonData = JSON.parse(output);
+      // Extract JSON array portion (look for array of objects pattern)
+      // The JSON will be on its own line(s) after dependency graph messages
+      const jsonMatch = output.match(/(\[\s*\{[\s\S]*\]\s*)$/m);
+      if (jsonMatch) {
+        const jsonData = JSON.parse(jsonMatch[1]);
         const symbols = Array.isArray(jsonData) ? jsonData : [jsonData];
         return {
           raw: output,
           symbols: symbols.map(s => ({
             name: s.name,
-            type: s.kind || 'unknown',
+            // Extract type from flags array if available
+            type: this.extractSymbolType(s),
             file: s.filepath || s.file || '',
-            line: s.line || 0
+            line: s.startLine || s.line || 0
           })),
           count: symbols.length
         };
       }
-    } catch {
+
+      // Fall back to direct JSON parsing if output starts with JSON
+      const trimmed = output.trim();
+      if (trimmed.startsWith('[') || trimmed.startsWith('{')) {
+        const jsonData = JSON.parse(trimmed);
+        const symbols = Array.isArray(jsonData) ? jsonData : [jsonData];
+        return {
+          raw: output,
+          symbols: symbols.map(s => ({
+            name: s.name,
+            type: this.extractSymbolType(s),
+            file: s.filepath || s.file || '',
+            line: s.startLine || s.line || 0
+          })),
+          count: symbols.length
+        };
+      }
+    } catch (e) {
       // Fall through to table parsing
+      console.warn('Failed to parse JSON output:', e);
     }
 
     // Parse table output - look for symbols in table rows
@@ -647,18 +696,21 @@ export class EnhancedTestHarness {
    */
   async cleanup(): Promise<void> {
     console.log(`Cleaning up TestHarness (executed ${this.commandExecutions} commands)`);
-    
+
+    // Reset the global project cache
+    resetProjectCache();
+
     if (this.project) {
       // Clean up any project-specific resources
       this.project = null;
     }
-    
+
     this.projectRoot = null;
     this.initialized = false;
     this.commandExecutions = 0;
     this.initializationTime = 0;
     EnhancedTestHarness.instance = null;
-    
+
     // Force garbage collection if available
     if (global.gc) {
       global.gc();
@@ -675,7 +727,7 @@ export function getOptimizedDefaultOptions<T extends string>(command: T): any {
     quiet: false, // Must be false to capture output in tests
     filter: [],
     config: undefined,
-    json: false
+    json: true // Use JSON for easier parsing and type extraction
   };
 
   switch (command) {

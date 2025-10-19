@@ -98,26 +98,52 @@ export function getProject() {
  * or the current working directory if that is not found.
  */
 export function projectUsing(candidates: string[]) {
-    const root = repoRoot(cwd()) || cwd();
-    const found = candidates.find(c => existsSync(join(root, c)));
+    // Use current directory first, then fall back to repo root
+    // This allows tests to override the project location via process.chdir()
+    const currentDir = cwd();
+    let root = currentDir;
+    let found = candidates.find(c => existsSync(join(currentDir, c)));
+
+    // If not found in current directory, try repo root
+    if (!found) {
+        root = repoRoot(currentDir) || currentDir;
+        found = candidates.find(c => existsSync(join(root, c)));
+    }
 
     if (!found) {
         throw new Error(`No tsconfig file found in: ${candidates.join(", ")}`);
     }
     else {
-        project = new Project({ tsConfigFilePath: found });
+        const configPath = join(root, found);
+        project = new Project({ tsConfigFilePath: configPath });
         // Generate a simple hash based on the config file path and timestamp
-        configHash = simpleHash(found + Date.now().toString());
+        configHash = simpleHash(configPath + Date.now().toString());
+
+        // Set projectRoot to the directory containing the config file
+        projectRoot = root;
 
         initializeProjectTypeChecker(project);
         languageService = project.getLanguageService();
 
-        return [project, found, getProjectRoot()] as [
+        return [project, found, projectRoot] as [
             Project,
             string,
             string
         ];
     }
+}
+
+/**
+ * Reset the project cache - useful for testing when you need to switch projects
+ */
+export function resetProjectCache() {
+    project = null;
+    typeChecker = null;
+    languageService = null;
+    projectRoot = null;
+    configHash = null;
+    cachedDependencyGraph = null;
+    lastFileCheckTime = 0;
 }
 
 export function getAllSymbolsInProject(

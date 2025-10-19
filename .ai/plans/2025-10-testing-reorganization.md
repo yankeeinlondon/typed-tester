@@ -97,34 +97,46 @@ This project reorganizes the test suite to provide better structure, comprehensi
 
 ---
 
-### Phase 4: Integration Test Improvements (PENDING)
+### Phase 4: Integration Test Improvements (IN PROGRESS - 60% Complete)
 
 **Objective**: Address integration test failures and create fast integration test suite
 
-**Planned Work**:
+**Status**: Critical infrastructure fixes complete, test assertion updates remaining
 
-- Analyze 84 failing integration tests
-- Categorize failures (performance, assertions, setup issues)
-- Create fast integration test suite (`tests/integration/fast/`)
-- Improve test harness for better performance
-- Add proper timeout handling
-- Document integration test patterns
+**Completed Work**:
 
-**Expected Deliverables**:
+- ✅ Root cause analysis: Tests running on wrong project (main vs fixture)
+- ✅ Added `resetProjectCache()` function to src/ast/project.ts
+- ✅ Fixed `projectUsing()` to respect current directory
+- ✅ Updated test harness initialization with cache reset
+- ✅ Enhanced JSON output parsing for symbols command
+- ✅ Created symbol type extraction from flags array
+- ✅ Fixed test expectations for type-only symbols
+- ✅ Achieved 4x performance improvement (927ms → 220ms)
 
-- Fixed integration tests or documented known failures
-- Fast integration test suite with <2s per command target
-- Updated test harness with performance optimizations
-- Integration testing best practices documentation
+**Remaining Work**:
+
+- ⏳ Investigate symbol name mismatch (UserInterface not found)
+- ⏳ Update ~79 integration test assertions
+- ⏳ Fix error handling in 6 tests
+- ⏳ Verify and adjust performance/memory thresholds
+- ⏳ Document integration testing patterns
+
+**Deliverables**:
+
+- ✅ Root cause documented
+- ✅ Test harness performance optimizations complete
+- ⏳ Fast integration test suite (3/20 tests passing)
+- ⏳ Integration testing best practices (pending)
 
 **Success Criteria**:
 
-- All critical integration tests passing
-- Fast test suite executing under performance targets
-- Clear documentation of any remaining issues
-- Zero regressions in unit test suite
+- ⏳ 1/20 basic tests passing (symbols default options test ✅)
+- ✅ Test harness loads correct fixture project
+- ✅ Performance improvement from fixture usage (4x faster)
+- ✅ Zero regressions in unit test suite
 
-**Log**: `.ai/logs/2025-10-testing_phase4.log.md` (pending)
+**Log**: `.ai/logs/2025-10-testing-reorganization_phase4.log.md`
 
 ---
 
@@ -134,7 +146,7 @@ This project reorganizes the test suite to provide better structure, comprehensi
 
 **Organization**:
 
-```
+```txt
 tests/unit/
 ├── ast/
 │   └── symbols/
@@ -158,7 +170,7 @@ tests/unit/
 
 **Organization**:
 
-```
+```txt
 tests/integration/
 ├── fast/                                (Phase 4 - pending)
 │   ├── symbols.fast.test.ts
@@ -277,14 +289,17 @@ tests/integration/
 
 ## Timeline
 
-- **Phase 1**: ~4 hours (infrastructure setup)
-- **Phase 2**: ~3 hours (symbol extraction tests)
-- **Phase 3**: ~2 hours (analysis and documentation)
-- **Phase 4**: ~6 hours estimated (integration test fixes)
+- **Phase 1**: ~4 hours (infrastructure setup) ✅
+- **Phase 2**: ~3 hours (symbol extraction tests) ✅
+- **Phase 3**: ~2 hours (analysis and documentation) ✅
+- **Phase 4**: ~3 hours completed, ~3 hours remaining (integration test fixes)
+  - Root cause analysis: 1 hour ✅
+  - Infrastructure fixes: 2 hours ✅
+  - Test assertion updates: ~3 hours ⏳
 
 **Total Estimated**: ~15 hours
-**Completed**: ~9 hours (60%)
-**Remaining**: ~6 hours (40%)
+**Completed**: ~12 hours (80%)
+**Remaining**: ~3 hours (20%)
 
 ---
 
