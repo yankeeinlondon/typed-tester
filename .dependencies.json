@@ -39,7 +39,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563252
+          "analyzedAt": 1760846684625
         }
       ],
       [
@@ -72,7 +72,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1760841563253
+          "analyzedAt": 1760846684625
         }
       ],
       [
@@ -105,7 +105,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1760841563253
+          "analyzedAt": 1760846684625
         }
       ],
       [
@@ -138,7 +138,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1760841563254
+          "analyzedAt": 1760846684625
         }
       ],
       [
@@ -174,7 +174,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563254
+          "analyzedAt": 1760846684626
         }
       ],
       [
@@ -210,7 +210,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563254
+          "analyzedAt": 1760846684626
         }
       ],
       [
@@ -248,7 +248,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563255
+          "analyzedAt": 1760846684626
         }
       ],
       [
@@ -286,7 +286,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563255
+          "analyzedAt": 1760846684626
         }
       ],
       [
@@ -324,7 +324,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563255
+          "analyzedAt": 1760846684626
         }
       ],
       [
@@ -360,7 +360,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563255
+          "analyzedAt": 1760846684627
         }
       ],
       [
@@ -396,7 +396,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563255
+          "analyzedAt": 1760846684627
         }
       ],
       [
@@ -432,7 +432,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563255
+          "analyzedAt": 1760846684627
         }
       ],
       [
@@ -468,7 +468,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563256
+          "analyzedAt": 1760846684627
         }
       ],
       [
@@ -504,7 +504,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563256
+          "analyzedAt": 1760846684627
         }
       ],
       [
@@ -540,7 +540,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563256
+          "analyzedAt": 1760846684627
         }
       ],
       [
@@ -576,7 +576,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563256
+          "analyzedAt": 1760846684627
         }
       ],
       [
@@ -612,7 +612,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563256
+          "analyzedAt": 1760846684627
         }
       ],
       [
@@ -648,7 +648,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563256
+          "analyzedAt": 1760846684627
         }
       ],
       [
@@ -684,7 +684,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563256
+          "analyzedAt": 1760846684628
         }
       ],
       [
@@ -720,7 +720,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563257
+          "analyzedAt": 1760846684628
         }
       ],
       [
@@ -756,14 +756,14 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563257
+          "analyzedAt": 1760846684628
         }
       ],
       [
         "module::665895808::asFileDiagnostic",
         {
           "symbol": "module::665895808::asFileDiagnostic",
-          "hash": 1023910319,
+          "hash": 525308779,
           "dependencies": [
             "local::103323790::FileDiagnostic"
           ],
@@ -794,7 +794,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563257
+          "analyzedAt": 1760846684628
         }
       ],
       [
@@ -830,7 +830,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563257
+          "analyzedAt": 1760846684628
         }
       ],
       [
@@ -866,7 +866,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563257
+          "analyzedAt": 1760846684628
         }
       ],
       [
@@ -902,7 +902,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563257
+          "analyzedAt": 1760846684628
         }
       ],
       [
@@ -938,7 +938,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563257
+          "analyzedAt": 1760846684628
         }
       ],
       [
@@ -974,7 +974,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563257
+          "analyzedAt": 1760846684629
         }
       ],
       [
@@ -1010,7 +1010,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563258
+          "analyzedAt": 1760846684629
         }
       ],
       [
@@ -1046,7 +1046,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563258
+          "analyzedAt": 1760846684629
         }
       ],
       [
@@ -1082,14 +1082,14 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563258
+          "analyzedAt": 1760846684629
         }
       ],
       [
         "module::182882808::projectUsing",
         {
           "symbol": "module::182882808::projectUsing",
-          "hash": 1225150084,
+          "hash": 1907535211,
           "dependencies": [],
           "dependents": [],
           "meta": {
@@ -1097,7 +1097,7 @@
             "fqn": "module::182882808::projectUsing",
             "filepath": "src/ast/project.ts",
             "startLine": 100,
-            "endLine": 121,
+            "endLine": 134,
             "scope": "module",
             "flags": [
               "None",
@@ -1123,7 +1123,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563258
+          "analyzedAt": 1760846684629
         }
       ],
       [
@@ -1137,8 +1137,8 @@
             "name": "resetProjectCache",
             "fqn": "module::556262891::resetProjectCache",
             "filepath": "src/ast/project.ts",
-            "startLine": 126,
-            "endLine": 134,
+            "startLine": 139,
+            "endLine": 147,
             "scope": "module",
             "flags": [
               "None",
@@ -1159,7 +1159,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563258
+          "analyzedAt": 1760846684629
         }
       ],
       [
@@ -1173,8 +1173,8 @@
             "name": "getAllSymbolsInProject",
             "fqn": "module::32886799::getAllSymbolsInProject",
             "filepath": "src/ast/project.ts",
-            "startLine": 136,
-            "endLine": 165,
+            "startLine": 149,
+            "endLine": 178,
             "scope": "module",
             "flags": [
               "None",
@@ -1195,7 +1195,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563258
+          "analyzedAt": 1760846684629
         }
       ],
       [
@@ -1209,8 +1209,8 @@
             "name": "getAllSymbolObjectsInProject",
             "fqn": "module::1700405104::getAllSymbolObjectsInProject",
             "filepath": "src/ast/project.ts",
-            "startLine": 173,
-            "endLine": 227,
+            "startLine": 186,
+            "endLine": 240,
             "scope": "module",
             "flags": [
               "None",
@@ -1231,7 +1231,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563258
+          "analyzedAt": 1760846684629
         }
       ],
       [
@@ -1247,8 +1247,8 @@
             "name": "getDependencyGraph",
             "fqn": "module::230265306::getDependencyGraph",
             "filepath": "src/ast/project.ts",
-            "startLine": 235,
-            "endLine": 301,
+            "startLine": 248,
+            "endLine": 314,
             "scope": "module",
             "flags": [
               "None",
@@ -1269,7 +1269,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563258
+          "analyzedAt": 1760846684630
         }
       ],
       [
@@ -1283,8 +1283,8 @@
             "name": "invalidateDependencyCache",
             "fqn": "module::629768271::invalidateDependencyCache",
             "filepath": "src/ast/project.ts",
-            "startLine": 308,
-            "endLine": 316,
+            "startLine": 321,
+            "endLine": 329,
             "scope": "module",
             "flags": [
               "None",
@@ -1305,7 +1305,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563259
+          "analyzedAt": 1760846684630
         }
       ],
       [
@@ -1341,7 +1341,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563259
+          "analyzedAt": 1760846684630
         }
       ],
       [
@@ -1386,7 +1386,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563259
+          "analyzedAt": 1760846684630
         }
       ],
       [
@@ -1424,7 +1424,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563259
+          "analyzedAt": 1760846684630
         }
       ],
       [
@@ -1460,7 +1460,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563259
+          "analyzedAt": 1760846684630
         }
       ],
       [
@@ -1496,7 +1496,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563259
+          "analyzedAt": 1760846684631
         }
       ],
       [
@@ -1532,7 +1532,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563259
+          "analyzedAt": 1760846684631
         }
       ],
       [
@@ -1570,7 +1570,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563260
+          "analyzedAt": 1760846684631
         }
       ],
       [
@@ -1608,7 +1608,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563260
+          "analyzedAt": 1760846684631
         }
       ],
       [
@@ -1644,7 +1644,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563261
+          "analyzedAt": 1760846684640
         }
       ],
       [
@@ -1680,7 +1680,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563261
+          "analyzedAt": 1760846684645
         }
       ],
       [
@@ -1716,7 +1716,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563261
+          "analyzedAt": 1760846684647
         }
       ],
       [
@@ -1752,7 +1752,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563261
+          "analyzedAt": 1760846684648
         }
       ],
       [
@@ -1790,7 +1790,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563261
+          "analyzedAt": 1760846684648
         }
       ],
       [
@@ -1826,7 +1826,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563261
+          "analyzedAt": 1760846684648
         }
       ],
       [
@@ -1867,7 +1867,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563262
+          "analyzedAt": 1760846684649
         }
       ],
       [
@@ -1903,7 +1903,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563262
+          "analyzedAt": 1760846684649
         }
       ],
       [
@@ -1939,7 +1939,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563262
+          "analyzedAt": 1760846684649
         }
       ],
       [
@@ -1977,7 +1977,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563262
+          "analyzedAt": 1760846684650
         }
       ],
       [
@@ -2013,7 +2013,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563263
+          "analyzedAt": 1760846684650
         }
       ],
       [
@@ -2049,7 +2049,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563263
+          "analyzedAt": 1760846684650
         }
       ],
       [
@@ -2085,7 +2085,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563263
+          "analyzedAt": 1760846684650
         }
       ],
       [
@@ -2123,7 +2123,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563264
+          "analyzedAt": 1760846684651
         }
       ],
       [
@@ -2164,7 +2164,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563264
+          "analyzedAt": 1760846684651
         }
       ],
       [
@@ -2200,7 +2200,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563264
+          "analyzedAt": 1760846684651
         }
       ],
       [
@@ -2238,7 +2238,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563265
+          "analyzedAt": 1760846684652
         }
       ],
       [
@@ -2274,7 +2274,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563265
+          "analyzedAt": 1760846684652
         }
       ],
       [
@@ -2310,7 +2310,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563265
+          "analyzedAt": 1760846684652
         }
       ],
       [
@@ -2351,7 +2351,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563265
+          "analyzedAt": 1760846684652
         }
       ],
       [
@@ -2387,7 +2387,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563266
+          "analyzedAt": 1760846684652
         }
       ],
       [
@@ -2425,7 +2425,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563266
+          "analyzedAt": 1760846684652
         }
       ],
       [
@@ -2456,7 +2456,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1760841563266
+          "analyzedAt": 1760846684652
         }
       ],
       [
@@ -2494,7 +2494,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563266
+          "analyzedAt": 1760846684652
         }
       ],
       [
@@ -2525,7 +2525,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1760841563266
+          "analyzedAt": 1760846684652
         }
       ],
       [
@@ -2560,7 +2560,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1760841563283
+          "analyzedAt": 1760846684655
         }
       ],
       [
@@ -2596,7 +2596,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563283
+          "analyzedAt": 1760846684655
         }
       ],
       [
@@ -2627,7 +2627,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1760841563284
+          "analyzedAt": 1760846684655
         }
       ],
       [
@@ -2658,7 +2658,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1760841563284
+          "analyzedAt": 1760846684655
         }
       ],
       [
@@ -2689,7 +2689,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1760841563284
+          "analyzedAt": 1760846684656
         }
       ],
       [
@@ -2725,7 +2725,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563284
+          "analyzedAt": 1760846684656
         }
       ],
       [
@@ -2761,7 +2761,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563284
+          "analyzedAt": 1760846684656
         }
       ],
       [
@@ -2797,7 +2797,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563284
+          "analyzedAt": 1760846684656
         }
       ],
       [
@@ -2833,7 +2833,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563284
+          "analyzedAt": 1760846684656
         }
       ],
       [
@@ -2864,7 +2864,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1760841563284
+          "analyzedAt": 1760846684656
         }
       ],
       [
@@ -2900,7 +2900,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563284
+          "analyzedAt": 1760846684656
         }
       ],
       [
@@ -2936,7 +2936,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563284
+          "analyzedAt": 1760846684656
         }
       ],
       [
@@ -2972,7 +2972,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563285
+          "analyzedAt": 1760846684657
         }
       ],
       [
@@ -3008,7 +3008,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563285
+          "analyzedAt": 1760846684657
         }
       ],
       [
@@ -3044,7 +3044,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563285
+          "analyzedAt": 1760846684657
         }
       ],
       [
@@ -3080,7 +3080,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563285
+          "analyzedAt": 1760846684657
         }
       ],
       [
@@ -3116,7 +3116,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563285
+          "analyzedAt": 1760846684657
         }
       ],
       [
@@ -3152,7 +3152,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563285
+          "analyzedAt": 1760846684657
         }
       ],
       [
@@ -3188,7 +3188,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563285
+          "analyzedAt": 1760846684657
         }
       ],
       [
@@ -3224,7 +3224,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563285
+          "analyzedAt": 1760846684657
         }
       ],
       [
@@ -3260,7 +3260,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563285
+          "analyzedAt": 1760846684657
         }
       ],
       [
@@ -3296,7 +3296,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563285
+          "analyzedAt": 1760846684658
         }
       ],
       [
@@ -3332,7 +3332,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563286
+          "analyzedAt": 1760846684658
         }
       ],
       [
@@ -3368,7 +3368,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563286
+          "analyzedAt": 1760846684658
         }
       ],
       [
@@ -3404,7 +3404,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563286
+          "analyzedAt": 1760846684658
         }
       ],
       [
@@ -3440,7 +3440,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563286
+          "analyzedAt": 1760846684658
         }
       ],
       [
@@ -3476,7 +3476,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563286
+          "analyzedAt": 1760846684658
         }
       ],
       [
@@ -3512,7 +3512,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563286
+          "analyzedAt": 1760846684658
         }
       ],
       [
@@ -3548,7 +3548,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563286
+          "analyzedAt": 1760846684658
         }
       ],
       [
@@ -3586,7 +3586,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563286
+          "analyzedAt": 1760846684659
         }
       ],
       [
@@ -3624,7 +3624,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563287
+          "analyzedAt": 1760846684659
         }
       ],
       [
@@ -3662,7 +3662,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563287
+          "analyzedAt": 1760846684659
         }
       ],
       [
@@ -3698,7 +3698,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563287
+          "analyzedAt": 1760846684659
         }
       ],
       [
@@ -3734,7 +3734,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563287
+          "analyzedAt": 1760846684660
         }
       ],
       [
@@ -3770,7 +3770,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563287
+          "analyzedAt": 1760846684660
         }
       ],
       [
@@ -3806,7 +3806,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563287
+          "analyzedAt": 1760846684660
         }
       ],
       [
@@ -3842,7 +3842,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563287
+          "analyzedAt": 1760846684660
         }
       ],
       [
@@ -3878,7 +3878,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563288
+          "analyzedAt": 1760846684661
         }
       ],
       [
@@ -3914,7 +3914,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563288
+          "analyzedAt": 1760846684661
         }
       ],
       [
@@ -3950,7 +3950,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563288
+          "analyzedAt": 1760846684661
         }
       ],
       [
@@ -3986,7 +3986,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563288
+          "analyzedAt": 1760846684661
         }
       ],
       [
@@ -4022,7 +4022,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563288
+          "analyzedAt": 1760846684661
         }
       ],
       [
@@ -4063,7 +4063,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563288
+          "analyzedAt": 1760846684661
         }
       ],
       [
@@ -4104,7 +4104,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563288
+          "analyzedAt": 1760846684661
         }
       ],
       [
@@ -4140,7 +4140,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563289
+          "analyzedAt": 1760846684661
         }
       ],
       [
@@ -4176,7 +4176,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563289
+          "analyzedAt": 1760846684661
         }
       ],
       [
@@ -4212,7 +4212,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563289
+          "analyzedAt": 1760846684662
         }
       ],
       [
@@ -4253,7 +4253,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563289
+          "analyzedAt": 1760846684662
         }
       ],
       [
@@ -4289,7 +4289,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563289
+          "analyzedAt": 1760846684662
         }
       ],
       [
@@ -4325,7 +4325,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563290
+          "analyzedAt": 1760846684662
         }
       ],
       [
@@ -4361,7 +4361,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563290
+          "analyzedAt": 1760846684662
         }
       ],
       [
@@ -4397,7 +4397,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563291
+          "analyzedAt": 1760846684662
         }
       ],
       [
@@ -4433,14 +4433,14 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563291
+          "analyzedAt": 1760846684662
         }
       ],
       [
         "module::44175273::diagnosticLookup",
         {
           "symbol": "module::44175273::diagnosticLookup",
-          "hash": 297744317,
+          "hash": 131917719,
           "dependencies": [
             "local::27536579::Rtn"
           ],
@@ -4449,8 +4449,8 @@
             "name": "diagnosticLookup",
             "fqn": "module::44175273::diagnosticLookup",
             "filepath": "src/utils/diagnosticLookup.ts",
-            "startLine": 28,
-            "endLine": 52,
+            "startLine": 32,
+            "endLine": 56,
             "scope": "module",
             "flags": [
               "None",
@@ -4476,7 +4476,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563300
+          "analyzedAt": 1760846684670
         }
       ],
       [
@@ -4514,7 +4514,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563301
+          "analyzedAt": 1760846684671
         }
       ],
       [
@@ -4552,7 +4552,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563301
+          "analyzedAt": 1760846684671
         }
       ],
       [
@@ -4588,7 +4588,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563301
+          "analyzedAt": 1760846684671
         }
       ],
       [
@@ -4624,7 +4624,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563301
+          "analyzedAt": 1760846684671
         }
       ],
       [
@@ -4662,7 +4662,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563302
+          "analyzedAt": 1760846684672
         }
       ],
       [
@@ -4700,7 +4700,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563302
+          "analyzedAt": 1760846684672
         }
       ],
       [
@@ -4736,7 +4736,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563303
+          "analyzedAt": 1760846684672
         }
       ],
       [
@@ -4774,7 +4774,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563303
+          "analyzedAt": 1760846684672
         }
       ],
       [
@@ -4810,7 +4810,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563303
+          "analyzedAt": 1760846684673
         }
       ],
       [
@@ -4846,7 +4846,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563304
+          "analyzedAt": 1760846684673
         }
       ],
       [
@@ -4882,7 +4882,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563304
+          "analyzedAt": 1760846684673
         }
       ],
       [
@@ -4918,7 +4918,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563304
+          "analyzedAt": 1760846684673
         }
       ],
       [
@@ -4967,7 +4967,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563304
+          "analyzedAt": 1760846684673
         }
       ],
       [
@@ -5003,7 +5003,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563304
+          "analyzedAt": 1760846684673
         }
       ],
       [
@@ -5039,7 +5039,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563304
+          "analyzedAt": 1760846684673
         }
       ],
       [
@@ -5075,7 +5075,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563304
+          "analyzedAt": 1760846684673
         }
       ],
       [
@@ -5111,7 +5111,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563304
+          "analyzedAt": 1760846684674
         }
       ],
       [
@@ -5160,7 +5160,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563304
+          "analyzedAt": 1760846684674
         }
       ],
       [
@@ -5196,7 +5196,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563304
+          "analyzedAt": 1760846684674
         }
       ],
       [
@@ -5232,7 +5232,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563304
+          "analyzedAt": 1760846684674
         }
       ],
       [
@@ -5268,7 +5268,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563305
+          "analyzedAt": 1760846684674
         }
       ],
       [
@@ -5306,7 +5306,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563305
+          "analyzedAt": 1760846684674
         }
       ],
       [
@@ -5342,7 +5342,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563305
+          "analyzedAt": 1760846684674
         }
       ],
       [
@@ -5378,7 +5378,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563305
+          "analyzedAt": 1760846684674
         }
       ],
       [
@@ -5414,7 +5414,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563305
+          "analyzedAt": 1760846684675
         }
       ],
       [
@@ -5450,7 +5450,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563305
+          "analyzedAt": 1760846684675
         }
       ],
       [
@@ -5486,7 +5486,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563305
+          "analyzedAt": 1760846684675
         }
       ],
       [
@@ -5522,7 +5522,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563305
+          "analyzedAt": 1760846684675
         }
       ],
       [
@@ -5558,7 +5558,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563305
+          "analyzedAt": 1760846684675
         }
       ],
       [
@@ -5594,7 +5594,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563305
+          "analyzedAt": 1760846684675
         }
       ],
       [
@@ -5635,7 +5635,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563306
+          "analyzedAt": 1760846684675
         }
       ],
       [
@@ -5671,7 +5671,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563306
+          "analyzedAt": 1760846684675
         }
       ],
       [
@@ -5707,7 +5707,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563306
+          "analyzedAt": 1760846684675
         }
       ],
       [
@@ -5743,7 +5743,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563306
+          "analyzedAt": 1760846684675
         }
       ],
       [
@@ -5779,7 +5779,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563306
+          "analyzedAt": 1760846684676
         }
       ],
       [
@@ -5810,7 +5810,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1760841563306
+          "analyzedAt": 1760846684676
         }
       ],
       [
@@ -5846,7 +5846,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563306
+          "analyzedAt": 1760846684676
         }
       ],
       [
@@ -5882,14 +5882,14 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563306
+          "analyzedAt": 1760846684676
         }
       ],
       [
         "module::642809580::Expect",
         {
           "symbol": "module::642809580::Expect",
-          "hash": 1348918611,
+          "hash": 513278811,
           "dependencies": [
             "ext::3392903::E"
           ],
@@ -5917,20 +5917,20 @@
             "generics": [],
             "jsDocs": [
               {
-                "comment": "**Expect**`<Assertion>`\n\nA wrapper around type assertion that provides extra type guarantees as well as \nbetter terminal reporting.\n\n**Aliases:** `Test`, `IT`",
+                "comment": "**Expect**`<Assertion>`\n\nA wrapper around type assertion that provides extra type guarantees as well as\nbetter terminal reporting.\n\n**Aliases:** `Test`, `IT`",
                 "tags": []
               }
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563306
+          "analyzedAt": 1760846684676
         }
       ],
       [
         "module::792158181::Test",
         {
           "symbol": "module::792158181::Test",
-          "hash": 199983696,
+          "hash": 1710758302,
           "dependencies": [
             "module::642809580::Expect"
           ],
@@ -5955,20 +5955,20 @@
             "generics": [],
             "jsDocs": [
               {
-                "comment": "**Test**`<Assertion>`\n\nA wrapper around type assertion that provides extra type guarantees as well as \nbetter terminal reporting.\n\n\n**Aliases:** `Expect`, `IT`",
+                "comment": "**Test**`<Assertion>`\n\nA wrapper around type assertion that provides extra type guarantees as well as\nbetter terminal reporting.\n\n\n**Aliases:** `Expect`, `IT`",
                 "tags": []
               }
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563306
+          "analyzedAt": 1760846684676
         }
       ],
       [
         "module::517611234::IT",
         {
           "symbol": "module::517611234::IT",
-          "hash": 379489943,
+          "hash": 870821609,
           "dependencies": [
             "module::642809580::Expect"
           ],
@@ -5993,13 +5993,13 @@
             "generics": [],
             "jsDocs": [
               {
-                "comment": "**IT**`<Assertion>`\n\nA wrapper around type assertion that provides extra type guarantees as well as \nbetter terminal reporting.\n\n\n**Aliases:** `Test`, `Expect`",
+                "comment": "**IT**`<Assertion>`\n\nA wrapper around type assertion that provides extra type guarantees as well as\nbetter terminal reporting.\n\n\n**Aliases:** `Test`, `Expect`",
                 "tags": []
               }
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563307
+          "analyzedAt": 1760846684676
         }
       ],
       [
@@ -6040,7 +6040,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563307
+          "analyzedAt": 1760846684677
         }
       ],
       [
@@ -6083,7 +6083,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563307
+          "analyzedAt": 1760846684677
         }
       ],
       [
@@ -6121,7 +6121,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563307
+          "analyzedAt": 1760846684677
         }
       ],
       [
@@ -6164,7 +6164,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563307
+          "analyzedAt": 1760846684677
         }
       ],
       [
@@ -6202,7 +6202,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563307
+          "analyzedAt": 1760846684677
         }
       ],
       [
@@ -6251,7 +6251,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563308
+          "analyzedAt": 1760846684677
         }
       ],
       [
@@ -6296,7 +6296,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563308
+          "analyzedAt": 1760846684678
         }
       ],
       [
@@ -6341,7 +6341,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563308
+          "analyzedAt": 1760846684678
         }
       ],
       [
@@ -6386,7 +6386,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563308
+          "analyzedAt": 1760846684678
         }
       ],
       [
@@ -6431,7 +6431,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563308
+          "analyzedAt": 1760846684678
         }
       ],
       [
@@ -6480,7 +6480,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563308
+          "analyzedAt": 1760846684678
         }
       ],
       [
@@ -6529,7 +6529,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563308
+          "analyzedAt": 1760846684678
         }
       ],
       [
@@ -6578,7 +6578,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563308
+          "analyzedAt": 1760846684678
         }
       ],
       [
@@ -6623,7 +6623,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563308
+          "analyzedAt": 1760846684678
         }
       ],
       [
@@ -6672,7 +6672,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563308
+          "analyzedAt": 1760846684678
         }
       ],
       [
@@ -6708,22 +6708,22 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563309
+          "analyzedAt": 1760846684678
         }
       ],
       [
         "module::1460383602::getOptimizedDefaultOptions",
         {
           "symbol": "module::1460383602::getOptimizedDefaultOptions",
-          "hash": 1153446644,
+          "hash": 2020039940,
           "dependencies": [],
           "dependents": [],
           "meta": {
             "name": "getOptimizedDefaultOptions",
             "fqn": "module::1460383602::getOptimizedDefaultOptions",
             "filepath": "tests/helpers/enhanced-test-harness.ts",
-            "startLine": 678,
-            "endLine": 729,
+            "startLine": 767,
+            "endLine": 818,
             "scope": "module",
             "flags": [
               "None",
@@ -6749,7 +6749,69 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563309
+          "analyzedAt": 1760846684679
+        }
+      ],
+      [
+        "module::107226007::PERFORMANCE_THRESHOLDS",
+        {
+          "symbol": "module::107226007::PERFORMANCE_THRESHOLDS",
+          "hash": 1028059899,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "PERFORMANCE_THRESHOLDS",
+            "fqn": "module::107226007::PERFORMANCE_THRESHOLDS",
+            "filepath": "tests/helpers/enhanced-test-harness.ts",
+            "startLine": 14,
+            "endLine": 21,
+            "scope": "module",
+            "flags": [
+              "None",
+              "BlockScopedVariable",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": false,
+            "isVariable": true,
+            "isFunction": false,
+            "kind": "property",
+            "generics": [],
+            "jsDocs": [],
+            "refs": []
+          },
+          "analyzedAt": 1760846684679
+        }
+      ],
+      [
+        "module::816354502::MEMORY_THRESHOLDS",
+        {
+          "symbol": "module::816354502::MEMORY_THRESHOLDS",
+          "hash": 1433973973,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "MEMORY_THRESHOLDS",
+            "fqn": "module::816354502::MEMORY_THRESHOLDS",
+            "filepath": "tests/helpers/enhanced-test-harness.ts",
+            "startLine": 27,
+            "endLine": 35,
+            "scope": "module",
+            "flags": [
+              "None",
+              "BlockScopedVariable",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": false,
+            "isVariable": true,
+            "isFunction": false,
+            "kind": "property",
+            "generics": [],
+            "jsDocs": [],
+            "refs": []
+          },
+          "analyzedAt": 1760846684679
         }
       ],
       [
@@ -6763,8 +6825,8 @@
             "name": "PerformanceMetrics",
             "fqn": "module::567229133::PerformanceMetrics",
             "filepath": "tests/helpers/enhanced-test-harness.ts",
-            "startLine": 13,
-            "endLine": 21,
+            "startLine": 40,
+            "endLine": 48,
             "scope": "module",
             "flags": [
               "None",
@@ -6785,7 +6847,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563309
+          "analyzedAt": 1760846684679
         }
       ],
       [
@@ -6799,8 +6861,8 @@
             "name": "TestCommandOutput",
             "fqn": "module::2102853114::TestCommandOutput",
             "filepath": "tests/helpers/enhanced-test-harness.ts",
-            "startLine": 26,
-            "endLine": 41,
+            "startLine": 53,
+            "endLine": 68,
             "scope": "module",
             "flags": [
               "None",
@@ -6821,7 +6883,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563309
+          "analyzedAt": 1760846684679
         }
       ],
       [
@@ -6835,8 +6897,8 @@
             "name": "SymbolsCommandOutput",
             "fqn": "module::775876817::SymbolsCommandOutput",
             "filepath": "tests/helpers/enhanced-test-harness.ts",
-            "startLine": 46,
-            "endLine": 55,
+            "startLine": 73,
+            "endLine": 82,
             "scope": "module",
             "flags": [
               "None",
@@ -6857,7 +6919,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563309
+          "analyzedAt": 1760846684679
         }
       ],
       [
@@ -6871,8 +6933,8 @@
             "name": "SourceCommandOutput",
             "fqn": "module::1272033007::SourceCommandOutput",
             "filepath": "tests/helpers/enhanced-test-harness.ts",
-            "startLine": 60,
-            "endLine": 72,
+            "startLine": 87,
+            "endLine": 99,
             "scope": "module",
             "flags": [
               "None",
@@ -6893,22 +6955,22 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563309
+          "analyzedAt": 1760846684679
         }
       ],
       [
         "module::323176296::EnhancedTestHarness",
         {
           "symbol": "module::323176296::EnhancedTestHarness",
-          "hash": 1584988317,
+          "hash": 1748230055,
           "dependencies": [],
           "dependents": [],
           "meta": {
             "name": "EnhancedTestHarness",
             "fqn": "module::323176296::EnhancedTestHarness",
             "filepath": "tests/helpers/enhanced-test-harness.ts",
-            "startLine": 77,
-            "endLine": 673,
+            "startLine": 104,
+            "endLine": 762,
             "scope": "module",
             "flags": [
               "None",
@@ -6929,7 +6991,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563309
+          "analyzedAt": 1760846684680
         }
       ],
       [
@@ -6943,8 +7005,8 @@
             "name": "PerformanceAssertions",
             "fqn": "module::779562817::PerformanceAssertions",
             "filepath": "tests/helpers/enhanced-test-harness.ts",
-            "startLine": 734,
-            "endLine": 751,
+            "startLine": 823,
+            "endLine": 840,
             "scope": "module",
             "flags": [
               "None",
@@ -6965,7 +7027,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563309
+          "analyzedAt": 1760846684680
         }
       ],
       [
@@ -6979,8 +7041,8 @@
             "name": "OutputValidators",
             "fqn": "module::387610110::OutputValidators",
             "filepath": "tests/helpers/enhanced-test-harness.ts",
-            "startLine": 756,
-            "endLine": 782,
+            "startLine": 845,
+            "endLine": 871,
             "scope": "module",
             "flags": [
               "None",
@@ -7001,7 +7063,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563310
+          "analyzedAt": 1760846684680
         }
       ],
       [
@@ -7044,14 +7106,14 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563310
+          "analyzedAt": 1760846684680
         }
       ],
       [
         "module::744910049::FixtureManager",
         {
           "symbol": "module::744910049::FixtureManager",
-          "hash": 389251816,
+          "hash": 325495348,
           "dependencies": [],
           "dependents": [
             "module::1080093469::createFixtureManager"
@@ -7087,7 +7149,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563310
+          "analyzedAt": 1760846684680
         }
       ],
       [
@@ -7130,7 +7192,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563310
+          "analyzedAt": 1760846684680
         }
       ],
       [
@@ -7168,7 +7230,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563310
+          "analyzedAt": 1760846684680
         }
       ],
       [
@@ -7206,7 +7268,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563310
+          "analyzedAt": 1760846684681
         }
       ],
       [
@@ -7244,7 +7306,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563310
+          "analyzedAt": 1760846684681
         }
       ],
       [
@@ -7287,7 +7349,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563311
+          "analyzedAt": 1760846684681
         }
       ],
       [
@@ -7330,7 +7392,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563311
+          "analyzedAt": 1760846684681
         }
       ],
       [
@@ -7371,7 +7433,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563311
+          "analyzedAt": 1760846684681
         }
       ],
       [
@@ -7407,7 +7469,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563311
+          "analyzedAt": 1760846684681
         }
       ],
       [
@@ -7448,7 +7510,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563311
+          "analyzedAt": 1760846684682
         }
       ],
       [
@@ -7489,7 +7551,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563311
+          "analyzedAt": 1760846684682
         }
       ],
       [
@@ -7525,7 +7587,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563311
+          "analyzedAt": 1760846684682
         }
       ],
       [
@@ -7561,7 +7623,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563311
+          "analyzedAt": 1760846684682
         }
       ],
       [
@@ -7597,7 +7659,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563311
+          "analyzedAt": 1760846684682
         }
       ],
       [
@@ -7633,7 +7695,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563312
+          "analyzedAt": 1760846684682
         }
       ],
       [
@@ -7669,7 +7731,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563312
+          "analyzedAt": 1760846684682
         }
       ],
       [
@@ -7705,7 +7767,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563312
+          "analyzedAt": 1760846684682
         }
       ],
       [
@@ -7741,7 +7803,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563312
+          "analyzedAt": 1760846684682
         }
       ],
       [
@@ -7772,7 +7834,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1760841563312
+          "analyzedAt": 1760846684682
         }
       ],
       [
@@ -7810,7 +7872,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563312
+          "analyzedAt": 1760846684683
         }
       ],
       [
@@ -7846,7 +7908,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563312
+          "analyzedAt": 1760846684683
         }
       ],
       [
@@ -7894,7 +7956,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563312
+          "analyzedAt": 1760846684683
         }
       ],
       [
@@ -7932,7 +7994,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563313
+          "analyzedAt": 1760846684683
         }
       ],
       [
@@ -7968,7 +8030,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563313
+          "analyzedAt": 1760846684683
         }
       ],
       [
@@ -8004,7 +8066,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563313
+          "analyzedAt": 1760846684683
         }
       ],
       [
@@ -8049,7 +8111,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563313
+          "analyzedAt": 1760846684683
         }
       ],
       [
@@ -8090,7 +8152,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563313
+          "analyzedAt": 1760846684683
         }
       ],
       [
@@ -8135,7 +8197,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563313
+          "analyzedAt": 1760846684683
         }
       ],
       [
@@ -8180,7 +8242,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563313
+          "analyzedAt": 1760846684683
         }
       ],
       [
@@ -8221,7 +8283,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563313
+          "analyzedAt": 1760846684684
         }
       ],
       [
@@ -8262,7 +8324,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563314
+          "analyzedAt": 1760846684684
         }
       ],
       [
@@ -8303,7 +8365,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563314
+          "analyzedAt": 1760846684684
         }
       ],
       [
@@ -8344,7 +8406,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563314
+          "analyzedAt": 1760846684684
         }
       ],
       [
@@ -8380,7 +8442,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563314
+          "analyzedAt": 1760846684684
         }
       ],
       [
@@ -8421,7 +8483,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563314
+          "analyzedAt": 1760846684684
         }
       ],
       [
@@ -8462,7 +8524,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563314
+          "analyzedAt": 1760846684684
         }
       ],
       [
@@ -8498,7 +8560,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563314
+          "analyzedAt": 1760846684684
         }
       ],
       [
@@ -8534,7 +8596,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563314
+          "analyzedAt": 1760846684684
         }
       ],
       [
@@ -8565,7 +8627,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1760841563314
+          "analyzedAt": 1760846684684
         }
       ],
       [
@@ -8601,7 +8663,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563315
+          "analyzedAt": 1760846684684
         }
       ],
       [
@@ -8637,7 +8699,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563315
+          "analyzedAt": 1760846684684
         }
       ],
       [
@@ -8673,14 +8735,14 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760841563315
+          "analyzedAt": 1760846684685
         }
       ]
     ],
     "projectHash": 78265403,
-    "lastUpdated": 1760841563316,
+    "lastUpdated": 1760846684686,
     "stats": {
-      "totalSymbols": 231,
+      "totalSymbols": 233,
       "totalDependencies": 39,
       "circularDependencies": [],
       "maxDepth": 2
@@ -8689,7 +8751,7 @@
   "fileHashes": [
     [
       "/Volumes/coding/personal/typed-tester/package.json",
-      1760838636521.3892
+      1760844292951.8628
     ],
     [
       "/Volumes/coding/personal/typed-tester/scripts/get-diagnostics.ts",
@@ -8709,7 +8771,7 @@
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/lib.ts",
-      1760029456019.635
+      1760843584097.789
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/play.ts",
@@ -8733,7 +8795,7 @@
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/ast/files.ts",
-      1757951126409.4333
+      1760843589336.9197
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/ast/index.ts",
@@ -8741,7 +8803,7 @@
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/ast/project.ts",
-      1760841510239.0525
+      1760841594179.8428
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/ast/symbols.ts",
@@ -8761,7 +8823,7 @@
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/cli/cli-types.ts",
-      1757203788883.3997
+      1760843620006.5808
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/cli/create_cli.ts",
@@ -8793,7 +8855,7 @@
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/commands/symbols.ts",
-      1755449938056.1846
+      1760842619664.4077
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/commands/test.ts",
@@ -8877,7 +8939,7 @@
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/test-utilities/Test.ts",
-      1760029876025.6868
+      1760843584710.7815
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/type-guards/index.ts",
@@ -8941,7 +9003,7 @@
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/utils/diagnosticLookup.ts",
-      1760841385047.625
+      1760844443550.7256
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/utils/index.ts",
@@ -8993,11 +9055,11 @@
     ],
     [
       "/Volumes/coding/personal/typed-tester/tests/helpers/enhanced-test-harness.ts",
-      1760841562521.5806
+      1760846658988.234
     ],
     [
       "/Volumes/coding/personal/typed-tester/tests/helpers/fixture-manager.ts",
-      1760839296025.494
+      1760844061874.8237
     ],
     [
       "/Volumes/coding/personal/typed-tester/tests/helpers/helpers-validation.test.ts",
@@ -9037,27 +9099,27 @@
     ],
     [
       "/Volumes/coding/personal/typed-tester/tests/integration/fast/deps.fast.test.ts",
-      1755039225362.21
+      1760845905178.1638
     ],
     [
       "/Volumes/coding/personal/typed-tester/tests/integration/fast/files.fast.test.ts",
-      1755038918406.6267
+      1760845896319.12
     ],
     [
       "/Volumes/coding/personal/typed-tester/tests/integration/fast/source.fast.test.ts",
-      1755038907871.9856
+      1760845880122.165
     ],
     [
       "/Volumes/coding/personal/typed-tester/tests/integration/fast/suite-validation.fast.test.ts",
-      1755038916275.3604
+      1760846470722.476
     ],
     [
       "/Volumes/coding/personal/typed-tester/tests/integration/fast/symbols.fast.test.ts",
-      1755038900436.2944
+      1760845859903.0142
     ],
     [
       "/Volumes/coding/personal/typed-tester/tests/integration/fast/test.fast.test.ts",
-      1755038662565.0078
+      1760845908023.6067
     ],
     [
       "/Volumes/coding/personal/typed-tester/tests/unit/source-command/source-command-enhanced.test.ts",
@@ -9140,10 +9202,10 @@
       1760839517045.3096
     ]
   ],
-  "configHash": 111889086,
+  "configHash": 654565685,
   "metadata": {
     "version": "0.9.5",
-    "createdAt": 1760841563316,
-    "lastAccessed": 1760841563316
+    "createdAt": 1760846684686,
+    "lastAccessed": 1760846684686
   }
 }

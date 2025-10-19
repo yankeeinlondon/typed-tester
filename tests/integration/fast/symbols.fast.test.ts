@@ -1,9 +1,11 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { 
-  EnhancedTestHarness, 
+import {
+  EnhancedTestHarness,
   getOptimizedDefaultOptions,
   PerformanceAssertions,
-  OutputValidators
+  OutputValidators,
+  PERFORMANCE_THRESHOLDS,
+  MEMORY_THRESHOLDS
 } from '../../helpers/enhanced-test-harness';
 import { CLIOutputValidator, ScenarioValidators, OutputPatterns } from '../../helpers/output-validators';
 import { globalPerformanceTracker } from '../../helpers/performance-tracker';
@@ -36,8 +38,8 @@ describe('Symbols Command - Fast Integration Tests', () => {
       const { result, metrics } = await harness.runSymbolsCommand(options);
       
       // Performance validation
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'symbols-default');
-      PerformanceAssertions.expectMemoryUsage(metrics, 600, 'symbols-default');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.symbols, 'symbols-default');
+      PerformanceAssertions.expectMemoryUsage(metrics, MEMORY_THRESHOLDS.symbols, 'symbols-default');
       
       // Output validation
       CLIOutputValidator.validateSymbolsCommand(result);
@@ -55,7 +57,7 @@ describe('Symbols Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runSymbolsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'symbols-types');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.symbols, 'symbols-types');
       CLIOutputValidator.validateSymbolsCommand(result);
       
       // Check for expected symbol types from our fixture
@@ -77,7 +79,7 @@ describe('Symbols Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runSymbolsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'symbols-location');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.symbols, 'symbols-location');
       CLIOutputValidator.validateSymbolsCommand(result);
       
       // All symbols should have valid file paths and line numbers
@@ -102,7 +104,7 @@ describe('Symbols Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runSymbolsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'symbols-filter');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.symbols, 'symbols-filter');
       CLIOutputValidator.validateSymbolsCommand(result);
       
       // All symbols should match the filter
@@ -123,7 +125,7 @@ describe('Symbols Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runSymbolsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'symbols-multi-filter');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.symbols, 'symbols-multi-filter');
       CLIOutputValidator.validateSymbolsCommand(result);
       
       // Should find symbols matching either pattern
@@ -139,7 +141,7 @@ describe('Symbols Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runSymbolsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'symbols-empty-filter');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.symbols, 'symbols-empty-filter');
       ScenarioValidators.validateEmptyResults(result, 'symbols');
       
       expect(result.count).toBe(0);
@@ -156,7 +158,7 @@ describe('Symbols Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runSymbolsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'symbols-sort-name');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.symbols, 'symbols-sort-name');
       CLIOutputValidator.validateSymbolsCommand(result);
       
       // Check if symbols are sorted alphabetically by name
@@ -177,7 +179,7 @@ describe('Symbols Command - Fast Integration Tests', () => {
         
         const { result, metrics } = await harness.runSymbolsCommand(options);
         
-        PerformanceAssertions.expectExecutionTime(metrics, 2500, `symbols-sort-${sortBy}`);
+        PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.symbols, `symbols-sort-${sortBy}`);
         CLIOutputValidator.validateSymbolsCommand(result);
         
         expect(result.count).toBeGreaterThan(0);
@@ -194,7 +196,7 @@ describe('Symbols Command - Fast Integration Tests', () => {
 
       const { result, metrics } = await harness.runSymbolsCommand(options);
 
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'symbols-json');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.symbols, 'symbols-json');
 
       // Test harness should successfully parse JSON output
       expect(result.symbols).toBeDefined();
@@ -213,7 +215,7 @@ describe('Symbols Command - Fast Integration Tests', () => {
       const { result, metrics } = await harness.runSymbolsCommand(options);
       
       // JSON mode should be fast and efficient
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'symbols-json-fast');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.symbols, 'symbols-json-fast');
       expect(result.raw).toBeTruthy();
     });
   });
@@ -228,7 +230,7 @@ describe('Symbols Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runSymbolsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'symbols-verbose');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.symbols, 'symbols-verbose');
       CLIOutputValidator.validateSymbolsCommand(result);
       
       // Verbose mode should provide more detailed information
@@ -245,7 +247,7 @@ describe('Symbols Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runSymbolsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'symbols-interfaces');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.symbols, 'symbols-interfaces');
       CLIOutputValidator.validateSymbolsCommand(result);
       
       const interfaces = result.symbols.filter(s => s.type === 'interface');
@@ -265,7 +267,7 @@ describe('Symbols Command - Fast Integration Tests', () => {
 
       const { result, metrics } = await harness.runSymbolsCommand(options);
 
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'symbols-functions');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.symbols, 'symbols-functions');
       CLIOutputValidator.validateSymbolsCommand(result);
 
       // Symbols command filters to type symbols only, so runtime functions don't appear
@@ -282,7 +284,7 @@ describe('Symbols Command - Fast Integration Tests', () => {
 
       const { result, metrics } = await harness.runSymbolsCommand(options);
 
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'symbols-classes');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.symbols, 'symbols-classes');
       CLIOutputValidator.validateSymbolsCommand(result);
 
       // Symbols command filters to type symbols only, so runtime classes don't appear
@@ -297,7 +299,7 @@ describe('Symbols Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runSymbolsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'symbols-types');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.symbols, 'symbols-types');
       CLIOutputValidator.validateSymbolsCommand(result);
       
       const types = result.symbols.filter(s => s.type === 'type');
@@ -318,7 +320,7 @@ describe('Symbols Command - Fast Integration Tests', () => {
         const options = getOptimizedDefaultOptions('symbols');
         const { result, metrics } = await harness.runSymbolsCommand(options);
         
-        PerformanceAssertions.expectExecutionTime(metrics, 2500, 'symbols-invalid-dir');
+        PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.symbols, 'symbols-invalid-dir');
         ScenarioValidators.validateGracefulErrorHandling(
           result,
           'symbols',
@@ -337,7 +339,7 @@ describe('Symbols Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runSymbolsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'symbols-bad-config');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.symbols, 'symbols-bad-config');
       // Should fall back gracefully or show appropriate error
       expect(result.raw).toBeDefined();
     });
@@ -356,7 +358,7 @@ describe('Symbols Command - Fast Integration Tests', () => {
         
         const { result, metrics } = await harness.runSymbolsCommand(options);
         
-        PerformanceAssertions.expectExecutionTime(metrics, 2500, `symbols-run-${i}`);
+        PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.symbols, `symbols-run-${i}`);
         results.push({ result, metrics });
       }
       
@@ -384,7 +386,7 @@ describe('Symbols Command - Fast Integration Tests', () => {
         
         const { result, metrics } = await harness.runSymbolsCommand(options);
         
-        PerformanceAssertions.expectExecutionTime(metrics, 2500, `symbols-filter-${index}`);
+        PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.symbols, `symbols-filter-${index}`);
         expect(result.count).toBeGreaterThanOrEqual(0);
       }
     });
@@ -399,7 +401,7 @@ describe('Symbols Command - Fast Integration Tests', () => {
 
       const { result, metrics } = await harness.runSymbolsCommand(options);
 
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'symbols-patterns');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.symbols, 'symbols-patterns');
       CLIOutputValidator.validateSymbolsCommand(result);
 
       // In non-quiet mode, output should contain symbol information

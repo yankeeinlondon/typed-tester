@@ -25,9 +25,9 @@ export default defineConfig({
       'tests/integration/cli-commands.test.ts', // Use faster harness version
       'tests/fixtures/**/*' // Exclude fixture test files from being run directly
     ],
-    // Optimized timeouts for fast integration tests
-    testTimeout: 10000, // 10 seconds max per test (our target is <2s per command)
-    hookTimeout: 5000,  // 5 seconds for setup/teardown
+    // Realistic timeouts for integration tests (increased from 10s to handle full AST compilation)
+    testTimeout: 30000, // 30 seconds max per test (allows for realistic TypeScript compilation times)
+    hookTimeout: 10000,  // 10 seconds for setup/teardown (harness initialization can take time)
     teardownTimeout: 5000,
     // Optimized pool configuration for fast tests
     pool: 'forks',

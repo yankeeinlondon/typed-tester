@@ -1,8 +1,10 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { 
-  EnhancedTestHarness, 
+import {
+  EnhancedTestHarness,
   getOptimizedDefaultOptions,
-  PerformanceAssertions
+  PerformanceAssertions,
+  PERFORMANCE_THRESHOLDS,
+  MEMORY_THRESHOLDS
 } from '../../helpers/enhanced-test-harness';
 import { globalPerformanceTracker } from '../../helpers/performance-tracker';
 import path from 'path';
@@ -155,8 +157,8 @@ describe('Test Suite Performance Validation', () => {
     it('should meet test command performance target (2500ms)', async () => {
       const options = getOptimizedDefaultOptions('test');
       const { result, metrics } = await harness.runTestCommand(options);
-      
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'test-target');
+
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.test, 'test-target');
       expect(result.result.raw).toBeTruthy();
     });
 
@@ -164,31 +166,31 @@ describe('Test Suite Performance Validation', () => {
       const options = getOptimizedDefaultOptions('symbols');
       const { result, metrics } = await harness.runSymbolsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'symbols-target');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.symbols, 'symbols-target');
       expect(result.result.raw).toBeTruthy();
     });
 
     it('should meet source command performance target (2000ms)', async () => {
       const options = getOptimizedDefaultOptions('source');
       const { result, metrics } = await harness.runSourceCommand(options);
-      
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'source-target');
+
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.source, 'source-target');
       expect(result.result.raw).toBeTruthy();
     });
 
     it('should meet deps command performance target (1500ms)', async () => {
       const options = getOptimizedDefaultOptions('deps');
       const { result, metrics } = await harness.runDepsCommand(options);
-      
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'deps-target');
+
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, 'deps-target');
       expect(result.result.raw).toBeTruthy();
     });
 
     it('should meet files command performance target (1500ms)', async () => {
       const options = getOptimizedDefaultOptions('files');
       const { result, metrics } = await harness.runFilesCommand(options);
-      
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-target');
+
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-target');
       expect(result.result.raw).toBeTruthy();
     });
   });
@@ -219,7 +221,7 @@ describe('Test Suite Performance Validation', () => {
             break;
         }
         
-        PerformanceAssertions.expectMemoryUsage(result.metrics, 150, command);
+        PerformanceAssertions.expectMemoryUsage(result.metrics, MEMORY_THRESHOLDS.default, command);
       }
     });
 

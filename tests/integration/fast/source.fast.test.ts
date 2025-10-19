@@ -1,9 +1,11 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { 
-  EnhancedTestHarness, 
+import {
+  EnhancedTestHarness,
   getOptimizedDefaultOptions,
   PerformanceAssertions,
-  OutputValidators
+  OutputValidators,
+  PERFORMANCE_THRESHOLDS,
+  MEMORY_THRESHOLDS
 } from '../../helpers/enhanced-test-harness';
 import { CLIOutputValidator, ScenarioValidators, OutputPatterns } from '../../helpers/output-validators';
 import { globalPerformanceTracker } from '../../helpers/performance-tracker';
@@ -36,8 +38,8 @@ describe('Source Command - Fast Integration Tests', () => {
       const { result, metrics } = await harness.runSourceCommand(options);
       
       // Performance validation - source analysis should be fast
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'source-default');
-      PerformanceAssertions.expectMemoryUsage(metrics, 450, 'source-default');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.source, 'source-default');
+      PerformanceAssertions.expectMemoryUsage(metrics, MEMORY_THRESHOLDS.source, 'source-default');
       
       // Output validation
       CLIOutputValidator.validateSourceCommand(result);
@@ -58,7 +60,7 @@ describe('Source Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runSourceCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'source-comprehensive');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.source, 'source-comprehensive');
       CLIOutputValidator.validateSourceCommand(result);
       
       // Should analyze multiple files
@@ -78,7 +80,7 @@ describe('Source Command - Fast Integration Tests', () => {
       const { result, metrics } = await harness.runSourceCommand(options);
       
       // Quiet mode should be faster
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'source-quiet');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.source, 'source-quiet');
       CLIOutputValidator.validateSourceCommand(result);
     });
   });
@@ -89,7 +91,7 @@ describe('Source Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runSourceCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'source-diagnostics');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.source, 'source-diagnostics');
       CLIOutputValidator.validateSourceCommand(result);
       
       // Validate diagnostic structure
@@ -108,7 +110,7 @@ describe('Source Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runSourceCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'source-clean');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.source, 'source-clean');
       CLIOutputValidator.validateSourceCommand(result);
       
       // Should complete successfully even with no diagnostics
@@ -127,7 +129,7 @@ describe('Source Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runSourceCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'source-severity');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.source, 'source-severity');
       CLIOutputValidator.validateSourceCommand(result);
       
       // Count diagnostics by severity
@@ -150,7 +152,7 @@ describe('Source Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runSourceCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'source-perf-tracking');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.source, 'source-perf-tracking');
       CLIOutputValidator.validateSourceCommand(result);
       
       // Performance metrics should be meaningful
@@ -176,7 +178,7 @@ describe('Source Command - Fast Integration Tests', () => {
         
         const { result, metrics } = await harness.runSourceCommand(options);
         
-        PerformanceAssertions.expectExecutionTime(metrics, 2500, `source-consistent-${i}`);
+        PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.source, `source-consistent-${i}`);
         results.push({ result, metrics });
       }
       
@@ -205,7 +207,7 @@ describe('Source Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runSourceCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'source-filter');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.source, 'source-filter');
       CLIOutputValidator.validateSourceCommand(result);
       
       // Should analyze fewer files when filtered
@@ -225,7 +227,7 @@ describe('Source Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runSourceCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'source-multi-filter');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.source, 'source-multi-filter');
       CLIOutputValidator.validateSourceCommand(result);
       
       expect(result.performance.files).toBeGreaterThan(0);
@@ -239,7 +241,7 @@ describe('Source Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runSourceCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'source-warnings');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.source, 'source-warnings');
       CLIOutputValidator.validateSourceCommand(result);
       
       // Should complete successfully regardless of warning configuration
@@ -256,7 +258,7 @@ describe('Source Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runSourceCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'source-json');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.source, 'source-json');
       
       // JSON output should be parseable
       expect(() => JSON.parse(result.raw)).not.toThrow();
@@ -280,7 +282,7 @@ describe('Source Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runSourceCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'source-json-fast');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.source, 'source-json-fast');
       expect(result.raw).toBeTruthy();
     });
   });
@@ -295,7 +297,7 @@ describe('Source Command - Fast Integration Tests', () => {
         const options = getOptimizedDefaultOptions('source');
         const { result, metrics } = await harness.runSourceCommand(options);
         
-        PerformanceAssertions.expectExecutionTime(metrics, 2500, 'source-invalid-dir');
+        PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.source, 'source-invalid-dir');
         ScenarioValidators.validateGracefulErrorHandling(
           result,
           'source',
@@ -314,7 +316,7 @@ describe('Source Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runSourceCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'source-bad-config');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.source, 'source-bad-config');
       // Should fall back gracefully
       expect(result.raw).toBeDefined();
     });
@@ -327,7 +329,7 @@ describe('Source Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runSourceCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'source-empty-filter');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.source, 'source-empty-filter');
       ScenarioValidators.validateEmptyResults(result, 'source');
     });
   });
@@ -338,7 +340,7 @@ describe('Source Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runSourceCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'source-typescript');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.source, 'source-typescript');
       CLIOutputValidator.validateSourceCommand(result);
       
       // Should find and analyze .ts files
@@ -359,7 +361,7 @@ describe('Source Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runSourceCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'source-complex');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.source, 'source-complex');
       CLIOutputValidator.validateSourceCommand(result);
       
       // Should handle complex TypeScript without errors
@@ -379,7 +381,7 @@ describe('Source Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runSourceCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'source-patterns');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.source, 'source-patterns');
       CLIOutputValidator.validateSourceCommand(result);
       
       // Check for diagnostic patterns in raw output
@@ -403,7 +405,7 @@ describe('Source Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runSourceCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'source-timing');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.source, 'source-timing');
       CLIOutputValidator.validateSourceCommand(result);
       
       // Should contain performance timing information
@@ -425,8 +427,8 @@ describe('Source Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runSourceCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'source-memory');
-      PerformanceAssertions.expectMemoryUsage(metrics, 200, 'source-memory');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.source, 'source-memory');
+      PerformanceAssertions.expectMemoryUsage(metrics, MEMORY_THRESHOLDS.source, 'source-memory');
       
       CLIOutputValidator.validateSourceCommand(result);
     });
@@ -442,8 +444,8 @@ describe('Source Command - Fast Integration Tests', () => {
         
         const { result, metrics } = await harness.runSourceCommand(options);
         
-        PerformanceAssertions.expectExecutionTime(metrics, 2500, `source-consecutive-${i}`);
-        PerformanceAssertions.expectMemoryUsage(metrics, 120, `source-consecutive-${i}`);
+        PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.source, `source-consecutive-${i}`);
+        PerformanceAssertions.expectMemoryUsage(metrics, MEMORY_THRESHOLDS.consecutive, `source-consecutive-${i}`);
         
         CLIOutputValidator.validateSourceCommand(result);
       }

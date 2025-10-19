@@ -1,9 +1,11 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { 
-  EnhancedTestHarness, 
+import {
+  EnhancedTestHarness,
   getOptimizedDefaultOptions,
   PerformanceAssertions,
-  OutputValidators
+  OutputValidators,
+  PERFORMANCE_THRESHOLDS,
+  MEMORY_THRESHOLDS
 } from '../../helpers/enhanced-test-harness';
 import { CLIOutputValidator, ScenarioValidators } from '../../helpers/output-validators';
 import { globalPerformanceTracker } from '../../helpers/performance-tracker';
@@ -36,8 +38,8 @@ describe('Test Command - Fast Integration Tests', () => {
       const { result, metrics } = await harness.runTestCommand(options);
       
       // Performance validation
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'test-default');
-      PerformanceAssertions.expectMemoryUsage(metrics, 500, 'test-default');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.test, 'test-default');
+      PerformanceAssertions.expectMemoryUsage(metrics, MEMORY_THRESHOLDS.test, 'test-default');
       
       // Output validation
       CLIOutputValidator.validateTestCommand(result);
@@ -60,7 +62,7 @@ describe('Test Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runTestCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'test-comprehensive');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.test, 'test-comprehensive');
       CLIOutputValidator.validateTestCommand(result);
       
       // Should have symbols or tests information
@@ -77,7 +79,7 @@ describe('Test Command - Fast Integration Tests', () => {
       const { result, metrics } = await harness.runTestCommand(options);
       
       // Quiet mode should be faster
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'test-quiet');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.test, 'test-quiet');
       CLIOutputValidator.validateTestCommand(result);
     });
   });
@@ -91,7 +93,7 @@ describe('Test Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runTestCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'test-filter');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.test, 'test-filter');
       CLIOutputValidator.validateTestCommand(result);
       
       // Should handle filter gracefully (our simple tests don't match 'comprehensive')
@@ -106,7 +108,7 @@ describe('Test Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runTestCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'test-multi-filter');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.test, 'test-multi-filter');
       CLIOutputValidator.validateTestCommand(result);
     });
 
@@ -118,7 +120,7 @@ describe('Test Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runTestCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'test-empty-filter');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.test, 'test-empty-filter');
       // Test completed successfully - empty filter handled gracefully
       expect(result.summary.totalTests).toBe(0);
       expect(result.raw).toBeTruthy();
@@ -134,7 +136,7 @@ describe('Test Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runTestCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'test-warnings');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.test, 'test-warnings');
       CLIOutputValidator.validateTestCommand(result);
     });
 
@@ -146,7 +148,7 @@ describe('Test Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runTestCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'test-no-warnings');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.test, 'test-no-warnings');
       CLIOutputValidator.validateTestCommand(result);
     });
   });
@@ -160,7 +162,7 @@ describe('Test Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runTestCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'test-show-passing');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.test, 'test-show-passing');
       CLIOutputValidator.validateTestCommand(result);
       
       // Should have valid test output
@@ -175,7 +177,7 @@ describe('Test Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runTestCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'test-only-errors');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.test, 'test-only-errors');
       CLIOutputValidator.validateTestCommand(result);
     });
 
@@ -187,7 +189,7 @@ describe('Test Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runTestCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'test-show-symbols');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.test, 'test-show-symbols');
       CLIOutputValidator.validateTestCommand(result);
       
       // Should contain test or symbol information in output
@@ -202,7 +204,7 @@ describe('Test Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runTestCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'test-files-only');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.test, 'test-files-only');
       CLIOutputValidator.validateTestCommand(result);
       
       expect(result.files.length).toBeGreaterThanOrEqual(0);
@@ -225,7 +227,7 @@ describe('Test Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runTestCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'test-malformed');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.test, 'test-malformed');
       // Should handle empty filter gracefully
       expect(result.raw).toBeDefined();
     });
@@ -250,7 +252,7 @@ describe('Test Command - Fast Integration Tests', () => {
         
         const { result, metrics } = await harness.runTestCommand(options);
         
-        PerformanceAssertions.expectExecutionTime(metrics, 2500, `test-run-${i}`);
+        PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.test, `test-run-${i}`);
         results.push({ result, metrics });
       }
       
@@ -277,7 +279,7 @@ describe('Test Command - Fast Integration Tests', () => {
         
         const { result, metrics } = await harness.runTestCommand(options);
         
-        PerformanceAssertions.expectExecutionTime(metrics, 2500, `test-combo-${index}`);
+        PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.test, `test-combo-${index}`);
         CLIOutputValidator.validateTestCommand(result);
       }
     });

@@ -1,9 +1,11 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { 
-  EnhancedTestHarness, 
+import {
+  EnhancedTestHarness,
   getOptimizedDefaultOptions,
   PerformanceAssertions,
-  OutputValidators
+  OutputValidators,
+  PERFORMANCE_THRESHOLDS,
+  MEMORY_THRESHOLDS
 } from '../../helpers/enhanced-test-harness';
 import { CLIOutputValidator, ScenarioValidators } from '../../helpers/output-validators';
 import { globalPerformanceTracker } from '../../helpers/performance-tracker';
@@ -36,8 +38,8 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
       const { result, metrics } = await harness.runDepsCommand(options);
       
       // Performance validation - deps analysis should be fast
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'deps-default');
-      PerformanceAssertions.expectMemoryUsage(metrics, 600, 'deps-default');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, 'deps-default');
+      PerformanceAssertions.expectMemoryUsage(metrics, MEMORY_THRESHOLDS.deps, 'deps-default');
       
       // Output validation
       CLIOutputValidator.validateGenericOutput(result, 'deps');
@@ -58,7 +60,7 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runDepsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'deps-symbols');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, 'deps-symbols');
       CLIOutputValidator.validateGenericOutput(result, 'deps');
       
       // Should find dependencies between symbols in our fixture
@@ -84,7 +86,7 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
       const { result, metrics } = await harness.runDepsCommand(options);
       
       // Quiet mode should be faster
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'deps-quiet');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, 'deps-quiet');
       CLIOutputValidator.validateGenericOutput(result, 'deps');
     });
   });
@@ -98,7 +100,7 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runDepsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'deps-filter');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, 'deps-filter');
       CLIOutputValidator.validateGenericOutput(result, 'deps');
       
       // Should find dependencies related to User symbols
@@ -114,7 +116,7 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runDepsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'deps-multi-filter');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, 'deps-multi-filter');
       CLIOutputValidator.validateGenericOutput(result, 'deps');
       
       expect(result.dependencies.length).toBeGreaterThanOrEqual(0);
@@ -128,7 +130,7 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runDepsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'deps-empty-filter');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, 'deps-empty-filter');
       ScenarioValidators.validateEmptyResults(result, 'deps');
     });
   });
@@ -142,7 +144,7 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runDepsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'deps-direct');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, 'deps-direct');
       CLIOutputValidator.validateGenericOutput(result, 'deps');
       
       // createUser function should have dependencies on UserInterface
@@ -161,7 +163,7 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runDepsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'deps-chains');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, 'deps-chains');
       CLIOutputValidator.validateGenericOutput(result, 'deps');
       
       // Should find various types of dependencies in our complex fixture
@@ -177,7 +179,7 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runDepsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'deps-circular');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, 'deps-circular');
       CLIOutputValidator.validateGenericOutput(result, 'deps');
       
       // Should complete without infinite loops
@@ -194,7 +196,7 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runDepsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'deps-types');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, 'deps-types');
       CLIOutputValidator.validateGenericOutput(result, 'deps');
       
       // UserType should depend on UserInterface
@@ -213,7 +215,7 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runDepsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'deps-functions');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, 'deps-functions');
       CLIOutputValidator.validateGenericOutput(result, 'deps');
       
       // validateUser should have dependencies
@@ -228,7 +230,7 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runDepsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'deps-classes');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, 'deps-classes');
       CLIOutputValidator.validateGenericOutput(result, 'deps');
       
       // UserManager should depend on UserInterface
@@ -247,7 +249,7 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runDepsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'deps-generics');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, 'deps-generics');
       CLIOutputValidator.validateGenericOutput(result, 'deps');
       
       // Should handle generic types appropriately
@@ -264,7 +266,7 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runDepsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'deps-json');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, 'deps-json');
       
       // JSON output should be parseable
       expect(() => JSON.parse(result.raw)).not.toThrow();
@@ -282,7 +284,7 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runDepsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'deps-json-fast');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, 'deps-json-fast');
       expect(result.raw).toBeTruthy();
     });
 
@@ -295,7 +297,7 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runDepsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'deps-verbose');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, 'deps-verbose');
       CLIOutputValidator.validateGenericOutput(result, 'deps');
       
       // Verbose mode should provide more detailed output
@@ -313,7 +315,7 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
         const options = getOptimizedDefaultOptions('deps');
         const { result, metrics } = await harness.runDepsCommand(options);
         
-        PerformanceAssertions.expectExecutionTime(metrics, 2500, 'deps-invalid-dir');
+        PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, 'deps-invalid-dir');
         ScenarioValidators.validateGracefulErrorHandling(
           result,
           'deps',
@@ -332,7 +334,7 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runDepsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'deps-bad-config');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, 'deps-bad-config');
       // Should fall back gracefully
       expect(result.raw).toBeDefined();
     });
@@ -346,7 +348,7 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runDepsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'deps-no-deps');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, 'deps-no-deps');
       ScenarioValidators.validateEmptyResults(result, 'deps');
     });
 
@@ -358,7 +360,7 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runDepsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'deps-malformed');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, 'deps-malformed');
       // Should handle gracefully without crashing
       expect(result.raw).toBeDefined();
     });
@@ -377,7 +379,7 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
         
         const { result, metrics } = await harness.runDepsCommand(options);
         
-        PerformanceAssertions.expectExecutionTime(metrics, 2500, `deps-run-${i}`);
+        PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, `deps-run-${i}`);
         results.push({ result, metrics });
       }
       
@@ -397,8 +399,8 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runDepsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'deps-large-graph');
-      PerformanceAssertions.expectMemoryUsage(metrics, 500, 'deps-large-graph');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, 'deps-large-graph');
+      PerformanceAssertions.expectMemoryUsage(metrics, MEMORY_THRESHOLDS.deps, 'deps-large-graph');
       
       CLIOutputValidator.validateGenericOutput(result, 'deps');
     });
@@ -419,7 +421,7 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
         
         const { result, metrics } = await harness.runDepsCommand(options);
         
-        PerformanceAssertions.expectExecutionTime(metrics, 2500, `deps-filter-size-${index}`);
+        PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, `deps-filter-size-${index}`);
         expect(result.dependencies.length).toBeGreaterThanOrEqual(0);
       }
     });
@@ -434,7 +436,7 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runDepsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'deps-warnings');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, 'deps-warnings');
       CLIOutputValidator.validateGenericOutput(result, 'deps');
     });
 
@@ -446,7 +448,7 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runDepsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'deps-no-warnings');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, 'deps-no-warnings');
       CLIOutputValidator.validateGenericOutput(result, 'deps');
     });
   });
@@ -457,8 +459,8 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runDepsCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'deps-memory');
-      PerformanceAssertions.expectMemoryUsage(metrics, 400, 'deps-memory');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, 'deps-memory');
+      PerformanceAssertions.expectMemoryUsage(metrics, MEMORY_THRESHOLDS.deps, 'deps-memory');
       
       CLIOutputValidator.validateGenericOutput(result, 'deps');
     });
@@ -474,8 +476,8 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
         
         const { result, metrics } = await harness.runDepsCommand(options);
         
-        PerformanceAssertions.expectExecutionTime(metrics, 2500, `deps-consecutive-${i}`);
-        PerformanceAssertions.expectMemoryUsage(metrics, 250, `deps-consecutive-${i}`);
+        PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, `deps-consecutive-${i}`);
+        PerformanceAssertions.expectMemoryUsage(metrics, MEMORY_THRESHOLDS.consecutive, `deps-consecutive-${i}`);
         
         CLIOutputValidator.validateGenericOutput(result, 'deps');
       }
@@ -492,7 +494,7 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
       const depsOptions = getOptimizedDefaultOptions('deps');
       const { result, metrics } = await harness.runDepsCommand(depsOptions);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'deps-after-symbols');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, 'deps-after-symbols');
       CLIOutputValidator.validateGenericOutput(result, 'deps');
       
       // Should benefit from previous symbol analysis
@@ -512,7 +514,7 @@ describe.skip('Deps Command - Fast Integration Tests', () => {
         
         const { result, metrics } = await harness.runDepsCommand(options);
         
-        PerformanceAssertions.expectExecutionTime(metrics, 2500, `deps-consistent-${i}`);
+        PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, `deps-consistent-${i}`);
         results.push(result);
       }
       

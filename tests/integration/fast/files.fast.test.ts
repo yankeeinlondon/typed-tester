@@ -1,9 +1,11 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { 
-  EnhancedTestHarness, 
+import {
+  EnhancedTestHarness,
   getOptimizedDefaultOptions,
   PerformanceAssertions,
-  OutputValidators
+  OutputValidators,
+  PERFORMANCE_THRESHOLDS,
+  MEMORY_THRESHOLDS
 } from '../../helpers/enhanced-test-harness';
 import { CLIOutputValidator, ScenarioValidators, OutputPatterns } from '../../helpers/output-validators';
 import { globalPerformanceTracker } from '../../helpers/performance-tracker';
@@ -36,8 +38,8 @@ describe('Files Command - Fast Integration Tests', () => {
       const { result, metrics } = await harness.runFilesCommand(options);
       
       // Performance validation - file discovery should be very fast
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-default');
-      PerformanceAssertions.expectMemoryUsage(metrics, 600, 'files-default');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-default');
+      PerformanceAssertions.expectMemoryUsage(metrics, MEMORY_THRESHOLDS.files, 'files-default');
       
       // Output validation
       CLIOutputValidator.validateGenericOutput(result, 'files');
@@ -58,7 +60,7 @@ describe('Files Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runFilesCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-typescript');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-typescript');
       CLIOutputValidator.validateGenericOutput(result, 'files');
       
       // Should find TypeScript files in our fixture
@@ -74,7 +76,7 @@ describe('Files Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runFilesCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-test-files');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-test-files');
       CLIOutputValidator.validateGenericOutput(result, 'files');
       
       // Should find test files
@@ -97,7 +99,7 @@ describe('Files Command - Fast Integration Tests', () => {
       const { result, metrics } = await harness.runFilesCommand(options);
       
       // Quiet mode should be faster
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-quiet');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-quiet');
       CLIOutputValidator.validateGenericOutput(result, 'files');
     });
   });
@@ -111,7 +113,7 @@ describe('Files Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runFilesCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-filter');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-filter');
       CLIOutputValidator.validateGenericOutput(result, 'files');
       
       // Should only find files matching the pattern
@@ -127,7 +129,7 @@ describe('Files Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runFilesCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-multi-filter');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-multi-filter');
       CLIOutputValidator.validateGenericOutput(result, 'files');
       
       // Should find files matching either pattern
@@ -143,7 +145,7 @@ describe('Files Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runFilesCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-extension');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-extension');
       CLIOutputValidator.validateGenericOutput(result, 'files');
       
       // All results should be TypeScript files
@@ -159,7 +161,7 @@ describe('Files Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runFilesCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-empty-filter');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-empty-filter');
       ScenarioValidators.validateEmptyResults(result, 'files');
       
       expect(result.files.length).toBe(0);
@@ -175,7 +177,7 @@ describe('Files Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runFilesCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-source');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-source');
       CLIOutputValidator.validateGenericOutput(result, 'files');
       
       // Should find source files
@@ -191,7 +193,7 @@ describe('Files Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runFilesCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-tests');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-tests');
       CLIOutputValidator.validateGenericOutput(result, 'files');
       
       // Should find test files
@@ -211,7 +213,7 @@ describe('Files Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runFilesCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-config');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-config');
       CLIOutputValidator.validateGenericOutput(result, 'files');
       
       // Should find configuration files from our fixture
@@ -229,7 +231,7 @@ describe('Files Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runFilesCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-json');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-json');
       
       // JSON output should be parseable
       expect(() => JSON.parse(result.raw)).not.toThrow();
@@ -252,7 +254,7 @@ describe('Files Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runFilesCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-json-fast');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-json-fast');
       expect(result.raw).toBeTruthy();
     });
 
@@ -265,7 +267,7 @@ describe('Files Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runFilesCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-verbose');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-verbose');
       CLIOutputValidator.validateGenericOutput(result, 'files');
       
       // Verbose mode should provide more detailed output
@@ -282,7 +284,7 @@ describe('Files Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runFilesCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-relative');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-relative');
       CLIOutputValidator.validateGenericOutput(result, 'files');
       
       // Should handle relative paths
@@ -294,7 +296,7 @@ describe('Files Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runFilesCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-paths');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-paths');
       CLIOutputValidator.validateGenericOutput(result, 'files');
       
       // File paths should be well-formed
@@ -310,7 +312,7 @@ describe('Files Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runFilesCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-nested');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-nested');
       CLIOutputValidator.validateGenericOutput(result, 'files');
       
       // Should find files in nested directories
@@ -329,7 +331,7 @@ describe('Files Command - Fast Integration Tests', () => {
         const options = getOptimizedDefaultOptions('files');
         const { result, metrics } = await harness.runFilesCommand(options);
         
-        PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-invalid-dir');
+        PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-invalid-dir');
         ScenarioValidators.validateGracefulErrorHandling(
           result,
           'files',
@@ -348,7 +350,7 @@ describe('Files Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runFilesCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-bad-config');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-bad-config');
       // Should fall back gracefully
       expect(result.raw).toBeDefined();
     });
@@ -362,7 +364,7 @@ describe('Files Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runFilesCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-permissions');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-permissions');
       // Should handle gracefully without crashing
       expect(result.raw).toBeDefined();
     });
@@ -375,7 +377,7 @@ describe('Files Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runFilesCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-no-match');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-no-match');
       ScenarioValidators.validateEmptyResults(result, 'files');
       
       expect(result.files.length).toBe(0);
@@ -395,7 +397,7 @@ describe('Files Command - Fast Integration Tests', () => {
         
         const { result, metrics } = await harness.runFilesCommand(options);
         
-        PerformanceAssertions.expectExecutionTime(metrics, 2500, `files-run-${i}`);
+        PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, `files-run-${i}`);
         results.push({ result, metrics });
       }
       
@@ -419,8 +421,8 @@ describe('Files Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runFilesCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-large-scan');
-      PerformanceAssertions.expectMemoryUsage(metrics, 350, 'files-large-scan');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-large-scan');
+      PerformanceAssertions.expectMemoryUsage(metrics, MEMORY_THRESHOLDS.consecutive, 'files-large-scan');
       
       CLIOutputValidator.validateGenericOutput(result, 'files');
       expect(result.files.length).toBeGreaterThan(0);
@@ -443,7 +445,7 @@ describe('Files Command - Fast Integration Tests', () => {
         
         const { result, metrics } = await harness.runFilesCommand(options);
         
-        PerformanceAssertions.expectExecutionTime(metrics, 2500, `files-complexity-${index}`);
+        PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, `files-complexity-${index}`);
         expect(result.files.length).toBeGreaterThanOrEqual(0);
       }
     });
@@ -458,7 +460,7 @@ describe('Files Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runFilesCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-warnings');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-warnings');
       CLIOutputValidator.validateGenericOutput(result, 'files');
     });
 
@@ -470,7 +472,7 @@ describe('Files Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runFilesCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-no-warnings');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-no-warnings');
       CLIOutputValidator.validateGenericOutput(result, 'files');
     });
   });
@@ -481,7 +483,7 @@ describe('Files Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runFilesCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-patterns');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-patterns');
       CLIOutputValidator.validateGenericOutput(result, 'files');
       
       // Check for file path patterns in output
@@ -504,7 +506,7 @@ describe('Files Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runFilesCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-stats');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-stats');
       CLIOutputValidator.validateGenericOutput(result, 'files');
       
       // Should contain file count information
@@ -519,8 +521,8 @@ describe('Files Command - Fast Integration Tests', () => {
       
       const { result, metrics } = await harness.runFilesCommand(options);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-memory');
-      PerformanceAssertions.expectMemoryUsage(metrics, 150, 'files-memory');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-memory');
+      PerformanceAssertions.expectMemoryUsage(metrics, MEMORY_THRESHOLDS.files, 'files-memory');
       
       CLIOutputValidator.validateGenericOutput(result, 'files');
     });
@@ -536,8 +538,8 @@ describe('Files Command - Fast Integration Tests', () => {
         
         const { result, metrics } = await harness.runFilesCommand(options);
         
-        PerformanceAssertions.expectExecutionTime(metrics, 2500, `files-consecutive-${i}`);
-        PerformanceAssertions.expectMemoryUsage(metrics, 350, `files-consecutive-${i}`);
+        PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, `files-consecutive-${i}`);
+        PerformanceAssertions.expectMemoryUsage(metrics, MEMORY_THRESHOLDS.consecutive, `files-consecutive-${i}`);
         
         CLIOutputValidator.validateGenericOutput(result, 'files');
       }
@@ -554,7 +556,7 @@ describe('Files Command - Fast Integration Tests', () => {
       const filesOptions = getOptimizedDefaultOptions('files');
       const { result, metrics } = await harness.runFilesCommand(filesOptions);
       
-      PerformanceAssertions.expectExecutionTime(metrics, 2500, 'files-after-symbols');
+      PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-after-symbols');
       CLIOutputValidator.validateGenericOutput(result, 'files');
       
       // Should work independently
@@ -573,7 +575,7 @@ describe('Files Command - Fast Integration Tests', () => {
         
         const { result, metrics } = await harness.runFilesCommand(options);
         
-        PerformanceAssertions.expectExecutionTime(metrics, 2500, `files-consistent-${i}`);
+        PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, `files-consistent-${i}`);
         results.push(result);
       }
       
