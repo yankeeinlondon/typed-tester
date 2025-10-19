@@ -1,4 +1,3 @@
-import type { OptionDefinition } from "command-line-args";
 import type {
     AfterFirst,
     Dictionary,
@@ -8,6 +7,7 @@ import type {
     If,
     IsUndefined
 } from "inferred-types";
+import type { OptionDefinition } from "command-line-args";
 import type { command_options, global_options } from "./options";
 
 /**

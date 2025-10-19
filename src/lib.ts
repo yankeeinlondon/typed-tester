@@ -1,3 +1,3 @@
 // ENTRY POINT FOR TYPE UTILITIES
 
-export * from "./test-utilities/index"
+export * from "./test-utilities/index";
