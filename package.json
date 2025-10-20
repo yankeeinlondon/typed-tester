@@ -10,20 +10,16 @@
     "author": "Ken Snyder <ken@ken.net>",
     "type": "module",
     "bin": {
-        "typed": "bin/typed"
+        "typed": "./bin/typed.js"
     },
     "files": [
         "package.json",
         "bin"
     ],
     "scripts": {
-        "build": "npm-run-all build:clean build:mkdir build:transpile build:copy build:chmod build:success",
-        "build:chmod": "node -e \"const fs = require('fs'); const os = require('os'); if (os.platform() !== 'win32') { fs.chmodSync('./bin/typed', '755'); console.log('- granted execute permissions to ./bin/typed'); } else { console.log('- skipped chmod on Windows (not needed)'); }\"",
-        "build:clean": "rimraf ./bin",
-        "build:copy": "node -e \"require('fs').copyFileSync('./src/typed', './bin/typed'); console.log('- copied ./src/typed shell script to ./bin directory');\"",
-        "build:mkdir": "node -e \"require('fs').mkdirSync('./bin', { recursive: true }); console.log('- created ./bin directory');\"",
-        "build:success": "node -e \"console.log('\\n- 🚀 build successful\\n');\"",
+        "build": "bun run scripts/build.ts",
         "build:transpile": "tsdown src/typed.ts --format=esm -d bin --sourcemap",
+        "build:shebang": "echo '#/usr/bin/env bun run'",
         "diagnostics": "bun run ./scripts/get-diagnostics.ts",
         "lint": "eslint src",
         "release": "bumpp",
@@ -69,6 +65,7 @@
         "@vitest/coverage-v8": "^3.2.4",
         "@yankeeinlondon/claudine": "^0.4.1",
         "@yankeeinlondon/gotcha": "^0.2.3",
+        "inferred-types": "^1.2.3",
         "bumpp": "^10.3.1",
         "chalk": "^5.5.0",
         "eslint": "^9.38.0",

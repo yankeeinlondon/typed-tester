@@ -1,4 +1,4 @@
-#!/usr/bin/env bun run
+#!/usr/bin/env node
 
 import type { AsOption } from "./cli/cli-types";
 // CLI SCRIPT
