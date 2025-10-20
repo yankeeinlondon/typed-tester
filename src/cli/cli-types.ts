@@ -65,19 +65,20 @@ type _AsOption<
         >
     >;
 
+/* eslint-disable style/indent */
 export type AsOption<
     TCmd extends Command | null,
 > = TCmd extends null
     ? _AsOption<typeof global_options> & { cmd: string }
-
     : TCmd extends Command
-        ? { cmd: TCmd } & _AsOption<
-            [
-                ...typeof command_options[TCmd],
-                ...typeof global_options
-            ]
-        >
-        : never;
+    ? { cmd: TCmd } & _AsOption<
+        [
+            ...typeof command_options[TCmd],
+            ...typeof global_options
+        ]
+    >
+    : never;
+/* eslint-enable style/indent */
 
 export interface CommandOptions {
     test: AsOption<"test">;

@@ -19,9 +19,9 @@ export function getImportsForFile(file: SourceFile): SymbolImport[] {
     const importDeclarations = file.getImportDeclarations();
     const imported: SymbolImport[] = [];
 
-    importDeclarations.map((iDecl) => {
+    importDeclarations.forEach((iDecl) => {
     // named imports
-        iDecl.getNamedImports().map((namedImport) => {
+        iDecl.getNamedImports().forEach((namedImport) => {
             const symbol = namedImport.getSymbol();
             const alias = namedImport.getAliasNode()?.getText() || namedImport.getName();
             if (symbol) {

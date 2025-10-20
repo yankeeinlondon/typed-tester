@@ -385,15 +385,94 @@ export class EnhancedTestHarness {
   }
 
   /**
+   * Parse JSON test output (when --json flag is used)
+   */
+  private parseJsonTestOutput(jsonData: any, rawOutput: string): TestCommandOutput {
+    const files: string[] = [];
+    const symbols: Array<{ name: string; type: string; status: 'pass' | 'fail' | 'error' }> = [];
+    let totalTests = 0;
+    let passed = 0;
+    let failed = 0;
+    const errors: string[] = [];
+
+    // JSON output is an array of test file results
+    if (Array.isArray(jsonData)) {
+      for (const fileResult of jsonData) {
+        if (fileResult.filepath) {
+          files.push(fileResult.filepath);
+        }
+
+        // Count tests from blocks
+        if (fileResult.blocks && Array.isArray(fileResult.blocks)) {
+          for (const block of fileResult.blocks) {
+            if (block.tests && Array.isArray(block.tests)) {
+              for (const test of block.tests) {
+                totalTests++;
+
+                // Collect symbols from test
+                if (test.symbols && Array.isArray(test.symbols)) {
+                  for (const sym of test.symbols) {
+                    if (!symbols.find(s => s.name === sym.name)) {
+                      const hasErrors = test.diagnostics && test.diagnostics.length > 0;
+                      symbols.push({
+                        name: sym.name,
+                        type: sym.kind || 'unknown',
+                        status: hasErrors ? 'fail' : 'pass'
+                      });
+                    }
+                  }
+                }
+
+                // Check for errors
+                if (test.diagnostics && test.diagnostics.length > 0) {
+                  failed++;
+                  for (const diag of test.diagnostics) {
+                    errors.push(`${diag.msg} (${diag.code})`);
+                  }
+                } else {
+                  passed++;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return {
+      raw: rawOutput,
+      summary: {
+        totalTests,
+        passed,
+        failed,
+        errors
+      },
+      files,
+      symbols
+    };
+  }
+
+  /**
    * Parse test command output into structured format
    */
   private parseTestOutput(output: string): TestCommandOutput {
+    // Try to parse as JSON first (when --json flag is used)
+    try {
+      const trimmed = output.trim();
+      if (trimmed.startsWith('[') || trimmed.startsWith('{')) {
+        const jsonData = JSON.parse(trimmed);
+        return this.parseJsonTestOutput(jsonData, output);
+      }
+    } catch {
+      // Not JSON, continue with text parsing
+    }
+
     // Use output directly since we no longer prefix console.error with "ERROR:"
     const cleanedOutput = output;
-    
+
     // Debug: temporarily show file parsing progress
     console.log(`[DEBUG] Starting parsing with ${cleanedOutput.split('\n').length} lines`);
-    
+
     const lines = cleanedOutput.split('\n');
     const summary = {
       totalTests: 0,
