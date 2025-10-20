@@ -1,7 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import type { FileDiagnostic } from '~/types';
 import type { AsOption } from '~/cli';
-import { filterTestFilesByPattern } from '~/utils/testing';
 
 // Mock the diagnostic analysis logic from source command
 interface DiagnosticSummary {
@@ -34,19 +33,19 @@ function analyzeDiagnostics(
 
     for (const diagnostic of fileData.diagnostics) {
       const isWarning = opt.warn.includes(diagnostic.code);
-      
+
       if (isWarning) {
         summary.totalWarnings++;
         fileHasWarnings = true;
         summary.warningsByCode.set(
-          diagnostic.code, 
+          diagnostic.code,
           (summary.warningsByCode.get(diagnostic.code) || 0) + 1
         );
       } else {
         summary.totalErrors++;
         fileHasErrors = true;
         summary.errorsByCode.set(
-          diagnostic.code, 
+          diagnostic.code,
           (summary.errorsByCode.get(diagnostic.code) || 0) + 1
         );
       }
@@ -59,7 +58,7 @@ function analyzeDiagnostics(
   return summary;
 }
 
-describe('source command functionality', () => {
+describe('diagnostic analysis', () => {
   const mockOpt: any = {
     warn: [],
     verbose: false,
@@ -87,7 +86,7 @@ describe('source command functionality', () => {
 
     it('should count errors correctly', () => {
       const filesDiagnostics = [
-{
+        {
           filepath: 'file1.ts',
           diagnostics: [
             { code: 2344, msg: 'Type error 1', category: 1, filepath: 'file1.ts', loc: { lineNumber: 1, column: 1, start: 0, length: 10 }},
@@ -235,4 +234,3 @@ describe('source command functionality', () => {
     });
   });
 });
-
