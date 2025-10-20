@@ -44,8 +44,24 @@ export const command_options = {
     /** source graph options */
     symbols: [
         CMD,
-        { name: "filter", type: String, alias: "f", multiple: true, typeLabel: chalk.underline("substr[]"), description: `only report on symbols which match filter string` },
-
+        {
+            name: "runtime",
+            type: Boolean,
+            alias: "r",
+            description: `filter to show only runtime symbols (functions, classes, variables)`
+        },
+        {
+            name: "types",
+            type: Boolean,
+            alias: "t",
+            description: `filter to show only design-time type symbols`
+        },
+        {
+            name: "case-sensitive",
+            type: Boolean,
+            alias: "c",
+            description: `treat filter criteria as case-sensitive (default: case-insensitive)`
+        },
         {
             name: "clear",
             type: Boolean,

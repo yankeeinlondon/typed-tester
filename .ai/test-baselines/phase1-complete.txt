@@ -1,0 +1,192 @@
+
+> typed-tester@0.11.10 test
+> vitest run unit
+
+
+ RUN  v3.2.4 /Volumes/coding/personal/typed-tester
+
+ ✓ tests/unit/cli-options.test.ts > symbols command options > should include runtime flag option 1ms
+ ✓ tests/unit/cli-options.test.ts > symbols command options > should include types flag option 1ms
+ ✓ tests/unit/cli-options.test.ts > symbols command options > should include case-sensitive flag option 1ms
+ ✓ tests/unit/cli-options.test.ts > symbols command options > should NOT include deprecated filter option 1ms
+ ✓ tests/unit/cli-options.test.ts > symbols command options > should still include clear flag option 1ms
+ ↓ tests/unit/source-command/source-command-enhanced.test.ts > source command enhanced features > diagnostic lookup integration > should handle unknown error codes gracefully
+ ✓ tests/unit/source-command/source-command-enhanced.test.ts > source command enhanced features > diagnostic lookup integration > should get diagnostic message for known error codes 2ms
+ ✓ tests/unit/source-command/source-command-enhanced.test.ts > source command enhanced features > diagnostic lookup integration > should format error display with description 2ms
+ ✓ tests/unit/source-command/source-command-enhanced.test.ts > source command enhanced features > file filtering with positional arguments > should filter files by single pattern 2ms
+ ✓ tests/unit/source-command/source-command-enhanced.test.ts > source command enhanced features > file filtering with positional arguments > should filter files by multiple patterns 2ms
+ ✓ tests/unit/source-command/source-command-enhanced.test.ts > source command enhanced features > file filtering with positional arguments > should handle negation patterns 1ms
+ ✓ tests/unit/source-command/source-command-enhanced.test.ts > source command enhanced features > file filtering with positional arguments > should report excluded file counts 1ms
+ ✓ tests/unit/source-command/source-command-enhanced.test.ts > source command enhanced features > verbose mode enhancements > should group files by error code 1ms
+ ✓ tests/unit/source-command/source-command-enhanced.test.ts > source command enhanced features > verbose mode enhancements > should format files with prettyPath 1ms
+ ✓ tests/unit/source-command/source-command-enhanced.test.ts > source command enhanced features > verbose mode enhancements > should show error count per file 1ms
+ ✓ tests/unit/source-command/source-command-enhanced.test.ts > source command enhanced features > verbose mode enhancements > should format complete verbose error section 1ms
+ ✓ tests/unit/source-command/source-command-enhanced.test.ts > source command enhanced features > error code link formatting > should create clickable links for error codes 0ms
+ ✓ tests/unit/source-command/source-command-enhanced.test.ts > source command enhanced features > error code link formatting > should integrate code links in error display 0ms
+ ✓ tests/unit/source-command/source-command-enhanced.test.ts > source command enhanced features > file reporting improvements > should show clear file exclusion reasons 0ms
+ ✓ tests/unit/source-command/source-command-enhanced.test.ts > source command enhanced features > file reporting improvements > should show filter patterns when applied 0ms
+ ✓ tests/unit/source-command/source-command-enhanced.test.ts > source command enhanced features > file reporting improvements > should handle no filters gracefully 0ms
+ ✓ tests/unit/source-command/source-command-enhanced.test.ts > source command enhanced features > integration scenarios > should handle large error counts gracefully 0ms
+ ✓ tests/unit/source-command/source-command-enhanced.test.ts > source command enhanced features > integration scenarios > should handle multiple error codes in order of frequency 0ms
+ ✓ tests/unit/source-command/source-command-enhanced.test.ts > source command enhanced features > integration scenarios > should format complete diagnostic summary 0ms
+ ✓ tests/unit/symbol-command/symbols-command.test.ts > symbols command functionality > filterSymbols > should return limited symbols when no filter is provided 2ms
+ ✓ tests/unit/symbol-command/symbols-command.test.ts > symbols command functionality > filterSymbols > should return limited symbols when empty filter array is provided 2ms
+ ✓ tests/unit/symbol-command/symbols-command.test.ts > symbols command functionality > filterSymbols > should filter symbols by name (case insensitive) 2ms
+ ✓ tests/unit/symbol-command/symbols-command.test.ts > symbols command functionality > filterSymbols > should filter symbols by FQN 2ms
+ ✓ tests/unit/symbol-command/symbols-command.test.ts > symbols command functionality > filterSymbols > should handle multiple filters (OR logic) 2ms
+ ✓ tests/unit/symbol-command/symbols-command.test.ts > symbols command functionality > filterSymbols > should handle case insensitive filtering 1ms
+ ✓ tests/unit/symbol-command/symbols-command.test.ts > symbols command functionality > filterSymbols > should return empty array when no matches found 1ms
+ ✓ tests/unit/symbol-command/symbols-command.test.ts > symbols command functionality > filterSymbols > should handle partial name matches 1ms
+ ✓ tests/unit/symbol-command/symbols-command.test.ts > symbols command functionality > symbol analysis > should identify type symbols correctly 1ms
+ ✓ tests/unit/symbol-command/symbols-command.test.ts > symbols command functionality > symbol analysis > should have valid file paths 1ms
+ ✓ tests/unit/symbol-command/symbols-command.test.ts > symbols command functionality > symbol analysis > should have properly formatted FQNs 0ms
+ ✓ tests/unit/type-guards/general-guards.test.ts > General Type Guards > isObject > should return true for plain objects 1ms
+ ✓ tests/unit/type-guards/general-guards.test.ts > General Type Guards > isObject > should return true for objects with symbols as keys 1ms
+ ✓ tests/unit/type-guards/general-guards.test.ts > General Type Guards > isObject > should return true for class instances 1ms
+ ✓ tests/unit/type-guards/general-guards.test.ts > General Type Guards > isObject > should return true for objects created with Object.create 1ms
+ ✓ tests/unit/type-guards/general-guards.test.ts > General Type Guards > isObject > should return false for null 1ms
+ ✓ tests/unit/type-guards/general-guards.test.ts > General Type Guards > isObject > should return false for undefined 0ms
+ ✓ tests/unit/type-guards/general-guards.test.ts > General Type Guards > isObject > should return false for arrays 0ms
+ ✓ tests/unit/type-guards/general-guards.test.ts > General Type Guards > isObject > should return false for primitives 0ms
+ ✓ tests/unit/type-guards/general-guards.test.ts > General Type Guards > isObject > should return false for functions 0ms
+ ✓ tests/unit/type-guards/general-guards.test.ts > General Type Guards > isObject > should return false for Date objects 0ms
+ ✓ tests/unit/type-guards/general-guards.test.ts > General Type Guards > isObject > should return false for RegExp objects 0ms
+ ✓ tests/unit/type-guards/general-guards.test.ts > General Type Guards > isObject > should handle edge cases 0ms
+ ✓ tests/unit/type-guards/general-guards.test.ts > General Type Guards > isObject > should work with frozen objects 0ms
+ ✓ tests/unit/type-guards/general-guards.test.ts > General Type Guards > isObject > should work with sealed objects 0ms
+ ✓ tests/unit/type-guards/general-guards.test.ts > General Type Guards > isCommand > should return true for valid command names 0ms
+ ✓ tests/unit/type-guards/general-guards.test.ts > General Type Guards > isCommand > should return false for invalid command names 0ms
+ ✓ tests/unit/type-guards/general-guards.test.ts > General Type Guards > isCommand > should return false for empty string 0ms
+ ✓ tests/unit/type-guards/general-guards.test.ts > General Type Guards > isCommand > should return false for non-string values 0ms
+ ✓ tests/unit/type-guards/general-guards.test.ts > General Type Guards > isCommand > should be case-sensitive 0ms
+ ✓ tests/unit/type-guards/general-guards.test.ts > General Type Guards > isCommand > should not accept partial matches 0ms
+ ✓ tests/unit/type-guards/general-guards.test.ts > General Type Guards > isCommand > should not accept commands with extra characters 0ms
+ ✓ tests/unit/type-guards/general-guards.test.ts > General Type Guards > isCommand > should handle commands with special characters 0ms
+ ✓ tests/unit/type-guards/general-guards.test.ts > General Type Guards > Type guard interactions > should work together for command validation 0ms
+ ✓ tests/unit/type-guards/general-guards.test.ts > General Type Guards > Type guard interactions > should validate command objects 0ms
+ ✓ tests/unit/type-guards/general-guards.test.ts > General Type Guards > Type guard interactions > should handle mixed type arrays 0ms
+ ✓ tests/unit/ast/symbols/symbol-metadata.test.ts > Symbol Metadata Functions > asSymbolMeta > should convert a Symbol to SymbolMeta 194ms
+ ✓ tests/unit/ast/symbols/symbol-metadata.test.ts > Symbol Metadata Functions > asSymbolMeta > should handle class symbols 194ms
+ ✓ tests/unit/ast/symbols/symbol-metadata.test.ts > Symbol Metadata Functions > asSymbolMeta > should handle function symbols 194ms
+ ✓ tests/unit/ast/symbols/symbol-metadata.test.ts > Symbol Metadata Functions > asSymbolMeta > should handle local (non-exported) symbols 194ms
+ ✓ tests/unit/ast/symbols/symbol-metadata.test.ts > Symbol Metadata Functions > asSymbolMeta > should capture generics 194ms
+ ✓ tests/unit/ast/symbols/fqn-generation.test.ts > Fully Qualified Name (FQN) Generation > createFullyQualifiedNameForSymbol > should generate module FQN for exported symbols 194ms
+ ✓ tests/unit/ast/symbols/fqn-generation.test.ts > Fully Qualified Name (FQN) Generation > createFullyQualifiedNameForSymbol > should generate local FQN for non-exported symbols 194ms
+ ✓ tests/unit/ast/symbols/fqn-generation.test.ts > Fully Qualified Name (FQN) Generation > createFullyQualifiedNameForSymbol > should generate unique FQNs for symbols with same name in different files 194ms
+ ✓ tests/unit/ast/symbols/fqn-generation.test.ts > Fully Qualified Name (FQN) Generation > createFullyQualifiedNameForSymbol > should generate stable FQNs for the same symbol 194ms
+ ✓ tests/unit/ast/symbols/fqn-generation.test.ts > Fully Qualified Name (FQN) Generation > createFullyQualifiedNameForSymbol > should handle symbols with special characters in names 194ms
+ ✓ tests/unit/ast/symbols/fqn-generation.test.ts > Fully Qualified Name (FQN) Generation > createFullyQualifiedNameForSymbol > should distinguish between different symbol kinds with same name 120ms
+ ✓ tests/unit/ast/symbols/fqn-generation.test.ts > Fully Qualified Name (FQN) Generation > createFullyQualifiedNameForSymbol > should handle nested module symbols 120ms
+ ✓ tests/unit/ast/symbols/fqn-generation.test.ts > Fully Qualified Name (FQN) Generation > createFullyQualifiedNameForSymbol > should generate consistent hash for same file path 120ms
+ ✓ tests/unit/ast/symbols/fqn-generation.test.ts > Fully Qualified Name (FQN) Generation > FQN format validation > should always generate valid FQN format 120ms
+ ✓ tests/unit/ast/symbols/symbol-extraction.test.ts > Symbol Extraction from Source Files > Type Symbol Extraction > should extract type alias symbols 197ms
+ ✓ tests/unit/ast/symbols/symbol-extraction.test.ts > Symbol Extraction from Source Files > Type Symbol Extraction > should extract interface symbols 197ms
+ ✓ tests/unit/ast/symbols/symbol-extraction.test.ts > Symbol Extraction from Source Files > Type Symbol Extraction > should extract enum symbols 197ms
+ ✓ tests/unit/ast/symbols/symbol-extraction.test.ts > Symbol Extraction from Source Files > Function Symbol Extraction > should extract function declarations 197ms
+ ✓ tests/unit/ast/symbols/symbol-extraction.test.ts > Symbol Extraction from Source Files > Function Symbol Extraction > should extract arrow function constants 197ms
+ ✓ tests/unit/ast/symbols/symbol-metadata.test.ts > Symbol Metadata Functions > asSymbolReference > should create SymbolReference from Symbol 115ms
+ ✓ tests/unit/ast/symbols/symbol-metadata.test.ts > Symbol Metadata Functions > asSymbolReference > should create SymbolReference from SymbolMeta 115ms
+ ✓ tests/unit/ast/symbols/symbol-metadata.test.ts > Symbol Metadata Functions > getSymbolName > should get name from Symbol 115ms
+ ✓ tests/unit/ast/symbols/symbol-metadata.test.ts > Symbol Metadata Functions > getSymbolName > should get name from SymbolMeta 115ms
+ ✓ tests/unit/ast/symbols/symbol-metadata.test.ts > Symbol Metadata Functions > getSymbolScope > should return "module" for exported symbols 115ms
+ ✓ tests/unit/ast/symbols/symbol-metadata.test.ts > Symbol Metadata Functions > getSymbolScope > should return "local" for non-exported symbols 69ms
+ ✓ tests/unit/ast/symbols/symbol-metadata.test.ts > Symbol Metadata Functions > isExternalSymbol > should return false for project symbols 69ms
+ ✓ tests/unit/ast/symbols/symbol-metadata.test.ts > Symbol Metadata Functions > Symbol metadata integrity > should preserve all properties through conversion 69ms
+ ✓ tests/unit/ast/symbols/symbol-extraction.test.ts > Symbol Extraction from Source Files > Function Symbol Extraction > should extract async functions 122ms
+ ✓ tests/unit/ast/symbols/symbol-extraction.test.ts > Symbol Extraction from Source Files > Class Symbol Extraction > should extract class declarations 122ms
+ ✓ tests/unit/ast/symbols/symbol-extraction.test.ts > Symbol Extraction from Source Files > Class Symbol Extraction > should extract abstract classes 122ms
+ ✓ tests/unit/ast/symbols/symbol-extraction.test.ts > Symbol Extraction from Source Files > Variable Symbol Extraction > should extract const variables 122ms
+ ✓ tests/unit/ast/symbols/symbol-extraction.test.ts > Symbol Extraction from Source Files > Export Detection > should detect exported symbols 122ms
+ ✓ tests/unit/ast/symbols/symbol-extraction.test.ts > Symbol Extraction from Source Files > Export Detection > should detect non-exported (local) symbols 103ms
+ ✓ tests/unit/ast/symbols/symbol-extraction.test.ts > Symbol Extraction from Source Files > Export Detection > should detect default exports 103ms
+ ✓ tests/unit/ast/symbols/symbol-extraction.test.ts > Symbol Extraction from Source Files > Export Detection > should detect named exports 103ms
+ ✓ tests/unit/ast/symbols/symbol-extraction.test.ts > Symbol Extraction from Source Files > Symbol Kind Classification > should correctly classify symbol kinds 103ms
+ ✓ tests/unit/ast/symbols/symbol-extraction.test.ts > Symbol Extraction from Source Files > Complex Type Structures > should extract symbols from generic types 103ms
+ ✓ tests/unit/ast/symbols/symbol-extraction.test.ts > Symbol Extraction from Source Files > Complex Type Structures > should extract symbols from conditional types 65ms
+ ✓ tests/unit/ast/symbols/symbol-extraction.test.ts > Symbol Extraction from Source Files > Complex Type Structures > should extract symbols from mapped types 65ms
+ ✓ tests/unit/ast/symbols/symbol-extraction.test.ts > Symbol Extraction from Source Files > Multiple Symbol Files > should extract symbols from multiple source files 65ms
+ ✓ tests/unit/type-guards/symbol-guards.test.ts > Symbol Type Guards > isSymbolMeta > should return true for valid SymbolMeta 1ms
+ ✓ tests/unit/type-guards/symbol-guards.test.ts > Symbol Type Guards > isSymbolMeta > should return false for SymbolMeta with dependsOn 1ms
+ ✓ tests/unit/type-guards/symbol-guards.test.ts > Symbol Type Guards > isSymbolMeta > should return false for non-objects 1ms
+ ✓ tests/unit/type-guards/symbol-guards.test.ts > Symbol Type Guards > isSymbolMeta > should return false for objects missing name 1ms
+ ✓ tests/unit/type-guards/symbol-guards.test.ts > Symbol Type Guards > isSymbolMeta > should return false for objects missing fqn 1ms
+ ✓ tests/unit/type-guards/symbol-guards.test.ts > Symbol Type Guards > isSymbolMeta > should return false for empty object 0ms
+ ✓ tests/unit/type-guards/symbol-guards.test.ts > Symbol Type Guards > isSymbolMetaWithDependencies > should return true for SymbolMeta with dependsOn array 0ms
+ ✓ tests/unit/type-guards/symbol-guards.test.ts > Symbol Type Guards > isSymbolMetaWithDependencies > should return true for SymbolMeta with empty dependsOn array 0ms
+ ✓ tests/unit/type-guards/symbol-guards.test.ts > Symbol Type Guards > isSymbolMetaWithDependencies > should return false for SymbolMeta without dependsOn 0ms
+ ✓ tests/unit/type-guards/symbol-guards.test.ts > Symbol Type Guards > isSymbolMetaWithDependencies > should return false for non-objects 0ms
+ ✓ tests/unit/type-guards/symbol-guards.test.ts > Symbol Type Guards > isSymbolMetaWithDependencies > should return false for objects with non-array dependsOn 0ms
+ ✓ tests/unit/type-guards/symbol-guards.test.ts > Symbol Type Guards > isSymbol > should return true for objects with Symbol-like methods 0ms
+ ✓ tests/unit/type-guards/symbol-guards.test.ts > Symbol Type Guards > isSymbol > should return false for objects missing getExports 0ms
+ ✓ tests/unit/type-guards/symbol-guards.test.ts > Symbol Type Guards > isSymbol > should return false for objects missing getName 0ms
+ ✓ tests/unit/type-guards/symbol-guards.test.ts > Symbol Type Guards > isSymbol > should return false for non-objects 0ms
+ ✓ tests/unit/type-guards/symbol-guards.test.ts > Symbol Type Guards > isSymbol > should return false for empty object 0ms
+ ✓ tests/unit/type-guards/symbol-guards.test.ts > Symbol Type Guards > isFQN > should return true for local FQN 0ms
+ ✓ tests/unit/type-guards/symbol-guards.test.ts > Symbol Type Guards > isFQN > should return true for module FQN 0ms
+ ✓ tests/unit/type-guards/symbol-guards.test.ts > Symbol Type Guards > isFQN > should return true for external FQN 0ms
+ ✓ tests/unit/type-guards/symbol-guards.test.ts > Symbol Type Guards > isFQN > should return false for invalid prefixes 0ms
+ ✓ tests/unit/type-guards/symbol-guards.test.ts > Symbol Type Guards > isFQN > should return false for malformed FQN 0ms
+ ✓ tests/unit/type-guards/symbol-guards.test.ts > Symbol Type Guards > isFQN > should return false for empty or invalid strings 0ms
+ ✓ tests/unit/type-guards/symbol-guards.test.ts > Symbol Type Guards > isFQN > should handle edge cases with special characters in name 0ms
+ ✓ tests/unit/type-guards/symbol-guards.test.ts > Symbol Type Guards > isFQN > should work with FQNs generated by MockASTBuilder 0ms
+ ✓ tests/unit/source-command/source-command.test.ts > source command functionality > analyzeDiagnostics > should handle files with no diagnostics 1ms
+ ✓ tests/unit/source-command/source-command.test.ts > source command functionality > analyzeDiagnostics > should count errors correctly 1ms
+ ✓ tests/unit/source-command/source-command.test.ts > source command functionality > analyzeDiagnostics > should handle warnings when warn codes are specified 1ms
+ ✓ tests/unit/source-command/source-command.test.ts > source command functionality > analyzeDiagnostics > should aggregate error codes correctly 1ms
+ ✓ tests/unit/source-command/source-command.test.ts > source command functionality > analyzeDiagnostics > should handle mixed errors and warnings in same file 1ms
+ ✓ tests/unit/source-command/source-command.test.ts > source command functionality > analyzeDiagnostics > should handle empty files list 0ms
+ ✓ tests/unit/source-command/source-command.test.ts > source command functionality > diagnostic code aggregation > should sort error codes by frequency 0ms
+ ✓ tests/unit/type-guards/diagnostic-guards.test.ts > Diagnostic Type Guards > isFileDiagnostic > should return true for valid FileDiagnostic structure 1ms
+ ✓ tests/unit/type-guards/diagnostic-guards.test.ts > Diagnostic Type Guards > isFileDiagnostic > should return true with empty diagnostics array 1ms
+ ✓ tests/unit/type-guards/diagnostic-guards.test.ts > Diagnostic Type Guards > isFileDiagnostic > should return false for non-objects 1ms
+ ✓ tests/unit/type-guards/diagnostic-guards.test.ts > Diagnostic Type Guards > isFileDiagnostic > should return false for objects missing file property 1ms
+ ✓ tests/unit/type-guards/diagnostic-guards.test.ts > Diagnostic Type Guards > isFileDiagnostic > should return false for objects missing diagnostics property 1ms
+ ✓ tests/unit/type-guards/diagnostic-guards.test.ts > Diagnostic Type Guards > isFileDiagnostic > should return false when file is not a string 0ms
+ ✓ tests/unit/type-guards/diagnostic-guards.test.ts > Diagnostic Type Guards > isFileDiagnostic > should return false for empty object 0ms
+ ✓ tests/unit/type-guards/diagnostic-guards.test.ts > Diagnostic Type Guards > isFileDiagnostic > should handle file paths with various formats 0ms
+ ✓ tests/unit/type-guards/diagnostic-guards.test.ts > Diagnostic Type Guards > isTsMorphDiagnostic > should return true for ts-morph Diagnostic-like objects 0ms
+ ✓ tests/unit/type-guards/diagnostic-guards.test.ts > Diagnostic Type Guards > isTsMorphDiagnostic > should return false for objects missing getCode method 0ms
+ ✓ tests/unit/type-guards/diagnostic-guards.test.ts > Diagnostic Type Guards > isTsMorphDiagnostic > should return false for objects where getCode is not a function 0ms
+ ✓ tests/unit/type-guards/diagnostic-guards.test.ts > Diagnostic Type Guards > isTsMorphDiagnostic > should return false for objects missing getStart 0ms
+ ✓ tests/unit/type-guards/diagnostic-guards.test.ts > Diagnostic Type Guards > isTsMorphDiagnostic > should return false for non-objects 0ms
+ ✓ tests/unit/type-guards/diagnostic-guards.test.ts > Diagnostic Type Guards > isTsMorphDiagnostic > should return false for empty object 0ms
+ ✓ tests/unit/type-guards/diagnostic-guards.test.ts > Diagnostic Type Guards > isTsDiagnostic > should return true for TypeScript Diagnostic objects 0ms
+ ✓ tests/unit/type-guards/diagnostic-guards.test.ts > Diagnostic Type Guards > isTsDiagnostic > should return true with minimal required properties 0ms
+ ✓ tests/unit/type-guards/diagnostic-guards.test.ts > Diagnostic Type Guards > isTsDiagnostic > should return false for objects where code is not a number 0ms
+ ✓ tests/unit/type-guards/diagnostic-guards.test.ts > Diagnostic Type Guards > isTsDiagnostic > should return false for objects missing code property 0ms
+ ✓ tests/unit/type-guards/diagnostic-guards.test.ts > Diagnostic Type Guards > isTsDiagnostic > should return false for non-objects 0ms
+ ✓ tests/unit/type-guards/diagnostic-guards.test.ts > Diagnostic Type Guards > isTsDiagnostic > should return false for empty object 0ms
+ ✓ tests/unit/type-guards/diagnostic-guards.test.ts > Diagnostic Type Guards > isTsDiagnostic > should handle all TypeScript diagnostic codes 0ms
+ ✓ tests/unit/type-guards/diagnostic-guards.test.ts > Diagnostic Type Guards > Diagnostic guard distinctions > should distinguish ts-morph Diagnostic from TS Diagnostic 0ms
+ ✓ tests/unit/type-guards/diagnostic-guards.test.ts > Diagnostic Type Guards > Diagnostic guard distinctions > should distinguish FileDiagnostic from both TS diagnostic types 0ms
+ ✓ tests/unit/utils/prettyPath.test.ts > prettyPath() > should format a path with directory and filename 1ms
+ ✓ tests/unit/utils/prettyPath.test.ts > prettyPath() > should handle relative paths 1ms
+ ✓ tests/unit/utils/prettyPath.test.ts > prettyPath() > should handle filename only (no directory) 1ms
+ ✓ tests/unit/utils/prettyPath.test.ts > prettyPath() > should handle current directory paths 1ms
+ ✓ tests/unit/utils/prettyPath.test.ts > prettyPath() > should handle nested directories 1ms
+ ✓ tests/unit/utils/prettyPath.test.ts > prettyPath() > should handle Windows-style paths 1ms
+ ✓ tests/unit/utils/prettyPath.test.ts > prettyPath() > should handle paths with special characters 1ms
+ ✓ tests/unit/utils/prettyPath.test.ts > prettyPath() > should handle paths with spaces 1ms
+ ✓ tests/unit/utils/prettyPath.test.ts > prettyPath() > should handle empty string 1ms
+ ✓ tests/unit/utils/prettyPath.test.ts > prettyPath() > should handle root path 1ms
+ ✓ tests/unit/utils/prettyPath.test.ts > prettyPath() > should handle parent directory references 0ms
+ ✓ tests/unit/utils/prettyPath.test.ts > prettyPath() > should handle multiple parent directory references 0ms
+ ✓ tests/unit/test-command/test-command.test.ts > calculateTestSummary > should correctly count errors when no tests have errors 1ms
+ ✓ tests/unit/test-command/test-command.test.ts > calculateTestSummary > should correctly count errors when tests have errors (regression test for main bug) 1ms
+ ✓ tests/unit/test-command/test-command.test.ts > calculateTestSummary > should handle warnings correctly when warn codes are specified 1ms
+ ✓ tests/unit/test-command/test-command.test.ts > calculateTestSummary > should identify slow tests correctly 1ms
+ ✓ tests/unit/test-command/test-command.test.ts > calculateTestSummary > should count skipped tests correctly 1ms
+ ✓ tests/unit/utils/source-file-links.test.ts > source command file link generation > absolute path handling > should generate file links with absolute paths 1ms
+ ✓ tests/unit/utils/source-file-links.test.ts > source command file link generation > absolute path handling > should handle already absolute paths 1ms
+ ✓ tests/unit/utils/source-file-links.test.ts > source command file link generation > absolute path handling > should handle Windows-style paths 1ms
+ ✓ tests/unit/utils/source-file-links.test.ts > source command file link generation > display text formatting > should use relative path for display while keeping absolute path for link 1ms
+ ✓ tests/unit/utils/lookups.test.ts > diagnosticLookup() > happy path 1ms
+ ✓ tests/unit/utils/filtering.test.ts > filterTestFilesByPattern > should handle negative filters correctly 1ms
+ ✓ tests/unit/utils/filtering.test.ts > filterTestFilesByPattern > should handle only negative filters correctly 1ms
+
+ Test Files  15 passed (15)
+      Tests  177 passed | 1 skipped (178)
+   Start at  15:36:19
+   Duration  1.77s (transform 245ms, setup 0ms, collect 2.75s, tests 1.21s, environment 1ms, prepare 472ms)
+
+JUNIT report written to /Volumes/coding/personal/typed-tester/test-results.xml

@@ -36,7 +36,7 @@ else {
                     await test_command(cli as AsOption<"test">, positionalArgs);
                     break;
                 case "symbols":
-                    await symbols_command(cli as AsOption<"symbols">);
+                    await symbols_command(cli as AsOption<"symbols">, positionalArgs);
                     break;
                 case "deps":
                     await deps_command(cli as AsOption<"deps">);

@@ -7,6 +7,72 @@ import { msg } from "~/utils";
 
 export const MAX_SYMBOLS = 10;
 
+// Export these for testing
+export interface FilterOptions {
+    filters: string[];           // positional arguments
+    caseSensitive: boolean;      // --case-sensitive flag
+    runtime?: boolean;           // --runtime flag
+    types?: boolean;             // --types flag
+}
+
+/**
+ * Check if a symbol name matches a filter string
+ * @param symbolName - The name of the symbol to check
+ * @param filter - The filter string (may be quoted for exact match)
+ * @param caseSensitive - Whether to use case-sensitive matching for unquoted filters
+ * @returns true if the symbol matches the filter
+ */
+export function matchesFilter(symbolName: string, filter: string, caseSensitive: boolean): boolean {
+    // Check if filter is quoted (literal match)
+    const isQuoted = (filter.startsWith('"') && filter.endsWith('"')) ||
+                     (filter.startsWith("'") && filter.endsWith("'"));
+
+    if (isQuoted) {
+        // Literal case-sensitive exact match
+        const literalFilter = filter.slice(1, -1); // Remove quotes
+        return symbolName === literalFilter;
+    } else {
+        // Substring match
+        if (caseSensitive) {
+            return symbolName.includes(filter);
+        } else {
+            return symbolName.toLowerCase().includes(filter.toLowerCase());
+        }
+    }
+}
+
+/**
+ * Filter symbols based on provided filter options
+ */
+export function filterSymbols(
+    symbols: SymbolMeta[],
+    options: FilterOptions
+): SymbolMeta[] {
+    let filtered = symbols;
+
+    // Apply runtime/types filters first
+    if (options.runtime && options.types) {
+        // Both flags set - show warning and ignore both
+        console.warn("Cannot use both --runtime and --types flags; showing all symbols");
+    } else if (options.runtime) {
+        filtered = filtered.filter(s =>
+            s.isFunction || s.isVariable ||
+            s.kind === 'class' || s.kind === 'function' || s.kind === 'const-function'
+        );
+    } else if (options.types) {
+        filtered = filtered.filter(s => s.isTypeSymbol);
+    }
+
+    // Apply name filters if provided
+    if (options.filters.length === 0) {
+        return filtered; // Return all filtered symbols
+    }
+
+    return filtered.filter(symbol =>
+        options.filters.some(filter => matchesFilter(symbol.name, filter, options.caseSensitive))
+    );
+}
+
 /**
  * Convert DependencyNode to SymbolMeta with dependency information
  */
@@ -93,25 +159,12 @@ function getDirectSymbolAnalysis(project: any): SymbolMeta[] {
     return symbols;
 }
 
-function filterSymbols(symbols: SymbolMeta[], filters: string[]): SymbolMeta[] {
-    if (!filters || filters.length === 0) {
-        return symbols; // Return all symbols (no limit)
-    }
-
-    return symbols.filter(symbol =>
-        filters.some(filter =>
-            symbol.name.toLowerCase().includes(filter.toLowerCase())
-            || symbol.fqn.toLowerCase().includes(filter.toLowerCase())
-        )
-    );
-}
-
 /** COMMAND */
-export async function symbols_command(opt: AsOption<"symbols">) {
+export async function symbols_command(opt: AsOption<"symbols">, positionalArgs: string[] = []) {
     const start = performance.now();
 
-    if (opt.filter) {
-        msg(opt)(chalk.bold(`Symbols (filter: ${chalk.dim(opt.filter)})`));
+    if (positionalArgs.length > 0) {
+        msg(opt)(chalk.bold(`Symbols (filter: ${chalk.dim(positionalArgs.join(", "))})`));
         msg(opt)(`----------------------------------------------------------`);
     }
     else {
@@ -140,13 +193,18 @@ export async function symbols_command(opt: AsOption<"symbols">) {
     msg(opt)(`- found ${chalk.bold(allSymbols.length)} exported type symbols`);
 
     // Filter symbols based on user input
-    const symbols = filterSymbols(allSymbols, opt.filter || []);
+    const symbols = filterSymbols(allSymbols, {
+        filters: positionalArgs,
+        caseSensitive: opt['case-sensitive'] || false,
+        runtime: opt.runtime,
+        types: opt.types
+    });
 
-    if (opt?.filter?.length === 0 && !opt.quiet) {
-        msg(opt)(`- showing sample of symbols (use --filter to narrow results)`);
+    if (positionalArgs.length === 0 && !opt.quiet) {
+        msg(opt)(`- showing all symbols (use filter arguments to narrow results)`);
     }
-    else if (opt?.filter?.length > 0) {
-        msg(opt)(`- filtered to ${chalk.bold(symbols.length)} symbols matching: ${chalk.dim(opt.filter.join(", "))}`);
+    else if (positionalArgs.length > 0) {
+        msg(opt)(`- filtered to ${chalk.bold(symbols.length)} symbols matching: ${chalk.dim(positionalArgs.join(", "))}`);
     }
 
     // Output results

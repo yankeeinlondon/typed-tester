@@ -126,6 +126,7 @@ mkdir -p .ai/test-baselines
 ```
 
 Each phase will save test results to this directory for comparison:
+
 - `phase1-baseline.txt` - Starting point for Phase 1
 - `phase1-complete.txt` - Phase 1 completion state
 - `phase2-baseline.txt` - Starting point for Phase 2 (should match phase1-complete.txt)
@@ -157,6 +158,7 @@ npm test 2>&1 | tee .ai/test-baselines/phase1-baseline.txt
 ```
 
 Record:
+
 - Total tests run
 - Tests passing
 - Tests failing (with specific failures)
@@ -273,6 +275,7 @@ npm test
 ```
 
 **Success Criteria**:
+
 - [ ] All new unit tests pass
 - [ ] No regressions in existing tests
 - [ ] Test count matches: (baseline passing + new passing tests)
@@ -565,6 +568,7 @@ npm test
 ```
 
 **Success Criteria**:
+
 - [ ] All new unit tests in `symbol-filtering.test.ts` pass
 - [ ] No regressions in existing tests
 - [ ] Test count = (Phase 1 complete + new Phase 2 tests)
@@ -778,6 +782,7 @@ npm test
 ```
 
 **Success Criteria**:
+
 - [ ] All new unit tests in `format-description.test.ts` pass
 - [ ] No regressions in existing tests
 - [ ] Test count = (Phase 2 complete + new Phase 3 tests)
@@ -916,6 +921,7 @@ npm test
 ```
 
 **Success Criteria**:
+
 - [ ] All new unit tests in `terminal-link.test.ts` pass
 - [ ] No regressions in existing tests
 - [ ] Test count = (Phase 3 complete + new Phase 4 tests)
@@ -1150,6 +1156,7 @@ npm test
 ```
 
 **Success Criteria**:
+
 - [ ] All new unit tests in `symbols-screen.test.ts` pass
 - [ ] No regressions in existing tests
 - [ ] Test count = (Phase 4 complete + new Phase 5 tests)
@@ -1288,6 +1295,7 @@ npm test
 ```
 
 **Success Criteria**:
+
 - [ ] All new unit tests in `cli-types.test.ts` pass
 - [ ] No TypeScript compilation errors
 - [ ] No regressions in existing tests
@@ -1396,6 +1404,7 @@ npm test
 ```
 
 **Success Criteria**:
+
 - [ ] All integration tests in `symbols-cli.test.ts` pass
 - [ ] All unit tests from previous phases still pass
 - [ ] No regressions across entire test suite
@@ -1536,22 +1545,23 @@ typed symbols user config settings
 - **Description**: JSDoc comment and parameter information
 - **Dependencies**: Colored by scope (local/module/external/graph)
 
-```
-
 ## Risk Assessment
 
 ### Low Risk
+
 - Adding new CLI flags (backward compatible)
 - Terminal link generation (degrades gracefully on unsupported terminals)
 - Description formatting (non-breaking addition)
 
 ### Medium Risk
+
 - Removing `--filter` flag (breaking change)
   - Mitigation: Add deprecation warning first, document migration path
 - Filter matching logic changes (behavioral change)
   - Mitigation: Comprehensive testing, clear documentation
 
 ### High Risk
+
 - None identified
 
 ## Performance Considerations
@@ -1632,6 +1642,7 @@ Each phase now follows Test-Driven Development with baseline â†’ test writing â†
 **Total**: ~9 hours 30 minutes
 
 **Note**: The TDD approach adds approximately 2.5 hours to the original estimate but provides:
+
 - Comprehensive test coverage from the start
 - Immediate detection of regressions between phases
 - Higher confidence in correctness

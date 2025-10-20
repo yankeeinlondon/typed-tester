@@ -1,7 +1,9 @@
-import type { SymbolMeta, TypeGeneric } from "~/types";
+import type { SymbolMeta, TypeGeneric, JsDocInfo } from "~/types";
 import chalk from "chalk";
 import Table from "tty-table";
 import { prettyMultiLinePath } from "./prettyPath";
+import { formatDescription } from "./formatDescription";
+import { createTerminalLink } from "./terminalLink";
 
 export const SYMBOL_COL_LEN = 32;
 
@@ -11,11 +13,11 @@ export const SYMBOL_COL_LEN = 32;
  */
 export function symbolsScreen(rows: SymbolMeta[]) {
     const columns: number = process.stdout.columns;
-    const pathWidth: number = columns > 150
-        ? 45
+    const descWidth: number = columns > 150
+        ? 60
         : columns > 120
-            ? 40
-            : columns > 100 ? 35 : 30;
+            ? 50
+            : columns > 100 ? 40 : 35;
 
     const header = [
         {
@@ -23,18 +25,28 @@ export function symbolsScreen(rows: SymbolMeta[]) {
             alias: "Symbol",
             width: SYMBOL_COL_LEN,
             align: "left",
-            formatter: (v: [string, TypeGeneric[]]) => {
-                const [name, generics] = v;
+            formatter: (v: [string, TypeGeneric[], string, number]) => {
+                const [name, generics, filepath, startLine] = v;
+
+                // Format symbol name with generics
                 const withGenerics = () => `${chalk.bold(name)}<${generics.map(i => chalk.reset.dim(i.name)).join(",")}>`;
                 const genericsDisplayLength = generics.reduce((acc, i) => acc + i.name.length, 0);
-                return generics.length > 0
+                const symbolText = generics.length > 0
                     ? (name.length + genericsDisplayLength + 4) > SYMBOL_COL_LEN
                             ? withGenerics().replace("<", "\n<")
                             : withGenerics()
                     : chalk.bold(name);
+
+                // Create terminal link
+                return createTerminalLink(symbolText, filepath, startLine);
             }
         },
-        { value: "filepath", width: pathWidth },
+        {
+            alias: "Description",
+            value: "description",
+            width: descWidth,
+            formatter: (v: JsDocInfo[]) => formatDescription(v, descWidth)
+        },
         {
             alias: "Dependencies",
             value: "deps",
@@ -60,8 +72,9 @@ export function symbolsScreen(rows: SymbolMeta[]) {
 
         return {
             ...i,
-            name: [i.name, i.generics],
-            filepath: prettyMultiLinePath(i.filepath, pathWidth - 8),
+            name: [i.name, i.generics, i.filepath, i.startLine],
+            description: i.jsDocs || [],
+            filepath: prettyMultiLinePath(i.filepath, descWidth - 8), // Keep for potential future use
             deps,
             // refs: i?.refs.map(r => r.name).join(", ")
         };
@@ -71,6 +84,6 @@ export function symbolsScreen(rows: SymbolMeta[]) {
     console.log();
     console.log(`    ${chalk.red("⏺")} - module dependency`);
     console.log(`    ${chalk.yellow("⏺")} - local dependency (${chalk.italic("defined in same file as symbol")})`);
-    console.log(`    ${chalk.cyan("⏺")} - type from external repo`);
+    console.log(`    ${chalk.cyan("⏺")} - external dependency`);
     console.log(`    ${chalk.magenta("⏺")} - graph dependency`);
 }
