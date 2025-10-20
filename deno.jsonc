@@ -19,7 +19,9 @@
         "~/report": "./src/report/index.ts",
         "~/type-guards": "./src/type-guards/index.ts",
         "~/types": "./src/types/index.ts",
-        "~/utils": "./src/utils/index.ts"
+        "~/utils": "./src/utils/index.ts",
+        "~/data/diagnostic-code-lookup.json": "./src/data/diagnostic-code-lookup.json",
+        "~/data/diagnostic-message-lookup.json": "./src/data/diagnostic-message-lookup.json"
     },
     "license": "MIT",
     "name": "@yankeeinlondon/typed-tester",
@@ -46,6 +48,7 @@
             "README.md",
             "deno.jsonc",
             "src/**/*.ts",
+            "src/data/*.json",
             "!src/**/*.test.ts",
             "!src/sounds/**/*"
         ]

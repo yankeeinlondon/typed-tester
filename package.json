@@ -23,7 +23,9 @@
         "diagnostics": "bun run ./scripts/get-diagnostics.ts",
         "lint": "eslint src",
         "release": "bumpp",
-        "test": "vitest run unit",
+        "test": "run-p test:unit test:jsr",
+        "test:unit": "vitest run unit",
+        "test:jsr": "bun run scripts/js-validation",
         "test:types": "pnpm typed test",
         "test:all": "vitest run",
         "test:coverage": "COVERAGE=1 vitest run --coverage",
@@ -34,6 +36,7 @@
         "report:start-position": "bun run .claude/skills/scripts/start-position.ts",
         "test:watch": "vitest",
         "try": "bun run ./src/typed.ts",
+        "typed": "node ./bin/typed.js",
         "watch": "tsup src/typed.ts --format=esm -d bin --sourcemap --watch"
     },
     "dependencies": {
