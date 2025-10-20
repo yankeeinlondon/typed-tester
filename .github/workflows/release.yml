@@ -1,0 +1,27 @@
+name: Release
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+  id-token: write
+  packages: write
+
+jobs:
+  test:
+    name: testing
+    uses: yankeeinlondon/gha/.github/workflows/test.yml@main
+    with:
+        transpile: true
+  publish:
+    name: publish
+    needs: test
+    uses: yankeeinlondon/gha/.github/workflows/publish.yml@main
+    with:
+      jsr_scope: '@inocan-group'
+      github_packages_scope: '@inocan-group'
+    secrets:
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
