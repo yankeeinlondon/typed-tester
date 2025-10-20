@@ -29,8 +29,9 @@ export interface Dependency {
 /**
  * **DependencyNode**
  *
- * Enhanced dependency representation with bi-directional relationships
- * and caching metadata for efficient dependency graph operations.
+ * Node dependency representation with bi-directional relationships
+ * -- `dependencies` and `dependants` -- and caching metadata for
+ * efficient dependency graph operations.
  */
 export interface DependencyNode {
     /** The symbol this dependency represents */

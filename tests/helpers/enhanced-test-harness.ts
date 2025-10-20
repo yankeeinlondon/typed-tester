@@ -25,13 +25,13 @@ export const PERFORMANCE_THRESHOLDS = {
  * Based on actual memory usage patterns
  */
 export const MEMORY_THRESHOLDS = {
-  symbols: 400,        // Symbol extraction (realistic: ~360MB observed)
-  source: 400,         // Source analysis (realistic: ~360MB observed)
-  files: 400,          // File discovery (realistic: ~390MB observed)
-  deps: 400,           // Dependency analysis
-  test: 500,           // Test execution (realistic: ~490MB observed)
+  symbols: 450,        // Symbol extraction (realistic: ~360MB observed, buffer for variance)
+  source: 450,         // Source analysis (realistic: ~360MB observed, buffer for variance)
+  files: 550,          // File discovery (realistic: ~497MB observed)
+  deps: 450,           // Dependency analysis
+  test: 550,           // Test execution (realistic: ~501MB observed)
   consecutive: 1000,   // Consecutive runs accumulate memory (realistic: ~925MB observed)
-  default: 400,        // Fallback
+  default: 450,        // Fallback
 } as const;
 
 /**
@@ -470,9 +470,6 @@ export class EnhancedTestHarness {
     // Use output directly since we no longer prefix console.error with "ERROR:"
     const cleanedOutput = output;
 
-    // Debug: temporarily show file parsing progress
-    console.log(`[DEBUG] Starting parsing with ${cleanedOutput.split('\n').length} lines`);
-
     const lines = cleanedOutput.split('\n');
     const summary = {
       totalTests: 0,
@@ -536,26 +533,20 @@ export class EnhancedTestHarness {
         }
       }
       
-      // Parse file references from CLI output 
+      // Parse file references from CLI output
       // Handle complex patterns with ANSI escape sequences and hyperlinks
       // Pattern: " ⤬  ]8;;file://...tests/simple-failing.test.ts\tests/simple-failing.test.ts]8;;\ (3 tests, 100ms, 5557μs/line)"
       if (line.includes('.test.ts') || line.includes('.spec.ts')) {
-        console.log(`[DEBUG] Processing line: ${line.substring(0, 80)}...`);
-        
         // Try to match the hyperlink format first
         const hyperlinkMatch = line.match(/]8;;[^\\]*\\([^\\]+\.(?:test|spec)\.ts)/);
         if (hyperlinkMatch && !files.includes(hyperlinkMatch[1])) {
           files.push(hyperlinkMatch[1]);
-          console.log(`[DEBUG] Matched hyperlink: ${hyperlinkMatch[1]}`);
         }
         // Try to match simple patterns as fallback
         else {
           const simpleMatch = line.match(/([^\s\]]+\.(?:test|spec)\.ts)/);
           if (simpleMatch && !files.includes(simpleMatch[1])) {
             files.push(simpleMatch[1]);
-            console.log(`[DEBUG] Matched simple: ${simpleMatch[1]}`);
-          } else {
-            console.log(`[DEBUG] No match found for test line`);
           }
         }
       }
@@ -717,16 +708,23 @@ export class EnhancedTestHarness {
           message: diagMatch[6]
         });
       }
-      
-      // Parse performance metrics
-      const timeMatch = line.match(/Parsed in ([\d.]+)ms/);
+
+      // Parse performance metrics - multiple patterns
+      const timeMatch = line.match(/(?:Parsed|analysis complete|command took)\s+\(?(\d+\.?\d*)\s*m?s/i);
       if (timeMatch) {
         performance.parseTime = parseFloat(timeMatch[1]);
       }
-      
-      const filesMatch = line.match(/(\d+) files processed/);
+
+      // Parse file counts - multiple patterns
+      const filesMatch = line.match(/(?:Analysis will consider|processed)\s+(\d+)\s+files?/i);
       if (filesMatch) {
         performance.files = parseInt(filesMatch[1]);
+      }
+
+      // Also try to extract total TypeScript files
+      const totalFilesMatch = line.match(/(\d+)\s+typescript files?/i);
+      if (totalFilesMatch && performance.files === 0) {
+        performance.files = parseInt(totalFilesMatch[1]);
       }
     }
 

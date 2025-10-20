@@ -36,7 +36,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760842646209
+          "analyzedAt": 1760988758553
         }
       ],
       [
@@ -72,7 +72,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760842646209
+          "analyzedAt": 1760988758554
         }
       ],
       [
@@ -120,7 +120,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760842646210
+          "analyzedAt": 1760988758554
         }
       ],
       [
@@ -158,7 +158,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760842646210
+          "analyzedAt": 1760988758555
         }
       ],
       [
@@ -194,7 +194,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760842646210
+          "analyzedAt": 1760988758555
         }
       ],
       [
@@ -230,7 +230,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760842646211
+          "analyzedAt": 1760988758555
         }
       ],
       [
@@ -275,7 +275,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760842646211
+          "analyzedAt": 1760988758556
         }
       ],
       [
@@ -316,7 +316,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760842646212
+          "analyzedAt": 1760988758556
         }
       ],
       [
@@ -361,7 +361,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760842646212
+          "analyzedAt": 1760988758557
         }
       ],
       [
@@ -406,7 +406,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760842646212
+          "analyzedAt": 1760988758557
         }
       ],
       [
@@ -447,7 +447,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760842646212
+          "analyzedAt": 1760988758557
         }
       ],
       [
@@ -488,7 +488,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760842646213
+          "analyzedAt": 1760988758557
         }
       ],
       [
@@ -529,7 +529,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760842646213
+          "analyzedAt": 1760988758558
         }
       ],
       [
@@ -570,7 +570,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760842646213
+          "analyzedAt": 1760988758558
         }
       ],
       [
@@ -606,7 +606,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760842646213
+          "analyzedAt": 1760988758558
         }
       ],
       [
@@ -647,7 +647,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760842646213
+          "analyzedAt": 1760988758558
         }
       ],
       [
@@ -688,7 +688,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760842646213
+          "analyzedAt": 1760988758559
         }
       ],
       [
@@ -724,7 +724,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760842646214
+          "analyzedAt": 1760988758559
         }
       ],
       [
@@ -760,7 +760,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1760842646214
+          "analyzedAt": 1760988758559
         }
       ],
       [
@@ -791,15 +791,741 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1760842646214
+          "analyzedAt": 1760988758559
+        }
+      ],
+      [
+        "module::977225976::validateConfig",
+        {
+          "symbol": "module::977225976::validateConfig",
+          "hash": 1652822928,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "validateConfig",
+            "fqn": "module::977225976::validateConfig",
+            "filepath": "src/config.ts",
+            "startLine": 72,
+            "endLine": 94,
+            "scope": "module",
+            "flags": [
+              "None",
+              "Function",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": false,
+            "isVariable": false,
+            "isFunction": true,
+            "kind": "function",
+            "generics": [],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760988758559
+        }
+      ],
+      [
+        "module::1810166646::mergeConfig",
+        {
+          "symbol": "module::1810166646::mergeConfig",
+          "hash": 2109839561,
+          "dependencies": [
+            "module::331033491::AppConfig"
+          ],
+          "dependents": [],
+          "meta": {
+            "name": "mergeConfig",
+            "fqn": "module::1810166646::mergeConfig",
+            "filepath": "src/config.ts",
+            "startLine": 97,
+            "endLine": 114,
+            "scope": "module",
+            "flags": [
+              "None",
+              "Function",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": false,
+            "isVariable": false,
+            "isFunction": true,
+            "kind": "function",
+            "generics": [],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760988758560
+        }
+      ],
+      [
+        "module::866957165::isProduction",
+        {
+          "symbol": "module::866957165::isProduction",
+          "hash": 690605984,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "isProduction",
+            "fqn": "module::866957165::isProduction",
+            "filepath": "src/config.ts",
+            "startLine": 117,
+            "endLine": 119,
+            "scope": "module",
+            "flags": [
+              "None",
+              "Function",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": false,
+            "isVariable": false,
+            "isFunction": true,
+            "kind": "function",
+            "generics": [],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760988758560
+        }
+      ],
+      [
+        "module::160317601::isDevelopment",
+        {
+          "symbol": "module::160317601::isDevelopment",
+          "hash": 1947270200,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "isDevelopment",
+            "fqn": "module::160317601::isDevelopment",
+            "filepath": "src/config.ts",
+            "startLine": 121,
+            "endLine": 123,
+            "scope": "module",
+            "flags": [
+              "None",
+              "Function",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": false,
+            "isVariable": false,
+            "isFunction": true,
+            "kind": "function",
+            "generics": [],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760988758560
+        }
+      ],
+      [
+        "module::1712153640::getEnvironmentFromString",
+        {
+          "symbol": "module::1712153640::getEnvironmentFromString",
+          "hash": 9563177,
+          "dependencies": [
+            "module::41934051::Environment"
+          ],
+          "dependents": [],
+          "meta": {
+            "name": "getEnvironmentFromString",
+            "fqn": "module::1712153640::getEnvironmentFromString",
+            "filepath": "src/config.ts",
+            "startLine": 125,
+            "endLine": 134,
+            "scope": "module",
+            "flags": [
+              "None",
+              "Function",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": false,
+            "isVariable": false,
+            "isFunction": true,
+            "kind": "function",
+            "generics": [],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760988758561
+        }
+      ],
+      [
+        "module::331033491::AppConfig",
+        {
+          "symbol": "module::331033491::AppConfig",
+          "hash": 450707514,
+          "dependencies": [],
+          "dependents": [
+            "module::1810166646::mergeConfig",
+            "module::1988831277::defaultConfig"
+          ],
+          "meta": {
+            "name": "AppConfig",
+            "fqn": "module::331033491::AppConfig",
+            "filepath": "src/config.ts",
+            "startLine": 6,
+            "endLine": 13,
+            "scope": "module",
+            "flags": [
+              "None",
+              "Interface",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": true,
+            "isVariable": false,
+            "isFunction": false,
+            "kind": "type-defn",
+            "generics": [],
+            "jsDocs": [
+              {
+                "comment": "Configuration types and utilities for fixture testing",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760988758561
+        }
+      ],
+      [
+        "module::41934051::Environment",
+        {
+          "symbol": "module::41934051::Environment",
+          "hash": 986065332,
+          "dependencies": [],
+          "dependents": [
+            "module::1712153640::getEnvironmentFromString"
+          ],
+          "meta": {
+            "name": "Environment",
+            "fqn": "module::41934051::Environment",
+            "filepath": "src/config.ts",
+            "startLine": 15,
+            "endLine": 15,
+            "scope": "module",
+            "flags": [
+              "None",
+              "TypeAlias",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": true,
+            "isVariable": false,
+            "isFunction": false,
+            "kind": "type-defn",
+            "generics": [],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760988758563
+        }
+      ],
+      [
+        "module::295511091::DatabaseConfig",
+        {
+          "symbol": "module::295511091::DatabaseConfig",
+          "hash": 1791020899,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "DatabaseConfig",
+            "fqn": "module::295511091::DatabaseConfig",
+            "filepath": "src/config.ts",
+            "startLine": 17,
+            "endLine": 25,
+            "scope": "module",
+            "flags": [
+              "None",
+              "Interface",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": true,
+            "isVariable": false,
+            "isFunction": false,
+            "kind": "type-defn",
+            "generics": [],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760988758563
+        }
+      ],
+      [
+        "module::1586524980::ApiConfig",
+        {
+          "symbol": "module::1586524980::ApiConfig",
+          "hash": 523581592,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "ApiConfig",
+            "fqn": "module::1586524980::ApiConfig",
+            "filepath": "src/config.ts",
+            "startLine": 27,
+            "endLine": 32,
+            "scope": "module",
+            "flags": [
+              "None",
+              "Interface",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": true,
+            "isVariable": false,
+            "isFunction": false,
+            "kind": "type-defn",
+            "generics": [],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760988758563
+        }
+      ],
+      [
+        "module::853908577::FeatureFlags",
+        {
+          "symbol": "module::853908577::FeatureFlags",
+          "hash": 1530991899,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "FeatureFlags",
+            "fqn": "module::853908577::FeatureFlags",
+            "filepath": "src/config.ts",
+            "startLine": 34,
+            "endLine": 39,
+            "scope": "module",
+            "flags": [
+              "None",
+              "Interface",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": true,
+            "isVariable": false,
+            "isFunction": false,
+            "kind": "type-defn",
+            "generics": [],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760988758564
+        }
+      ],
+      [
+        "module::1988831277::defaultConfig",
+        {
+          "symbol": "module::1988831277::defaultConfig",
+          "hash": 811832937,
+          "dependencies": [
+            "module::331033491::AppConfig"
+          ],
+          "dependents": [],
+          "meta": {
+            "name": "defaultConfig",
+            "fqn": "module::1988831277::defaultConfig",
+            "filepath": "src/config.ts",
+            "startLine": 42,
+            "endLine": 69,
+            "scope": "module",
+            "flags": [
+              "None",
+              "BlockScopedVariable",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": false,
+            "isVariable": true,
+            "isFunction": false,
+            "kind": "property",
+            "generics": [],
+            "jsDocs": [],
+            "refs": []
+          },
+          "analyzedAt": 1760988758565
+        }
+      ],
+      [
+        "module::656063236::validateUserData",
+        {
+          "symbol": "module::656063236::validateUserData",
+          "hash": 851212618,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "validateUserData",
+            "fqn": "module::656063236::validateUserData",
+            "filepath": "src/user-manager.ts",
+            "startLine": 94,
+            "endLine": 110,
+            "scope": "module",
+            "flags": [
+              "None",
+              "Function",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": false,
+            "isVariable": false,
+            "isFunction": true,
+            "kind": "function",
+            "generics": [],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760988758566
+        }
+      ],
+      [
+        "module::1782813693::isValidEmail",
+        {
+          "symbol": "module::1782813693::isValidEmail",
+          "hash": 468715031,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "isValidEmail",
+            "fqn": "module::1782813693::isValidEmail",
+            "filepath": "src/user-manager.ts",
+            "startLine": 112,
+            "endLine": 115,
+            "scope": "module",
+            "flags": [
+              "None",
+              "Function",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": false,
+            "isVariable": false,
+            "isFunction": true,
+            "kind": "function",
+            "generics": [],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760988758567
+        }
+      ],
+      [
+        "module::942907675::getUserDisplayName",
+        {
+          "symbol": "module::942907675::getUserDisplayName",
+          "hash": 557019805,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "getUserDisplayName",
+            "fqn": "module::942907675::getUserDisplayName",
+            "filepath": "src/user-manager.ts",
+            "startLine": 117,
+            "endLine": 119,
+            "scope": "module",
+            "flags": [
+              "None",
+              "Function",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": false,
+            "isVariable": false,
+            "isFunction": true,
+            "kind": "function",
+            "generics": [],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760988758567
+        }
+      ],
+      [
+        "module::1288173353::isAdult",
+        {
+          "symbol": "module::1288173353::isAdult",
+          "hash": 192329479,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "isAdult",
+            "fqn": "module::1288173353::isAdult",
+            "filepath": "src/user-manager.ts",
+            "startLine": 121,
+            "endLine": 123,
+            "scope": "module",
+            "flags": [
+              "None",
+              "Function",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": false,
+            "isVariable": false,
+            "isFunction": true,
+            "kind": "function",
+            "generics": [],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760988758568
+        }
+      ],
+      [
+        "module::1485758735::UserService",
+        {
+          "symbol": "module::1485758735::UserService",
+          "hash": 1132722975,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "UserService",
+            "fqn": "module::1485758735::UserService",
+            "filepath": "src/user-manager.ts",
+            "startLine": 8,
+            "endLine": 13,
+            "scope": "module",
+            "flags": [
+              "None",
+              "Interface",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": true,
+            "isVariable": false,
+            "isFunction": false,
+            "kind": "type-defn",
+            "generics": [],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760988758569
+        }
+      ],
+      [
+        "module::1236447228::UserQuery",
+        {
+          "symbol": "module::1236447228::UserQuery",
+          "hash": 1734234061,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "UserQuery",
+            "fqn": "module::1236447228::UserQuery",
+            "filepath": "src/user-manager.ts",
+            "startLine": 15,
+            "endLine": 20,
+            "scope": "module",
+            "flags": [
+              "None",
+              "Interface",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": true,
+            "isVariable": false,
+            "isFunction": false,
+            "kind": "type-defn",
+            "generics": [],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760988758569
+        }
+      ],
+      [
+        "module::732597830::UserRole",
+        {
+          "symbol": "module::732597830::UserRole",
+          "hash": 212749671,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "UserRole",
+            "fqn": "module::732597830::UserRole",
+            "filepath": "src/user-manager.ts",
+            "startLine": 22,
+            "endLine": 22,
+            "scope": "module",
+            "flags": [
+              "None",
+              "TypeAlias",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": true,
+            "isVariable": false,
+            "isFunction": false,
+            "kind": "type-defn",
+            "generics": [],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760988758569
+        }
+      ],
+      [
+        "module::1133870688::UserWithRole",
+        {
+          "symbol": "module::1133870688::UserWithRole",
+          "hash": 1941433451,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "UserWithRole",
+            "fqn": "module::1133870688::UserWithRole",
+            "filepath": "src/user-manager.ts",
+            "startLine": 24,
+            "endLine": 27,
+            "scope": "module",
+            "flags": [
+              "None",
+              "Interface",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": true,
+            "isVariable": false,
+            "isFunction": false,
+            "kind": "type-defn",
+            "generics": [],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760988758570
+        }
+      ],
+      [
+        "module::991499441::UserServiceImpl",
+        {
+          "symbol": "module::991499441::UserServiceImpl",
+          "hash": 682162314,
+          "dependencies": [],
+          "dependents": [],
+          "meta": {
+            "name": "UserServiceImpl",
+            "fqn": "module::991499441::UserServiceImpl",
+            "filepath": "src/user-manager.ts",
+            "startLine": 30,
+            "endLine": 91,
+            "scope": "module",
+            "flags": [
+              "None",
+              "Class",
+              "PropertyExcludes",
+              "NamespaceModuleExcludes"
+            ],
+            "isTypeSymbol": false,
+            "isVariable": false,
+            "isFunction": false,
+            "kind": "property",
+            "generics": [],
+            "jsDocs": [
+              {
+                "comment": "",
+                "tags": []
+              }
+            ],
+            "refs": []
+          },
+          "analyzedAt": 1760988758570
         }
       ]
     ],
-    "projectHash": 1553276769,
-    "lastUpdated": 1760842646214,
+    "projectHash": 254992574,
+    "lastUpdated": 1760988758572,
     "stats": {
-      "totalSymbols": 20,
-      "totalDependencies": 1,
+      "totalSymbols": 40,
+      "totalDependencies": 4,
       "circularDependencies": [],
       "maxDepth": 1
     }
@@ -810,6 +1536,22 @@
       1755036017508.9822
     ],
     [
+      "/Volumes/coding/personal/typed-tester/tests/fixtures/fast-test-project/src/config.ts",
+      1760988699229.267
+    ],
+    [
+      "/Volumes/coding/personal/typed-tester/tests/fixtures/fast-test-project/src/user-manager.ts",
+      1760988699560.9758
+    ],
+    [
+      "/Volumes/coding/personal/typed-tester/tests/fixtures/fast-test-project/tests/comprehensive.test.ts",
+      1760988626284.0198
+    ],
+    [
+      "/Volumes/coding/personal/typed-tester/tests/fixtures/fast-test-project/tests/error-cases.test.ts",
+      1760988624928.7764
+    ],
+    [
       "/Volumes/coding/personal/typed-tester/tests/fixtures/fast-test-project/tests/simple-failing.test.ts",
       1755037604563.3372
     ],
@@ -818,10 +1560,10 @@
       1755037595736.4983
     ]
   ],
-  "configHash": 744818566,
+  "configHash": 1183670069,
   "metadata": {
     "version": "0.9.5",
-    "createdAt": 1760842646214,
-    "lastAccessed": 1760842646214
+    "createdAt": 1760988758572,
+    "lastAccessed": 1760988758572
   }
 }

@@ -16,17 +16,29 @@ interface DiagnosticSummary {
     warningsByCodeAndFile: Map<number, Map<string, number>>;
 }
 
-function isTestFile(filePath: string): boolean {
+function isTestFile(filePath: string, projectRoot: string): boolean {
     // Exclude files matching Vitest test patterns
     if (filePath.match(/\.test\.(ts|js|tsx|jsx)$/))
         return true;
     if (filePath.match(/\.spec\.(ts|js|tsx|jsx)$/))
         return true;
 
-    // Exclude files under test or tests directories
-    if (filePath.includes("/test/") || filePath.includes("/tests/"))
+    // Get path relative to project root for accurate test directory detection
+    let relativePath = filePath;
+    if (filePath.startsWith(projectRoot)) {
+        relativePath = filePath.slice(projectRoot.length);
+        // Remove leading slash
+        relativePath = relativePath.replace(/^[/\\]/, "");
+    }
+
+    // Exclude files under test or tests directories (relative to project root)
+    if (relativePath.startsWith("test/") || relativePath.startsWith("tests/"))
         return true;
-    if (filePath.includes("\\test\\") || filePath.includes("\\tests\\"))
+    if (relativePath.startsWith("test\\") || relativePath.startsWith("tests\\"))
+        return true;
+    if (relativePath.includes("/test/") || relativePath.includes("/tests/"))
+        return true;
+    if (relativePath.includes("\\test\\") || relativePath.includes("\\tests\\"))
         return true;
 
     return false;
@@ -146,9 +158,10 @@ export async function source_command(opt: AsOption<"source">, positionalArgs: st
     );
 
     const allSourceFiles = project.getSourceFiles();
+    const projectRoot = getProjectRoot();
 
     // Filter out test files
-    const nonTestFiles = allSourceFiles.filter(file => !isTestFile(file.getFilePath()));
+    const nonTestFiles = allSourceFiles.filter(file => !isTestFile(file.getFilePath(), projectRoot));
     const testFilesExcluded = allSourceFiles.length - nonTestFiles.length;
 
     // Apply positional args as filters (same approach as test command)

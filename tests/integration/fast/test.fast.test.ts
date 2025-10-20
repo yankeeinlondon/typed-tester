@@ -36,11 +36,11 @@ describe('Test Command - Fast Integration Tests', () => {
       const options = getOptimizedDefaultOptions('test');
       
       const { result, metrics } = await harness.runTestCommand(options);
-      
+
       // Performance validation
       PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.test, 'test-default');
       PerformanceAssertions.expectMemoryUsage(metrics, MEMORY_THRESHOLDS.test, 'test-default');
-      
+
       // Output validation
       CLIOutputValidator.validateTestCommand(result);
       ScenarioValidators.validateSuccessfulExecution(result, 'test');

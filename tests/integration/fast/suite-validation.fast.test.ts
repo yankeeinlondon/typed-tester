@@ -118,7 +118,7 @@ describe('Test Suite Performance Validation', () => {
       // Validate each command executed successfully
       expect(results.length).toBe(commands.length);
       for (const { command, result } of results) {
-        expect(result.result.raw || result.result.dependencies || result.result.files).toBeTruthy();
+        expect(result.result.raw || result.result.dependencies || result.result.files || result.result.symbols).toBeTruthy();
       }
     });
 
@@ -159,15 +159,15 @@ describe('Test Suite Performance Validation', () => {
       const { result, metrics } = await harness.runTestCommand(options);
 
       PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.test, 'test-target');
-      expect(result.result.raw).toBeTruthy();
+      expect(result.raw).toBeTruthy();
     });
 
     it('should meet symbols command performance target (2000ms)', async () => {
       const options = getOptimizedDefaultOptions('symbols');
       const { result, metrics } = await harness.runSymbolsCommand(options);
-      
+
       PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.symbols, 'symbols-target');
-      expect(result.result.raw).toBeTruthy();
+      expect(result.raw).toBeTruthy();
     });
 
     it('should meet source command performance target (2000ms)', async () => {
@@ -175,7 +175,7 @@ describe('Test Suite Performance Validation', () => {
       const { result, metrics } = await harness.runSourceCommand(options);
 
       PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.source, 'source-target');
-      expect(result.result.raw).toBeTruthy();
+      expect(result.raw).toBeTruthy();
     });
 
     it('should meet deps command performance target (1500ms)', async () => {
@@ -183,7 +183,7 @@ describe('Test Suite Performance Validation', () => {
       const { result, metrics } = await harness.runDepsCommand(options);
 
       PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.deps, 'deps-target');
-      expect(result.result.raw).toBeTruthy();
+      expect(result.raw).toBeTruthy();
     });
 
     it('should meet files command performance target (1500ms)', async () => {
@@ -191,7 +191,7 @@ describe('Test Suite Performance Validation', () => {
       const { result, metrics } = await harness.runFilesCommand(options);
 
       PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.files, 'files-target');
-      expect(result.result.raw).toBeTruthy();
+      expect(result.raw).toBeTruthy();
     });
   });
 

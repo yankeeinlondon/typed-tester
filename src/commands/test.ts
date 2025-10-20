@@ -226,7 +226,9 @@ export async function test_command(opt: AsOption<"test">, filters: string[] = []
         msg(opt)(`- command took ${chalk.bold(duration)}${chalk.italic.dim("ms")}`);
     }
 
+    // Set exit code without immediately exiting to allow output to flush
+    // This is critical for JSON output and test harness integration
     if (exitCode > 0) {
-        process.exit(exitCode);
+        process.exitCode = exitCode;
     }
 }
