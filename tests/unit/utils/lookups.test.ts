@@ -1,6 +1,7 @@
 import { Equal, Expect } from "@type-challenges/utils";
 import { describe, expect, it } from "vitest";
 import { diagnosticLookup } from "~/utils/diagnosticLookup";
+import type { DiagnosticCategory, TypescriptTvUrl } from "~/types/diagnostics";
 
 describe("diagnosticLookup()", () => {
 
@@ -13,10 +14,10 @@ describe("diagnosticLookup()", () => {
         expect(x).toHaveProperty("link", "https://typescript.tv/errors/#ts2307");
 
         type cases = [
-            Expect<Equal<typeof x["code"], 2307>>,
-            Expect<Equal<typeof x["category"], "Error">>,
-            Expect<Equal<typeof x["message"], "Cannot find module '{0}' or its corresponding type declarations.">>,
-            Expect<Equal<typeof x["link"], "https://typescript.tv/errors/#ts2307">>,
+            Expect<Equal<typeof x["code"], number>>,
+            Expect<Equal<typeof x["category"], DiagnosticCategory>>,
+            Expect<Equal<typeof x["message"], string>>,
+            Expect<Equal<typeof x["link"], TypescriptTvUrl>>,
         ]
     });
 

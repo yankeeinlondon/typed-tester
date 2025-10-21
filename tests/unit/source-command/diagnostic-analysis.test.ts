@@ -60,6 +60,7 @@ function analyzeDiagnostics(
 
 describe('diagnostic analysis', () => {
   const mockOpt: any = {
+    cmd: "source" as const,
     warn: [],
     verbose: false,
     quiet: false,
@@ -168,9 +169,14 @@ describe('diagnostic analysis', () => {
     });
 
     it('should handle mixed errors and warnings in same file', () => {
-      const mixedOpt: AsOption<"source"> = {
-        ...mockOpt,
-        warn: [6196, 6133] // Multiple warning codes
+      const mixedOpt = {
+        cmd: "source",
+        warn: [6196, 6133],
+        verbose: false,
+        quiet: false,
+        config: undefined,
+        json: false,
+        help: false
       };
 
       const filesDiagnostics = [
@@ -185,7 +191,7 @@ describe('diagnostic analysis', () => {
         }
       ];
 
-      const result = analyzeDiagnostics(filesDiagnostics, mixedOpt);
+      const result = analyzeDiagnostics(filesDiagnostics as any, mixedOpt as any);
 
       expect(result.filesWithErrors).toBe(1);
       expect(result.filesWithWarnings).toBe(1);

@@ -8,7 +8,7 @@ describe('symbols command options', () => {
 
         expect(runtimeOpt).toBeDefined();
         expect(runtimeOpt?.type).toBe(Boolean);
-        expect(runtimeOpt?.alias).toBe('r');
+        expect((runtimeOpt as any)?.alias).toBe('r');
     });
 
     it('should include types flag option', () => {
@@ -17,7 +17,7 @@ describe('symbols command options', () => {
 
         expect(typesOpt).toBeDefined();
         expect(typesOpt?.type).toBe(Boolean);
-        expect(typesOpt?.alias).toBe('t');
+        expect((typesOpt as any)?.alias).toBe('t');
     });
 
     it('should include case-sensitive flag option', () => {
@@ -26,7 +26,7 @@ describe('symbols command options', () => {
 
         expect(caseSensitiveOpt).toBeDefined();
         expect(caseSensitiveOpt?.type).toBe(Boolean);
-        expect(caseSensitiveOpt?.alias).toBe('s');
+        expect((caseSensitiveOpt as any)?.alias).toBe('s');
     });
 
     it('should NOT include deprecated filter option', () => {
