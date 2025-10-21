@@ -1,5 +1,6 @@
 import type { Expect, Equal } from "@type-challenges/utils";
 import type { TestInterface } from "../src/example";
+import { describe, it } from "vitest"
 
 describe("Passing Tests", () => {
   it("should pass basic type check", () => {

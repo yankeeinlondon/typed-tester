@@ -1,5 +1,5 @@
-import stringWidth from "string-width";
 import { availableWidth } from "./availableWidth";
+import { consumedWidth } from "./consumedWidth";
 import { wordWrap } from "./wordWrap";
 
 /**
@@ -23,7 +23,7 @@ export function rightJustifyText(
 
     // Right-justify each line
     return lines.map((line) => {
-        const lineWidth = stringWidth(line);
+        const lineWidth = consumedWidth(line);
         const padding = Math.max(0, forceWidth - lineWidth);
         return " ".repeat(padding) + line;
     });

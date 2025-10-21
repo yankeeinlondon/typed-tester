@@ -174,12 +174,17 @@ describe("consumedWidth()", () => {
             expect(consumedWidth("\x1b]8;;https://example.com\x1b\\\x1b]8;;\x1b\\")).toBe(0);
         });
 
-        it("should handle newlines", () => {
-            expect(consumedWidth("hello\nworld")).toBe(10); // newline has no width
+        it("should handle newlines (return max line width)", () => {
+            expect(consumedWidth("hello\nworld")).toBe(5); // max of two 5-char lines
+            expect(consumedWidth("hi\nlonger line")).toBe(11); // "longer line" is longest
+            expect(consumedWidth("short\nmedium\nvery long line")).toBe(14); // "very long line" is longest
         });
 
-        it("should handle tabs", () => {
-            expect(consumedWidth("hello\tworld")).toBe(10); // tab has no width (context-dependent)
+        it("should handle tabs (advance to tab stop)", () => {
+            expect(consumedWidth("a\tb")).toBe(9); // 'a' at 0, tab advances to 8, 'b' at 8
+            expect(consumedWidth("ab\tc")).toBe(9); // 'ab' at 0-1, tab advances to 8, 'c' at 8
+            expect(consumedWidth("hello\tworld")).toBe(13); // 'hello' at 0-4, tab advances to 8, 'world' at 8-12
+            expect(consumedWidth("12345678\tx")).toBe(17); // at column 8, tab advances to 16, 'x' at 16
         });
     });
 });
