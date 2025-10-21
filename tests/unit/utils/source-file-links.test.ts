@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { join } from 'pathe';
+import { join, resolve } from 'pathe';
 import { fileLink } from '~/utils/link';
 import { prettyPath } from '~/utils/prettyPath';
 import { relativeFile } from '~/utils/relativeFile';
@@ -7,43 +7,45 @@ import { relativeFile } from '~/utils/relativeFile';
 describe('source command file link generation', () => {
     describe('absolute path handling', () => {
         it('should generate file links with absolute paths', () => {
-            // Simulate what ts-morph returns (repo-relative path)
-            const tsMorphPath = 'src/report/showDiagnostic.ts';
-            
-            // Simulate project root
-            const projectRoot = '/Volumes/coding/personal/typed-tester';
-            
+            // Use the actual project root
+            const projectRoot = resolve(process.cwd());
+
+            // Simulate what ts-morph returns (repo-relative path) - use a file that actually exists
+            const tsMorphPath = 'src/utils/link.ts';
+
             // Convert to absolute path as the fix does
-            const absolutePath = tsMorphPath.startsWith('/') 
-                ? tsMorphPath 
+            const absolutePath = tsMorphPath.startsWith('/')
+                ? tsMorphPath
                 : join(projectRoot, tsMorphPath);
-            
+
             // This is what the source command now does
             const displayText = prettyPath(relativeFile(absolutePath));
             const link = fileLink(displayText, absolutePath);
-            
+
             // The link should contain the absolute path
-            expect(absolutePath).toBe('/Volumes/coding/personal/typed-tester/src/report/showDiagnostic.ts');
+            expect(absolutePath).toContain('src/utils/link.ts');
             expect(link).toContain('file://');
             expect(link).toContain(absolutePath);
-            expect(link).toContain('showDiagnostic.ts'); // Display text should include filename
+            expect(link).toContain('link.ts'); // Display text should include filename
         });
 
         it('should handle already absolute paths', () => {
-            // If ts-morph somehow returns an absolute path
-            const tsMorphPath = '/Volumes/coding/personal/typed-tester/src/utils/index.ts';
-            const projectRoot = '/Volumes/coding/personal/typed-tester';
-            
+            // Use the actual project root
+            const projectRoot = resolve(process.cwd());
+
+            // If ts-morph somehow returns an absolute path - use a file that exists
+            const tsMorphPath = join(projectRoot, 'src/utils/index.ts');
+
             // The fix checks if path starts with '/'
-            const absolutePath = tsMorphPath.startsWith('/') 
-                ? tsMorphPath 
+            const absolutePath = tsMorphPath.startsWith('/')
+                ? tsMorphPath
                 : join(projectRoot, tsMorphPath);
-            
+
             expect(absolutePath).toBe(tsMorphPath);
-            
+
             const displayText = prettyPath(relativeFile(absolutePath));
             const link = fileLink(displayText, absolutePath);
-            
+
             expect(link).toContain('file://');
             expect(link).toContain(absolutePath);
         });
@@ -66,20 +68,21 @@ describe('source command file link generation', () => {
 
     describe('display text formatting', () => {
         it('should use relative path for display while keeping absolute path for link', () => {
-            const absolutePath = '/Volumes/coding/personal/typed-tester/src/commands/source.ts';
-            const projectRoot = '/Volumes/coding/personal/typed-tester';
-            
+            // Use the actual project root
+            const projectRoot = resolve(process.cwd());
+            const absolutePath = join(projectRoot, 'src/commands/source.ts');
+
             // Mock relativeFile behavior
             const relativePath = absolutePath.replace(projectRoot + '/', '');
             expect(relativePath).toBe('src/commands/source.ts');
-            
+
             // prettyPath formats the display
             const displayText = prettyPath(relativePath);
-            
+
             // Display should show relative path with formatting
             expect(displayText).toContain('source.ts');
-            expect(displayText).not.toContain('/Volumes/coding');
-            
+            expect(displayText).not.toContain(projectRoot);
+
             // But the link itself should use absolute path
             const link = fileLink(displayText, absolutePath);
             expect(link).toContain(absolutePath);
