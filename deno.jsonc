@@ -58,5 +58,5 @@
         "lint": "deno lint src/",
         "test": "deno test --allow-net"
     },
-    "version": "0.11.10"
+    "version": "0.12.0"
 }

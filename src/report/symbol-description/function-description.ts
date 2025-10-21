@@ -20,21 +20,21 @@ export function functionDescription(symbol: SymbolMeta): string {
     }
 
     // Extract param tags for signature hint
-    const params = doc.tags.filter(t => t.tagName === 'param');
+    const params = doc.tags.filter(t => t.tagName === "param");
     if (params.length > 0) {
-        const paramNames = params.map(p => {
-            const commentText = typeof p.comment === 'string'
+        const paramNames = params.map((p) => {
+            const commentText = typeof p.comment === "string"
                 ? p.comment
                 : Array.isArray(p.comment)
-                    ? p.comment.map(c => (c && typeof c === 'object' && 'text' in c ? c.text : '')).join('')
-                    : '';
+                    ? p.comment.map(c => (c && typeof c === "object" && "text" in c ? c.text : "")).join("")
+                    : "";
             // Extract just the parameter name (first word)
             const match = commentText.match(/^(\w+)/);
-            return match ? match[1] : '';
+            return match ? match[1] : "";
         }).filter(Boolean);
 
         if (paramNames.length > 0) {
-            return `${comment} (${paramNames.join(', ')})`;
+            return `${comment} (${paramNames.join(", ")})`;
         }
     }
 

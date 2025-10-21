@@ -11,7 +11,7 @@ export function typeUtilityDescription(symbol: SymbolMeta): string {
     const doc = symbol.jsDocs?.[0];
     if (!doc) {
         if (symbol.generics.length > 0) {
-            const genericNames = symbol.generics.map(g => g.name).join(', ');
+            const genericNames = symbol.generics.map(g => g.name).join(", ");
             return `Type utility ${symbol.name}<${genericNames}>`;
         }
         return `Type utility ${symbol.name}`;
@@ -21,7 +21,7 @@ export function typeUtilityDescription(symbol: SymbolMeta): string {
     const comment = doc.comment?.trim();
     if (!comment) {
         if (symbol.generics.length > 0) {
-            const genericNames = symbol.generics.map(g => g.name).join(', ');
+            const genericNames = symbol.generics.map(g => g.name).join(", ");
             return `Type utility ${symbol.name}<${genericNames}>`;
         }
         return `Type utility ${symbol.name}`;

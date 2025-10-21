@@ -9,10 +9,10 @@ export const MAX_SYMBOLS = 10;
 
 // Export these for testing
 export interface FilterOptions {
-    filters: string[];           // positional arguments
-    caseSensitive: boolean;      // --case-sensitive flag
-    runtime?: boolean;           // --runtime flag
-    types?: boolean;             // --types flag
+    filters: string[]; // positional arguments
+    caseSensitive: boolean; // --case-sensitive flag
+    runtime?: boolean; // --runtime flag
+    types?: boolean; // --types flag
 }
 
 /**
@@ -24,18 +24,20 @@ export interface FilterOptions {
  */
 export function matchesFilter(symbolName: string, filter: string, caseSensitive: boolean): boolean {
     // Check if filter is quoted (literal match)
-    const isQuoted = (filter.startsWith('"') && filter.endsWith('"')) ||
-                     (filter.startsWith("'") && filter.endsWith("'"));
+    const isQuoted = (filter.startsWith("\"") && filter.endsWith("\""))
+        || (filter.startsWith("'") && filter.endsWith("'"));
 
     if (isQuoted) {
         // Literal case-sensitive exact match
         const literalFilter = filter.slice(1, -1); // Remove quotes
         return symbolName === literalFilter;
-    } else {
+    }
+    else {
         // Substring match
         if (caseSensitive) {
             return symbolName.includes(filter);
-        } else {
+        }
+        else {
             return symbolName.toLowerCase().includes(filter.toLowerCase());
         }
     }
@@ -54,12 +56,14 @@ export function filterSymbols(
     if (options.runtime && options.types) {
         // Both flags set - show warning and ignore both
         console.warn("Cannot use both --runtime and --types flags; showing all symbols");
-    } else if (options.runtime) {
+    }
+    else if (options.runtime) {
         filtered = filtered.filter(s =>
-            s.isFunction || s.isVariable ||
-            s.kind === 'class' || s.kind === 'function' || s.kind === 'const-function'
+            s.isFunction || s.isVariable
+            || s.kind === "class" || s.kind === "function" || s.kind === "const-function"
         );
-    } else if (options.types) {
+    }
+    else if (options.types) {
         filtered = filtered.filter(s => s.isTypeSymbol);
     }
 
@@ -196,7 +200,7 @@ export async function symbols_command(opt: AsOption<"symbols">, positionalArgs: 
     // Filter symbols based on user input
     const symbols = filterSymbols(allSymbols, {
         filters: positionalArgs,
-        caseSensitive: opt['case-sensitive'] || false,
+        caseSensitive: opt["case-sensitive"] || false,
         runtime: opt.runtime,
         types: opt.types
     });

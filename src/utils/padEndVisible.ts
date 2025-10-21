@@ -1,4 +1,4 @@
-import { consumedWidth } from './consumedWidth';
+import { consumedWidth } from "./consumedWidth";
 
 /**
  * **padEndVisible**`(text, targetWidth) -> string`

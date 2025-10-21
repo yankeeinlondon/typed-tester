@@ -5,10 +5,12 @@
  */
 export function stripAnsi(text: string): string {
     // Remove SGR codes (Select Graphic Rendition)
-    let result = text.replace(/\x1b\[[0-9;]*m/g, '');
+    // eslint-disable-next-line no-control-regex
+    let result = text.replace(/\x1B\[[0-9;]*m/g, "");
 
     // Remove OSC 8 hyperlinks
-    result = result.replace(/\x1b\]8;;[^\x1b]*\x1b\\/g, '');
+    // eslint-disable-next-line no-control-regex
+    result = result.replace(/\x1B\]8;;[^\x1B]*\x1B\\/g, "");
 
     return result;
 }

@@ -1,4 +1,3 @@
-
 import { consumedWidth } from "./consumedWidth";
 
 /**
@@ -96,7 +95,7 @@ function findWrapPoint(text: string, startWrap: number, forceWrap: number): numb
     // Track ANSI escape sequences to skip over them
     while (currentIndex < text.length) {
         // Check for ANSI escape sequence
-        if (text[currentIndex] === "\x1b") {
+        if (text[currentIndex] === "\x1B") {
             // Skip the entire ANSI sequence
             const ansiEnd = findAnsiEnd(text, currentIndex);
             currentIndex = ansiEnd;
@@ -118,7 +117,8 @@ function findWrapPoint(text: string, startWrap: number, forceWrap: number): numb
             if (currentWidth <= startWrap) {
                 // Ideal wrap point - within startWrap
                 bestWrapPoint = currentIndex + 1;
-            } else if (currentWidth <= forceWrap) {
+            }
+            else if (currentWidth <= forceWrap) {
                 // Acceptable wrap point - between startWrap and forceWrap
                 if (bestWrapPoint === -1) {
                     bestWrapPoint = currentIndex + 1;
@@ -141,7 +141,7 @@ function findForceWrapPoint(text: string, forceWrap: number): number {
 
     while (currentIndex < text.length) {
         // Check for ANSI escape sequence
-        if (text[currentIndex] === "\x1b") {
+        if (text[currentIndex] === "\x1B") {
             const ansiEnd = findAnsiEnd(text, currentIndex);
             currentIndex = ansiEnd;
             continue;
@@ -168,7 +168,7 @@ function findForceWrapPoint(text: string, forceWrap: number): number {
  * Finds the end of an ANSI escape sequence starting at the given index.
  */
 function findAnsiEnd(text: string, start: number): number {
-    if (text[start] !== "\x1b") {
+    if (text[start] !== "\x1B") {
         return start + 1;
     }
 
@@ -178,7 +178,7 @@ function findAnsiEnd(text: string, start: number): number {
     if (i < text.length && text[i] === "]") {
         i++;
         while (i < text.length) {
-            if (text[i] === "\x1b" && i + 1 < text.length && text[i + 1] === "\\") {
+            if (text[i] === "\x1B" && i + 1 < text.length && text[i + 1] === "\\") {
                 return i + 2;
             }
             i++;
@@ -213,33 +213,33 @@ function getCharWidth(char: string): number {
     const code = char.charCodeAt(0);
 
     // Zero-width characters
-    if (code === 0x200b || code === 0x200c || code === 0x200d) {
+    if (code === 0x200B || code === 0x200C || code === 0x200D) {
         return 0;
     }
 
     // Combining characters (simplified check)
-    if (code >= 0x0300 && code <= 0x036f) {
+    if (code >= 0x0300 && code <= 0x036F) {
         return 0;
     }
 
     // Wide characters (emoji, CJK) - simplified check
     // Full-width: 0x1100-0x115F, 0x2E80-0x9FFF, 0xAC00-0xD7A3, 0xF900-0xFAFF, 0xFE10-0xFE19, 0xFE30-0xFE6F, 0xFF00-0xFF60, 0xFFE0-0xFFE6
     if (
-        (code >= 0x1100 && code <= 0x115f) ||
-        (code >= 0x2e80 && code <= 0x9fff) ||
-        (code >= 0xac00 && code <= 0xd7a3) ||
-        (code >= 0xf900 && code <= 0xfaff) ||
-        (code >= 0xfe10 && code <= 0xfe19) ||
-        (code >= 0xfe30 && code <= 0xfe6f) ||
-        (code >= 0xff00 && code <= 0xff60) ||
-        (code >= 0xffe0 && code <= 0xffe6)
+        (code >= 0x1100 && code <= 0x115F)
+        || (code >= 0x2E80 && code <= 0x9FFF)
+        || (code >= 0xAC00 && code <= 0xD7A3)
+        || (code >= 0xF900 && code <= 0xFAFF)
+        || (code >= 0xFE10 && code <= 0xFE19)
+        || (code >= 0xFE30 && code <= 0xFE6F)
+        || (code >= 0xFF00 && code <= 0xFF60)
+        || (code >= 0xFFE0 && code <= 0xFFE6)
     ) {
         return 2;
     }
 
     // Emoji (simplified - checking common ranges)
     // Most emoji are in the supplementary planes, which require surrogate pairs
-    if (code >= 0xd800 && code <= 0xdfff) {
+    if (code >= 0xD800 && code <= 0xDFFF) {
         return 2; // Surrogate pair, likely emoji
     }
 

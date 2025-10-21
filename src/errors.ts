@@ -6,4 +6,4 @@ export const InvalidDiagnosticCode = createKindError("InvalidDiagnosticCode", { 
 
 export const InvalidDiagnosticMessage = createKindError("InvalidDiagnosticMessage", { library: "typed-tester" });
 
-export const InvalidFilePath = createKindError("InvalidFilePath", { library: "typed-tester"})
+export const InvalidFilePath = createKindError("InvalidFilePath", { library: "typed-tester" });

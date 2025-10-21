@@ -1,9 +1,8 @@
-import type { SymbolMeta, TypeGeneric, JsDocInfo } from "~/types";
+import type { JsDocInfo, SymbolMeta, TypeGeneric } from "~/types";
 import chalk from "chalk";
 import Table from "tty-table";
 import { prettyMultiLinePath } from "./prettyPath";
 import { formatDescription } from "./formatDescription";
-import { createTerminalLink } from "./terminalLink";
 
 export const SYMBOL_COL_LEN = 32;
 
@@ -26,7 +25,7 @@ export function symbolsScreen(rows: SymbolMeta[]) {
             width: SYMBOL_COL_LEN,
             align: "left",
             formatter: (v: [string, TypeGeneric[], string, number]) => {
-                const [name, generics, filepath, startLine] = v;
+                const [name, generics, _filepath, _startLine] = v;
 
                 // Format symbol name with generics
                 const withGenerics = () => `${chalk.bold(name)}<${generics.map(i => chalk.reset.dim(i.name)).join(",")}>`;

@@ -43,7 +43,8 @@ else {
                         const cmdValue = (cli as any).cmd;
                         if (Array.isArray(cmdValue)) {
                             symbolsPositionalArgs.push(...cmdValue);
-                        } else {
+                        }
+                        else {
                             symbolsPositionalArgs.push(cmdValue);
                         }
                     }

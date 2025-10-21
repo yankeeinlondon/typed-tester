@@ -1,4 +1,3 @@
-
 /**
  * **availableWidth**`() -> number`
  *
@@ -15,8 +14,8 @@ export function availableWidth(): number {
 
     // Try to get from environment variables
     if (process.env.COLUMNS) {
-        const width = parseInt(process.env.COLUMNS, 10);
-        if (!isNaN(width) && width > 0) {
+        const width = Number.parseInt(process.env.COLUMNS, 10);
+        if (!Number.isNaN(width) && width > 0) {
             return width;
         }
     }

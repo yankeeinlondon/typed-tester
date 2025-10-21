@@ -14,8 +14,8 @@ export function createTerminalLink(text: string, filepath: string, line?: number
         : `file://${absolutePath}`;
 
     // OSC 8 hyperlink format
-    const OSC = '\x1b]8;;';
-    const SEP = '\x1b\\';
+    const OSC = "\x1B]8;;";
+    const SEP = "\x1B\\";
 
     return `${OSC}${url}${SEP}${text}${OSC}${SEP}`;
 }
