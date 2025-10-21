@@ -26,7 +26,7 @@ describe('symbols command options', () => {
 
         expect(caseSensitiveOpt).toBeDefined();
         expect(caseSensitiveOpt?.type).toBe(Boolean);
-        expect(caseSensitiveOpt?.alias).toBe('c');
+        expect(caseSensitiveOpt?.alias).toBe('s');
     });
 
     it('should NOT include deprecated filter option', () => {

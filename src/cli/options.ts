@@ -59,7 +59,7 @@ export const command_options = {
         {
             name: "case-sensitive",
             type: Boolean,
-            alias: "c",
+            alias: "s",
             description: `treat filter criteria as case-sensitive (default: case-insensitive)`
         },
         {

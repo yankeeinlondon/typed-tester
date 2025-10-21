@@ -35,9 +35,22 @@ else {
                 case "test":
                     await test_command(cli as AsOption<"test">, positionalArgs);
                     break;
-                case "symbols":
-                    await symbols_command(cli as AsOption<"symbols">, positionalArgs);
+                case "symbols": {
+                    // Extract cmd value and combine with other positional args
+                    const symbolsPositionalArgs: string[] = [];
+                    if ((cli as any).cmd) {
+                        // cmd can be a single string or array
+                        const cmdValue = (cli as any).cmd;
+                        if (Array.isArray(cmdValue)) {
+                            symbolsPositionalArgs.push(...cmdValue);
+                        } else {
+                            symbolsPositionalArgs.push(cmdValue);
+                        }
+                    }
+                    symbolsPositionalArgs.push(...positionalArgs);
+                    await symbols_command(cli as AsOption<"symbols">, symbolsPositionalArgs);
                     break;
+                }
                 case "deps":
                     await deps_command(cli as AsOption<"deps">);
                     break;

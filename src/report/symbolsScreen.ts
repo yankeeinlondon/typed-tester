@@ -37,8 +37,10 @@ export function symbolsScreen(rows: SymbolMeta[]) {
                             : withGenerics()
                     : chalk.bold(name);
 
-                // Create terminal link
-                return createTerminalLink(symbolText, filepath, startLine);
+                // Terminal links disabled - they break tty-table's width calculations
+                // causing table corruption with duplicated/truncated columns
+                // TODO: Find a table library that properly handles OSC 8 escape codes
+                return symbolText;
             }
         },
         {

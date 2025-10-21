@@ -8,15 +8,15 @@ describe('source command file link generation', () => {
     describe('absolute path handling', () => {
         it('should generate file links with absolute paths', () => {
             // Simulate what ts-morph returns (repo-relative path)
-            const tsomorphPath = 'src/report/showDiagnostic.ts';
+            const tsMorphPath = 'src/report/showDiagnostic.ts';
             
             // Simulate project root
             const projectRoot = '/Volumes/coding/personal/typed-tester';
             
             // Convert to absolute path as the fix does
-            const absolutePath = tsomorphPath.startsWith('/') 
-                ? tsomorphPath 
-                : join(projectRoot, tsomorphPath);
+            const absolutePath = tsMorphPath.startsWith('/') 
+                ? tsMorphPath 
+                : join(projectRoot, tsMorphPath);
             
             // This is what the source command now does
             const displayText = prettyPath(relativeFile(absolutePath));
@@ -31,15 +31,15 @@ describe('source command file link generation', () => {
 
         it('should handle already absolute paths', () => {
             // If ts-morph somehow returns an absolute path
-            const tsomorphPath = '/Volumes/coding/personal/typed-tester/src/utils/index.ts';
+            const tsMorphPath = '/Volumes/coding/personal/typed-tester/src/utils/index.ts';
             const projectRoot = '/Volumes/coding/personal/typed-tester';
             
             // The fix checks if path starts with '/'
-            const absolutePath = tsomorphPath.startsWith('/') 
-                ? tsomorphPath 
-                : join(projectRoot, tsomorphPath);
+            const absolutePath = tsMorphPath.startsWith('/') 
+                ? tsMorphPath 
+                : join(projectRoot, tsMorphPath);
             
-            expect(absolutePath).toBe(tsomorphPath);
+            expect(absolutePath).toBe(tsMorphPath);
             
             const displayText = prettyPath(relativeFile(absolutePath));
             const link = fileLink(displayText, absolutePath);
@@ -50,13 +50,13 @@ describe('source command file link generation', () => {
 
         it('should handle Windows-style paths', () => {
             // Simulate Windows path from ts-morph
-            const tsomorphPath = 'src\\report\\showDiagnostic.ts';
+            const tsMorphPath = 'src\\report\\showDiagnostic.ts';
             const projectRoot = 'C:\\Users\\dev\\typed-tester';
             
             // join from pathe should handle this correctly
-            const absolutePath = tsomorphPath.match(/^[A-Z]:/) 
-                ? tsomorphPath 
-                : join(projectRoot, tsomorphPath);
+            const absolutePath = tsMorphPath.match(/^[A-Z]:/) 
+                ? tsMorphPath 
+                : join(projectRoot, tsMorphPath);
             
             // pathe normalizes paths to use forward slashes
             expect(absolutePath).toContain('C:/Users/dev/typed-tester');

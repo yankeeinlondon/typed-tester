@@ -93,27 +93,28 @@ function convertDependencyNodeToSymbolMeta(
 }
 
 /**
- * Get symbols using the dependency graph system, filtered to exported type symbols
+ * Get symbols using the dependency graph system, filtered to exported symbols
  */
 function getSymbolsFromDependencyGraph(): SymbolMeta[] {
     try {
     // Get the dependency graph (uses cache if available)
         const dependencyGraph = getDependencyGraph({ useCache: true });
 
-        // Filter to only exported type symbols (matching legacy behavior)
-        const exportedTypeSymbols: SymbolMeta[] = [];
+        // Get all exported symbols (both type and runtime)
+        const exportedSymbols: SymbolMeta[] = [];
 
         for (const [_fqn, node] of dependencyGraph.nodes) {
             const { meta } = node;
 
-            // Filter to type symbols that are exported (scope === "module")
-            if (meta.isTypeSymbol && meta.scope === "module") {
+            // Filter to exported symbols (scope === "module")
+            // Note: We return both type and runtime symbols here, filtering by type happens later
+            if (meta.scope === "module") {
                 const symbolWithDeps = convertDependencyNodeToSymbolMeta(node, dependencyGraph.nodes);
-                exportedTypeSymbols.push(symbolWithDeps);
+                exportedSymbols.push(symbolWithDeps);
             }
         }
 
-        return exportedTypeSymbols.sort((a, b) => a.name.localeCompare(b.name));
+        return exportedSymbols.sort((a, b) => a.name.localeCompare(b.name));
     }
     catch (error) {
         console.warn("Failed to get dependency graph, falling back to direct analysis:", error);
@@ -190,7 +191,7 @@ export async function symbols_command(opt: AsOption<"symbols">, positionalArgs: 
         allSymbols = getDirectSymbolAnalysis(project);
     }
 
-    msg(opt)(`- found ${chalk.bold(allSymbols.length)} exported type symbols`);
+    msg(opt)(`- found ${chalk.bold(allSymbols.length)} exported symbols`);
 
     // Filter symbols based on user input
     const symbols = filterSymbols(allSymbols, {
