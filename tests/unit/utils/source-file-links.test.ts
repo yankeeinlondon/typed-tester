@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { join, resolve } from 'pathe';
+import { join, resolve, isAbsolute } from 'pathe';
 import { fileLink } from '~/utils/link';
 import { prettyPath } from '~/utils/prettyPath';
 import { relativeFile } from '~/utils/relativeFile';
@@ -13,8 +13,8 @@ describe('source command file link generation', () => {
             // Simulate what ts-morph returns (repo-relative path) - use a file that actually exists
             const tsMorphPath = 'src/utils/link.ts';
 
-            // Convert to absolute path as the fix does
-            const absolutePath = tsMorphPath.startsWith('/')
+            // Convert to absolute path as the fix does (works on both Unix and Windows)
+            const absolutePath = isAbsolute(tsMorphPath)
                 ? tsMorphPath
                 : join(projectRoot, tsMorphPath);
 
@@ -36,8 +36,8 @@ describe('source command file link generation', () => {
             // If ts-morph somehow returns an absolute path - use a file that exists
             const tsMorphPath = join(projectRoot, 'src/utils/index.ts');
 
-            // The fix checks if path starts with '/'
-            const absolutePath = tsMorphPath.startsWith('/')
+            // The fix checks if path is absolute (works on both Unix and Windows)
+            const absolutePath = isAbsolute(tsMorphPath)
                 ? tsMorphPath
                 : join(projectRoot, tsMorphPath);
 

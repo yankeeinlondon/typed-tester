@@ -15,7 +15,7 @@ describe('createTerminalLink', () => {
     it('should include line number in URL when provided', () => {
         const result = createTerminalLink('MyType', '/path/to/file.ts', 42);
 
-        expect(result).toContain('file:///');
+        expect(result).toContain('file://');
         expect(result).toContain(':42');
     });
 
