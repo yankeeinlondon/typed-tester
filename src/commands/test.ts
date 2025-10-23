@@ -12,6 +12,8 @@ function calculateTestSummary(testFiles: TestFile[], opt: AsOption<"test">): Tes
     let filesWithWarnings = 0;
     let tests = 0;
     let skipped = 0;
+    let typeTests = 0;
+    let assertions = 0;
     const slow: string[] = [];
     const withDiagnostics: string[] = [];
 
@@ -39,6 +41,8 @@ function calculateTestSummary(testFiles: TestFile[], opt: AsOption<"test">): Tes
 
         tests += testFile.blocks.flatMap(b => b.tests).length;
         skipped += testFile.skippedTests;
+        typeTests += testFile.typeTests;
+        assertions += testFile.assertions;
 
         if (allDiagnostics.length > 0) {
             withDiagnostics.push(testFile.filepath);
@@ -58,7 +62,9 @@ function calculateTestSummary(testFiles: TestFile[], opt: AsOption<"test">): Tes
         testFiles: testFiles.length,
         skipped,
         withDiagnostics,
-        slow
+        slow,
+        typeTests,
+        assertions
     };
 }
 

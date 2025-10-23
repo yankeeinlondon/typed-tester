@@ -11,6 +11,7 @@
         "revparse",
         "rifraf",
         "rimraf",
+        "ssml",
         "Wezterm"
     ],
     "terminal.integrated.sendKeybindingsToShell": true

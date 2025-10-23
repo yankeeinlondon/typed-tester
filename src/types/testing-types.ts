@@ -10,6 +10,14 @@ export interface TypeTest {
     skip: boolean;
     readonly diagnostics: readonly FileDiagnostic[];
     readonly symbols: readonly SymbolReference[];
+    /**
+     * Whether this test block contains a `type cases = [...]` declaration
+     */
+    hasTypeCases: boolean;
+    /**
+     * The number of type assertions in the `type cases` array
+     */
+    typeAssertionCount: number;
 }
 
 export type Foo<T extends string> = `${T}Bar`;
@@ -47,6 +55,16 @@ export interface TestFile {
      * above.
      */
     testLines: number;
+    /**
+     * The total number of tests that contain type assertions
+     * (tests with `hasTypeCases = true`)
+     */
+    typeTests: number;
+    /**
+     * The total number of type assertions across all tests
+     * (sum of all `typeAssertionCount` values)
+     */
+    assertions: number;
 }
 
 export type SymbolFilterCallback = (sym: SymbolReference) => boolean;
@@ -75,4 +93,8 @@ export interface TestSummary {
     tests: number;
     /** the total number of test files evaluated */
     testFiles: number;
+    /** the total number of tests that contain type assertions */
+    typeTests: number;
+    /** the total number of type assertions across all tests */
+    assertions: number;
 }

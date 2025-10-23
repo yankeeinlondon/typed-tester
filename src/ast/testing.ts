@@ -20,6 +20,49 @@ function calculateTestLines(blocks: TestBlock[]) {
 }
 
 /**
+ * Detects and counts type assertions in a test block.
+ * Looks for `type cases = [...]` declarations and counts the tuple elements.
+ */
+function detectTypeCases(testBody: any): { hasTypeCases: boolean; typeAssertionCount: number } {
+    try {
+        // Look for TypeAliasDeclaration nodes with name "cases"
+        const typeAliases = testBody.getDescendantsOfKind(SyntaxKind.TypeAliasDeclaration);
+
+        for (const typeAlias of typeAliases) {
+            const name = typeAlias.getName();
+            if (name === "cases") {
+                // Found a `type cases = [...]` declaration
+                const typeNode = typeAlias.getTypeNode();
+
+                if (typeNode && typeNode.getKind() === SyntaxKind.TupleType) {
+                    // Get the actual tuple elements (excluding commas and other syntax)
+                    const elements = typeNode.getElements();
+                    return {
+                        hasTypeCases: true,
+                        typeAssertionCount: elements.length
+                    };
+                }
+
+                // If we found a "cases" type alias but couldn't count elements,
+                // still mark it as having type cases
+                return {
+                    hasTypeCases: true,
+                    typeAssertionCount: 0
+                };
+            }
+        }
+    } catch (error) {
+        // If there's any error in detection, return safe defaults
+        console.error("Error detecting type cases:", error);
+    }
+
+    return {
+        hasTypeCases: false,
+        typeAssertionCount: 0
+    };
+}
+
+/**
  * **asTestFile**`(filePath, options)` -> `Promise<TestFile>`
  *
  * Providing a filepath to a file, this function will convert
@@ -82,6 +125,11 @@ export async function asTestFile(
                         const testSkip = innerExpressionText.includes(".skip");
                         const symbols = innerCall.getDescendantsOfKind(SyntaxKind.Identifier).map(id => id.getSymbol()).filter(i => i) as Symbol[];
 
+                        // Detect type cases in the test body
+                        const testBodyArg = innerCall.getArguments()[1];
+                        const testBody = testBodyArg?.asKind(SyntaxKind.ArrowFunction)?.getBody();
+                        const typeCasesInfo = testBody ? detectTypeCases(testBody) : { hasTypeCases: false, typeAssertionCount: 0 };
+
                         tests.push({
                             filepath: sourceFile.getFilePath(),
                             description: testDescription,
@@ -96,6 +144,8 @@ export async function asTestFile(
                             symbols: symbols
                                 .map(i => asSymbolReference(i))
                                 .filter(config.symbolsFilter),
+                            hasTypeCases: typeCasesInfo.hasTypeCases,
+                            typeAssertionCount: typeCasesInfo.typeAssertionCount,
                         });
                     }
                 }
@@ -113,6 +163,11 @@ export async function asTestFile(
         }
     }
 
+    // Calculate aggregate type test metrics
+    const allTests = blocks.flatMap(b => b.tests);
+    const typeTests = allTests.filter(t => t.hasTypeCases).length;
+    const assertions = allTests.reduce((sum, test) => sum + test.typeAssertionCount, 0);
+
     return {
         filepath: relativeFile(sourceFile.getFilePath()),
         importSymbols: getImportsForFile(sourceFile).filter(i => !i.isExternalSource),
@@ -124,7 +179,9 @@ export async function asTestFile(
         ),
         blocks,
         duration: performance.now() - start,
-        testLines: calculateTestLines(blocks)
+        testLines: calculateTestLines(blocks),
+        typeTests,
+        assertions
     };
 }
 
