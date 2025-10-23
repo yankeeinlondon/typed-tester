@@ -13,7 +13,7 @@ import {
     isVerySlowTest
 } from "~/ast";
 import { fileLink } from "~/utils";
-import { prettyPath, showTestBlock } from "~/report";
+import { prettyPath, showTestBlock, formatTestCounts, formatTiming } from "~/report";
 
 export function showTestFile(test: TestFile, opt: AsOption<"test">) {
     /**
@@ -78,33 +78,15 @@ export function showTestFile(test: TestFile, opt: AsOption<"test">) {
             : chalk.green.bold(`✓`);
     const file = relative(getProjectRoot(), test.filepath);
 
-    const testNumber = test.blocks.flatMap(b => b.tests).length;
-    const skippedTests = test.skippedTests > 0
-        ? `, ${chalk.yellow(test.skippedTests)} ${test.skippedTests === 1 ? "test" : "tests"} skipped`
-        : "";
-    const testCount = !opt.verbose && !opt["show-passing"]
-        ? chalk.dim(`${testNumber - test.skippedTests} tests${skippedTests}`)
-        : "";
-
-    const msPerFile = Math.floor(test.duration);
-    const microSecPerLine = msPerFile === 0 || test.testLines === 0
-        ? 0
-        : Math.floor(1000 * (test.duration / test.testLines));
+    // Use new formatters for test counts and timing
+    const testCount = formatTestCounts(test, { verbose: opt.verbose, showPassing: opt["show-passing"] });
+    const timing = formatTiming(test, { metrics: opt.metrics, verbose: opt.verbose });
     const perfCondition = isSlowTest(test) || isVerySlowTest(test);
-
-    const commaNoVerbose = opt.verbose ? "" : ", ";
-    const timingWarning = isVerySlowTest(test)
-        ? `${commaNoVerbose}${chalk.red.bold(Math.floor(test.duration))}${chalk.dim.italic.red("ms")}, ${chalk.red.bold(microSecPerLine)}${chalk.dim.italic.red("μs/line")}`
-        : isSlowTest(test)
-            ? `${commaNoVerbose}${chalk.yellowBright.bold(msPerFile)}${chalk.dim.italic.yellowBright("ms")}, ${chalk.yellowBright.bold(microSecPerLine)}${chalk.dim.italic.yellowBright("μs/line")}`
-            : opt.verbose
-                ? `${chalk.gray.bold(Math.floor(test.duration))}${chalk.dim.italic.gray("ms")}, ${chalk.gray.bold(microSecPerLine)}${chalk.dim.italic.gray("μs/line")}`
-                : "";
 
     // FILE LINE
     if (!opt.slow || perfCondition) {
         if (!opt["only-errors"] || hasErrors) {
-            console.log(` ${fileStatusIcon}  ${fileLink(prettyPath(file), test.filepath)} ${chalk.dim("(")}${testCount}${timingWarning}${chalk.dim(")")} ${warningMsg}`);
+            console.log(` ${fileStatusIcon}  ${fileLink(prettyPath(file), test.filepath)} ${chalk.dim("(")}${testCount}${chalk.dim(")")} ${timing} ${warningMsg}`);
             if (opt["show-symbols"]) {
                 const symbols = test.importSymbols.filter(
                     s => !s.isExternalSource && s.as !== "cases" && s.symbol.kind === "type-defn"

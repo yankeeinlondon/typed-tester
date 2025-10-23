@@ -7,3 +7,5 @@ export * from "./symbolsJson";
 export * from "./symbolsJson";
 export * from "./symbolsScreen";
 export * from "./symbolsScreen";
+export * from "./formatTestCounts";
+export * from "./formatTiming";

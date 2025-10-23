@@ -31,6 +31,13 @@ export const command_options = {
             type: Boolean,
             description: `show the type symbols imported into the test file`
         },
+        {
+            name: "metrics",
+            alias: "m",
+            defaultValue: false,
+            type: Boolean,
+            description: `show additional performance metrics (μs/line)`
+        },
     ],
     deps: [
         CMD,
