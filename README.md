@@ -90,7 +90,7 @@ The following type utilities can be imported from this library:
 - `Expect` / `Test` / `IT`
    - all tests will be wrapped with the `Expect`/`Test`/`IT` utility; this utility will wrap one of the assertions listed below
    > `Expect`, `Test`, and `IT` are identical but allow the developer to choose the nomenclature they prefer; in this repo we will use `Test`
-- `AssertTrue<T>` and 
+- `AssertTrue<T>`  
    - tests whether the **tested type** `T` is the type `true`
 - `AssertFalse<T>`
    - tests whether the **tested type** `T` is the type `false`

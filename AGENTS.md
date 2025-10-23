@@ -245,3 +245,118 @@ Multi-step process using `npm-run-all`:
 3. **Transpile**: Use `tsdown` to compile TypeScript to ESM JavaScript
 4. **Copy**: Copy shell wrapper script to `bin/`
 5. **Permissions**: Set execute permissions on shell script (Unix/Mac only)
+
+## Testing Guidelines
+
+Tests use Vitest with `describe()` and `it()` blocks. All tests follow TDD principles.
+
+**CRITICAL: This is library code. Type tests are MANDATORY, not optional.**
+
+### Type Test Syntax - MANDATORY PATTERN
+
+**ALL type tests MUST follow this exact structure:**
+
+```typescript
+import type { Expect, AssertEqual, AssertExtends } from "inferred-types/types";
+
+describe("myFunction()", () => {
+    it("should do something", () => {
+        const result = myFunction("input");
+
+        // Runtime assertion
+        expect(result).toBe("expected");
+
+        // Type assertion - ALWAYS in the same it() block
+        type cases = [
+            Expect<AssertEqual<typeof result, "expected">>
+        ];
+    });
+});
+```
+
+**🚨 RED FLAGS - These patterns indicate WRONG type tests:**
+
+- ❌ Separate `describe("Type Tests")` blocks
+- ❌ Using `typeof` with `expect()` assertions (e.g., `expect(typeof x).toBe("string")`)
+- ❌ Checking `extends` with runtime conditional logic (e.g., `const _check: T extends U ? true : false`)
+- ❌ Runtime tests in one section, "type tests" in another
+
+**✅ Correct pattern**: Runtime and type assertions side-by-side in the same `it()` block using `type cases = [...]` array.
+
+**See also:** `docs/type-testing.md` and `tests/examples/canonical-type-test-pattern.test.ts` for complete examples.
+
+### Type Testing Requirements
+
+This library heavily leverages TypeScript's type system with:
+
+- Complex generics and conditional types
+- `inferred-types` utilities for narrow type inference
+- Provider-specific type narrowing
+- Compile-time type safety guarantees
+
+**Every phase MUST include comprehensive type tests alongside runtime tests.** Type tests validate:
+
+- Generic type inference works correctly
+- Conditional types resolve to expected types
+- Type narrowing behaves as designed
+- `inferred-types` utilities produce correct narrow types
+- Return types match specifications
+
+### CRITICAL: How to Verify Type Tests
+
+**YOU MUST RUN BOTH TEST COMMANDS:**
+
+1. **Runtime tests**: `pnpm test` - Tests behavior during execution
+2. **Type tests**: `pnpm test:types` - Type-checks test files with `typed-tester`
+
+**IMPORTANT**: A test file only passes type tests if it type-checks without TypeScript errors. The `typed-tester` tool runs TypeScript type checking on test files and reports any type errors as test failures.
+
+**DO NOT declare type tests complete until:**
+
+- ✅ `pnpm test` exits with code 0
+- ✅ `pnpm test:types` exits with code 0 and shows "🎉 No errors!"
+
+Type assertions (`as`, type annotations) may be needed in tests to satisfy TypeScript's type checker while maintaining test validity.
+
+### Testing Strategy by Symbol Type
+
+- **Type utilities**: Type tests ONLY (testing narrow types from `inferred-types`)
+- **Functions**: BOTH runtime AND type tests
+  - Runtime: Validate behavior and edge cases
+  - Type: Validate generic inference, return types, parameter constraints
+- **Classes**: Runtime tests primarily, type tests for generic class methods
+
+### Type Test Validation Checklist
+
+Before declaring any phase complete, verify EVERY test file:
+
+**For each test file with type tests:**
+
+- [ ] Every type test uses `type cases = [...]` syntax
+- [ ] Every assertion uses `Expect<Assert...>` from `inferred-types/types`
+- [ ] Type tests are side-by-side with runtime tests in the same `it()` block
+- [ ] NO separate "Type Tests" describe blocks exist
+- [ ] File imports from `inferred-types/types` (check for `import type { Expect, AssertEqual, ... }`)
+- [ ] `pnpm test:types` passes with "🎉 No errors!"
+
+**If ANY checkbox fails, the type tests are incorrect and must be rewritten.**
+
+
+## Skill Usage Requirements
+
+  **MANDATORY**: Before starting any significant task, Claude must:
+
+  1. **Check available skills** by reviewing the skills list in the environment
+  2. **MANDATORY: Invoke the appropriate skill** before starting work:
+     - **planning skill**: Use when asked to create plans, strategies, road-maps, or break down implementation work
+     - **testing skill**: **MANDATORY BEFORE WRITING ANY TESTS** - Review "Type Test Structure" section to understand correct type test syntax
+  3. **Never skip skill invocation** - if a skill matches the task description, use it proactively without being explicitly asked
+
+  **CRITICAL**: Before writing ANY test file, you MUST invoke the testing skill and review the type test examples. Failure to do so has resulted in writing runtime tests incorrectly labeled as "type tests".
+
+### When to Use Each Skill
+
+  - `planning`: "create a plan", "how should we approach", "strategy for implementing", "break
+  down the work"
+  - `testing`: "write tests", "TDD approach", "test this feature", "add test coverage"
+

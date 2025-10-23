@@ -8,7 +8,7 @@ import {
     projectUsing,
     traverseDependencies
 } from "~/ast";
-import { handleSymbolSelection } from "~/utils";
+import { fileLink, handleSymbolSelection } from "~/utils";
 
 /**
  * Calculate comprehensive statistics from the dependency graph
@@ -177,7 +177,9 @@ async function generateGraphOutput(
     // Screen output for graph view
         if (!opt.quiet) {
             console.log(chalk.bold(`\nDependency tree for: ${symbol.meta.name} [${symbol.meta.kind}]`));
-            console.log(chalk.dim(`Location: ${symbol.meta.filepath}:${symbol.meta.startLine}`));
+            const locationText = `${symbol.meta.filepath}:${symbol.meta.startLine}`;
+            const locationLink = `${symbol.meta.filepath}:${symbol.meta.startLine}`;
+            console.log(chalk.dim(`Location: ${fileLink(locationText, locationLink)}`));
             console.log(chalk.dim(`FQN: ${symbol.symbol}\n`));
         }
 
@@ -278,7 +280,9 @@ async function generateListOutput(
 
         for (const symbol of symbols) {
             console.log(chalk.bold(`${symbol.meta.name} [${symbol.meta.kind}]`));
-            console.log(chalk.dim(`  ${symbol.meta.filepath}:${symbol.meta.startLine}`));
+            const locationText = `${symbol.meta.filepath}:${symbol.meta.startLine}`;
+            const locationLink = `${symbol.meta.filepath}:${symbol.meta.startLine}`;
+            console.log(chalk.dim(`  ${fileLink(locationText, locationLink)}`));
 
             if (symbol.dependencies.length > 0) {
                 console.log(`  Dependencies (${symbol.dependencies.length}):`);

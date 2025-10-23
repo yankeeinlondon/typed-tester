@@ -69,18 +69,24 @@ export function fileLink<
     }
 
     // Strip file:// protocol if present
-    const cleanPath = stripLeading(path, "file://");
+    const cleanPath = stripLeading(path, "file://") as string;
+
+    // Extract line number if present (e.g., "file.ts:123" → ["file.ts", "123"])
+    const lineNumberMatch = cleanPath.match(/^(.+):(\d+)$/);
+    const pathWithoutLine = lineNumberMatch ? lineNumberMatch[1] : cleanPath;
+    const lineNumber = lineNumberMatch ? lineNumberMatch[2] : undefined;
 
     // Try path as-is first (handles truly absolute paths)
-    let fullPath = resolve(cleanPath);
+    let fullPath = resolve(pathWithoutLine);
 
     // If doesn't exist and starts with "/", try stripping it (project-relative path)
-    if (!existsSync(fullPath) && cleanPath.startsWith("/")) {
-        fullPath = resolve(stripLeading(cleanPath, "/"));
+    if (!existsSync(fullPath) && pathWithoutLine.startsWith("/")) {
+        fullPath = resolve(stripLeading(pathWithoutLine, "/"));
     }
 
     if (existsSync(fullPath)) {
-        return link(text, `file://${fullPath}`) as FileLinkRtn<T, P>;
+        const linkUrl = lineNumber ? `file://${fullPath}:${lineNumber}` : `file://${fullPath}`;
+        return link(text, linkUrl) as FileLinkRtn<T, P>;
     }
     else {
         throw InvalidFilePath(`The path '${fullPath}' is not a valid path on the file system!`);

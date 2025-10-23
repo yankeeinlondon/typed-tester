@@ -31,7 +31,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1761020472135
+          "analyzedAt": 1761207093375
         }
       ],
       [
@@ -64,7 +64,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1761020472135
+          "analyzedAt": 1761207093375
         }
       ],
       [
@@ -97,14 +97,14 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1761020472136
+          "analyzedAt": 1761207093375
         }
       ],
       [
         "module::285464234::InvalidFilePath",
         {
           "symbol": "module::285464234::InvalidFilePath",
-          "hash": 1837217983,
+          "hash": 1119269353,
           "dependencies": [
             "ext::3392903::createKindError"
           ],
@@ -130,7 +130,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1761020472136
+          "analyzedAt": 1761207093376
         }
       ],
       [
@@ -166,7 +166,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472136
+          "analyzedAt": 1761207093376
         }
       ],
       [
@@ -202,7 +202,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472136
+          "analyzedAt": 1761207093376
         }
       ],
       [
@@ -240,7 +240,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472137
+          "analyzedAt": 1761207093376
         }
       ],
       [
@@ -278,7 +278,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472137
+          "analyzedAt": 1761207093377
         }
       ],
       [
@@ -316,7 +316,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472139
+          "analyzedAt": 1761207093377
         }
       ],
       [
@@ -352,7 +352,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472139
+          "analyzedAt": 1761207093377
         }
       ],
       [
@@ -388,7 +388,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472139
+          "analyzedAt": 1761207093377
         }
       ],
       [
@@ -424,7 +424,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472139
+          "analyzedAt": 1761207093377
         }
       ],
       [
@@ -460,7 +460,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472139
+          "analyzedAt": 1761207093377
         }
       ],
       [
@@ -496,7 +496,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472139
+          "analyzedAt": 1761207093377
         }
       ],
       [
@@ -532,7 +532,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472139
+          "analyzedAt": 1761207093378
         }
       ],
       [
@@ -568,7 +568,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472140
+          "analyzedAt": 1761207093378
         }
       ],
       [
@@ -604,7 +604,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472140
+          "analyzedAt": 1761207093378
         }
       ],
       [
@@ -640,7 +640,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472140
+          "analyzedAt": 1761207093378
         }
       ],
       [
@@ -676,7 +676,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472140
+          "analyzedAt": 1761207093378
         }
       ],
       [
@@ -712,7 +712,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472141
+          "analyzedAt": 1761207093379
         }
       ],
       [
@@ -748,7 +748,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472141
+          "analyzedAt": 1761207093379
         }
       ],
       [
@@ -786,7 +786,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472141
+          "analyzedAt": 1761207093379
         }
       ],
       [
@@ -822,7 +822,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472141
+          "analyzedAt": 1761207093379
         }
       ],
       [
@@ -858,7 +858,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472141
+          "analyzedAt": 1761207093380
         }
       ],
       [
@@ -894,7 +894,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472141
+          "analyzedAt": 1761207093380
         }
       ],
       [
@@ -930,7 +930,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472141
+          "analyzedAt": 1761207093380
         }
       ],
       [
@@ -966,7 +966,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472141
+          "analyzedAt": 1761207093380
         }
       ],
       [
@@ -1002,7 +1002,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472142
+          "analyzedAt": 1761207093380
         }
       ],
       [
@@ -1038,7 +1038,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472142
+          "analyzedAt": 1761207093380
         }
       ],
       [
@@ -1074,7 +1074,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472142
+          "analyzedAt": 1761207093380
         }
       ],
       [
@@ -1115,7 +1115,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472142
+          "analyzedAt": 1761207093380
         }
       ],
       [
@@ -1151,7 +1151,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472142
+          "analyzedAt": 1761207093380
         }
       ],
       [
@@ -1187,7 +1187,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472142
+          "analyzedAt": 1761207093380
         }
       ],
       [
@@ -1223,7 +1223,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472142
+          "analyzedAt": 1761207093380
         }
       ],
       [
@@ -1261,7 +1261,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472142
+          "analyzedAt": 1761207093381
         }
       ],
       [
@@ -1297,7 +1297,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472143
+          "analyzedAt": 1761207093381
         }
       ],
       [
@@ -1333,7 +1333,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472143
+          "analyzedAt": 1761207093381
         }
       ],
       [
@@ -1378,7 +1378,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472143
+          "analyzedAt": 1761207093381
         }
       ],
       [
@@ -1416,7 +1416,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472143
+          "analyzedAt": 1761207093381
         }
       ],
       [
@@ -1452,7 +1452,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472143
+          "analyzedAt": 1761207093382
         }
       ],
       [
@@ -1488,7 +1488,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472143
+          "analyzedAt": 1761207093382
         }
       ],
       [
@@ -1524,7 +1524,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472143
+          "analyzedAt": 1761207093382
         }
       ],
       [
@@ -1562,7 +1562,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472144
+          "analyzedAt": 1761207093382
         }
       ],
       [
@@ -1600,7 +1600,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472144
+          "analyzedAt": 1761207093382
         }
       ],
       [
@@ -1636,7 +1636,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472144
+          "analyzedAt": 1761207093382
         }
       ],
       [
@@ -1672,7 +1672,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472144
+          "analyzedAt": 1761207093382
         }
       ],
       [
@@ -1708,7 +1708,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472144
+          "analyzedAt": 1761207093382
         }
       ],
       [
@@ -1744,7 +1744,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472144
+          "analyzedAt": 1761207093383
         }
       ],
       [
@@ -1782,7 +1782,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472145
+          "analyzedAt": 1761207093383
         }
       ],
       [
@@ -1818,7 +1818,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472145
+          "analyzedAt": 1761207093383
         }
       ],
       [
@@ -1859,7 +1859,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472145
+          "analyzedAt": 1761207093383
         }
       ],
       [
@@ -1895,7 +1895,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472145
+          "analyzedAt": 1761207093384
         }
       ],
       [
@@ -1931,7 +1931,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472145
+          "analyzedAt": 1761207093384
         }
       ],
       [
@@ -1969,7 +1969,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472145
+          "analyzedAt": 1761207093384
         }
       ],
       [
@@ -2005,7 +2005,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472146
+          "analyzedAt": 1761207093384
         }
       ],
       [
@@ -2041,7 +2041,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472146
+          "analyzedAt": 1761207093384
         }
       ],
       [
@@ -2077,7 +2077,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472146
+          "analyzedAt": 1761207093385
         }
       ],
       [
@@ -2115,7 +2115,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472146
+          "analyzedAt": 1761207093385
         }
       ],
       [
@@ -2156,7 +2156,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472147
+          "analyzedAt": 1761207093385
         }
       ],
       [
@@ -2192,7 +2192,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472147
+          "analyzedAt": 1761207093386
         }
       ],
       [
@@ -2230,7 +2230,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472147
+          "analyzedAt": 1761207093386
         }
       ],
       [
@@ -2266,7 +2266,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472147
+          "analyzedAt": 1761207093386
         }
       ],
       [
@@ -2302,7 +2302,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472147
+          "analyzedAt": 1761207093386
         }
       ],
       [
@@ -2343,7 +2343,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472147
+          "analyzedAt": 1761207093386
         }
       ],
       [
@@ -2379,7 +2379,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472148
+          "analyzedAt": 1761207093387
         }
       ],
       [
@@ -2417,7 +2417,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472148
+          "analyzedAt": 1761207093387
         }
       ],
       [
@@ -2448,7 +2448,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1761020472148
+          "analyzedAt": 1761207093387
         }
       ],
       [
@@ -2486,7 +2486,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472148
+          "analyzedAt": 1761207093387
         }
       ],
       [
@@ -2517,7 +2517,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1761020472148
+          "analyzedAt": 1761207093387
         }
       ],
       [
@@ -2552,7 +2552,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1761020472170
+          "analyzedAt": 1761207093410
         }
       ],
       [
@@ -2588,7 +2588,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472170
+          "analyzedAt": 1761207093410
         }
       ],
       [
@@ -2619,7 +2619,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1761020472170
+          "analyzedAt": 1761207093410
         }
       ],
       [
@@ -2650,7 +2650,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1761020472170
+          "analyzedAt": 1761207093410
         }
       ],
       [
@@ -2681,7 +2681,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1761020472171
+          "analyzedAt": 1761207093410
         }
       ],
       [
@@ -2717,7 +2717,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472171
+          "analyzedAt": 1761207093411
         }
       ],
       [
@@ -2753,7 +2753,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472171
+          "analyzedAt": 1761207093411
         }
       ],
       [
@@ -2789,14 +2789,14 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472171
+          "analyzedAt": 1761207093411
         }
       ],
       [
         "module::2067983008::matchesFilter",
         {
           "symbol": "module::2067983008::matchesFilter",
-          "hash": 246235344,
+          "hash": 540549848,
           "dependencies": [],
           "dependents": [],
           "meta": {
@@ -2804,7 +2804,7 @@
             "fqn": "module::2067983008::matchesFilter",
             "filepath": "src/commands/symbols.ts",
             "startLine": 25,
-            "endLine": 42,
+            "endLine": 44,
             "scope": "module",
             "flags": [
               "None",
@@ -2842,22 +2842,22 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472171
+          "analyzedAt": 1761207093411
         }
       ],
       [
         "module::310737432::filterSymbols",
         {
           "symbol": "module::310737432::filterSymbols",
-          "hash": 850395296,
+          "hash": 2077130922,
           "dependencies": [],
           "dependents": [],
           "meta": {
             "name": "filterSymbols",
             "fqn": "module::310737432::filterSymbols",
             "filepath": "src/commands/symbols.ts",
-            "startLine": 47,
-            "endLine": 74,
+            "startLine": 49,
+            "endLine": 78,
             "scope": "module",
             "flags": [
               "None",
@@ -2878,22 +2878,22 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472171
+          "analyzedAt": 1761207093411
         }
       ],
       [
         "module::1324343684::symbols_command",
         {
           "symbol": "module::1324343684::symbols_command",
-          "hash": 792226030,
+          "hash": 402840690,
           "dependencies": [],
           "dependents": [],
           "meta": {
             "name": "symbols_command",
             "fqn": "module::1324343684::symbols_command",
             "filepath": "src/commands/symbols.ts",
-            "startLine": 164,
-            "endLine": 224,
+            "startLine": 168,
+            "endLine": 228,
             "scope": "module",
             "flags": [
               "None",
@@ -2914,7 +2914,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472171
+          "analyzedAt": 1761207093411
         }
       ],
       [
@@ -2945,14 +2945,14 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1761020472171
+          "analyzedAt": 1761207093411
         }
       ],
       [
         "module::1603662523::FilterOptions",
         {
           "symbol": "module::1603662523::FilterOptions",
-          "hash": 1409346668,
+          "hash": 951957316,
           "dependencies": [],
           "dependents": [],
           "meta": {
@@ -2981,14 +2981,14 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472172
+          "analyzedAt": 1761207093411
         }
       ],
       [
         "module::1788359896::test_command",
         {
           "symbol": "module::1788359896::test_command",
-          "hash": 1583088927,
+          "hash": 1183448475,
           "dependencies": [],
           "dependents": [],
           "meta": {
@@ -3017,7 +3017,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472172
+          "analyzedAt": 1761207093412
         }
       ],
       [
@@ -3053,7 +3053,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472172
+          "analyzedAt": 1761207093412
         }
       ],
       [
@@ -3089,7 +3089,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472172
+          "analyzedAt": 1761207093412
         }
       ],
       [
@@ -3125,7 +3125,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472172
+          "analyzedAt": 1761207093412
         }
       ],
       [
@@ -3161,7 +3161,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472172
+          "analyzedAt": 1761207093412
         }
       ],
       [
@@ -3197,7 +3197,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472172
+          "analyzedAt": 1761207093412
         }
       ],
       [
@@ -3233,7 +3233,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472172
+          "analyzedAt": 1761207093412
         }
       ],
       [
@@ -3269,7 +3269,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472172
+          "analyzedAt": 1761207093412
         }
       ],
       [
@@ -3305,7 +3305,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472172
+          "analyzedAt": 1761207093412
         }
       ],
       [
@@ -3341,7 +3341,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472172
+          "analyzedAt": 1761207093412
         }
       ],
       [
@@ -3377,7 +3377,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472173
+          "analyzedAt": 1761207093412
         }
       ],
       [
@@ -3413,7 +3413,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472173
+          "analyzedAt": 1761207093412
         }
       ],
       [
@@ -3449,7 +3449,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472173
+          "analyzedAt": 1761207093412
         }
       ],
       [
@@ -3485,7 +3485,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472173
+          "analyzedAt": 1761207093412
         }
       ],
       [
@@ -3521,7 +3521,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472173
+          "analyzedAt": 1761207093413
         }
       ],
       [
@@ -3557,7 +3557,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472173
+          "analyzedAt": 1761207093413
         }
       ],
       [
@@ -3593,7 +3593,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472173
+          "analyzedAt": 1761207093413
         }
       ],
       [
@@ -3629,7 +3629,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472173
+          "analyzedAt": 1761207093413
         }
       ],
       [
@@ -3665,7 +3665,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472173
+          "analyzedAt": 1761207093413
         }
       ],
       [
@@ -3703,7 +3703,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472174
+          "analyzedAt": 1761207093413
         }
       ],
       [
@@ -3741,7 +3741,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472174
+          "analyzedAt": 1761207093413
         }
       ],
       [
@@ -3779,7 +3779,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472174
+          "analyzedAt": 1761207093414
         }
       ],
       [
@@ -3815,7 +3815,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472174
+          "analyzedAt": 1761207093414
         }
       ],
       [
@@ -3851,7 +3851,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472174
+          "analyzedAt": 1761207093414
         }
       ],
       [
@@ -3887,7 +3887,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472175
+          "analyzedAt": 1761207093414
         }
       ],
       [
@@ -3923,7 +3923,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472175
+          "analyzedAt": 1761207093414
         }
       ],
       [
@@ -3959,7 +3959,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472175
+          "analyzedAt": 1761207093414
         }
       ],
       [
@@ -3995,7 +3995,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472175
+          "analyzedAt": 1761207093414
         }
       ],
       [
@@ -4031,7 +4031,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472175
+          "analyzedAt": 1761207093414
         }
       ],
       [
@@ -4067,7 +4067,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472175
+          "analyzedAt": 1761207093414
         }
       ],
       [
@@ -4103,7 +4103,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472175
+          "analyzedAt": 1761207093414
         }
       ],
       [
@@ -4139,7 +4139,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472175
+          "analyzedAt": 1761207093414
         }
       ],
       [
@@ -4180,7 +4180,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472175
+          "analyzedAt": 1761207093414
         }
       ],
       [
@@ -4221,7 +4221,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472176
+          "analyzedAt": 1761207093415
         }
       ],
       [
@@ -4257,7 +4257,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472176
+          "analyzedAt": 1761207093415
         }
       ],
       [
@@ -4293,7 +4293,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472176
+          "analyzedAt": 1761207093415
         }
       ],
       [
@@ -4329,7 +4329,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472176
+          "analyzedAt": 1761207093415
         }
       ],
       [
@@ -4370,7 +4370,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472176
+          "analyzedAt": 1761207093415
         }
       ],
       [
@@ -4406,7 +4406,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472176
+          "analyzedAt": 1761207093415
         }
       ],
       [
@@ -4442,7 +4442,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472176
+          "analyzedAt": 1761207093415
         }
       ],
       [
@@ -4478,7 +4478,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472176
+          "analyzedAt": 1761207093415
         }
       ],
       [
@@ -4514,7 +4514,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472177
+          "analyzedAt": 1761207093415
         }
       ],
       [
@@ -4550,21 +4550,21 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472177
+          "analyzedAt": 1761207093415
         }
       ],
       [
         "module::1002004605::consumedWidth",
         {
           "symbol": "module::1002004605::consumedWidth",
-          "hash": 129202330,
+          "hash": 190103878,
           "dependencies": [],
           "dependents": [],
           "meta": {
             "name": "consumedWidth",
             "fqn": "module::1002004605::consumedWidth",
             "filepath": "src/utils/consumedWidth.ts",
-            "startLine": 15,
+            "startLine": 14,
             "endLine": 113,
             "scope": "module",
             "flags": [
@@ -4586,7 +4586,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472177
+          "analyzedAt": 1761207093415
         }
       ],
       [
@@ -4640,7 +4640,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472177
+          "analyzedAt": 1761207093416
         }
       ],
       [
@@ -4678,7 +4678,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472177
+          "analyzedAt": 1761207093416
         }
       ],
       [
@@ -4716,7 +4716,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472177
+          "analyzedAt": 1761207093416
         }
       ],
       [
@@ -4752,7 +4752,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472178
+          "analyzedAt": 1761207093416
         }
       ],
       [
@@ -4788,7 +4788,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472178
+          "analyzedAt": 1761207093416
         }
       ],
       [
@@ -4826,7 +4826,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472178
+          "analyzedAt": 1761207093416
         }
       ],
       [
@@ -4864,7 +4864,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472178
+          "analyzedAt": 1761207093416
         }
       ],
       [
@@ -4900,7 +4900,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472178
+          "analyzedAt": 1761207093417
         }
       ],
       [
@@ -4938,14 +4938,14 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472178
+          "analyzedAt": 1761207093417
         }
       ],
       [
         "module::702307291::fileLink",
         {
           "symbol": "module::702307291::fileLink",
-          "hash": 1484246327,
+          "hash": 2134713799,
           "dependencies": [
             "local::1034027178::FileLinkRtn"
           ],
@@ -4955,7 +4955,7 @@
             "fqn": "module::702307291::fileLink",
             "filepath": "src/utils/link.ts",
             "startLine": 60,
-            "endLine": 87,
+            "endLine": 94,
             "scope": "module",
             "flags": [
               "None",
@@ -4979,20 +4979,20 @@
             ],
             "jsDocs": [
               {
-                "comment": "**fileLink**`(text, path)`\n\nProvides a console-friendly way (_OSC 8 escape codes_) to display text and \nhave that text be linked to a valid file in the filesystem.\n\n**Note:** \n\n- if _undefined_ is passed for the path then the text will be returned\n\"as is\" (also meaning it will NOT be clickable)\n- if the filepath is provide but NOT valid then a `InvalidFilePath` error \nwill be thrown.",
+                "comment": "**fileLink**`(text, path)`\n\nProvides a console-friendly way (_OSC 8 escape codes_) to display text and\nhave that text be linked to a valid file in the filesystem.\n\n**Note:**\n\n- if _undefined_ is passed for the path then the text will be returned\n\"as is\" (also meaning it will NOT be clickable)\n- if the filepath is provide but NOT valid then a `InvalidFilePath` error\nwill be thrown.",
                 "tags": []
               }
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472179
+          "analyzedAt": 1761207093417
         }
       ],
       [
         "module::30792806::urlLink",
         {
           "symbol": "module::30792806::urlLink",
-          "hash": 2125227790,
+          "hash": 1641492750,
           "dependencies": [
             "local::1034027178::UrlLinkReturn"
           ],
@@ -5001,8 +5001,8 @@
             "name": "urlLink",
             "fqn": "module::30792806::urlLink",
             "filepath": "src/utils/link.ts",
-            "startLine": 106,
-            "endLine": 119,
+            "startLine": 113,
+            "endLine": 126,
             "scope": "module",
             "flags": [
               "None",
@@ -5032,22 +5032,22 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472179
+          "analyzedAt": 1761207093417
         }
       ],
       [
         "module::1726588939::tsCodeLink",
         {
           "symbol": "module::1726588939::tsCodeLink",
-          "hash": 321598625,
+          "hash": 1080898083,
           "dependencies": [],
           "dependents": [],
           "meta": {
             "name": "tsCodeLink",
             "fqn": "module::1726588939::tsCodeLink",
             "filepath": "src/utils/link.ts",
-            "startLine": 129,
-            "endLine": 134,
+            "startLine": 136,
+            "endLine": 141,
             "scope": "module",
             "flags": [
               "None",
@@ -5073,7 +5073,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472179
+          "analyzedAt": 1761207093417
         }
       ],
       [
@@ -5106,7 +5106,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1761020472179
+          "analyzedAt": 1761207093418
         }
       ],
       [
@@ -5139,7 +5139,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1761020472180
+          "analyzedAt": 1761207093418
         }
       ],
       [
@@ -5172,7 +5172,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1761020472180
+          "analyzedAt": 1761207093418
         }
       ],
       [
@@ -5208,7 +5208,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472180
+          "analyzedAt": 1761207093418
         }
       ],
       [
@@ -5244,7 +5244,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472180
+          "analyzedAt": 1761207093418
         }
       ],
       [
@@ -5293,7 +5293,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472180
+          "analyzedAt": 1761207093418
         }
       ],
       [
@@ -5329,7 +5329,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472180
+          "analyzedAt": 1761207093418
         }
       ],
       [
@@ -5365,7 +5365,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472180
+          "analyzedAt": 1761207093418
         }
       ],
       [
@@ -5401,14 +5401,14 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472180
+          "analyzedAt": 1761207093419
         }
       ],
       [
         "module::1413252003::stripAnsi",
         {
           "symbol": "module::1413252003::stripAnsi",
-          "hash": 1598753130,
+          "hash": 140989980,
           "dependencies": [],
           "dependents": [],
           "meta": {
@@ -5416,7 +5416,7 @@
             "fqn": "module::1413252003::stripAnsi",
             "filepath": "src/utils/stripAnsi.ts",
             "startLine": 6,
-            "endLine": 14,
+            "endLine": 16,
             "scope": "module",
             "flags": [
               "None",
@@ -5437,7 +5437,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472180
+          "analyzedAt": 1761207093419
         }
       ],
       [
@@ -5473,7 +5473,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472180
+          "analyzedAt": 1761207093419
         }
       ],
       [
@@ -5522,14 +5522,14 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472180
+          "analyzedAt": 1761207093419
         }
       ],
       [
         "module::749623235::truncateVisible",
         {
           "symbol": "module::749623235::truncateVisible",
-          "hash": 2058909225,
+          "hash": 656641412,
           "dependencies": [],
           "dependents": [],
           "meta": {
@@ -5558,7 +5558,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472180
+          "analyzedAt": 1761207093419
         }
       ],
       [
@@ -5594,7 +5594,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472180
+          "analyzedAt": 1761207093419
         }
       ],
       [
@@ -5630,7 +5630,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472180
+          "analyzedAt": 1761207093419
         }
       ],
       [
@@ -5666,7 +5666,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472181
+          "analyzedAt": 1761207093419
         }
       ],
       [
@@ -5704,7 +5704,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472181
+          "analyzedAt": 1761207093419
         }
       ],
       [
@@ -5740,7 +5740,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472181
+          "analyzedAt": 1761207093419
         }
       ],
       [
@@ -5776,7 +5776,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472181
+          "analyzedAt": 1761207093419
         }
       ],
       [
@@ -5812,14 +5812,14 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472181
+          "analyzedAt": 1761207093419
         }
       ],
       [
         "module::46112113::error",
         {
           "symbol": "module::46112113::error",
-          "hash": 1383240499,
+          "hash": 1777181293,
           "dependencies": [],
           "dependents": [],
           "meta": {
@@ -5827,7 +5827,7 @@
             "fqn": "module::46112113::error",
             "filepath": "src/logging/error.ts",
             "startLine": 5,
-            "endLine": 16,
+            "endLine": 22,
             "scope": "module",
             "flags": [
               "None",
@@ -5848,14 +5848,14 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472181
+          "analyzedAt": 1761207093419
         }
       ],
       [
         "module::1606761212::formatDescription",
         {
           "symbol": "module::1606761212::formatDescription",
-          "hash": 1467826427,
+          "hash": 1432360770,
           "dependencies": [],
           "dependents": [],
           "meta": {
@@ -5884,14 +5884,14 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472181
+          "analyzedAt": 1761207093420
         }
       ],
       [
         "module::2049028396::truncateText",
         {
           "symbol": "module::2049028396::truncateText",
-          "hash": 1321357570,
+          "hash": 1940307860,
           "dependencies": [],
           "dependents": [],
           "meta": {
@@ -5899,7 +5899,7 @@
             "fqn": "module::2049028396::truncateText",
             "filepath": "src/report/formatDescription.ts",
             "startLine": 42,
-            "endLine": 53,
+            "endLine": 54,
             "scope": "module",
             "flags": [
               "None",
@@ -5920,22 +5920,22 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472181
+          "analyzedAt": 1761207093420
         }
       ],
       [
         "module::954576856::extractParamName",
         {
           "symbol": "module::954576856::extractParamName",
-          "hash": 1506959335,
+          "hash": 1502192775,
           "dependencies": [],
           "dependents": [],
           "meta": {
             "name": "extractParamName",
             "fqn": "module::954576856::extractParamName",
             "filepath": "src/report/formatDescription.ts",
-            "startLine": 55,
-            "endLine": 59,
+            "startLine": 56,
+            "endLine": 60,
             "scope": "module",
             "flags": [
               "None",
@@ -5956,7 +5956,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472181
+          "analyzedAt": 1761207093420
         }
       ],
       [
@@ -5992,7 +5992,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472181
+          "analyzedAt": 1761207093420
         }
       ],
       [
@@ -6028,7 +6028,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472181
+          "analyzedAt": 1761207093420
         }
       ],
       [
@@ -6064,7 +6064,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472182
+          "analyzedAt": 1761207093420
         }
       ],
       [
@@ -6100,7 +6100,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472182
+          "analyzedAt": 1761207093420
         }
       ],
       [
@@ -6141,7 +6141,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472182
+          "analyzedAt": 1761207093420
         }
       ],
       [
@@ -6177,7 +6177,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472182
+          "analyzedAt": 1761207093420
         }
       ],
       [
@@ -6213,7 +6213,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472182
+          "analyzedAt": 1761207093420
         }
       ],
       [
@@ -6249,22 +6249,22 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472182
+          "analyzedAt": 1761207093420
         }
       ],
       [
         "module::432962628::symbolsScreen",
         {
           "symbol": "module::432962628::symbolsScreen",
-          "hash": 1022081897,
+          "hash": 1564936403,
           "dependencies": [],
           "dependents": [],
           "meta": {
             "name": "symbolsScreen",
             "fqn": "module::432962628::symbolsScreen",
             "filepath": "src/report/symbolsScreen.ts",
-            "startLine": 14,
-            "endLine": 91,
+            "startLine": 13,
+            "endLine": 90,
             "scope": "module",
             "flags": [
               "None",
@@ -6285,7 +6285,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472182
+          "analyzedAt": 1761207093420
         }
       ],
       [
@@ -6299,8 +6299,8 @@
             "name": "SYMBOL_COL_LEN",
             "fqn": "module::550943630::SYMBOL_COL_LEN",
             "filepath": "src/report/symbolsScreen.ts",
-            "startLine": 8,
-            "endLine": 8,
+            "startLine": 7,
+            "endLine": 7,
             "scope": "module",
             "flags": [
               "None",
@@ -6316,7 +6316,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1761020472182
+          "analyzedAt": 1761207093420
         }
       ],
       [
@@ -6352,7 +6352,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472182
+          "analyzedAt": 1761207093420
         }
       ],
       [
@@ -6388,14 +6388,14 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472182
+          "analyzedAt": 1761207093420
         }
       ],
       [
         "module::308317828::createTerminalLink",
         {
           "symbol": "module::308317828::createTerminalLink",
-          "hash": 1231099346,
+          "hash": 930119662,
           "dependencies": [],
           "dependents": [],
           "meta": {
@@ -6424,7 +6424,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472182
+          "analyzedAt": 1761207093420
         }
       ],
       [
@@ -6460,7 +6460,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472182
+          "analyzedAt": 1761207093420
         }
       ],
       [
@@ -6501,7 +6501,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472183
+          "analyzedAt": 1761207093420
         }
       ],
       [
@@ -6539,7 +6539,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472183
+          "analyzedAt": 1761207093421
         }
       ],
       [
@@ -6577,7 +6577,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472183
+          "analyzedAt": 1761207093421
         }
       ],
       [
@@ -6618,22 +6618,22 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472183
+          "analyzedAt": 1761207093421
         }
       ],
       [
         "module::10519823::availableWidth",
         {
           "symbol": "module::10519823::availableWidth",
-          "hash": 1837573548,
+          "hash": 616821542,
           "dependencies": [],
           "dependents": [],
           "meta": {
             "name": "availableWidth",
             "fqn": "module::10519823::availableWidth",
             "filepath": "src/utils/availableWidth.ts",
-            "startLine": 10,
-            "endLine": 26,
+            "startLine": 9,
+            "endLine": 25,
             "scope": "module",
             "flags": [
               "None",
@@ -6654,7 +6654,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472183
+          "analyzedAt": 1761207093421
         }
       ],
       [
@@ -6707,7 +6707,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472183
+          "analyzedAt": 1761207093421
         }
       ],
       [
@@ -6743,7 +6743,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472183
+          "analyzedAt": 1761207093421
         }
       ],
       [
@@ -6796,7 +6796,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472183
+          "analyzedAt": 1761207093421
         }
       ],
       [
@@ -6810,8 +6810,8 @@
             "name": "wordWrap",
             "fqn": "module::978909059::wordWrap",
             "filepath": "src/utils/wordWrap.ts",
-            "startLine": 21,
-            "endLine": 49,
+            "startLine": 20,
+            "endLine": 48,
             "scope": "module",
             "flags": [
               "None",
@@ -6832,7 +6832,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472183
+          "analyzedAt": 1761207093421
         }
       ],
       [
@@ -6875,7 +6875,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472183
+          "analyzedAt": 1761207093422
         }
       ],
       [
@@ -6913,7 +6913,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472184
+          "analyzedAt": 1761207093422
         }
       ],
       [
@@ -6956,7 +6956,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472184
+          "analyzedAt": 1761207093422
         }
       ],
       [
@@ -6994,7 +6994,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472184
+          "analyzedAt": 1761207093422
         }
       ],
       [
@@ -7043,7 +7043,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472184
+          "analyzedAt": 1761207093422
         }
       ],
       [
@@ -7088,7 +7088,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472184
+          "analyzedAt": 1761207093422
         }
       ],
       [
@@ -7133,7 +7133,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472184
+          "analyzedAt": 1761207093422
         }
       ],
       [
@@ -7178,7 +7178,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472184
+          "analyzedAt": 1761207093422
         }
       ],
       [
@@ -7223,7 +7223,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472184
+          "analyzedAt": 1761207093422
         }
       ],
       [
@@ -7272,7 +7272,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472184
+          "analyzedAt": 1761207093422
         }
       ],
       [
@@ -7321,7 +7321,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472184
+          "analyzedAt": 1761207093422
         }
       ],
       [
@@ -7370,7 +7370,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472184
+          "analyzedAt": 1761207093422
         }
       ],
       [
@@ -7415,7 +7415,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472184
+          "analyzedAt": 1761207093423
         }
       ],
       [
@@ -7464,7 +7464,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472185
+          "analyzedAt": 1761207093423
         }
       ],
       [
@@ -7500,7 +7500,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472185
+          "analyzedAt": 1761207093423
         }
       ],
       [
@@ -7541,7 +7541,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472185
+          "analyzedAt": 1761207093423
         }
       ],
       [
@@ -7572,7 +7572,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1761020472185
+          "analyzedAt": 1761207093423
         }
       ],
       [
@@ -7603,7 +7603,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1761020472185
+          "analyzedAt": 1761207093423
         }
       ],
       [
@@ -7639,7 +7639,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472185
+          "analyzedAt": 1761207093423
         }
       ],
       [
@@ -7675,7 +7675,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472185
+          "analyzedAt": 1761207093423
         }
       ],
       [
@@ -7711,7 +7711,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472185
+          "analyzedAt": 1761207093423
         }
       ],
       [
@@ -7747,7 +7747,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472185
+          "analyzedAt": 1761207093423
         }
       ],
       [
@@ -7783,7 +7783,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472185
+          "analyzedAt": 1761207093423
         }
       ],
       [
@@ -7819,7 +7819,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472185
+          "analyzedAt": 1761207093424
         }
       ],
       [
@@ -7855,7 +7855,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472185
+          "analyzedAt": 1761207093424
         }
       ],
       [
@@ -7898,7 +7898,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472185
+          "analyzedAt": 1761207093424
         }
       ],
       [
@@ -7941,7 +7941,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472186
+          "analyzedAt": 1761207093424
         }
       ],
       [
@@ -7984,7 +7984,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472186
+          "analyzedAt": 1761207093424
         }
       ],
       [
@@ -8022,7 +8022,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472186
+          "analyzedAt": 1761207093424
         }
       ],
       [
@@ -8060,7 +8060,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472186
+          "analyzedAt": 1761207093424
         }
       ],
       [
@@ -8098,7 +8098,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472186
+          "analyzedAt": 1761207093424
         }
       ],
       [
@@ -8141,7 +8141,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472186
+          "analyzedAt": 1761207093425
         }
       ],
       [
@@ -8184,7 +8184,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472186
+          "analyzedAt": 1761207093425
         }
       ],
       [
@@ -8225,7 +8225,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472186
+          "analyzedAt": 1761207093425
         }
       ],
       [
@@ -8261,7 +8261,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472186
+          "analyzedAt": 1761207093425
         }
       ],
       [
@@ -8302,7 +8302,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472186
+          "analyzedAt": 1761207093425
         }
       ],
       [
@@ -8343,7 +8343,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472187
+          "analyzedAt": 1761207093425
         }
       ],
       [
@@ -8379,7 +8379,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472187
+          "analyzedAt": 1761207093425
         }
       ],
       [
@@ -8415,7 +8415,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472187
+          "analyzedAt": 1761207093425
         }
       ],
       [
@@ -8451,7 +8451,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472187
+          "analyzedAt": 1761207093425
         }
       ],
       [
@@ -8487,7 +8487,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472187
+          "analyzedAt": 1761207093425
         }
       ],
       [
@@ -8523,7 +8523,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472187
+          "analyzedAt": 1761207093426
         }
       ],
       [
@@ -8559,7 +8559,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472187
+          "analyzedAt": 1761207093426
         }
       ],
       [
@@ -8595,7 +8595,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472187
+          "analyzedAt": 1761207093426
         }
       ],
       [
@@ -8626,7 +8626,7 @@
             "jsDocs": [],
             "refs": []
           },
-          "analyzedAt": 1761020472187
+          "analyzedAt": 1761207093426
         }
       ],
       [
@@ -8662,7 +8662,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472187
+          "analyzedAt": 1761207093426
         }
       ],
       [
@@ -8698,14 +8698,14 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472187
+          "analyzedAt": 1761207093426
         }
       ],
       [
         "module::1445528263::functionDescription",
         {
           "symbol": "module::1445528263::functionDescription",
-          "hash": 866946399,
+          "hash": 1272874234,
           "dependencies": [],
           "dependents": [],
           "meta": {
@@ -8734,7 +8734,7 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472187
+          "analyzedAt": 1761207093426
         }
       ],
       [
@@ -8770,14 +8770,14 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472187
+          "analyzedAt": 1761207093426
         }
       ],
       [
         "module::932661494::typeUtilityDescription",
         {
           "symbol": "module::932661494::typeUtilityDescription",
-          "hash": 102028004,
+          "hash": 488789732,
           "dependencies": [],
           "dependents": [],
           "meta": {
@@ -8806,12 +8806,12 @@
             ],
             "refs": []
           },
-          "analyzedAt": 1761020472187
+          "analyzedAt": 1761207093426
         }
       ]
     ],
-    "projectHash": 1135569075,
-    "lastUpdated": 1761020472188,
+    "projectHash": 921360693,
+    "lastUpdated": 1761207093427,
     "stats": {
       "totalSymbols": 235,
       "totalDependencies": 43,
@@ -8822,7 +8822,7 @@
   "fileHashes": [
     [
       "/Volumes/coding/personal/typed-tester/package.json",
-      1761020364919
+      1761077754514
     ],
     [
       "/Volumes/coding/personal/typed-tester/scripts/build.ts",
@@ -8833,8 +8833,12 @@
       1760998155050
     ],
     [
+      "/Volumes/coding/personal/typed-tester/scripts/md-conversion.ts",
+      1761020855354
+    ],
+    [
       "/Volumes/coding/personal/typed-tester/src/errors.ts",
-      1761003879349
+      1761077794240
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/help.ts",
@@ -8858,7 +8862,7 @@
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/typed.ts",
-      1761001961408
+      1761077795815
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/ast/dependency-graph.ts",
@@ -8914,7 +8918,7 @@
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/commands/deps.ts",
-      1755388506005
+      1761207039038
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/commands/files.ts",
@@ -8930,11 +8934,11 @@
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/commands/symbols.ts",
-      1761002031310
+      1761077801531
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/commands/test.ts",
-      1760990222273
+      1761206959725
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/data/diagnostic-code-lookup.json",
@@ -8946,7 +8950,7 @@
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/logging/error.ts",
-      1755446167789
+      1761206966818
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/logging/index.ts",
@@ -8954,7 +8958,7 @@
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/report/formatDescription.ts",
-      1761016293805
+      1761077876378
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/report/index.ts",
@@ -8994,11 +8998,11 @@
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/report/symbolsScreen.ts",
-      1761016331621
+      1761077884756
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/report/terminalLink.ts",
-      1761000033539
+      1761077794693
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/test-utilities/AssertContains.ts",
@@ -9094,7 +9098,7 @@
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/utils/availableWidth.ts",
-      1761009515712
+      1761077889537
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/utils/centerText.ts",
@@ -9102,7 +9106,7 @@
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/utils/consumedWidth.ts",
-      1761019851113
+      1761077798606
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/utils/diagnosticLookup.ts",
@@ -9118,7 +9122,7 @@
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/utils/link.ts",
-      1761018451477
+      1761207074379
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/utils/mdToConsole.ts",
@@ -9130,7 +9134,7 @@
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/utils/padEndVisible.ts",
-      1761019259542
+      1761077794410
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/utils/prettyPath.ts",
@@ -9154,7 +9158,7 @@
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/utils/stripAnsi.ts",
-      1761019241827
+      1761077901452
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/utils/testing.ts",
@@ -9162,11 +9166,11 @@
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/utils/truncateVisible.ts",
-      1761019268351
+      1761077794701
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/utils/wordWrap.ts",
-      1761020313680
+      1761077801226
     ],
     [
       "/Volumes/coding/personal/typed-tester/tests/helpers/cache-test-utils.ts",
@@ -9230,7 +9234,7 @@
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/report/symbol-description/function-description.ts",
-      1761014158795
+      1761077795066
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/report/symbol-description/type-description.ts",
@@ -9238,7 +9242,7 @@
     ],
     [
       "/Volumes/coding/personal/typed-tester/src/report/symbol-description/type-utility-description.ts",
-      1761014158631
+      1761077794752
     ],
     [
       "/Volumes/coding/personal/typed-tester/tests/integration/fast/deps.fast.test.ts",
@@ -9270,7 +9274,7 @@
     ],
     [
       "/Volumes/coding/personal/typed-tester/tests/unit/source-command/diagnostic-analysis.test.ts",
-      1761000894081
+      1761058306132
     ],
     [
       "/Volumes/coding/personal/typed-tester/tests/unit/source-command/diagnostic-lookup.test.ts",
@@ -9290,7 +9294,7 @@
     ],
     [
       "/Volumes/coding/personal/typed-tester/tests/unit/symbol-command/cli-options.test.ts",
-      1761001323921
+      1761058107226
     ],
     [
       "/Volumes/coding/personal/typed-tester/tests/unit/symbol-command/symbol-filtering.test.ts",
@@ -9298,7 +9302,7 @@
     ],
     [
       "/Volumes/coding/personal/typed-tester/tests/unit/symbol-command/terminal-link.test.ts",
-      1761000017406
+      1761078665313
     ],
     [
       "/Volumes/coding/personal/typed-tester/tests/unit/test-command/test-summary.test.ts",
@@ -9334,7 +9338,7 @@
     ],
     [
       "/Volumes/coding/personal/typed-tester/tests/unit/utils/lookups.test.ts",
-      1755025304302
+      1761058159144
     ],
     [
       "/Volumes/coding/personal/typed-tester/tests/unit/utils/prettyPath.test.ts",
@@ -9342,7 +9346,7 @@
     ],
     [
       "/Volumes/coding/personal/typed-tester/tests/unit/utils/source-file-links.test.ts",
-      1761002279412
+      1761078686983
     ],
     [
       "/Volumes/coding/personal/typed-tester/tests/unit/utils/urlLink.test.ts",
@@ -9365,10 +9369,10 @@
       1760839517045
     ]
   ],
-  "configHash": 444681094,
+  "configHash": 555940310,
   "metadata": {
     "version": "0.9.5",
-    "createdAt": 1761020472189,
-    "lastAccessed": 1761020472189
+    "createdAt": 1761207093428,
+    "lastAccessed": 1761207093428
   }
 }

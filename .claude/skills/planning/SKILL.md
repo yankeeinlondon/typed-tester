@@ -62,11 +62,12 @@ describe("prettyPath()", () => {
 
 ---
 
+
 ### 2. Type Tests
 
-Type tests verify the **type correctness** of TypeScript code at compile time.
+Type tests verify the **type correctness** of TypeScript code at _design_ time.
 
-**When to use:**
+#### **When to use:**
 
 - Testing type utility functions (always)
 - Verifying generic type constraints work as expected
@@ -75,82 +76,255 @@ Type tests verify the **type correctness** of TypeScript code at compile time.
 - Validating discriminated unions and type narrowing
 - Checking that function signatures accept/reject correct types
 
-**Tools:**
+#### **Tools:**
 
-- Test runner: This repo's own CLI (`typed-tester`)
 - Commands:
   - `pnpm test:types` - runs all type tests
   - `pnpm test:types GLOB` - runs type tests matching the glob pattern
 
-**Example structure:**
+#### Type Test Structure
+
+This section will show you, layer by layer, how to compose and build good type tests.
+
+##### `cases` block
+
+All type tests in a given `it` test block (defined by Vitest) will have a type called `cases` defined as an array of _type tests_. 
+
+```ts
+type cases = [
+    // ... type tests go here
+]
+```
+
+> Note: our linting rules allow for the name `cases` to be defined _without being used_; this is intentional and a good thing.
+
+##### `Expect<...>` wrapper
+
+Every type test will be wrapped by an `Expect` type utility.
+
+```ts
+type cases = [
+    Expect<...>,
+    Expect<...>,
+    // ...
+]
+```
+
+##### Available Type Test Assertions
+
+The `inferred-types` library provides a number of useful assertion utilities you can use to create your tests:
+
+- `AssertTrue<T>`  ****
+   - tests whether the **tested type** `T` is the type `true`
+- `AssertFalse<T>`
+   - tests whether the **tested type** `T` is the type `false`
+- `AssertEqual<T,E>`
+   - tests that the **tested type** `T` _equals_ the **expected type** `E`
+- `AssertExtends<T,E>`
+   - tests that the **tested type** `T` _extends_ the **expected type** `E`
+- `AssertSameValues<T,E>`
+   - tests that the **tested type** `T` is an array type and every element of `E` and `T` are the same but the order in which they arrive does not matter
+- `AssertContains<T,E>`
+   - when the **tested type** `T` is a `string`:
+       - this utility will pass when `E` is also a `string` and represents a _sub-string_ of the sting literal `T`
+   - when the **tested type** `T` is an array then:
+       - this utility 
+
+In all cases you put the test assertion _inside_ of the `Expect` utility:
+
+```ts
+type cases [
+    Expect<AssertTrue<T>>,
+    Expect<AssertExtends<T, string>>,
+    // ...
+]
+```
+
+
+##### Example 1
+
+In our example we'll just test a _built-in_ type utility of Typescript's named `Capitalize<T>`.
+
+- this utility simply capitalizes the first letter in a string literal
+
+```ts
+import type { Expect, Equal } from "inferred-types/types";
+
+describe("Example 1", () => {
+    it("string literals", () => {
+        type Lowercase = Capitalize<"foo">;
+        type AlreadyCapitalized = Capitalize<"Foo">;
+
+        type cases = [
+            Expect<AssertEqual<Lowercase, "Foo">>,
+            Expect<AssertEqual<AlreadyCapitalized, "Foo">>,
+        ]
+    });
+
+    it("wide string", () => {
+        type Wide = Capitalize<string>;
+
+        type cases = [
+            Expect<AssertEqual<Wide, string>>
+        ]
+    })
+
+    it("only first letter capitalized", () => {
+        type SpaceThenLetter = Capitalize<" foo">;
+        type TabThenLetter = Capitalize<"\tfoo">;
+
+        type cases = [
+            Expect<AssertEqual<SpaceThenLetter, " foo">>,
+            Expect<AssertEqual<TabThenLetter, "\tfoo">>,
+        ]
+    })
+});
+```
+
+**IMPORTANT:** in the example above we were testing a type utility (where a type utility is any type which accepts generics and uses them to produce a type); and with type utilities you CAN'T do runtime testing because there is no runtime component to test. However, we do still use the `Vitest` primitives of `describe` and `it` to organize the test.
+
+##### Example 2
+
+Let's imagine we create a simple function:
+
+- `capitalize<T extends string>(text: T): Capitalize<T>`.
+- here we have a VERY common situation for library authors: 
+    - _a function which provides a narrow type return_
+- in this situation we will want to have BOTH runtime and type tests
+
+```ts
+describe("example", () => {
+    it("leading alpha character", () => {
+        const lowercase = capitalize("foo");
+        const alreadyCapitalized = capitalize("Foo");
+
+        expect(lowercase).toEqual("Foo");
+        expect(alreadyCapitalized).toEqual("Foo");
+
+        type cases = [
+            Expect<AssertEqual<typeof lowercase, "Foo">>,
+            Expect<AssertEqual<typeof alreadyCapitalized, "Foo">>,
+        ]
+    });
+
+    it("wide string", () => {
+        const wide = capitalize("foo" as string);
+
+        expect(wide).toBe("Foo");
+
+        type cases = [
+            Expect<AssertEqual<typeof wide, string>>
+        ]
+    })
+
+    it("non-alpha leading character", () => {
+        const spaceThenLetter = capitalize(" foo");
+        const tabThenLetter = capitalize("\tfoo");
+
+        expect(spaceThenLetter).toBe(" foo");
+        expect(tabThenLetter).toBe("\tfoo");
+
+        type cases = [
+            Expect<AssertEqual<typeof spaceThenLetter, " foo">>,
+            Expect<AssertEqual<typeof tabThenLetter, "\tfoo">>,
+        ]
+    })
+})
+```
+
+**IMPORTANT:** in these sorts of tests the runtime and type tests naturally fit into the same `describe`/`it` blocks. You should almost NEVER have a set of runtime tests in one structure, and then a set of type tests in another. This almost always indicates someone who doesn't understand type testing well enough yet.
+
+**IMPORTANT:** in both examples we've see a test structure where define intermediate variable/types which assume the value/type of the "test". Then we use the variable/type in our tests. We could possibly just inline the expression you're testing into the runtime and type tests but this can actually have undesirable side effects in some cases but having the intermediate variables/types defined first allows a human observer to hover over the variable to see what type resolution there was. This is highly valuable!
+
+---
+
+## Common Type Testing Mistakes
+
+### Mistake #1: Separated "Type Tests" Blocks (MOST COMMON)
+
+**❌ WRONG - Separated structure:**
 
 ```typescript
-import type { Expect, Equal } from "@type-challenges/utils";
-import type { ExtractKeys, DeepPartial } from "~/types/utils";
-
-describe("Type Utility Tests", () => {
-    it("ExtractKeys should extract only string keys", () => {
-        type Input = { name: string; age: number; active: boolean };
-        type Result = ExtractKeys<Input, string>;
-        type Test = Expect<Equal<Result, "name">>;
+describe("myFunction()", () => {
+    describe("Runtime tests", () => {
+        it("should work", () => {
+            expect(myFunction("test")).toBe("result");
+        });
     });
 
-    it("DeepPartial should make nested properties optional", () => {
-        type Input = { user: { name: string; profile: { bio: string } } };
-        type Result = DeepPartial<Input>;
-        type Expected = { user?: { name?: string; profile?: { bio?: string } } };
-        type Test = Expect<Equal<Result, Expected>>;
+    describe("Type Tests", () => {  // ❌ WRONG!
+        it("should have correct type", () => {
+            const result = myFunction("test");
+            const _check: typeof result extends string ? true : false = true;
+            expect(_check).toBe(true);  // ❌ This is NOT a type test!
+        });
     });
 });
+```
+
+**✅ CORRECT - Integrated structure:**
+
+```typescript
+describe("myFunction()", () => {
+    it("should work with string input", () => {
+        const result = myFunction("test");
+
+        // Runtime test
+        expect(result).toBe("result");
+
+        // Type test - in the SAME it() block
+        type cases = [
+            Expect<AssertEqual<typeof result, "result">>
+        ];
+    });
+});
+```
+
+### Mistake #2: Using Runtime Checks for Type Testing
+
+**❌ WRONG:**
+```typescript
+const result = myFunction("test");
+const _isString: typeof result extends string ? true : false = true;
+expect(_isString).toBe(true);  // This is runtime testing, not type testing!
+```
+
+**✅ CORRECT:**
+```typescript
+const result = myFunction("test");
+type cases = [
+    Expect<AssertExtends<typeof result, string>>
+];
+```
+
+### Mistake #3: No `cases` Array
+
+**❌ WRONG:**
+```typescript
+Expect<AssertEqual<typeof result, "expected">>;  // Not in cases array!
+```
+
+**✅ CORRECT:**
+```typescript
+type cases = [
+    Expect<AssertEqual<typeof result, "expected">>
+];
 ```
 
 ---
 
-### 3. Hybrid Tests (Runtime + Type)
+## Type Test Validation
 
-Many symbols benefit from **both** runtime and type testing in the same test file.
+Before submitting ANY work with type tests, verify:
 
-**When to use:**
+1. **Pattern check**: Does every type test use `type cases = [...]`?
+2. **Assertion check**: Does every assertion use `Expect<Assert...>`?
+3. **Structure check**: Are type tests side-by-side with runtime tests?
+4. **Import check**: Do files import from `inferred-types/types`?
+5. **No separation**: Are there ZERO "Type Tests" describe blocks?
+6. **Tests pass**: Does `pnpm test:types` show "🎉 No errors!"?
 
-- Testing functions that return complex types
-- Testing classes with sophisticated generic constraints
-- Testing factories or builders that produce typed objects
-- Any exported function with non-trivial type signatures
-
-**Example structure:**
-
-```typescript
-import { describe, it, expect } from "vitest";
-import type { Expect, Equal } from "@type-challenges/utils";
-import { createConfig } from "~/utils/config";
-
-describe("createConfig()", () => {
-    // Runtime tests
-    it("should create config with defaults", () => {
-        const config = createConfig({ name: "test" });
-        expect(config.name).toBe("test");
-        expect(config.verbose).toBe(false); // default
-    });
-
-    it("should merge provided options with defaults", () => {
-        const config = createConfig({ name: "test", verbose: true });
-        expect(config.verbose).toBe(true);
-    });
-
-    // Type tests
-    it("should infer correct return type", () => {
-        const config = createConfig({ name: "test" });
-        type Result = typeof config;
-        type Expected = { name: string; verbose: boolean; outputPath?: string };
-        type Test = Expect<Equal<Result, Expected>>;
-    });
-
-    it("should enforce required properties", () => {
-        // @ts-expect-error - name is required
-        const config = createConfig({});
-    });
-});
-```
+**If any check fails, the type tests are incorrect and must be rewritten.**
 
 ---
 
@@ -166,29 +340,30 @@ Is the symbol exported from the module?
 │
 └─ YES → What kind of symbol is it?
           │
-          ├─ Type Utility / Type Alias
-          │  └─ Write TYPE TESTS only
+          ├─ Type Utility (e.g., a type which takes generics)
+          │  └─ Write TYPE TESTS always; no RUNTIME tests are even possible!
           │
           ├─ Constant (literal value)
           │  └─ Usually NO tests needed
           │     (unless it's a complex computed value)
           │
           ├─ Function / Arrow Function
-          │  └─ Does it have complex type signatures or generics?
+          │  └─ Does it return a literal type?
           │     ├─ YES → Write BOTH runtime AND type tests
-          │     └─ NO → Write RUNTIME tests (minimum)
+          │     └─ NO → Write RUNTIME tests (minimum); possibly write type tests
           │
           ├─ Class
-          │  └─ Does it use complex generics or type constraints?
+          │  └─ Does it use generics or have methods which return literal types?
           │     ├─ YES → Write BOTH runtime AND type tests
           │     └─ NO → Write RUNTIME tests primarily
           │
-          └─ Interface / Type Definition
-             └─ Write TYPE TESTS if it's a complex conditional
-                or mapped type; otherwise no tests needed
+          └─ Interface / Type Definition (e.g., a type without a generic input)
+             └─ Usually NO test needed; if there is no generic then there is no variance to test
+             └─ Only exception might be when the type being defined uses a lot of type utilities in it's definition. In these cases, you _might_ test that the type is not an `any` or `never` type because the underlying utilities 
 ```
 
 **Rule of thumb:** When in doubt, write tests. It's better to have coverage than to skip it.
+
 
 ---
 

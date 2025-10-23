@@ -64,10 +64,12 @@
 ### Implementation Summary
 
 **Dependencies Changed:**
+
 - Added: `cli-table3@0.6.5` (includes TypeScript types)
 - Removed: `tty-table@4.2.3` (-37 total packages including dependencies)
 
 **Files Modified:**
+
 - `src/report/symbolsScreen.ts` - Complete rewrite using cli-table3 API
   - Changed from `Table(header, rows).render()` to `new Table(options)` with `push()` and `toString()`
   - Added `createTerminalLink()` calls to make symbol names clickable
@@ -80,6 +82,7 @@
   - Now uses `new Table(options)` with `push()` and `toString()`
 
 **Files Created:**
+
 - `tests/unit/report/clickable-symbol-names.test.ts` - 9 comprehensive tests
   - Terminal link generation tests (OSC 8 format validation)
   - File path and line number accuracy tests
@@ -98,16 +101,19 @@ Removed `colWidths` constraint to allow auto-sizing, preventing truncation of es
 **Completed**: 2025-10-21
 
 **Final Test Count:**
+
 - Runtime tests: 235 passed, 2 failed (baseline failures), 1 skipped
 - Net change: +9 tests (all Phase 3 tests passing)
 - No new failures introduced
 
 **Test Migration:**
+
 - Tests successfully migrated to `tests/unit/report/clickable-symbol-names.test.ts`
 - WIP test file removed
 - All 9 tests passing in permanent location
 
 **Key Changes:**
+
 - Symbol names in `symbols` command output are now clickable terminal links
 - Links use OSC 8 format: `\x1B]8;;file:///path/to/file.ts:line\x1B\\text\x1B]8;;\x1B\\`
 - Clicking symbol names opens the file at the correct line in supported terminals (iTerm2, VSCode, Terminal.app, etc.)
@@ -115,6 +121,7 @@ Removed `colWidths` constraint to allow auto-sizing, preventing truncation of es
 - 37 fewer dependencies (removed tty-table and its deps)
 
 **Notes:**
+
 - cli-table3 properly handles SGR ANSI codes (colors, bold, italic) but not OSC 8 codes
 - Auto-sizing columns instead of fixed widths prevents link truncation
 - All existing functionality preserved (dependencies, descriptions, color coding)

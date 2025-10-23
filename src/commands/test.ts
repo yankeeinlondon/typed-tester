@@ -4,7 +4,7 @@ import process from "node:process";
 import chalk from "chalk";
 import { asTestFile, getDiagnosticsOutsideBlocks, getErrorDiagnostics, projectUsing } from "~/ast";
 import { showTestFile, showTestSummary } from "~/report";
-import { filterTestFilesByPattern, getTestFiles, msg, shout } from "~/utils";
+import { fileLink, filterTestFilesByPattern, getTestFiles, msg, shout } from "~/utils";
 
 function calculateTestSummary(testFiles: TestFile[], opt: AsOption<"test">): TestSummary {
     let filesWithErrors = 0;
@@ -125,7 +125,7 @@ export async function test_command(opt: AsOption<"test">, filters: string[] = []
             msg(opt)(chalk.bold.red("Files with errors:"));
             msg(opt)(chalk.red("-------------------"));
             for (const file of filesWithErrors) {
-                msg(opt)(`${chalk.yellow(file.filepath)} - ${chalk.red(file.errorCount)} error${file.errorCount === 1 ? "" : "s"}`);
+                msg(opt)(`${fileLink(chalk.yellow(file.filepath), file.filepath)} - ${chalk.red(file.errorCount)} error${file.errorCount === 1 ? "" : "s"}`);
             }
             msg(opt)();
             msg(opt)(`Total: ${chalk.bold(filesWithErrors.length)} file${filesWithErrors.length === 1 ? "" : "s"} with errors`);
