@@ -25,7 +25,7 @@ export function showTestSummary<T extends TestSummary>(test: T) {
         const typeTestsText = test.typeTests === 1 ? "test has" : "tests have";
         const assertionsText = test.assertions === 1 ? "assertion" : "assertions";
         console.log(
-            `- ${chalk.cyan.bold(test.typeTests)} ${chalk.italic("of")} ${test.tests} ${typeTestsText} type assertions `
+            `- ${chalk.cyan.bold(test.typeTests)} ${chalk.italic("of")} ${test.tests} ${typeTestsText} type tests `
             + `(${chalk.cyan.bold(test.assertions)} total ${assertionsText})`
         );
     }

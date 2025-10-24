@@ -4,7 +4,7 @@ import process from "node:process";
 import chalk from "chalk";
 import { asTestFile, getDiagnosticsOutsideBlocks, getErrorDiagnostics, projectUsing } from "~/ast";
 import { showTestFile, showTestSummary } from "~/report";
-import { fileLink, filterTestFilesByPattern, getTestFiles, msg, shout } from "~/utils";
+import { detectTerminalTheme, fileLink, filterTestFilesByPattern, getTestFiles, msg, shout } from "~/utils";
 
 function calculateTestSummary(testFiles: TestFile[], opt: AsOption<"test">): TestSummary {
     let filesWithErrors = 0;
@@ -104,6 +104,9 @@ export async function test_command(opt: AsOption<"test">, filters: string[] = []
         msg(opt)(chalk.bold.green(`Test Results${filterDesc}:`));
         msg(opt)(chalk.bold.green(`---------------------------------------------`));
     }
+
+    // Detect terminal theme for proper colorization (cached for subsequent calls)
+    await detectTerminalTheme();
 
     // Analyze all test files directly
     const testFiles = await Promise.all(

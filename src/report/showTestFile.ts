@@ -12,7 +12,7 @@ import {
     isSlowTest,
     isVerySlowTest
 } from "~/ast";
-import { fileLink } from "~/utils";
+import { fileLink, getTerminalTheme } from "~/utils";
 import { formatTestCounts, formatTiming, prettyPath, showTestBlock } from "~/report";
 
 export function showTestFile(test: TestFile, opt: AsOption<"test">) {
@@ -71,11 +71,27 @@ export function showTestFile(test: TestFile, opt: AsOption<"test">) {
         }, ...test.blocks];
     }
 
+    // Determine icon styling based on state and type test presence
+    const theme = getTerminalTheme();
+    const hasTypeTests = test.typeTests > 0;
+
     const fileStatusIcon = test.skip
         ? chalk.dim(`⇣`)
         : hasErrors
-            ? chalk.red.bold(`⤬`)
-            : chalk.green.bold(`✓`);
+            ? hasTypeTests
+                // Has type tests and errors - emphasize the error (bright red)
+                ? chalk.red.bold(`⤬`)
+                // No type tests but has errors - de-emphasize based on background
+                : theme === 'light'
+                    ? chalk.hex('#CD5C5C').bold(`⤬`)  // Light red for light backgrounds
+                    : chalk.hex('#8B0000').bold(`⤬`)  // Dark red for dark backgrounds
+            : hasTypeTests
+                // Has type tests - emphasize
+                ? chalk.green.bold(`✓`)
+                // No type tests - de-emphasize based on background
+                : theme === 'light'
+                    ? chalk.hex('#AAAAAA')(`✓`)  // Light gray for light backgrounds
+                    : chalk.hex('#555555')(`✓`); // Dark gray for dark backgrounds
     const file = relative(getProjectRoot(), test.filepath);
 
     // Use new formatters for test counts and timing
@@ -89,11 +105,7 @@ export function showTestFile(test: TestFile, opt: AsOption<"test">) {
             // Build the file line content
             const fileLine = ` ${fileStatusIcon}  ${fileLink(prettyPath(file), test.filepath)} ${chalk.dim("(")}${testCount}${chalk.dim(")")} ${timing} ${warningMsg}`;
 
-            // Apply dimming when file has zero type tests (Phase 5)
-            const shouldDim = test.typeTests === 0;
-            const displayLine = shouldDim ? chalk.dim(fileLine) : fileLine;
-
-            console.log(displayLine);
+            console.log(fileLine);
 
             if (opt["show-symbols"]) {
                 const symbols = test.importSymbols.filter(
@@ -108,7 +120,7 @@ export function showTestFile(test: TestFile, opt: AsOption<"test">) {
         (hasErrors || opt["show-passing"] || opt.verbose) && !test.skip
     ) {
         for (const block of test.blocks) {
-            showTestBlock(block, opt);
+            showTestBlock(block, opt, hasTypeTests);
         }
     }
 }
