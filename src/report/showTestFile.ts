@@ -82,16 +82,16 @@ export function showTestFile(test: TestFile, opt: AsOption<"test">) {
                 // Has type tests and errors - emphasize the error (bright red)
                 ? chalk.red.bold(`⤬`)
                 // No type tests but has errors - de-emphasize based on background
-                : theme === 'light'
-                    ? chalk.hex('#CD5C5C').bold(`⤬`)  // Light red for light backgrounds
-                    : chalk.hex('#8B0000').bold(`⤬`)  // Dark red for dark backgrounds
+                : theme === "light"
+                    ? chalk.hex("#CD5C5C").bold(`⤬`) // Light red for light backgrounds
+                    : chalk.hex("#8B0000").bold(`⤬`) // Dark red for dark backgrounds
             : hasTypeTests
                 // Has type tests - emphasize
                 ? chalk.green.bold(`✓`)
                 // No type tests - de-emphasize based on background
-                : theme === 'light'
-                    ? chalk.hex('#AAAAAA')(`✓`)  // Light gray for light backgrounds
-                    : chalk.hex('#555555')(`✓`); // Dark gray for dark backgrounds
+                : theme === "light"
+                    ? chalk.hex("#AAAAAA")(`✓`) // Light gray for light backgrounds
+                    : chalk.hex("#555555")(`✓`); // Dark gray for dark backgrounds
     const file = relative(getProjectRoot(), test.filepath);
 
     // Use new formatters for test counts and timing

@@ -14,20 +14,20 @@ export function showTest(test: TypeTest, opt: AsOption<"test">, hasTypeTests = t
         : testErrors.length > 0
             ? hasTypeTests
                 ? chalk.bold.red(` ⛒ `)
-                : theme === 'light'
-                    ? chalk.hex('#CD5C5C').bold(` ⛒ `)
-                    : chalk.hex('#8B0000').bold(` ⛒ `)
+                : theme === "light"
+                    ? chalk.hex("#CD5C5C").bold(` ⛒ `)
+                    : chalk.hex("#8B0000").bold(` ⛒ `)
             : test.diagnostics.length > 0
                 ? hasTypeTests
                     ? chalk.bold.yellow(` ⚠️ `)
-                    : theme === 'light'
-                        ? chalk.hex('#DAA520').bold(` ⚠️ `)
-                        : chalk.hex('#996600').bold(` ⚠️ `)
+                    : theme === "light"
+                        ? chalk.hex("#DAA520").bold(` ⚠️ `)
+                        : chalk.hex("#996600").bold(` ⚠️ `)
                 : hasTypeTests
                     ? chalk.bold.green(` ✔ `)
-                    : theme === 'light'
-                        ? chalk.hex('#AAAAAA').bold(` ✔ `)
-                        : chalk.hex('#555555').bold(` ✔ `);
+                    : theme === "light"
+                        ? chalk.hex("#AAAAAA").bold(` ✔ `)
+                        : chalk.hex("#555555").bold(` ✔ `);
 
     const testLine = `          [${status}] ${test.description}`;
 

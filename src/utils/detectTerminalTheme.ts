@@ -1,6 +1,7 @@
 import { stdin, stdout } from "node:process";
+import type { Buffer } from "node:buffer";
 
-export type TerminalTheme = 'light' | 'dark' | 'unknown';
+export type TerminalTheme = "light" | "dark" | "unknown";
 
 interface RgbColor {
     r: number;
@@ -33,11 +34,11 @@ function parseOscResponse(response: string): RgbColor | null {
 
     // Parse RGB values from positions [0..2], [5..7], [10..12]
     // Example: "3838/a4a4/c9c9" -> r=0x38, g=0xa4, b=0xc9
-    const r = parseInt(colorPart.substring(0, 2), 16);
-    const g = parseInt(colorPart.substring(5, 7), 16);
-    const b = parseInt(colorPart.substring(10, 12), 16);
+    const r = Number.parseInt(colorPart.substring(0, 2), 16);
+    const g = Number.parseInt(colorPart.substring(5, 7), 16);
+    const b = Number.parseInt(colorPart.substring(10, 12), 16);
 
-    if (isNaN(r) || isNaN(g) || isNaN(b)) {
+    if (Number.isNaN(r) || Number.isNaN(g) || Number.isNaN(b)) {
         return null;
     }
 
@@ -55,29 +56,33 @@ async function queryTerminalBackgroundColor(timeoutMs = 100): Promise<RgbColor |
     }
 
     return new Promise((resolve) => {
-        let responseBuffer = '';
-        let wasRawMode = stdin.isRaw;
-        let wasPaused = stdin.isPaused();
+        let responseBuffer = "";
+        const wasRawMode = stdin.isRaw;
         let timeout: NodeJS.Timeout;
 
-        const cleanup = () => {
+        const onData = (chunk: Buffer): void => {
+            responseBuffer += chunk.toString();
+
+            // Check if we have a complete response (ends with BEL or ST)
+            if (responseBuffer.includes("\x07") || responseBuffer.includes("\x1B\\")) {
+                // Cleanup inline to avoid circular reference
+                stdin.setRawMode(wasRawMode);
+                stdin.removeListener("data", onData);
+                stdin.pause();
+                clearTimeout(timeout);
+
+                const rgb = parseOscResponse(responseBuffer);
+                resolve(rgb);
+            }
+        };
+
+        const cleanup = (): void => {
             stdin.setRawMode(wasRawMode);
-            stdin.removeListener('data', onData);
+            stdin.removeListener("data", onData);
             // Always pause stdin after query to prevent keeping the process alive
             // We resumed it for the query, so we need to pause it when done
             stdin.pause();
             clearTimeout(timeout);
-        };
-
-        const onData = (chunk: Buffer) => {
-            responseBuffer += chunk.toString();
-
-            // Check if we have a complete response (ends with BEL or ST)
-            if (responseBuffer.includes('\x07') || responseBuffer.includes('\x1b\\')) {
-                cleanup();
-                const rgb = parseOscResponse(responseBuffer);
-                resolve(rgb);
-            }
         };
 
         // Set timeout to avoid hanging
@@ -92,11 +97,12 @@ async function queryTerminalBackgroundColor(timeoutMs = 100): Promise<RgbColor |
             // Resume stdin to receive data
             stdin.resume();
             // Use .on() not .once() to handle chunked responses
-            stdin.on('data', onData);
+            stdin.on("data", onData);
 
             // Send OSC 11 query: ESC ] 11 ; ? BEL
-            stdout.write('\x1b]11;?\x07');
-        } catch (error) {
+            stdout.write("\x1B]11;?\x07");
+        }
+        catch {
             cleanup();
             resolve(null);
         }
@@ -122,7 +128,7 @@ export async function detectTerminalTheme(): Promise<TerminalTheme> {
 
     if (rgb === null) {
         // Default to 'dark' if detection fails (most developer terminals are dark)
-        cachedTheme = 'dark';
+        cachedTheme = "dark";
         return cachedTheme;
     }
 
@@ -130,7 +136,7 @@ export async function detectTerminalTheme(): Promise<TerminalTheme> {
     const luma = calculateLuma(rgb);
 
     // Threshold: luma > 0.6 is considered light, <= 0.6 is dark
-    cachedTheme = luma > 0.6 ? 'light' : 'dark';
+    cachedTheme = luma > 0.6 ? "light" : "dark";
 
     return cachedTheme;
 }
@@ -140,5 +146,5 @@ export async function detectTerminalTheme(): Promise<TerminalTheme> {
  * Use this after calling detectTerminalTheme() at least once
  */
 export function getTerminalTheme(): TerminalTheme {
-    return cachedTheme ?? 'dark';
+    return cachedTheme ?? "dark";
 }

@@ -19,14 +19,14 @@ export function showTestBlock(block: TestBlock, opt: AsOption<"test">, hasTypeTe
             : hasError
                 ? hasTypeTests
                     ? chalk.red.bold(`⤬`)
-                    : theme === 'light'
-                        ? chalk.hex('#CD5C5C').bold(`⤬`)
-                        : chalk.hex('#8B0000').bold(`⤬`)
+                    : theme === "light"
+                        ? chalk.hex("#CD5C5C").bold(`⤬`)
+                        : chalk.hex("#8B0000").bold(`⤬`)
                 : hasTypeTests
                     ? chalk.green.bold(`✓`)
-                    : theme === 'light'
-                        ? chalk.hex('#AAAAAA')(`✓`)
-                        : chalk.hex('#555555')(`✓`);
+                    : theme === "light"
+                        ? chalk.hex("#AAAAAA")(`✓`)
+                        : chalk.hex("#555555")(`✓`);
 
         const testDisplay = `${block.tests.length} ${chalk.italic(block.tests.length === 1 ? "test" : "tests")}`;
 
