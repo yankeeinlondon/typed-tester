@@ -33,13 +33,15 @@ export function formatTiming(
         if (options.metrics) {
             timingStr += ` | ${chalk.red.bold(microSecPerLine)}${chalk.dim.italic.red("μs/line")}`;
         }
-    } else if (isSlow) {
+    }
+    else if (isSlow) {
         // Slow: yellow/orange and bold
         timingStr = `${chalk.yellowBright.bold(msPerFile)}${chalk.dim.italic.yellowBright("ms")}`;
         if (options.metrics) {
             timingStr += ` | ${chalk.yellowBright.bold(microSecPerLine)}${chalk.dim.italic.yellowBright("μs/line")}`;
         }
-    } else {
+    }
+    else {
         // Fast: dimmed gray
         timingStr = `${chalk.gray.bold(msPerFile)}${chalk.dim.italic.gray("ms")}`;
         if (options.metrics) {

@@ -3,7 +3,7 @@ import { fileLink, rel } from "~/utils";
 import { get } from "stack-trace";
 
 export function error(msg: string, context?: Record<string, unknown>) {
-    const trace = get().slice(1).map(i => {
+    const trace = get().slice(1).map((i) => {
         const fileName = i.getFileName();
         const lineNumber = i.getLineNumber();
         const relPath = rel(fileName);

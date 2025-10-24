@@ -1,3 +1,5 @@
+export * from "./formatTestCounts";
+export * from "./formatTiming";
 export * from "./prettyPath";
 export * from "./showTestBlock";
 export * from "./showTestFile";
@@ -7,5 +9,3 @@ export * from "./symbolsJson";
 export * from "./symbolsJson";
 export * from "./symbolsScreen";
 export * from "./symbolsScreen";
-export * from "./formatTestCounts";
-export * from "./formatTiming";

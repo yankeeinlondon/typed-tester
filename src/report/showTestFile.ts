@@ -13,7 +13,7 @@ import {
     isVerySlowTest
 } from "~/ast";
 import { fileLink } from "~/utils";
-import { prettyPath, showTestBlock, formatTestCounts, formatTiming } from "~/report";
+import { formatTestCounts, formatTiming, prettyPath, showTestBlock } from "~/report";
 
 export function showTestFile(test: TestFile, opt: AsOption<"test">) {
     /**
@@ -86,7 +86,15 @@ export function showTestFile(test: TestFile, opt: AsOption<"test">) {
     // FILE LINE
     if (!opt.slow || perfCondition) {
         if (!opt["only-errors"] || hasErrors) {
-            console.log(` ${fileStatusIcon}  ${fileLink(prettyPath(file), test.filepath)} ${chalk.dim("(")}${testCount}${chalk.dim(")")} ${timing} ${warningMsg}`);
+            // Build the file line content
+            const fileLine = ` ${fileStatusIcon}  ${fileLink(prettyPath(file), test.filepath)} ${chalk.dim("(")}${testCount}${chalk.dim(")")} ${timing} ${warningMsg}`;
+
+            // Apply dimming when file has zero type tests (Phase 5)
+            const shouldDim = test.typeTests === 0;
+            const displayLine = shouldDim ? chalk.dim(fileLine) : fileLine;
+
+            console.log(displayLine);
+
             if (opt["show-symbols"]) {
                 const symbols = test.importSymbols.filter(
                     s => !s.isExternalSource && s.as !== "cases" && s.symbol.kind === "type-defn"

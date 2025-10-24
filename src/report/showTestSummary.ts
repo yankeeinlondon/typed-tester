@@ -19,6 +19,17 @@ export function showTestSummary<T extends TestSummary>(test: T) {
         console.log(`- ${chalk.red.bold(test.testsWithErrors)} ${chalk.italic("of")} ${test.tests} ${chalk.bold("tests")} had errors `);
         console.log(`- ${chalk.red.bold(test.filesWithErrors)} ${chalk.italic("of")} ${chalk.bold(test.testFiles)} ${chalk.bold("test files")} had errors`);
     }
+
+    // Display type test and assertion metrics
+    if (test.tests > 0) {
+        const typeTestsText = test.typeTests === 1 ? "test has" : "tests have";
+        const assertionsText = test.assertions === 1 ? "assertion" : "assertions";
+        console.log(
+            `- ${chalk.cyan.bold(test.typeTests)} ${chalk.italic("of")} ${test.tests} ${typeTestsText} type assertions `
+            + `(${chalk.cyan.bold(test.assertions)} total ${assertionsText})`
+        );
+    }
+
     if (test.skipped > 0) {
         console.log(`- ${chalk.yellowBright.bold(test.skipped)} ${test.skipped === 1 ? "test was" : "tests were"} skipped`);
     }

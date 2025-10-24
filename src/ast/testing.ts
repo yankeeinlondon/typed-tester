@@ -51,7 +51,8 @@ function detectTypeCases(testBody: any): { hasTypeCases: boolean; typeAssertionC
                 };
             }
         }
-    } catch (error) {
+    }
+    catch (error) {
         // If there's any error in detection, return safe defaults
         console.error("Error detecting type cases:", error);
     }
