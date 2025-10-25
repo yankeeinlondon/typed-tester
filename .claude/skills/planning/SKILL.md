@@ -611,28 +611,42 @@ Verify completeness, check for regressions, and finalize the phase.
    - Fix the root cause, not just the symptom
    - Re-run all tests to confirm fix
 
-3. **If no regressions, migrate tests to permanent locations:**
-
-   - **Think carefully** about the right permanent location for each test
-   - Consider if a new subdirectory is needed in the test structure
-   - Move tests from `tests/unit/WIP/` to their permanent homes
-   - Delete the `tests/unit/WIP/` directory
-   - **Rerun tests** to ensure nothing broke during migration
-
-4. **Update the log file:**
+3. **Update the log file:**
 
    Add a `## Phase Completion` section with:
    - Date and time completed
    - Final test count (passing/total)
    - Any notable issues or decisions made
-   - Location where tests were migrated to
+   - **Tests location:** `tests/unit/WIP/` (awaiting user review)
 
-5. **Report completion:**
+4. **Report completion to user:**
 
    Inform the user that the phase is complete with a summary of:
    - What was implemented
    - Test coverage added
+   - **Tests are in `tests/unit/WIP/` awaiting review**
    - Any important notes or caveats
+
+5. **CRITICAL: Tests remain in WIP directory until user reviews:**
+
+   - **DO NOT migrate tests automatically**
+   - Tests MUST stay in `tests/unit/WIP/` until the user has reviewed and approved them
+   - Only after explicit user approval should tests be migrated
+   - This allows the user to:
+     - Review test quality and coverage
+     - Verify test patterns are correct
+     - Ensure tests match requirements
+     - Request changes before tests become permanent
+
+6. **Test migration (only after user approval):**
+
+   When the user approves the tests:
+   - **Think carefully** about the right permanent location for each test
+   - Consider if a new subdirectory is needed in the test structure
+   - Move tests from `tests/unit/WIP/` to their permanent homes
+   - Delete the `tests/unit/WIP/` directory
+   - **Rerun tests** to ensure nothing broke during migration
+   - Update the log file with final test locations
 
 **Purpose:** Ensure quality, prevent regressions, and properly integrate work into the codebase.
 
@@ -783,10 +797,16 @@ Before closing out a phase:
 - [ ] Implementation completed
 - [ ] All WIP tests passing
 - [ ] Full test suite run (no regressions)
+- [ ] Log file updated with completion notes
+- [ ] **Tests remain in `tests/unit/WIP/` (DO NOT migrate automatically)**
+- [ ] User notified that tests are in WIP awaiting review
+
+**After user review and approval:**
+
 - [ ] Tests migrated from WIP to permanent locations
 - [ ] `tests/unit/WIP/` directory removed
-- [ ] Log file updated with completion notes
-- [ ] User notified of phase completion
+- [ ] Log file updated with final test locations
+- [ ] Tests verified to pass in new locations
 
 ---
 

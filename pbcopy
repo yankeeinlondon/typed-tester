@@ -1,0 +1,3693 @@
+
+> typed-tester@0.13.1 try /Volumes/coding/personal/typed-tester
+> bun run ./src/typed.ts imports --json
+
+{
+  "files": [
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/help.ts",
+      "imports": [
+        {
+          "category": "relativeChildNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/help.ts",
+          "line": 1,
+          "content": "import type { Command } from \"./cli/cli-types\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/help.ts",
+          "line": 3,
+          "content": "import chalk from \"chalk\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/help.ts",
+          "line": 4,
+          "content": "import commandLineUsage from \"command-line-usage\";"
+        },
+        {
+          "category": "relativeParentDefault",
+          "file": "/Volumes/coding/personal/typed-tester/src/help.ts",
+          "line": 5,
+          "content": "import packageJson from \"../package.json\";"
+        },
+        {
+          "category": "relativeChildNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/help.ts",
+          "line": 6,
+          "content": "import {\n    command_descriptions,\n    command_options,\n    commands_union,\n    global_options\n} from \"./cli/options\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/help.ts",
+          "line": 12,
+          "content": "import { isCommand } from \"./type-guards\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/errors.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/errors.ts",
+          "line": 1,
+          "content": "import { createKindError } from \"@yankeeinlondon/kind-error\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/play.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/play.ts",
+          "line": 1,
+          "content": "import playSound from \"play-sound\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/play.ts",
+          "line": 2,
+          "content": "import \"./play-sound\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/constants.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/constants.ts",
+          "line": 1,
+          "content": "import { narrow } from \"inferred-types\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/lib.ts",
+      "imports": []
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/index.ts",
+      "imports": []
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/typed.ts",
+      "imports": [
+        {
+          "category": "relativeChildNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/typed.ts",
+          "line": 3,
+          "content": "import type { AsOption } from \"./cli/cli-types\";"
+        },
+        {
+          "category": "relativeChildNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/typed.ts",
+          "line": 5,
+          "content": "import { create_cli } from \"./cli/create_cli\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/typed.ts",
+          "line": 6,
+          "content": "import {\n    deps_command,\n    files_command,\n    imports_command,\n    source_command,\n    symbols_command,\n    test_command\n} from \"./commands\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/typed.ts",
+          "line": 14,
+          "content": "import { show_help } from \"./help\";"
+        },
+        {
+          "category": "relativeChildNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/typed.ts",
+          "line": 15,
+          "content": "import { isCommand } from \"./type-guards/isCommand\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/type-guards/isSymbolMeta.ts",
+      "imports": [
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/type-guards/isSymbolMeta.ts",
+          "line": 1,
+          "content": "import type { SymbolMeta } from \"~/types\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/type-guards/isSymbolMeta.ts",
+          "line": 2,
+          "content": "import { isArray, isObject, isUndefined } from \"inferred-types\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/type-guards/isCommand.ts",
+      "imports": [
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/type-guards/isCommand.ts",
+          "line": 1,
+          "content": "import type { Command } from \"~/cli\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/type-guards/isCommand.ts",
+          "line": 2,
+          "content": "import { isString } from \"inferred-types\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/type-guards/isCommand.ts",
+          "line": 3,
+          "content": "import { command_options } from \"~/cli\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/type-guards/isDiagnostic.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/type-guards/isDiagnostic.ts",
+          "line": 1,
+          "content": "import type { Diagnostic, ts } from \"ts-morph\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/type-guards/isDiagnostic.ts",
+          "line": 2,
+          "content": "import { isObject } from \"inferred-types\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/type-guards/isSourceFile.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/type-guards/isSourceFile.ts",
+          "line": 1,
+          "content": "import type { SourceFile } from \"ts-morph\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/type-guards/isSourceFile.ts",
+          "line": 2,
+          "content": "import { isObject } from \"inferred-types\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/type-guards/isSymbol.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/type-guards/isSymbol.ts",
+          "line": 1,
+          "content": "import type { Symbol } from \"ts-morph\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/type-guards/isSymbol.ts",
+          "line": 2,
+          "content": "import { isObject } from \"inferred-types\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/type-guards/index.ts",
+      "imports": []
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/type-guards/isFileDiagnostic.ts",
+      "imports": [
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/type-guards/isFileDiagnostic.ts",
+          "line": 1,
+          "content": "import type { FileDiagnostic } from \"~/types\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/type-guards/isFileDiagnostic.ts",
+          "line": 2,
+          "content": "import { isObject } from \"inferred-types\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/type-guards/isFQN.ts",
+      "imports": [
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/type-guards/isFQN.ts",
+          "line": 1,
+          "content": "import type { FQN } from \"~/types\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/type-guards/isObject.ts",
+      "imports": []
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/utils/shout.ts",
+      "imports": [
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/shout.ts",
+          "line": 1,
+          "content": "import type { AsOption } from \"~/cli\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/shout.ts",
+          "line": 2,
+          "content": "import chalk from \"chalk\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/utils/prettyPath.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/prettyPath.ts",
+          "line": 1,
+          "content": "import chalk from \"chalk\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/prettyPath.ts",
+          "line": 2,
+          "content": "import { basename, dirname } from \"pathe\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/utils/rel.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/rel.ts",
+          "line": 1,
+          "content": "import { relative } from \"pathe\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/utils/testing.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/testing.ts",
+          "line": 1,
+          "content": "import { existsSync, readFileSync } from \"node:fs\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/testing.ts",
+          "line": 2,
+          "content": "import fg from \"fast-glob\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/testing.ts",
+          "line": 3,
+          "content": "import { relative } from \"pathe\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/testing.ts",
+          "line": 4,
+          "content": "import { getProjectRoot } from \"~/ast\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/utils/msg.ts",
+      "imports": [
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/msg.ts",
+          "line": 1,
+          "content": "import type { AsOption } from \"~/cli\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/msg.ts",
+          "line": 2,
+          "content": "import chalk from \"chalk\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/utils/stripAnsi.ts",
+      "imports": []
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/utils/wordWrap.ts",
+      "imports": [
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/wordWrap.ts",
+          "line": 1,
+          "content": "import { consumedWidth } from \"./consumedWidth\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/utils/interactive.ts",
+      "imports": [
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/interactive.ts",
+          "line": 1,
+          "content": "import type { DependencyNode, FQN } from \"~/types\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/interactive.ts",
+          "line": 2,
+          "content": "import { cwd } from \"node:process\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/interactive.ts",
+          "line": 4,
+          "content": "import { relative } from \"pathe\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/utils/rightJustifyText.ts",
+      "imports": [
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/rightJustifyText.ts",
+          "line": 1,
+          "content": "import { availableWidth } from \"./availableWidth\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/rightJustifyText.ts",
+          "line": 2,
+          "content": "import { consumedWidth } from \"./consumedWidth\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/rightJustifyText.ts",
+          "line": 3,
+          "content": "import { wordWrap } from \"./wordWrap\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/utils/padEndVisible.ts",
+      "imports": [
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/padEndVisible.ts",
+          "line": 1,
+          "content": "import { consumedWidth } from \"./consumedWidth\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/utils/diagnosticLookup.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/diagnosticLookup.ts",
+          "line": 1,
+          "content": "import type { Mutable, NumberLike } from \"inferred-types\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/diagnosticLookup.ts",
+          "line": 2,
+          "content": "import type {\n    TypescriptDiagnostic\n} from \"~/types\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/diagnosticLookup.ts",
+          "line": 5,
+          "content": "import { asString, hasKeys, isNumberLike } from \"inferred-types\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/diagnosticLookup.ts",
+          "line": 6,
+          "content": "import { InvalidDiagnosticCode, InvalidDiagnosticMessage } from \"~/errors\";"
+        },
+        {
+          "category": "relativeParentDefault",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/diagnosticLookup.ts",
+          "line": 9,
+          "content": "import DIAGNOSTIC_CODE_LOOKUP from \"../data/diagnostic-code-lookup.json\" with { type: \"json\" };"
+        },
+        {
+          "category": "relativeParentDefault",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/diagnosticLookup.ts",
+          "line": 10,
+          "content": "import DIAGNOSTIC_MESSAGE_LOOKUP from \"../data/diagnostic-message-lookup.json\" with { type: \"json\" };"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/utils/consumedWidth.ts",
+      "imports": [
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/consumedWidth.ts",
+          "line": 1,
+          "content": "import { stripAnsi } from \"./stripAnsi\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/utils/relativeFile.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/relativeFile.ts",
+          "line": 1,
+          "content": "import { relative } from \"pathe\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/relativeFile.ts",
+          "line": 2,
+          "content": "import { getProjectRoot } from \"~/ast\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/utils/availableWidth.ts",
+      "imports": []
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/utils/mdToConsole.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/mdToConsole.ts",
+          "line": 1,
+          "content": "import chalk from \"chalk\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/utils/index.ts",
+      "imports": []
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/utils/centerText.ts",
+      "imports": [
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/centerText.ts",
+          "line": 1,
+          "content": "import { availableWidth } from \"./availableWidth\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/centerText.ts",
+          "line": 2,
+          "content": "import { consumedWidth } from \"./consumedWidth\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/centerText.ts",
+          "line": 3,
+          "content": "import { wordWrap } from \"./wordWrap\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/utils/detectTerminalTheme.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/detectTerminalTheme.ts",
+          "line": 1,
+          "content": "import { stdin, stdout } from \"node:process\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/detectTerminalTheme.ts",
+          "line": 2,
+          "content": "import type { Buffer } from \"node:buffer\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/utils/truncateVisible.ts",
+      "imports": [
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/truncateVisible.ts",
+          "line": 1,
+          "content": "import { consumedWidth } from \"./consumedWidth\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/truncateVisible.ts",
+          "line": 2,
+          "content": "import { stripAnsi } from \"./stripAnsi\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/utils/link.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/link.ts",
+          "line": 1,
+          "content": "import type {\n    EnsureLeading,\n    NumberLike\n} from \"inferred-types\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/link.ts",
+          "line": 5,
+          "content": "import {\n    ensureLeading,\n    isString,\n    isUndefined,\n    narrow,\n    stripLeading\n} from \"inferred-types\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/link.ts",
+          "line": 12,
+          "content": "import { resolve } from \"pathe\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/link.ts",
+          "line": 13,
+          "content": "import { existsSync } from \"node:fs\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/utils/link.ts",
+          "line": 14,
+          "content": "import { InvalidFilePath } from \"~/errors\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/analysis/import-analyzer.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/analysis/import-analyzer.ts",
+          "line": 1,
+          "content": "import type { SourceFile, Project } from \"ts-morph\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/analysis/import-analyzer.ts",
+          "line": 2,
+          "content": "import { Project as TsMorphProject } from \"ts-morph\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/analysis/import-analyzer.ts",
+          "line": 3,
+          "content": "import fg from \"fast-glob\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/analysis/import-analyzer.ts",
+          "line": 4,
+          "content": "import { normalize } from \"pathe\";"
+        },
+        {
+          "category": "relativeAliasOffsetNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/analysis/import-analyzer.ts",
+          "line": 5,
+          "content": "import {\n    extractImports,\n    classifyImportSymbols,\n    getImportStructure,\n    getImportLocation\n} from \"~/ast/imports\";"
+        },
+        {
+          "category": "relativeAliasOffsetNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/analysis/import-analyzer.ts",
+          "line": 11,
+          "content": "import type {\n    AnalysisResult,\n    AnalysisOptions,\n    FileImportSummary,\n    CombinedImport,\n    MissingTypeModifier,\n    ImportType,\n    ImportCategory\n} from \"~/types/imports\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/analysis/import-analyzer.ts",
+          "line": 20,
+          "content": "import { SyntaxKind } from \"ts-morph\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/cache/dependency-cache.ts",
+      "imports": [
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/cache/dependency-cache.ts",
+          "line": 1,
+          "content": "import type {\n    DependencyCache,\n    DependencyCacheManager,\n    DependencyGraph,\n    DependencyNode,\n    DependencyTraversal,\n    FQN,\n    SymbolMeta\n} from \"~/types\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/cache/dependency-cache.ts",
+          "line": 10,
+          "content": "import { existsSync, readFileSync, statSync, unlinkSync, writeFileSync } from \"node:fs\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/cache/dependency-cache.ts",
+          "line": 11,
+          "content": "import { resolve } from \"node:path\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/cache/index.ts",
+      "imports": []
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/cli/cli-types.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/cli/cli-types.ts",
+          "line": 1,
+          "content": "import type {\n    AfterFirst,\n    Dictionary,\n    EmptyObject,\n    ExpandDictionary,\n    First,\n    If,\n    IsUndefined\n} from \"inferred-types\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/cli/cli-types.ts",
+          "line": 10,
+          "content": "import type { OptionDefinition } from \"command-line-args\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/cli/cli-types.ts",
+          "line": 11,
+          "content": "import type { command_options, global_options } from \"./options\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/cli/index.ts",
+      "imports": []
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/cli/create_cli.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/cli/create_cli.ts",
+          "line": 1,
+          "content": "import type { CommandLineOptions } from \"command-line-args\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/cli/create_cli.ts",
+          "line": 2,
+          "content": "import type { Command } from \"./cli-types\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/cli/create_cli.ts",
+          "line": 3,
+          "content": "import commandLineArgs from \"command-line-args\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/cli/create_cli.ts",
+          "line": 4,
+          "content": "import { isCommand } from \"~/type-guards\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/cli/create_cli.ts",
+          "line": 5,
+          "content": "import { command_options, global_options } from \"./options\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/cli/options.ts",
+      "imports": [
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/cli/options.ts",
+          "line": 1,
+          "content": "import type { Option } from \"./cli-types\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/cli/options.ts",
+          "line": 2,
+          "content": "import chalk from \"chalk\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/types/dependency.ts",
+      "imports": [
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/types/dependency.ts",
+          "line": 1,
+          "content": "import type { FQN, SymbolMeta } from \"./symbol-ast-types\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/types/diagnostics.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/types/diagnostics.ts",
+          "line": 1,
+          "content": "import type { NumberLike } from \"inferred-types\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/types/testing-types.ts",
+      "imports": [
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/types/testing-types.ts",
+          "line": 1,
+          "content": "import type { BlockType } from \"~/ast\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/types/testing-types.ts",
+          "line": 2,
+          "content": "import type { FileDiagnostic, SymbolImport } from \"./file-ast-types\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/types/testing-types.ts",
+          "line": 3,
+          "content": "import type { SymbolReference } from \"./symbol-ast-types\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/types/index.ts",
+      "imports": []
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/types/symbol-ast-types.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/types/symbol-ast-types.ts",
+          "line": 1,
+          "content": "import type {\n    JSDocLink,\n    JSDocLinkCode,\n    JSDocLinkPlain,\n    JSDocText,\n    ts\n} from \"ts-morph\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/types/file-ast-types.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/types/file-ast-types.ts",
+          "line": 1,
+          "content": "import type { DiagnosticCategory } from \"ts-morph\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/types/file-ast-types.ts",
+          "line": 2,
+          "content": "import type { SymbolReference } from \"./symbol-ast-types\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/test-utilities/AssertFalse.ts",
+      "imports": []
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/test-utilities/AssertExtends.ts",
+      "imports": []
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/test-utilities/AssertTrue.ts",
+      "imports": []
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/test-utilities/AssertEquals.ts",
+      "imports": []
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/test-utilities/Test.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/test-utilities/Test.ts",
+          "line": 1,
+          "content": "import type { Expect as E } from \"inferred-types/types\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/test-utilities/index.ts",
+      "imports": []
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/test-utilities/AssertContains.ts",
+      "imports": []
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/test-utilities/AssertSameValues.ts",
+      "imports": []
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/ast/project.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/project.ts",
+          "line": 1,
+          "content": "import type { LanguageService, Symbol, TypeChecker } from \"ts-morph\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/project.ts",
+          "line": 2,
+          "content": "import type { DependencyGraph, SymbolKind } from \"~/types\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/project.ts",
+          "line": 3,
+          "content": "import { existsSync, statSync } from \"node:fs\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/project.ts",
+          "line": 4,
+          "content": "import { cwd } from \"node:process\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/project.ts",
+          "line": 5,
+          "content": "import { repoRoot } from \"repo-root\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/project.ts",
+          "line": 6,
+          "content": "import { join } from \"pathe\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/project.ts",
+          "line": 7,
+          "content": "import { Project } from \"ts-morph\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/project.ts",
+          "line": 8,
+          "content": "import { createDependencyCacheManager } from \"~/cache\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/project.ts",
+          "line": 9,
+          "content": "import { buildDependencyGraph } from \"./dependency-graph\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/project.ts",
+          "line": 10,
+          "content": "import { createFullyQualifiedNameForSymbol, getSymbolKind, getSymbolScope } from \"./symbols\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/ast/testing.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/testing.ts",
+          "line": 1,
+          "content": "import type { SourceFile, Symbol } from \"ts-morph\";"
+        },
+        {
+          "category": "relativeParentNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/testing.ts",
+          "line": 2,
+          "content": "import type { SymbolFilterCallback, TestBlock, TestFile, TestFileOptions, TypeTest } from \"../types/testing-types\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/testing.ts",
+          "line": 3,
+          "content": "import { isString } from \"inferred-types\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/testing.ts",
+          "line": 4,
+          "content": "import { relativeFile } from \"~/utils\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/testing.ts",
+          "line": 5,
+          "content": "import { SyntaxKind } from \"ts-morph\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/testing.ts",
+          "line": 6,
+          "content": "import { getDiagnosticsBetweenLines } from \"./diagnostics\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/testing.ts",
+          "line": 7,
+          "content": "import { getFileDiagnostics, getImportsForFile } from \"./files\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/testing.ts",
+          "line": 8,
+          "content": "import { getProject } from \"./project\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/testing.ts",
+          "line": 9,
+          "content": "import { asSymbolReference } from \"./symbols\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/ast/dependency-graph.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/dependency-graph.ts",
+          "line": 1,
+          "content": "import type { Project } from \"ts-morph\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/dependency-graph.ts",
+          "line": 2,
+          "content": "import type {\n    DependencyGraph,\n    DependencyNode,\n    DependencyTraversal,\n    FQN\n} from \"~/types\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/dependency-graph.ts",
+          "line": 8,
+          "content": "import { getAllSymbolObjectsInProject } from \"./project\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/dependency-graph.ts",
+          "line": 9,
+          "content": "import {\n    buildDependencyMap,\n    calculateDependencyDepth,\n    detectCycles\n} from \"./symbols\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/ast/symbols.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/symbols.ts",
+          "line": 1,
+          "content": "import { cwd } from \"node:process\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/symbols.ts",
+          "line": 2,
+          "content": "import chalk from \"chalk\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/symbols.ts",
+          "line": 3,
+          "content": "import {\n    Node,\n    SymbolFlags,\n    SyntaxKind,\n    ts\n} from \"ts-morph\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/symbols.ts",
+          "line": 9,
+          "content": "import { relative } from \"pathe\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/symbols.ts",
+          "line": 10,
+          "content": "import type {\n    ImportDeclaration,\n    ModifierableNode,\n    Symbol,\n    TypeChecker,\n    VariableDeclaration\n} from \"ts-morph\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/symbols.ts",
+          "line": 17,
+          "content": "import type {\n    DependencyNode,\n    FQN,\n    JsDocInfo,\n    SymbolFlagKey,\n    SymbolKind,\n    SymbolMeta,\n    SymbolReference,\n    SymbolScope,\n    TypeGeneric\n} from \"~/types\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/symbols.ts",
+          "line": 28,
+          "content": "import {\n    isSymbol,\n    isSymbolMeta\n} from \"~/type-guards\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/symbols.ts",
+          "line": 32,
+          "content": "import { getProjectTypeChecker } from \"~/ast\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/ast/imports.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/imports.ts",
+          "line": 1,
+          "content": "import type { ImportDeclaration, SourceFile } from \"ts-morph\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/imports.ts",
+          "line": 2,
+          "content": "import { SyntaxKind } from \"ts-morph\";"
+        },
+        {
+          "category": "relativeAliasOffsetNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/imports.ts",
+          "line": 3,
+          "content": "import type { ImportCategory } from \"~/types/imports\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/imports.ts",
+          "line": 4,
+          "content": "import { normalize, resolve, relative, dirname } from \"pathe\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/ast/diagnostics.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/diagnostics.ts",
+          "line": 1,
+          "content": "import type { ObjectKey } from \"inferred-types\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/diagnostics.ts",
+          "line": 2,
+          "content": "import type { AsOption } from \"~/cli\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/diagnostics.ts",
+          "line": 3,
+          "content": "import type { Diagnostic, SourceFile } from \"ts-morph\";"
+        },
+        {
+          "category": "relativeParentNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/diagnostics.ts",
+          "line": 4,
+          "content": "import type { FileDiagnostic } from \"../types/file-ast-types\";"
+        },
+        {
+          "category": "relativeParentNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/diagnostics.ts",
+          "line": 5,
+          "content": "import type { TestFile } from \"../types/testing-types\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/diagnostics.ts",
+          "line": 6,
+          "content": "import { isArray, isString } from \"inferred-types\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/diagnostics.ts",
+          "line": 7,
+          "content": "import { isFileDiagnostic, isSourceFile } from \"~/type-guards\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/diagnostics.ts",
+          "line": 8,
+          "content": "import { asFileDiagnostic, getFileDiagnostics } from \"./files\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/diagnostics.ts",
+          "line": 9,
+          "content": "import { getProject } from \"./project\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/ast/index.ts",
+      "imports": []
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/ast/files.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/files.ts",
+          "line": 1,
+          "content": "import type { Diagnostic, SourceFile } from \"ts-morph\";"
+        },
+        {
+          "category": "relativeParentNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/files.ts",
+          "line": 2,
+          "content": "import type { FileDiagnostic, SymbolImport } from \"../types/file-ast-types\";"
+        },
+        {
+          "category": "relativeParentNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/files.ts",
+          "line": 3,
+          "content": "import type { SymbolReference } from \"../types/symbol-ast-types\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/files.ts",
+          "line": 4,
+          "content": "import { isString } from \"inferred-types\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/files.ts",
+          "line": 5,
+          "content": "import { isTsDiagnostic } from \"~/type-guards\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/files.ts",
+          "line": 6,
+          "content": "import { relativeFile } from \"~/utils\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/files.ts",
+          "line": 7,
+          "content": "import { ts } from \"ts-morph\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/files.ts",
+          "line": 8,
+          "content": "import { getProject } from \"./project\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/ast/files.ts",
+          "line": 9,
+          "content": "import { asSymbolReference } from \"./symbols\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/report/prettyPath.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/prettyPath.ts",
+          "line": 1,
+          "content": "import chalk from \"chalk\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/report/formatDescription.ts",
+      "imports": [
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/formatDescription.ts",
+          "line": 1,
+          "content": "import type { JsDocInfo } from \"~/types\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/formatDescription.ts",
+          "line": 2,
+          "content": "import chalk from \"chalk\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/report/symbolsJson.ts",
+      "imports": [
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/symbolsJson.ts",
+          "line": 1,
+          "content": "import type { SymbolMeta } from \"~/types\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/report/showTestBlock.ts",
+      "imports": [
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/showTestBlock.ts",
+          "line": 1,
+          "content": "import type { TestBlock } from \"~/types\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/showTestBlock.ts",
+          "line": 2,
+          "content": "import type { AsOption } from \"~/cli\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/showTestBlock.ts",
+          "line": 3,
+          "content": "import chalk from \"chalk\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/showTestBlock.ts",
+          "line": 4,
+          "content": "import { getErrorDiagnostics, getWarningDiagnostics } from \"~/ast\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/showTestBlock.ts",
+          "line": 5,
+          "content": "import { fileLink, getTerminalTheme } from \"~/utils\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/showTestBlock.ts",
+          "line": 6,
+          "content": "import { showDiagnostic } from \"./showDiagnostic\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/showTestBlock.ts",
+          "line": 7,
+          "content": "import { showTest } from \"./showTest\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/report/formatTestCounts.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/formatTestCounts.ts",
+          "line": 1,
+          "content": "import chalk from \"chalk\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/formatTestCounts.ts",
+          "line": 2,
+          "content": "import type { TestFile } from \"~/types\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/report/formatTiming.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/formatTiming.ts",
+          "line": 1,
+          "content": "import chalk from \"chalk\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/formatTiming.ts",
+          "line": 2,
+          "content": "import type { TestFile } from \"~/types\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/formatTiming.ts",
+          "line": 3,
+          "content": "import { isSlowTest, isVerySlowTest } from \"~/ast\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/report/symbolsHtml.ts",
+      "imports": [
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/symbolsHtml.ts",
+          "line": 1,
+          "content": "import type { SymbolMeta } from \"~/types\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/symbolsHtml.ts",
+          "line": 2,
+          "content": "import Graph from \"graphology\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/report/symbolsScreen.ts",
+      "imports": [
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/symbolsScreen.ts",
+          "line": 1,
+          "content": "import type { JsDocInfo, SymbolMeta, TypeGeneric } from \"~/types\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/symbolsScreen.ts",
+          "line": 2,
+          "content": "import chalk from \"chalk\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/symbolsScreen.ts",
+          "line": 3,
+          "content": "import Table from \"tty-table\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/symbolsScreen.ts",
+          "line": 4,
+          "content": "import { prettyMultiLinePath } from \"./prettyPath\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/symbolsScreen.ts",
+          "line": 5,
+          "content": "import { formatDescription } from \"./formatDescription\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/report/showTestSummary.ts",
+      "imports": [
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/showTestSummary.ts",
+          "line": 1,
+          "content": "import type { TestSummary } from \"~/types\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/showTestSummary.ts",
+          "line": 2,
+          "content": "import chalk from \"chalk\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/showTestSummary.ts",
+          "line": 3,
+          "content": "import { fileLink, relativeFile } from \"~/utils\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/showTestSummary.ts",
+          "line": 4,
+          "content": "import { prettyPath } from \"./prettyPath\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/report/showTest.ts",
+      "imports": [
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/showTest.ts",
+          "line": 1,
+          "content": "import type { FileDiagnostic, TypeTest } from \"~/types\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/showTest.ts",
+          "line": 2,
+          "content": "import type { AsOption } from \"~/cli\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/showTest.ts",
+          "line": 3,
+          "content": "import chalk from \"chalk\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/showTest.ts",
+          "line": 4,
+          "content": "import { getErrorDiagnostics } from \"~/ast\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/showTest.ts",
+          "line": 5,
+          "content": "import { getTerminalTheme } from \"~/utils\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/showTest.ts",
+          "line": 6,
+          "content": "import { showDiagnostic } from \"./showDiagnostic\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/report/index.ts",
+      "imports": []
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/report/showTestFile.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/showTestFile.ts",
+          "line": 1,
+          "content": "import chalk from \"chalk\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/showTestFile.ts",
+          "line": 2,
+          "content": "import { relative } from \"pathe\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/showTestFile.ts",
+          "line": 3,
+          "content": "import type {\n    TestFile\n} from \"~/types\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/showTestFile.ts",
+          "line": 6,
+          "content": "import type { AsOption } from \"~/cli\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/showTestFile.ts",
+          "line": 7,
+          "content": "import {\n    getDiagnosticsOutsideBlocks,\n    getErrorDiagnostics,\n    getProjectRoot,\n    getWarningDiagnostics,\n    isSlowTest,\n    isVerySlowTest\n} from \"~/ast\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/showTestFile.ts",
+          "line": 15,
+          "content": "import { fileLink, getTerminalTheme } from \"~/utils\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/showTestFile.ts",
+          "line": 16,
+          "content": "import { formatTestCounts, formatTiming, prettyPath, showTestBlock } from \"~/report\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/report/terminalLink.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/terminalLink.ts",
+          "line": 1,
+          "content": "import { resolve } from \"node:path\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/report/showDiagnostic.ts",
+      "imports": [
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/showDiagnostic.ts",
+          "line": 1,
+          "content": "import type { FileDiagnostic } from \"~/types\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/showDiagnostic.ts",
+          "line": 2,
+          "content": "import type { AsOption } from \"~/cli\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/showDiagnostic.ts",
+          "line": 3,
+          "content": "import chalk from \"chalk\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/showDiagnostic.ts",
+          "line": 4,
+          "content": "import { tsCodeLink } from \"~/utils\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/commands/source.ts",
+      "imports": [
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/source.ts",
+          "line": 1,
+          "content": "import type { AsOption } from \"~/cli\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/source.ts",
+          "line": 2,
+          "content": "import chalk from \"chalk\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/source.ts",
+          "line": 3,
+          "content": "import { join } from \"pathe\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/source.ts",
+          "line": 4,
+          "content": "import { getFileDiagnostics, getProjectRoot, projectUsing } from \"~/ast\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/source.ts",
+          "line": 5,
+          "content": "import { diagnosticLookup, fileLink, filterTestFilesByPattern, msg, prettyPath, relativeFile, tsCodeLink } from \"~/utils\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/commands/symbols.ts",
+      "imports": [
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/symbols.ts",
+          "line": 1,
+          "content": "import type { AsOption } from \"~/cli\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/symbols.ts",
+          "line": 2,
+          "content": "import type { DependencyNode, SymbolMeta } from \"~/types\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/symbols.ts",
+          "line": 3,
+          "content": "import chalk from \"chalk\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/symbols.ts",
+          "line": 4,
+          "content": "import { asSymbolMeta, getDependencyGraph, projectUsing } from \"~/ast\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/symbols.ts",
+          "line": 5,
+          "content": "import { symbolsJson, symbolsScreen } from \"~/report\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/symbols.ts",
+          "line": 6,
+          "content": "import { msg } from \"~/utils\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/commands/imports.ts",
+      "imports": [
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/imports.ts",
+          "line": 1,
+          "content": "import type { AsOption } from \"~/cli\";"
+        },
+        {
+          "category": "relativeAliasOffsetNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/imports.ts",
+          "line": 2,
+          "content": "import type { AnalysisResult } from \"~/types/imports\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/imports.ts",
+          "line": 3,
+          "content": "import process from \"node:process\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/imports.ts",
+          "line": 4,
+          "content": "import chalk from \"chalk\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/imports.ts",
+          "line": 5,
+          "content": "import fg from \"fast-glob\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/imports.ts",
+          "line": 6,
+          "content": "import { normalize } from \"pathe\";"
+        },
+        {
+          "category": "relativeAliasOffsetNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/imports.ts",
+          "line": 7,
+          "content": "import { analyzeImports } from \"~/analysis/import-analyzer\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/imports.ts",
+          "line": 8,
+          "content": "import { projectUsing } from \"~/ast\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/imports.ts",
+          "line": 9,
+          "content": "import { msg, shout } from \"~/utils\";"
+        },
+        {
+          "category": "relativeAliasOffsetNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/imports.ts",
+          "line": 10,
+          "content": "import { reportCombinedImports } from \"~/report/imports/reportCombinedImports\";"
+        },
+        {
+          "category": "relativeAliasOffsetNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/imports.ts",
+          "line": 11,
+          "content": "import { reportMissingTypeModifiers } from \"~/report/imports/reportMissingTypeModifiers\";"
+        },
+        {
+          "category": "relativeAliasOffsetNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/imports.ts",
+          "line": 12,
+          "content": "import { reportCategorization } from \"~/report/imports/categorization\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/commands/test.ts",
+      "imports": [
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/test.ts",
+          "line": 1,
+          "content": "import type { AsOption } from \"~/cli\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/test.ts",
+          "line": 2,
+          "content": "import type { TestFile, TestSummary } from \"~/types\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/test.ts",
+          "line": 3,
+          "content": "import process from \"node:process\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/test.ts",
+          "line": 4,
+          "content": "import chalk from \"chalk\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/test.ts",
+          "line": 5,
+          "content": "import { asTestFile, getDiagnosticsOutsideBlocks, getErrorDiagnostics, projectUsing } from \"~/ast\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/test.ts",
+          "line": 6,
+          "content": "import { showTestFile, showTestSummary } from \"~/report\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/test.ts",
+          "line": 7,
+          "content": "import { detectTerminalTheme, fileLink, filterTestFilesByPattern, getTestFiles, msg, shout } from \"~/utils\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/commands/index.ts",
+      "imports": []
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/commands/deps.ts",
+      "imports": [
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/deps.ts",
+          "line": 1,
+          "content": "import type { AsOption } from \"~/cli\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/deps.ts",
+          "line": 2,
+          "content": "import type { DependencyGraph, DependencyNode } from \"~/types\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/deps.ts",
+          "line": 3,
+          "content": "import chalk from \"chalk\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/deps.ts",
+          "line": 4,
+          "content": "import {\n    findSymbolsByPattern,\n    getDependencyGraph,\n    invalidateDependencyCache,\n    projectUsing,\n    traverseDependencies\n} from \"~/ast\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/deps.ts",
+          "line": 11,
+          "content": "import { fileLink, handleSymbolSelection } from \"~/utils\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/commands/files.ts",
+      "imports": [
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/files.ts",
+          "line": 1,
+          "content": "import type { AsOption } from \"~/cli\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/files.ts",
+          "line": 2,
+          "content": "import { getSymbolFileDefinition, projectUsing } from \"~/ast\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/files.ts",
+          "line": 3,
+          "content": "import { relativeFile } from \"~/utils\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/commands/files.ts",
+          "line": 4,
+          "content": "import Table from \"tty-table\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/logging/index.ts",
+      "imports": []
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/logging/error.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/logging/error.ts",
+          "line": 1,
+          "content": "import chalk from \"chalk\";"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/logging/error.ts",
+          "line": 2,
+          "content": "import { fileLink, rel } from \"~/utils\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/logging/error.ts",
+          "line": 3,
+          "content": "import { get } from \"stack-trace\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/types/imports/ImportType.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/types/imports/ImportType.ts",
+          "line": 1,
+          "content": "import { StringKeys } from 'inferred-types';"
+        },
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/types/imports/ImportType.ts",
+          "line": 2,
+          "content": "import { IMPORT_TYPES } from '~/constants';"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/types/imports/index.ts",
+      "imports": []
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/types/imports/CombinedImport.ts",
+      "imports": []
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/types/imports/MissingTypeModifier.ts",
+      "imports": []
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/types/imports/AnalysisResult.ts",
+      "imports": [
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/types/imports/AnalysisResult.ts",
+          "line": 1,
+          "content": "import type { Project } from \"ts-morph\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/types/imports/AnalysisResult.ts",
+          "line": 2,
+          "content": "import type { CombinedImport } from \"./CombinedImport\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/types/imports/AnalysisResult.ts",
+          "line": 3,
+          "content": "import type { MissingTypeModifier } from \"./MissingTypeModifier\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/types/imports/AnalysisResult.ts",
+          "line": 4,
+          "content": "import type { ImportType } from \"./ImportType\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/report/imports/json.ts",
+      "imports": [
+        {
+          "category": "relativeAliasOffsetNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/imports/json.ts",
+          "line": 1,
+          "content": "import type { AnalysisResult } from \"~/types/imports/AnalysisResult\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/report/imports/reportMissingTypeModifiers.ts",
+      "imports": [
+        {
+          "category": "relativeAliasOffsetNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/imports/reportMissingTypeModifiers.ts",
+          "line": 1,
+          "content": "import type { AnalysisResult } from \"~/types/imports/AnalysisResult\";"
+        },
+        {
+          "category": "relativeAliasOffsetNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/imports/reportMissingTypeModifiers.ts",
+          "line": 2,
+          "content": "import type { MissingTypeModifier } from \"~/types/imports/MissingTypeModifier\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/imports/reportMissingTypeModifiers.ts",
+          "line": 3,
+          "content": "import chalk from \"chalk\";"
+        },
+        {
+          "category": "relativeAliasOffsetNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/imports/reportMissingTypeModifiers.ts",
+          "line": 4,
+          "content": "import { fileLink } from \"~/utils/link\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/report/imports/reportCombinedImports.ts",
+      "imports": [
+        {
+          "category": "relativeAliasOffsetNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/imports/reportCombinedImports.ts",
+          "line": 1,
+          "content": "import type { AnalysisResult } from \"~/types/imports/AnalysisResult\";"
+        },
+        {
+          "category": "relativeAliasOffsetNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/imports/reportCombinedImports.ts",
+          "line": 2,
+          "content": "import type { CombinedImport } from \"~/types/imports/CombinedImport\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/imports/reportCombinedImports.ts",
+          "line": 3,
+          "content": "import chalk from \"chalk\";"
+        },
+        {
+          "category": "relativeAliasOffsetNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/imports/reportCombinedImports.ts",
+          "line": 4,
+          "content": "import { fileLink } from \"~/utils/link\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/report/imports/format.ts",
+      "imports": [
+        {
+          "category": "relativeAliasOffsetNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/imports/format.ts",
+          "line": 1,
+          "content": "import type { ImportType } from \"~/types/imports/ImportType\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/imports/format.ts",
+          "line": 2,
+          "content": "import chalk from \"chalk\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/report/imports/categorization.ts",
+      "imports": [
+        {
+          "category": "relativeAliasOffsetNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/imports/categorization.ts",
+          "line": 1,
+          "content": "import type { AnalysisResult } from \"~/types/imports/AnalysisResult\";"
+        },
+        {
+          "category": "external",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/imports/categorization.ts",
+          "line": 2,
+          "content": "import chalk from \"chalk\";"
+        },
+        {
+          "category": "relativePeerNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/imports/categorization.ts",
+          "line": 3,
+          "content": "import { formatCategoryTable, formatExternalDependencies, formatCategoryDetails } from \"./format\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/report/symbol-description/type-utility-description.ts",
+      "imports": [
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/symbol-description/type-utility-description.ts",
+          "line": 1,
+          "content": "import type { SymbolMeta } from \"~/types\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/report/symbol-description/function-description.ts",
+      "imports": [
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/symbol-description/function-description.ts",
+          "line": 1,
+          "content": "import type { SymbolMeta } from \"~/types\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/report/symbol-description/const-description.ts",
+      "imports": [
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/symbol-description/const-description.ts",
+          "line": 1,
+          "content": "import type { SymbolMeta } from \"~/types\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/report/symbol-description/class-description.ts",
+      "imports": [
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/symbol-description/class-description.ts",
+          "line": 1,
+          "content": "import type { SymbolMeta } from \"~/types\";"
+        }
+      ]
+    },
+    {
+      "path": "/Volumes/coding/personal/typed-tester/src/report/symbol-description/type-description.ts",
+      "imports": [
+        {
+          "category": "relativeAliasNamed",
+          "file": "/Volumes/coding/personal/typed-tester/src/report/symbol-description/type-description.ts",
+          "line": 1,
+          "content": "import type { SymbolMeta } from \"~/types\";"
+        }
+      ]
+    }
+  ],
+  "combinedImports": [],
+  "missingTypeModifiers": [
+    {
+      "kind": "missing-type-modifier",
+      "source": "inferred-types",
+      "file": "/Volumes/coding/personal/typed-tester/src/types/imports/ImportType.ts",
+      "line": 1,
+      "content": "import { StringKeys } from 'inferred-types';"
+    }
+  ],
+  "categorized": {
+    "relativeChildNamed": [
+      {
+        "category": "relativeChildNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/help.ts",
+        "line": 1,
+        "content": "import type { Command } from \"./cli/cli-types\";"
+      },
+      {
+        "category": "relativeChildNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/help.ts",
+        "line": 6,
+        "content": "import {\n    command_descriptions,\n    command_options,\n    commands_union,\n    global_options\n} from \"./cli/options\";"
+      },
+      {
+        "category": "relativeChildNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/typed.ts",
+        "line": 3,
+        "content": "import type { AsOption } from \"./cli/cli-types\";"
+      },
+      {
+        "category": "relativeChildNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/typed.ts",
+        "line": 5,
+        "content": "import { create_cli } from \"./cli/create_cli\";"
+      },
+      {
+        "category": "relativeChildNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/typed.ts",
+        "line": 15,
+        "content": "import { isCommand } from \"./type-guards/isCommand\";"
+      }
+    ],
+    "external": [
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/help.ts",
+        "line": 3,
+        "content": "import chalk from \"chalk\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/help.ts",
+        "line": 4,
+        "content": "import commandLineUsage from \"command-line-usage\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/errors.ts",
+        "line": 1,
+        "content": "import { createKindError } from \"@yankeeinlondon/kind-error\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/play.ts",
+        "line": 1,
+        "content": "import playSound from \"play-sound\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/constants.ts",
+        "line": 1,
+        "content": "import { narrow } from \"inferred-types\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/type-guards/isSymbolMeta.ts",
+        "line": 2,
+        "content": "import { isArray, isObject, isUndefined } from \"inferred-types\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/type-guards/isCommand.ts",
+        "line": 2,
+        "content": "import { isString } from \"inferred-types\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/type-guards/isDiagnostic.ts",
+        "line": 1,
+        "content": "import type { Diagnostic, ts } from \"ts-morph\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/type-guards/isDiagnostic.ts",
+        "line": 2,
+        "content": "import { isObject } from \"inferred-types\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/type-guards/isSourceFile.ts",
+        "line": 1,
+        "content": "import type { SourceFile } from \"ts-morph\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/type-guards/isSourceFile.ts",
+        "line": 2,
+        "content": "import { isObject } from \"inferred-types\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/type-guards/isSymbol.ts",
+        "line": 1,
+        "content": "import type { Symbol } from \"ts-morph\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/type-guards/isSymbol.ts",
+        "line": 2,
+        "content": "import { isObject } from \"inferred-types\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/type-guards/isFileDiagnostic.ts",
+        "line": 2,
+        "content": "import { isObject } from \"inferred-types\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/shout.ts",
+        "line": 2,
+        "content": "import chalk from \"chalk\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/prettyPath.ts",
+        "line": 1,
+        "content": "import chalk from \"chalk\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/prettyPath.ts",
+        "line": 2,
+        "content": "import { basename, dirname } from \"pathe\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/rel.ts",
+        "line": 1,
+        "content": "import { relative } from \"pathe\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/testing.ts",
+        "line": 1,
+        "content": "import { existsSync, readFileSync } from \"node:fs\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/testing.ts",
+        "line": 2,
+        "content": "import fg from \"fast-glob\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/testing.ts",
+        "line": 3,
+        "content": "import { relative } from \"pathe\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/msg.ts",
+        "line": 2,
+        "content": "import chalk from \"chalk\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/interactive.ts",
+        "line": 2,
+        "content": "import { cwd } from \"node:process\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/interactive.ts",
+        "line": 4,
+        "content": "import { relative } from \"pathe\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/diagnosticLookup.ts",
+        "line": 1,
+        "content": "import type { Mutable, NumberLike } from \"inferred-types\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/diagnosticLookup.ts",
+        "line": 5,
+        "content": "import { asString, hasKeys, isNumberLike } from \"inferred-types\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/relativeFile.ts",
+        "line": 1,
+        "content": "import { relative } from \"pathe\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/mdToConsole.ts",
+        "line": 1,
+        "content": "import chalk from \"chalk\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/detectTerminalTheme.ts",
+        "line": 1,
+        "content": "import { stdin, stdout } from \"node:process\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/detectTerminalTheme.ts",
+        "line": 2,
+        "content": "import type { Buffer } from \"node:buffer\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/link.ts",
+        "line": 1,
+        "content": "import type {\n    EnsureLeading,\n    NumberLike\n} from \"inferred-types\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/link.ts",
+        "line": 5,
+        "content": "import {\n    ensureLeading,\n    isString,\n    isUndefined,\n    narrow,\n    stripLeading\n} from \"inferred-types\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/link.ts",
+        "line": 12,
+        "content": "import { resolve } from \"pathe\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/link.ts",
+        "line": 13,
+        "content": "import { existsSync } from \"node:fs\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/analysis/import-analyzer.ts",
+        "line": 1,
+        "content": "import type { SourceFile, Project } from \"ts-morph\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/analysis/import-analyzer.ts",
+        "line": 2,
+        "content": "import { Project as TsMorphProject } from \"ts-morph\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/analysis/import-analyzer.ts",
+        "line": 3,
+        "content": "import fg from \"fast-glob\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/analysis/import-analyzer.ts",
+        "line": 4,
+        "content": "import { normalize } from \"pathe\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/analysis/import-analyzer.ts",
+        "line": 20,
+        "content": "import { SyntaxKind } from \"ts-morph\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/cache/dependency-cache.ts",
+        "line": 10,
+        "content": "import { existsSync, readFileSync, statSync, unlinkSync, writeFileSync } from \"node:fs\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/cache/dependency-cache.ts",
+        "line": 11,
+        "content": "import { resolve } from \"node:path\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/cli/cli-types.ts",
+        "line": 1,
+        "content": "import type {\n    AfterFirst,\n    Dictionary,\n    EmptyObject,\n    ExpandDictionary,\n    First,\n    If,\n    IsUndefined\n} from \"inferred-types\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/cli/cli-types.ts",
+        "line": 10,
+        "content": "import type { OptionDefinition } from \"command-line-args\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/cli/create_cli.ts",
+        "line": 1,
+        "content": "import type { CommandLineOptions } from \"command-line-args\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/cli/create_cli.ts",
+        "line": 3,
+        "content": "import commandLineArgs from \"command-line-args\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/cli/options.ts",
+        "line": 2,
+        "content": "import chalk from \"chalk\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/types/diagnostics.ts",
+        "line": 1,
+        "content": "import type { NumberLike } from \"inferred-types\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/types/symbol-ast-types.ts",
+        "line": 1,
+        "content": "import type {\n    JSDocLink,\n    JSDocLinkCode,\n    JSDocLinkPlain,\n    JSDocText,\n    ts\n} from \"ts-morph\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/types/file-ast-types.ts",
+        "line": 1,
+        "content": "import type { DiagnosticCategory } from \"ts-morph\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/test-utilities/Test.ts",
+        "line": 1,
+        "content": "import type { Expect as E } from \"inferred-types/types\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/project.ts",
+        "line": 1,
+        "content": "import type { LanguageService, Symbol, TypeChecker } from \"ts-morph\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/project.ts",
+        "line": 3,
+        "content": "import { existsSync, statSync } from \"node:fs\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/project.ts",
+        "line": 4,
+        "content": "import { cwd } from \"node:process\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/project.ts",
+        "line": 5,
+        "content": "import { repoRoot } from \"repo-root\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/project.ts",
+        "line": 6,
+        "content": "import { join } from \"pathe\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/project.ts",
+        "line": 7,
+        "content": "import { Project } from \"ts-morph\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/testing.ts",
+        "line": 1,
+        "content": "import type { SourceFile, Symbol } from \"ts-morph\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/testing.ts",
+        "line": 3,
+        "content": "import { isString } from \"inferred-types\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/testing.ts",
+        "line": 5,
+        "content": "import { SyntaxKind } from \"ts-morph\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/dependency-graph.ts",
+        "line": 1,
+        "content": "import type { Project } from \"ts-morph\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/symbols.ts",
+        "line": 1,
+        "content": "import { cwd } from \"node:process\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/symbols.ts",
+        "line": 2,
+        "content": "import chalk from \"chalk\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/symbols.ts",
+        "line": 3,
+        "content": "import {\n    Node,\n    SymbolFlags,\n    SyntaxKind,\n    ts\n} from \"ts-morph\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/symbols.ts",
+        "line": 9,
+        "content": "import { relative } from \"pathe\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/symbols.ts",
+        "line": 10,
+        "content": "import type {\n    ImportDeclaration,\n    ModifierableNode,\n    Symbol,\n    TypeChecker,\n    VariableDeclaration\n} from \"ts-morph\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/imports.ts",
+        "line": 1,
+        "content": "import type { ImportDeclaration, SourceFile } from \"ts-morph\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/imports.ts",
+        "line": 2,
+        "content": "import { SyntaxKind } from \"ts-morph\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/imports.ts",
+        "line": 4,
+        "content": "import { normalize, resolve, relative, dirname } from \"pathe\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/diagnostics.ts",
+        "line": 1,
+        "content": "import type { ObjectKey } from \"inferred-types\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/diagnostics.ts",
+        "line": 3,
+        "content": "import type { Diagnostic, SourceFile } from \"ts-morph\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/diagnostics.ts",
+        "line": 6,
+        "content": "import { isArray, isString } from \"inferred-types\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/files.ts",
+        "line": 1,
+        "content": "import type { Diagnostic, SourceFile } from \"ts-morph\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/files.ts",
+        "line": 4,
+        "content": "import { isString } from \"inferred-types\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/files.ts",
+        "line": 7,
+        "content": "import { ts } from \"ts-morph\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/prettyPath.ts",
+        "line": 1,
+        "content": "import chalk from \"chalk\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/formatDescription.ts",
+        "line": 2,
+        "content": "import chalk from \"chalk\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/showTestBlock.ts",
+        "line": 3,
+        "content": "import chalk from \"chalk\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/formatTestCounts.ts",
+        "line": 1,
+        "content": "import chalk from \"chalk\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/formatTiming.ts",
+        "line": 1,
+        "content": "import chalk from \"chalk\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/symbolsHtml.ts",
+        "line": 2,
+        "content": "import Graph from \"graphology\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/symbolsScreen.ts",
+        "line": 2,
+        "content": "import chalk from \"chalk\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/symbolsScreen.ts",
+        "line": 3,
+        "content": "import Table from \"tty-table\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/showTestSummary.ts",
+        "line": 2,
+        "content": "import chalk from \"chalk\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/showTest.ts",
+        "line": 3,
+        "content": "import chalk from \"chalk\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/showTestFile.ts",
+        "line": 1,
+        "content": "import chalk from \"chalk\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/showTestFile.ts",
+        "line": 2,
+        "content": "import { relative } from \"pathe\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/terminalLink.ts",
+        "line": 1,
+        "content": "import { resolve } from \"node:path\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/showDiagnostic.ts",
+        "line": 3,
+        "content": "import chalk from \"chalk\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/source.ts",
+        "line": 2,
+        "content": "import chalk from \"chalk\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/source.ts",
+        "line": 3,
+        "content": "import { join } from \"pathe\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/symbols.ts",
+        "line": 3,
+        "content": "import chalk from \"chalk\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/imports.ts",
+        "line": 3,
+        "content": "import process from \"node:process\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/imports.ts",
+        "line": 4,
+        "content": "import chalk from \"chalk\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/imports.ts",
+        "line": 5,
+        "content": "import fg from \"fast-glob\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/imports.ts",
+        "line": 6,
+        "content": "import { normalize } from \"pathe\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/test.ts",
+        "line": 3,
+        "content": "import process from \"node:process\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/test.ts",
+        "line": 4,
+        "content": "import chalk from \"chalk\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/deps.ts",
+        "line": 3,
+        "content": "import chalk from \"chalk\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/files.ts",
+        "line": 4,
+        "content": "import Table from \"tty-table\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/logging/error.ts",
+        "line": 1,
+        "content": "import chalk from \"chalk\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/logging/error.ts",
+        "line": 3,
+        "content": "import { get } from \"stack-trace\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/types/imports/ImportType.ts",
+        "line": 1,
+        "content": "import { StringKeys } from 'inferred-types';"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/types/imports/AnalysisResult.ts",
+        "line": 1,
+        "content": "import type { Project } from \"ts-morph\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/imports/reportMissingTypeModifiers.ts",
+        "line": 3,
+        "content": "import chalk from \"chalk\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/imports/reportCombinedImports.ts",
+        "line": 3,
+        "content": "import chalk from \"chalk\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/imports/format.ts",
+        "line": 2,
+        "content": "import chalk from \"chalk\";"
+      },
+      {
+        "category": "external",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/imports/categorization.ts",
+        "line": 2,
+        "content": "import chalk from \"chalk\";"
+      }
+    ],
+    "relativeParentDefault": [
+      {
+        "category": "relativeParentDefault",
+        "file": "/Volumes/coding/personal/typed-tester/src/help.ts",
+        "line": 5,
+        "content": "import packageJson from \"../package.json\";"
+      },
+      {
+        "category": "relativeParentDefault",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/diagnosticLookup.ts",
+        "line": 9,
+        "content": "import DIAGNOSTIC_CODE_LOOKUP from \"../data/diagnostic-code-lookup.json\" with { type: \"json\" };"
+      },
+      {
+        "category": "relativeParentDefault",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/diagnosticLookup.ts",
+        "line": 10,
+        "content": "import DIAGNOSTIC_MESSAGE_LOOKUP from \"../data/diagnostic-message-lookup.json\" with { type: \"json\" };"
+      }
+    ],
+    "relativePeerNamed": [
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/help.ts",
+        "line": 12,
+        "content": "import { isCommand } from \"./type-guards\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/play.ts",
+        "line": 2,
+        "content": "import \"./play-sound\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/typed.ts",
+        "line": 6,
+        "content": "import {\n    deps_command,\n    files_command,\n    imports_command,\n    source_command,\n    symbols_command,\n    test_command\n} from \"./commands\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/typed.ts",
+        "line": 14,
+        "content": "import { show_help } from \"./help\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/wordWrap.ts",
+        "line": 1,
+        "content": "import { consumedWidth } from \"./consumedWidth\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/rightJustifyText.ts",
+        "line": 1,
+        "content": "import { availableWidth } from \"./availableWidth\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/rightJustifyText.ts",
+        "line": 2,
+        "content": "import { consumedWidth } from \"./consumedWidth\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/rightJustifyText.ts",
+        "line": 3,
+        "content": "import { wordWrap } from \"./wordWrap\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/padEndVisible.ts",
+        "line": 1,
+        "content": "import { consumedWidth } from \"./consumedWidth\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/consumedWidth.ts",
+        "line": 1,
+        "content": "import { stripAnsi } from \"./stripAnsi\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/centerText.ts",
+        "line": 1,
+        "content": "import { availableWidth } from \"./availableWidth\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/centerText.ts",
+        "line": 2,
+        "content": "import { consumedWidth } from \"./consumedWidth\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/centerText.ts",
+        "line": 3,
+        "content": "import { wordWrap } from \"./wordWrap\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/truncateVisible.ts",
+        "line": 1,
+        "content": "import { consumedWidth } from \"./consumedWidth\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/truncateVisible.ts",
+        "line": 2,
+        "content": "import { stripAnsi } from \"./stripAnsi\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/cli/cli-types.ts",
+        "line": 11,
+        "content": "import type { command_options, global_options } from \"./options\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/cli/create_cli.ts",
+        "line": 2,
+        "content": "import type { Command } from \"./cli-types\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/cli/create_cli.ts",
+        "line": 5,
+        "content": "import { command_options, global_options } from \"./options\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/cli/options.ts",
+        "line": 1,
+        "content": "import type { Option } from \"./cli-types\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/types/dependency.ts",
+        "line": 1,
+        "content": "import type { FQN, SymbolMeta } from \"./symbol-ast-types\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/types/testing-types.ts",
+        "line": 2,
+        "content": "import type { FileDiagnostic, SymbolImport } from \"./file-ast-types\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/types/testing-types.ts",
+        "line": 3,
+        "content": "import type { SymbolReference } from \"./symbol-ast-types\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/types/file-ast-types.ts",
+        "line": 2,
+        "content": "import type { SymbolReference } from \"./symbol-ast-types\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/project.ts",
+        "line": 9,
+        "content": "import { buildDependencyGraph } from \"./dependency-graph\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/project.ts",
+        "line": 10,
+        "content": "import { createFullyQualifiedNameForSymbol, getSymbolKind, getSymbolScope } from \"./symbols\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/testing.ts",
+        "line": 6,
+        "content": "import { getDiagnosticsBetweenLines } from \"./diagnostics\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/testing.ts",
+        "line": 7,
+        "content": "import { getFileDiagnostics, getImportsForFile } from \"./files\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/testing.ts",
+        "line": 8,
+        "content": "import { getProject } from \"./project\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/testing.ts",
+        "line": 9,
+        "content": "import { asSymbolReference } from \"./symbols\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/dependency-graph.ts",
+        "line": 8,
+        "content": "import { getAllSymbolObjectsInProject } from \"./project\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/dependency-graph.ts",
+        "line": 9,
+        "content": "import {\n    buildDependencyMap,\n    calculateDependencyDepth,\n    detectCycles\n} from \"./symbols\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/diagnostics.ts",
+        "line": 8,
+        "content": "import { asFileDiagnostic, getFileDiagnostics } from \"./files\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/diagnostics.ts",
+        "line": 9,
+        "content": "import { getProject } from \"./project\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/files.ts",
+        "line": 8,
+        "content": "import { getProject } from \"./project\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/files.ts",
+        "line": 9,
+        "content": "import { asSymbolReference } from \"./symbols\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/showTestBlock.ts",
+        "line": 6,
+        "content": "import { showDiagnostic } from \"./showDiagnostic\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/showTestBlock.ts",
+        "line": 7,
+        "content": "import { showTest } from \"./showTest\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/symbolsScreen.ts",
+        "line": 4,
+        "content": "import { prettyMultiLinePath } from \"./prettyPath\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/symbolsScreen.ts",
+        "line": 5,
+        "content": "import { formatDescription } from \"./formatDescription\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/showTestSummary.ts",
+        "line": 4,
+        "content": "import { prettyPath } from \"./prettyPath\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/showTest.ts",
+        "line": 6,
+        "content": "import { showDiagnostic } from \"./showDiagnostic\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/types/imports/AnalysisResult.ts",
+        "line": 2,
+        "content": "import type { CombinedImport } from \"./CombinedImport\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/types/imports/AnalysisResult.ts",
+        "line": 3,
+        "content": "import type { MissingTypeModifier } from \"./MissingTypeModifier\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/types/imports/AnalysisResult.ts",
+        "line": 4,
+        "content": "import type { ImportType } from \"./ImportType\";"
+      },
+      {
+        "category": "relativePeerNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/imports/categorization.ts",
+        "line": 3,
+        "content": "import { formatCategoryTable, formatExternalDependencies, formatCategoryDetails } from \"./format\";"
+      }
+    ],
+    "relativeAliasNamed": [
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/type-guards/isSymbolMeta.ts",
+        "line": 1,
+        "content": "import type { SymbolMeta } from \"~/types\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/type-guards/isCommand.ts",
+        "line": 1,
+        "content": "import type { Command } from \"~/cli\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/type-guards/isCommand.ts",
+        "line": 3,
+        "content": "import { command_options } from \"~/cli\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/type-guards/isFileDiagnostic.ts",
+        "line": 1,
+        "content": "import type { FileDiagnostic } from \"~/types\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/type-guards/isFQN.ts",
+        "line": 1,
+        "content": "import type { FQN } from \"~/types\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/shout.ts",
+        "line": 1,
+        "content": "import type { AsOption } from \"~/cli\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/testing.ts",
+        "line": 4,
+        "content": "import { getProjectRoot } from \"~/ast\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/msg.ts",
+        "line": 1,
+        "content": "import type { AsOption } from \"~/cli\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/interactive.ts",
+        "line": 1,
+        "content": "import type { DependencyNode, FQN } from \"~/types\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/diagnosticLookup.ts",
+        "line": 2,
+        "content": "import type {\n    TypescriptDiagnostic\n} from \"~/types\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/diagnosticLookup.ts",
+        "line": 6,
+        "content": "import { InvalidDiagnosticCode, InvalidDiagnosticMessage } from \"~/errors\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/relativeFile.ts",
+        "line": 2,
+        "content": "import { getProjectRoot } from \"~/ast\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/utils/link.ts",
+        "line": 14,
+        "content": "import { InvalidFilePath } from \"~/errors\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/cache/dependency-cache.ts",
+        "line": 1,
+        "content": "import type {\n    DependencyCache,\n    DependencyCacheManager,\n    DependencyGraph,\n    DependencyNode,\n    DependencyTraversal,\n    FQN,\n    SymbolMeta\n} from \"~/types\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/cli/create_cli.ts",
+        "line": 4,
+        "content": "import { isCommand } from \"~/type-guards\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/types/testing-types.ts",
+        "line": 1,
+        "content": "import type { BlockType } from \"~/ast\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/project.ts",
+        "line": 2,
+        "content": "import type { DependencyGraph, SymbolKind } from \"~/types\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/project.ts",
+        "line": 8,
+        "content": "import { createDependencyCacheManager } from \"~/cache\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/testing.ts",
+        "line": 4,
+        "content": "import { relativeFile } from \"~/utils\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/dependency-graph.ts",
+        "line": 2,
+        "content": "import type {\n    DependencyGraph,\n    DependencyNode,\n    DependencyTraversal,\n    FQN\n} from \"~/types\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/symbols.ts",
+        "line": 17,
+        "content": "import type {\n    DependencyNode,\n    FQN,\n    JsDocInfo,\n    SymbolFlagKey,\n    SymbolKind,\n    SymbolMeta,\n    SymbolReference,\n    SymbolScope,\n    TypeGeneric\n} from \"~/types\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/symbols.ts",
+        "line": 28,
+        "content": "import {\n    isSymbol,\n    isSymbolMeta\n} from \"~/type-guards\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/symbols.ts",
+        "line": 32,
+        "content": "import { getProjectTypeChecker } from \"~/ast\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/diagnostics.ts",
+        "line": 2,
+        "content": "import type { AsOption } from \"~/cli\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/diagnostics.ts",
+        "line": 7,
+        "content": "import { isFileDiagnostic, isSourceFile } from \"~/type-guards\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/files.ts",
+        "line": 5,
+        "content": "import { isTsDiagnostic } from \"~/type-guards\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/files.ts",
+        "line": 6,
+        "content": "import { relativeFile } from \"~/utils\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/formatDescription.ts",
+        "line": 1,
+        "content": "import type { JsDocInfo } from \"~/types\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/symbolsJson.ts",
+        "line": 1,
+        "content": "import type { SymbolMeta } from \"~/types\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/showTestBlock.ts",
+        "line": 1,
+        "content": "import type { TestBlock } from \"~/types\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/showTestBlock.ts",
+        "line": 2,
+        "content": "import type { AsOption } from \"~/cli\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/showTestBlock.ts",
+        "line": 4,
+        "content": "import { getErrorDiagnostics, getWarningDiagnostics } from \"~/ast\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/showTestBlock.ts",
+        "line": 5,
+        "content": "import { fileLink, getTerminalTheme } from \"~/utils\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/formatTestCounts.ts",
+        "line": 2,
+        "content": "import type { TestFile } from \"~/types\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/formatTiming.ts",
+        "line": 2,
+        "content": "import type { TestFile } from \"~/types\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/formatTiming.ts",
+        "line": 3,
+        "content": "import { isSlowTest, isVerySlowTest } from \"~/ast\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/symbolsHtml.ts",
+        "line": 1,
+        "content": "import type { SymbolMeta } from \"~/types\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/symbolsScreen.ts",
+        "line": 1,
+        "content": "import type { JsDocInfo, SymbolMeta, TypeGeneric } from \"~/types\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/showTestSummary.ts",
+        "line": 1,
+        "content": "import type { TestSummary } from \"~/types\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/showTestSummary.ts",
+        "line": 3,
+        "content": "import { fileLink, relativeFile } from \"~/utils\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/showTest.ts",
+        "line": 1,
+        "content": "import type { FileDiagnostic, TypeTest } from \"~/types\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/showTest.ts",
+        "line": 2,
+        "content": "import type { AsOption } from \"~/cli\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/showTest.ts",
+        "line": 4,
+        "content": "import { getErrorDiagnostics } from \"~/ast\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/showTest.ts",
+        "line": 5,
+        "content": "import { getTerminalTheme } from \"~/utils\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/showTestFile.ts",
+        "line": 3,
+        "content": "import type {\n    TestFile\n} from \"~/types\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/showTestFile.ts",
+        "line": 6,
+        "content": "import type { AsOption } from \"~/cli\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/showTestFile.ts",
+        "line": 7,
+        "content": "import {\n    getDiagnosticsOutsideBlocks,\n    getErrorDiagnostics,\n    getProjectRoot,\n    getWarningDiagnostics,\n    isSlowTest,\n    isVerySlowTest\n} from \"~/ast\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/showTestFile.ts",
+        "line": 15,
+        "content": "import { fileLink, getTerminalTheme } from \"~/utils\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/showTestFile.ts",
+        "line": 16,
+        "content": "import { formatTestCounts, formatTiming, prettyPath, showTestBlock } from \"~/report\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/showDiagnostic.ts",
+        "line": 1,
+        "content": "import type { FileDiagnostic } from \"~/types\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/showDiagnostic.ts",
+        "line": 2,
+        "content": "import type { AsOption } from \"~/cli\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/showDiagnostic.ts",
+        "line": 4,
+        "content": "import { tsCodeLink } from \"~/utils\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/source.ts",
+        "line": 1,
+        "content": "import type { AsOption } from \"~/cli\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/source.ts",
+        "line": 4,
+        "content": "import { getFileDiagnostics, getProjectRoot, projectUsing } from \"~/ast\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/source.ts",
+        "line": 5,
+        "content": "import { diagnosticLookup, fileLink, filterTestFilesByPattern, msg, prettyPath, relativeFile, tsCodeLink } from \"~/utils\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/symbols.ts",
+        "line": 1,
+        "content": "import type { AsOption } from \"~/cli\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/symbols.ts",
+        "line": 2,
+        "content": "import type { DependencyNode, SymbolMeta } from \"~/types\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/symbols.ts",
+        "line": 4,
+        "content": "import { asSymbolMeta, getDependencyGraph, projectUsing } from \"~/ast\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/symbols.ts",
+        "line": 5,
+        "content": "import { symbolsJson, symbolsScreen } from \"~/report\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/symbols.ts",
+        "line": 6,
+        "content": "import { msg } from \"~/utils\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/imports.ts",
+        "line": 1,
+        "content": "import type { AsOption } from \"~/cli\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/imports.ts",
+        "line": 8,
+        "content": "import { projectUsing } from \"~/ast\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/imports.ts",
+        "line": 9,
+        "content": "import { msg, shout } from \"~/utils\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/test.ts",
+        "line": 1,
+        "content": "import type { AsOption } from \"~/cli\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/test.ts",
+        "line": 2,
+        "content": "import type { TestFile, TestSummary } from \"~/types\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/test.ts",
+        "line": 5,
+        "content": "import { asTestFile, getDiagnosticsOutsideBlocks, getErrorDiagnostics, projectUsing } from \"~/ast\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/test.ts",
+        "line": 6,
+        "content": "import { showTestFile, showTestSummary } from \"~/report\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/test.ts",
+        "line": 7,
+        "content": "import { detectTerminalTheme, fileLink, filterTestFilesByPattern, getTestFiles, msg, shout } from \"~/utils\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/deps.ts",
+        "line": 1,
+        "content": "import type { AsOption } from \"~/cli\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/deps.ts",
+        "line": 2,
+        "content": "import type { DependencyGraph, DependencyNode } from \"~/types\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/deps.ts",
+        "line": 4,
+        "content": "import {\n    findSymbolsByPattern,\n    getDependencyGraph,\n    invalidateDependencyCache,\n    projectUsing,\n    traverseDependencies\n} from \"~/ast\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/deps.ts",
+        "line": 11,
+        "content": "import { fileLink, handleSymbolSelection } from \"~/utils\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/files.ts",
+        "line": 1,
+        "content": "import type { AsOption } from \"~/cli\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/files.ts",
+        "line": 2,
+        "content": "import { getSymbolFileDefinition, projectUsing } from \"~/ast\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/files.ts",
+        "line": 3,
+        "content": "import { relativeFile } from \"~/utils\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/logging/error.ts",
+        "line": 2,
+        "content": "import { fileLink, rel } from \"~/utils\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/types/imports/ImportType.ts",
+        "line": 2,
+        "content": "import { IMPORT_TYPES } from '~/constants';"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/symbol-description/type-utility-description.ts",
+        "line": 1,
+        "content": "import type { SymbolMeta } from \"~/types\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/symbol-description/function-description.ts",
+        "line": 1,
+        "content": "import type { SymbolMeta } from \"~/types\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/symbol-description/const-description.ts",
+        "line": 1,
+        "content": "import type { SymbolMeta } from \"~/types\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/symbol-description/class-description.ts",
+        "line": 1,
+        "content": "import type { SymbolMeta } from \"~/types\";"
+      },
+      {
+        "category": "relativeAliasNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/symbol-description/type-description.ts",
+        "line": 1,
+        "content": "import type { SymbolMeta } from \"~/types\";"
+      }
+    ],
+    "relativeAliasOffsetNamed": [
+      {
+        "category": "relativeAliasOffsetNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/analysis/import-analyzer.ts",
+        "line": 5,
+        "content": "import {\n    extractImports,\n    classifyImportSymbols,\n    getImportStructure,\n    getImportLocation\n} from \"~/ast/imports\";"
+      },
+      {
+        "category": "relativeAliasOffsetNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/analysis/import-analyzer.ts",
+        "line": 11,
+        "content": "import type {\n    AnalysisResult,\n    AnalysisOptions,\n    FileImportSummary,\n    CombinedImport,\n    MissingTypeModifier,\n    ImportType,\n    ImportCategory\n} from \"~/types/imports\";"
+      },
+      {
+        "category": "relativeAliasOffsetNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/imports.ts",
+        "line": 3,
+        "content": "import type { ImportCategory } from \"~/types/imports\";"
+      },
+      {
+        "category": "relativeAliasOffsetNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/imports.ts",
+        "line": 2,
+        "content": "import type { AnalysisResult } from \"~/types/imports\";"
+      },
+      {
+        "category": "relativeAliasOffsetNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/imports.ts",
+        "line": 7,
+        "content": "import { analyzeImports } from \"~/analysis/import-analyzer\";"
+      },
+      {
+        "category": "relativeAliasOffsetNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/imports.ts",
+        "line": 10,
+        "content": "import { reportCombinedImports } from \"~/report/imports/reportCombinedImports\";"
+      },
+      {
+        "category": "relativeAliasOffsetNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/imports.ts",
+        "line": 11,
+        "content": "import { reportMissingTypeModifiers } from \"~/report/imports/reportMissingTypeModifiers\";"
+      },
+      {
+        "category": "relativeAliasOffsetNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/commands/imports.ts",
+        "line": 12,
+        "content": "import { reportCategorization } from \"~/report/imports/categorization\";"
+      },
+      {
+        "category": "relativeAliasOffsetNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/imports/json.ts",
+        "line": 1,
+        "content": "import type { AnalysisResult } from \"~/types/imports/AnalysisResult\";"
+      },
+      {
+        "category": "relativeAliasOffsetNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/imports/reportMissingTypeModifiers.ts",
+        "line": 1,
+        "content": "import type { AnalysisResult } from \"~/types/imports/AnalysisResult\";"
+      },
+      {
+        "category": "relativeAliasOffsetNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/imports/reportMissingTypeModifiers.ts",
+        "line": 2,
+        "content": "import type { MissingTypeModifier } from \"~/types/imports/MissingTypeModifier\";"
+      },
+      {
+        "category": "relativeAliasOffsetNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/imports/reportMissingTypeModifiers.ts",
+        "line": 4,
+        "content": "import { fileLink } from \"~/utils/link\";"
+      },
+      {
+        "category": "relativeAliasOffsetNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/imports/reportCombinedImports.ts",
+        "line": 1,
+        "content": "import type { AnalysisResult } from \"~/types/imports/AnalysisResult\";"
+      },
+      {
+        "category": "relativeAliasOffsetNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/imports/reportCombinedImports.ts",
+        "line": 2,
+        "content": "import type { CombinedImport } from \"~/types/imports/CombinedImport\";"
+      },
+      {
+        "category": "relativeAliasOffsetNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/imports/reportCombinedImports.ts",
+        "line": 4,
+        "content": "import { fileLink } from \"~/utils/link\";"
+      },
+      {
+        "category": "relativeAliasOffsetNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/imports/format.ts",
+        "line": 1,
+        "content": "import type { ImportType } from \"~/types/imports/ImportType\";"
+      },
+      {
+        "category": "relativeAliasOffsetNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/report/imports/categorization.ts",
+        "line": 1,
+        "content": "import type { AnalysisResult } from \"~/types/imports/AnalysisResult\";"
+      }
+    ],
+    "relativeParentNamed": [
+      {
+        "category": "relativeParentNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/testing.ts",
+        "line": 2,
+        "content": "import type { SymbolFilterCallback, TestBlock, TestFile, TestFileOptions, TypeTest } from \"../types/testing-types\";"
+      },
+      {
+        "category": "relativeParentNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/diagnostics.ts",
+        "line": 4,
+        "content": "import type { FileDiagnostic } from \"../types/file-ast-types\";"
+      },
+      {
+        "category": "relativeParentNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/diagnostics.ts",
+        "line": 5,
+        "content": "import type { TestFile } from \"../types/testing-types\";"
+      },
+      {
+        "category": "relativeParentNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/files.ts",
+        "line": 2,
+        "content": "import type { FileDiagnostic, SymbolImport } from \"../types/file-ast-types\";"
+      },
+      {
+        "category": "relativeParentNamed",
+        "file": "/Volumes/coding/personal/typed-tester/src/ast/files.ts",
+        "line": 3,
+        "content": "import type { SymbolReference } from \"../types/symbol-ast-types\";"
+      }
+    ]
+  }
+}

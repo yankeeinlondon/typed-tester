@@ -143,6 +143,7 @@ export function analyzeImports(
             // Create ImportType record
             const importType: ImportType = {
                 category,
+                from: importDecl.getModuleSpecifierValue(),
                 file: filePath,
                 line: importDecl.getStartLineNumber(),
                 content: importDecl.getText(),
