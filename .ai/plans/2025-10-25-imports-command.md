@@ -255,17 +255,17 @@ Implement a new CLI command `imports` that analyzes TypeScript import statements
 - Verify options parameter types
 
 **Acceptance Criteria:**
-- [ ] Combined imports displayed clearly with file grouping
-- [ ] Missing type modifiers displayed clearly with file grouping
-- [ ] OSC8 links work in compatible terminals
-- [ ] Quiet/normal modes work correctly
-- [ ] JSON output is valid and parsable
-- [ ] **All runtime tests pass** (15+ test cases)
-- [ ] **All type tests pass** (6+ type assertions)
-- [ ] No regressions in existing tests
-- [ ] **All TODO markers addressed**
+- [x] Combined imports displayed clearly with file grouping
+- [x] Missing type modifiers displayed clearly with file grouping
+- [x] OSC8 links work in compatible terminals
+- [x] Quiet/normal modes work correctly
+- [x] JSON output is valid and parsable
+- [x] **All runtime tests pass** (22 test cases)
+- [x] **All type tests pass** (24 type assertions)
+- [x] No regressions in existing tests
+- [x] **All TODO markers addressed** (0 TODOs)
 
-**Phase 4 STATUS:** Not Started
+**Phase 4 STATUS:** ✅ COMPLETE (2025-10-25)
 
 ---
 
