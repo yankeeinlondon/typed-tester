@@ -24,6 +24,8 @@
         "test": "vitest run unit",
         "test:jsr": "./scripts/jsr-validation",
         "test:types": "pnpm typed test",
+        "test:runtime": "pnpm typed test",
+        "test:types:ci": "pnpm typed test unit",
         "test:all": "vitest run",
         "test:coverage": "COVERAGE=1 vitest run --coverage",
         "test:coverage:ui": "vitest --ui --coverage",

@@ -85,4 +85,5 @@ export interface CommandOptions {
     symbols: AsOption<"symbols">;
     source: AsOption<"source">;
     files: AsOption<"files">;
+    imports: AsOption<"imports">;
 }

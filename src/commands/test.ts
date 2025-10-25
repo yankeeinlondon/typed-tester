@@ -157,7 +157,7 @@ export async function test_command(opt: AsOption<"test">, filters: string[] = []
 
     if (!opt.verbose && !opt.json) {
         msg(opt)();
-        msg(opt)(`- use ${chalk.blue("--verbose")} to get more details`);
+        msg(opt)(`- use ${chalk.blue("--verbose")} (${chalk.blue("-v")}) to get more details`);
         if ((!opt["show-passing"]) && !opt.files) {
             msg(opt)(`- use ${chalk.blue("--show-passing")} to show passing tests (not just erroring tests)`);
         }

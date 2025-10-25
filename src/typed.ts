@@ -6,6 +6,7 @@ import { create_cli } from "./cli/create_cli";
 import {
     deps_command,
     files_command,
+    imports_command,
     source_command,
     symbols_command,
     test_command
@@ -60,6 +61,9 @@ else {
                     break;
                 case "files":
                     await files_command(cli as AsOption<"files">);
+                    break;
+                case "imports":
+                    await imports_command(cli as AsOption<"imports">, positionalArgs);
                     break;
             }
         }

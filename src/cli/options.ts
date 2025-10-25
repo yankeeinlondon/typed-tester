@@ -85,6 +85,21 @@ export const command_options = {
             typeLabel: chalk.underline("substr[]"),
             description: `only report on symbols which match filter string`
         }
+    ],
+    imports: [
+        CMD,
+        {
+            name: "external",
+            type: Boolean,
+            defaultValue: false,
+            description: `show verbose details for external dependencies only`
+        },
+        {
+            name: "deep",
+            type: Boolean,
+            defaultValue: false,
+            description: `show verbose details for deep path imports only (parent(deep), child(deep))`
+        }
     ]
 } as const satisfies Record<string, Option[]>;
 
@@ -154,4 +169,5 @@ export const command_descriptions = {
     files: `shows every source file which defines a types symbol and the symbols it defines`,
     source: `reports on the ${chalk.italic("source file")}'s general type health.`,
     deps: `shows what symbols are ${chalk.italic("dependant")} on a given symbol(s).`,
+    imports: `analyzes ${chalk.italic("import statements")} to detect problematic patterns and categorize import usage`,
 } as const satisfies Record<Command, string>;
