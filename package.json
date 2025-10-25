@@ -18,8 +18,6 @@
     ],
     "scripts": {
         "build": "bun run scripts/build.ts",
-        "build:transpile": "tsdown src/typed.ts --format=esm -d bin --sourcemap",
-        "build:shebang": "echo '#/usr/bin/env bun run'",
         "diagnostics": "bun run ./scripts/get-diagnostics.ts",
         "lint": "eslint src",
         "release": "bumpp",
@@ -62,7 +60,7 @@
         "@types/command-line-args": "^5.2.3",
         "@types/command-line-usage": "^5.0.4",
         "@types/find-root": "^1.1.4",
-        "@types/node": "^22.18.11",
+        "@types/node": "^22.18.12",
         "@types/stack-trace": "^0.0.33",
         "@vitest/coverage-v8": "^3.2.4",
         "@yankeeinlondon/claudine": "^0.4.1",

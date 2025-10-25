@@ -1,0 +1,2 @@
+- This is the folder for active projects/plans being worked on.
+- Once a plan is completed it should be moved to the "completed" folder
