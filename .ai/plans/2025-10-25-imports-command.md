@@ -305,16 +305,25 @@ Implement a new CLI command `imports` that analyzes TypeScript import statements
 - Verify category formatting maintains narrow types
 
 **Acceptance Criteria:**
-- [ ] Normal mode displays count summaries clearly
-- [ ] Verbose mode adds appropriate details
-- [ ] --external and --deep flags work correctly
-- [ ] Output is readable and well-formatted
-- [ ] **All runtime tests pass** (18+ test cases)
-- [ ] **All type tests pass** (7+ type assertions)
-- [ ] No regressions in existing tests
-- [ ] **All TODO markers addressed**
+- [x] Normal mode displays count summaries clearly
+- [x] Verbose mode adds appropriate details
+- [x] --external and --deep flags work correctly
+- [x] Output is readable and well-formatted
+- [x] **All runtime tests pass** (24 test cases - exceeded target)
+- [x] **All type tests pass** (7 type tests, 48 assertions - exceeded target)
+- [x] No regressions in existing tests
+- [x] **All TODO markers addressed** (0 TODOs)
 
-**Phase 5 STATUS:** Not Started
+**Phase 5 STATUS:** ✅ COMPLETE (2025-10-25)
+
+**Implementation Summary:**
+- Created `src/report/imports/categorization.ts` with `reportCategorization()` function
+- Created `src/report/imports/format.ts` with formatting utilities (`formatCategoryTable()`, `formatExternalDependencies()`, `formatCategoryDetails()`)
+- All 24 runtime tests + 7 type tests (48 assertions) passing
+- Tests migrated to `tests/unit/imports/reports/categorization-reporter.test.ts`
+- Zero TODO markers
+- No regressions
+- Execution log: `.ai/logs/2025-10-25-imports-command-phase5-log.md`
 
 ---
 
