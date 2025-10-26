@@ -8,15 +8,13 @@ export function showTestSummary<T extends TestSummary>(test: T) {
     console.log(chalk.bold(`TEST SUMMARY:`));
     console.log();
 
-
-
     // Show errors and warnings separately:
     // - Errors = test failures (in test blocks)
     // - Warnings = type issues outside test blocks
     const hasErrors = test.testsWithErrors > 0 || test.filesWithErrors > 0;
     const hasWarnings = test.filesWithWarningsOutside > 0;
 
-    if (!hasErrors ) {
+    if (!hasErrors) {
         if (test.testFiles - test.skipped !== 0) {
             console.log(`- 🎉 ${chalk.green.bold("No errors!")}`);
         }
@@ -34,7 +32,6 @@ export function showTestSummary<T extends TestSummary>(test: T) {
         if (test.filesWithErrors > 0) {
             console.log(`- ${chalk.red.bold(test.filesWithErrors)} ${chalk.italic("of")} ${chalk.bold(test.testFiles)} ${chalk.bold("test files")} had errors`);
         }
-
     }
     // Show warnings (files with type issues only outside test blocks)
     if (test.filesWithWarningsOutside > 0) {
