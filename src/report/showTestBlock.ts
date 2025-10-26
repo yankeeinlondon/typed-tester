@@ -6,14 +6,22 @@ import { fileLink, getTerminalTheme } from "~/utils";
 import { showDiagnostic } from "./showDiagnostic";
 import { showTest } from "./showTest";
 import { calculateBlockMetrics } from "./calculateMetrics";
+import { getIndentLevel } from "./hierarchy";
 
 /**
  * Recursively check if a block should be considered "skipped"
  * A block is skipped if:
  * - It's explicitly marked as skip, OR
  * - It has no non-skipped tests AND no non-skipped nested blocks
+ *
+ * Special case: "Areas OUTSIDE of tests blocks" is never skipped if it has diagnostics
  */
 function isBlockSkipped(block: TestBlock): boolean {
+    // Special handling for "Areas OUTSIDE" block - never skip if it has diagnostics
+    if (block.description === "Areas OUTSIDE of tests blocks" && block.diagnostics.length > 0) {
+        return false;
+    }
+
     if (block.skip) {
         return true;
     }
@@ -32,22 +40,66 @@ function isBlockSkipped(block: TestBlock): boolean {
     return true;
 }
 
-export function showTestBlock(block: TestBlock, opt: AsOption<"test">, hasTypeTests = true, indentLevel = 1) {
+export function showTestBlock(
+    block: TestBlock,
+    opt: AsOption<"test">,
+    hasTypeTests = true,
+    depth = 0,
+    isRedundant = false
+) {
     const errors = getErrorDiagnostics(block.diagnostics, opt);
     const warnings = getWarningDiagnostics(block.diagnostics, opt);
     const hasError = errors.length > 0;
     const skip = isBlockSkipped(block);
 
+    // Calculate indent level using hierarchy logic
+    const indentLevel = getIndentLevel(depth, isRedundant);
+
+    // If this is a redundant single describe, skip showing it but show its children
+    if (isRedundant) {
+        // Skip the block display itself, but show its tests directly
+        if ((hasError || opt["show-passing"] || opt.verbose) && !opt.slow && !skip) {
+            if (block.tests.length > 0 || opt["show-passing"]) {
+                for (const t of block.tests) {
+                    showTest(t, opt, hasTypeTests, indentLevel);
+                }
+            }
+            else {
+                for (const d of errors) {
+                    // Diagnostics in redundant blocks are from tests, not outside
+                    showDiagnostic(d, block.filepath, opt, false);
+                }
+            }
+
+            // Recursively show nested blocks (should not exist for redundant blocks, but handle it)
+            if (block.blocks && block.blocks.length > 0) {
+                for (const nestedBlock of block.blocks) {
+                    showTestBlock(nestedBlock, opt, hasTypeTests, depth + 1, false);
+                }
+            }
+        }
+        return;
+    }
+
     if ((hasError || opt["show-passing"] || opt.verbose) && !opt.slow) {
         const theme = getTerminalTheme();
+
+        // Special icon for "Areas OUTSIDE of tests blocks"
+        // Type issues outside tests are WARNINGS (not errors), so use ⚠️
+        const isAreasOutside = block.description === "Areas OUTSIDE of tests blocks";
+
         const blockStatusIcon = skip
             ? chalk.dim(`⇣`)
             : hasError
-                ? hasTypeTests
-                    ? chalk.red.bold(`⤬`)
-                    : theme === "light"
-                        ? chalk.hex("#CD5C5C").bold(`⤬`)
-                        : chalk.hex("#8B0000").bold(`⤬`)
+                ? isAreasOutside
+                    // For "Areas OUTSIDE", type issues are warnings, not errors
+                    // Use ⚠️ (warning icon), not ⤬ (test failure icon)
+                    ? chalk.yellowBright(`⚠️`)
+                    : hasTypeTests
+                        ? chalk.red.bold(`⤬`)
+                        : theme === "light"
+                            ? chalk.hex("#CD5C5C").bold(`⤬`)
+                            : chalk.hex("#8B0000").bold(`⤬`)
                 : hasTypeTests
                     ? chalk.green.bold(`✓`)
                     : theme === "light"
@@ -64,21 +116,20 @@ export function showTestBlock(block: TestBlock, opt: AsOption<"test">, hasTypeTe
             ? `, ${metrics.typeTests} ${chalk.italic(metrics.typeTests === 1 ? "type test" : "type tests")}, ${metrics.assertions} ${chalk.italic(metrics.assertions === 1 ? "assertion" : "assertions")}`
             : "";
 
-        // Distinguish between failing tests and block-level type errors
-        // Block errors are from describe block code (imports, setup, etc.)
-        // Test errors are from individual test code
-        const failingTests = metrics.failingTests;
-        const blockTypeErrors = errors.length; // All errors from block.diagnostics
+        // Count total errors from BOTH sources:
+        // 1. Errors in individual tests (failingTests)
+        // 2. Errors at block level (from block.diagnostics)
+        // For "Areas OUTSIDE", call them "warnings" not "errors"
+        const testErrors = metrics.failingTests; // Errors in it() blocks
+        const blockErrors = errors.length; // Errors at block level
+        const totalErrors = testErrors + blockErrors;
 
-        const errDisplay = blockTypeErrors > 0 || failingTests > 0
-            ? failingTests > 0 && blockTypeErrors > 0
-                // Both failing tests and block-level type errors
-                ? chalk.red(`${failingTests} ${chalk.italic(failingTests === 1 ? "failed" : "failures")}, ${blockTypeErrors} ${chalk.italic(blockTypeErrors === 1 ? "type error" : "type errors")}`)
-                : failingTests > 0
-                    // Only failing tests
-                    ? chalk.red(`${failingTests} ${chalk.italic(failingTests === 1 ? "failed" : "failures")}`)
-                    // Only block-level type errors
-                    : chalk.red(`${blockTypeErrors} ${chalk.italic(blockTypeErrors === 1 ? "type error" : "type errors")}`)
+        const errDisplay = totalErrors > 0
+            ? isAreasOutside
+                // For "Areas OUTSIDE", type issues are warnings, not errors
+                ? chalk.yellowBright(`${totalErrors} ${chalk.italic(totalErrors === 1 ? "warning" : "warnings")}`)
+                // For test blocks, failures are errors
+                : chalk.red(`${totalErrors} ${chalk.italic(totalErrors === 1 ? "type error" : "type errors")}`)
             : chalk.green.dim.italic("no errors");
 
         const warningDisplay = warnings.length > 0
@@ -102,19 +153,20 @@ export function showTestBlock(block: TestBlock, opt: AsOption<"test">, hasTypeTe
         if ((opt["show-passing"] || hasError) && !skip) {
             if (block.tests.length > 0 || opt["show-passing"]) {
                 for (const t of block.tests) {
-                    showTest(t, opt, hasTypeTests);
+                    showTest(t, opt, hasTypeTests, indentLevel);
                 }
             }
             else {
                 for (const d of errors) {
-                    showDiagnostic(d, block.filepath, opt);
+                    // Pass isOutsideTest=true for "Areas OUTSIDE" block
+                    showDiagnostic(d, block.filepath, opt, isAreasOutside);
                 }
             }
 
             // Recursively show nested blocks
             if (block.blocks && block.blocks.length > 0) {
                 for (const nestedBlock of block.blocks) {
-                    showTestBlock(nestedBlock, opt, hasTypeTests, indentLevel + 1);
+                    showTestBlock(nestedBlock, opt, hasTypeTests, depth + 1, false);
                 }
             }
         }

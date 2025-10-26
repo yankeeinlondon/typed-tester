@@ -5,7 +5,7 @@ import { getErrorDiagnostics } from "~/ast";
 import { getTerminalTheme } from "~/utils";
 import { showDiagnostic } from "./showDiagnostic";
 
-export function showTest(test: TypeTest, opt: AsOption<"test">, hasTypeTests = true) {
+export function showTest(test: TypeTest, opt: AsOption<"test">, hasTypeTests = true, indentLevel = 2) {
     const testErrors = getErrorDiagnostics(test.diagnostics as FileDiagnostic[], opt);
     const theme = getTerminalTheme();
 
@@ -29,7 +29,9 @@ export function showTest(test: TypeTest, opt: AsOption<"test">, hasTypeTests = t
                         ? chalk.hex("#AAAAAA").bold(` ✔ `)
                         : chalk.hex("#555555").bold(` ✔ `);
 
-    const testLine = `          [${status}] ${test.description}`;
+    // Calculate indent based on hierarchy level
+    const indent = "    ".repeat(indentLevel + 1); // +1 for test level
+    const testLine = `${indent}[${status}] ${test.description}`;
 
     if (!opt["only-errors"] || testErrors.length > 0) {
         console.log(testLine);

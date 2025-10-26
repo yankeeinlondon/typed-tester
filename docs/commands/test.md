@@ -46,7 +46,7 @@ Test Results:
     [ ⇣ ] Areas OUTSIDE of tests blocks
 ```
 
-If you're using [Wezterm](https://wezterm.org/) -- or any console which support the new emerging standard for hyperlinks in the console -- you will get clickable links not only to the files reported on but also a link to the typescript error's definition online.
+If you're using [Wezterm](https://wezterm.org/) -- or any console which support the OSC8 standard for hyperlinks in the console -- you will get clickable links not only to the files reported on but also a link to the typescript error's definition online.
 
 ### Test Files
 

@@ -89,8 +89,13 @@ export interface TestSummary {
     /** files which have diagnostics on this test criteria  */
     withDiagnostics: string[];
     slow: string[];
+    /** files with test failures (errors IN tests) */
     filesWithErrors: number;
+    /** files with type issues ONLY outside test blocks (warnings, not errors) */
+    filesWithWarningsOutside: number;
+    /** files with warning-level diagnostics */
     filesWithWarnings: number;
+    /** number of tests that failed (test failures = errors) */
     testsWithErrors: number;
     /** the number of tests which were skipped */
     skipped: number;

@@ -15,7 +15,13 @@ export function showTestSummary<T extends TestSummary>(test: T) {
         console.log();
     }
 
-    if (test.testsWithErrors === 0) {
+    // Show errors and warnings separately:
+    // - Errors = test failures (in test blocks)
+    // - Warnings = type issues outside test blocks
+    const hasErrors = test.testsWithErrors > 0 || test.filesWithErrors > 0;
+    const hasWarnings = test.filesWithWarningsOutside > 0;
+
+    if (!hasErrors && !hasWarnings) {
         if (test.testFiles - test.skipped !== 0) {
             console.log(`- 🎉 ${chalk.green.bold("No errors!")}`);
         }
@@ -24,8 +30,21 @@ export function showTestSummary<T extends TestSummary>(test: T) {
         }
     }
     else {
-        console.log(`- ${chalk.red.bold(test.testsWithErrors)} ${chalk.italic("of")} ${test.tests} ${chalk.bold("tests")} had errors `);
-        console.log(`- ${chalk.red.bold(test.filesWithErrors)} ${chalk.italic("of")} ${chalk.bold(test.testFiles)} ${chalk.bold("test files")} had errors`);
+        // Show test errors (test failures)
+        if (test.testsWithErrors > 0) {
+            console.log(`- ${chalk.red.bold(test.testsWithErrors)} ${chalk.italic("of")} ${test.tests} ${chalk.bold("tests")} had errors`);
+        }
+
+        // Show file errors (files with test failures)
+        if (test.filesWithErrors > 0) {
+            console.log(`- ${chalk.red.bold(test.filesWithErrors)} ${chalk.italic("of")} ${chalk.bold(test.testFiles)} ${chalk.bold("test files")} had errors`);
+        }
+
+        // Show warnings (files with type issues only outside test blocks)
+        if (test.filesWithWarningsOutside > 0) {
+            const prefix = test.filesWithErrors > 0 ? "additional " : "";
+            console.log(`- ${chalk.yellowBright.bold(test.filesWithWarningsOutside)} ${prefix}${chalk.italic("of")} ${chalk.bold(test.testFiles)} ${chalk.bold("test files")} had warnings (type issues outside test blocks)`);
+        }
     }
 
     // Display type test and assertion metrics

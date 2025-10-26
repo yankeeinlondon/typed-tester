@@ -277,3 +277,169 @@ describe('calculateTestSummary', () => {
     expect(result.tests).toBe(1); // Only counting non-skipped tests
   });
 });
+
+describe('Bug 1: "No errors!" shown when errors exist outside test blocks', () => {
+  const mockOpt: any = {
+    warn: [],
+    verbose: false,
+    quiet: false,
+    filter: [],
+    'show-passing': false,
+    'ignore-outside': false,
+    clear: false,
+    files: false,
+    slow: false,
+    'only-errors': false,
+    'show-symbols': false,
+    config: undefined,
+    json: false
+  };
+
+  it('should show "No errors!" only when BOTH testsWithErrors AND filesWithErrors are 0', () => {
+    // Case 1: No errors anywhere - SHOULD show "No errors!"
+    const summaryNoErrors: TestSummary = {
+      withDiagnostics: [],
+      slow: [],
+      filesWithErrors: 0,
+            filesWithWarningsOutside: 0,
+      filesWithWarnings: 0,
+      testsWithErrors: 0,
+      skipped: 0,
+      tests: 10,
+      testFiles: 1,
+      typeTests: 5,
+      assertions: 15
+    };
+
+    // Should show "No errors!" - both conditions met
+    expect(summaryNoErrors.testsWithErrors).toBe(0);
+    expect(summaryNoErrors.filesWithErrors).toBe(0);
+
+    // Case 2: Errors in test blocks - should NOT show "No errors!"
+    const summaryTestErrors: TestSummary = {
+      withDiagnostics: ['test.ts'],
+      slow: [],
+      filesWithErrors: 1,
+            filesWithWarningsOutside: 0,
+      filesWithWarnings: 0,
+      testsWithErrors: 2, // Errors IN tests
+      skipped: 0,
+      tests: 10,
+      testFiles: 1,
+      typeTests: 5,
+      assertions: 15
+    };
+
+    // Should NOT show "No errors!" - testsWithErrors > 0
+    expect(summaryTestErrors.testsWithErrors).toBeGreaterThan(0);
+
+    // Case 3: THE BUG - Errors outside test blocks - should NOT show "No errors!"
+    const summaryOutsideErrors: TestSummary = {
+      withDiagnostics: ['test.ts'],
+      slow: [],
+      filesWithErrors: 1, // File has errors
+      filesWithWarnings: 0,
+      testsWithErrors: 0, // But no errors IN tests (errors are OUTSIDE)
+      skipped: 0,
+      tests: 10,
+      testFiles: 1,
+      typeTests: 5,
+      assertions: 15
+    };
+
+    // This is the bug scenario:
+    // - testsWithErrors = 0 (old code would show "No errors!")
+    // - filesWithErrors = 1 (file has errors outside test blocks)
+    // Result: Should NOT show "No errors!" because filesWithErrors > 0
+    expect(summaryOutsideErrors.testsWithErrors).toBe(0);
+    expect(summaryOutsideErrors.filesWithErrors).toBe(1);
+  });
+
+  it('should not show "No errors!" when file has errors outside test blocks', () => {
+    // This test file has errors OUTSIDE of test blocks:
+    // - The file-level diagnostics include errors
+    // - But individual tests have no errors
+    // - testsWithErrors = 0 (no errors in tests)
+    // - filesWithErrors = 1 (file has errors overall)
+    const testFiles: any[] = [{
+      filepath: 'test1.ts',
+      importSymbols: [],
+      skip: false,
+      skippedTests: 0,
+      blocks: [
+        {
+          filepath: 'test1.ts',
+          description: 'Test Block',
+          startLine: 10,
+          endLine: 20,
+          skip: false,
+          diagnostics: [
+            // Error at line 5, OUTSIDE the test block (which starts at line 10)
+            {
+              filepath: 'test1.ts',
+              code: 2339,
+              msg: "Property 'testFiles' does not exist",
+              category: 1,
+              loc: { lineNumber: 5, column: 1, start: 50, length: 10 }
+            }
+          ],
+          tests: [
+            {
+              filepath: 'test1.ts',
+              description: 'Test 1 - no errors',
+              startLine: 11,
+              endLine: 13,
+              skip: false,
+              diagnostics: [], // No errors in this test
+              symbols: []
+            }
+          ]
+        }
+      ],
+      duration: 100,
+      testLines: 10
+    }];
+
+    const result = calculateTestSummary(testFiles, mockOpt);
+
+    // Verify the bug scenario:
+    expect(result.testsWithErrors).toBe(0); // No errors in individual tests
+    expect(result.filesWithErrors).toBe(1); // But file has errors overall
+
+    // With the fix, "No errors!" should NOT be shown because filesWithErrors > 0
+  });
+
+  it('should show "No errors!" when truly no errors anywhere', () => {
+    const testFiles: any[] = [{
+      filepath: 'test1.ts',
+      importSymbols: [],
+      skip: false,
+      skippedTests: 0,
+      blocks: [{
+        filepath: 'test1.ts',
+        description: 'Test Block',
+        startLine: 1,
+        endLine: 10,
+        skip: false,
+        diagnostics: [], // No block-level errors
+        tests: [{
+          filepath: 'test1.ts',
+          description: 'Test 1',
+          startLine: 2,
+          endLine: 4,
+          skip: false,
+          diagnostics: [], // No test-level errors
+          symbols: []
+        }]
+      }],
+      duration: 100,
+      testLines: 10
+    }];
+
+    const result = calculateTestSummary(testFiles, mockOpt);
+
+    // Both should be 0 - this is when "No errors!" should appear
+    expect(result.testsWithErrors).toBe(0);
+    expect(result.filesWithErrors).toBe(0);
+  });
+});

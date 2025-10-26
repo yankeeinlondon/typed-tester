@@ -1,13 +1,47 @@
 import type { AsOption } from "~/cli";
-import type { TestFile, TestSummary } from "~/types";
+import type { TestBlock, TestFile, TestSummary } from "~/types";
 import process from "node:process";
 import chalk from "chalk";
 import { asTestFile, getDiagnosticsOutsideBlocks, getErrorDiagnostics, projectUsing } from "~/ast";
 import { showTestFile, showTestSummary } from "~/report";
 import { detectTerminalTheme, fileLink, filterTestFilesByPattern, getTestFiles, msg, shout } from "~/utils";
 
+/**
+ * Recursively count all tests across all blocks including nested describes.
+ */
+function countAllTests(blocks: TestBlock[]): number {
+    let count = 0;
+    for (const block of blocks) {
+        count += block.tests.length;
+        if (block.blocks && block.blocks.length > 0) {
+            count += countAllTests(block.blocks);
+        }
+    }
+    return count;
+}
+
+/**
+ * Recursively count all tests with errors across all blocks including nested describes.
+ */
+function countTestsWithErrors(blocks: TestBlock[], opt: AsOption<"test">): number {
+    let count = 0;
+    for (const block of blocks) {
+        for (const test of block.tests) {
+            const testErrors = test.diagnostics.filter(d => !opt.warn.includes(d.code));
+            if (testErrors.length > 0) {
+                count++;
+            }
+        }
+        if (block.blocks && block.blocks.length > 0) {
+            count += countTestsWithErrors(block.blocks, opt);
+        }
+    }
+    return count;
+}
+
 function calculateTestSummary(testFiles: TestFile[], opt: AsOption<"test">): TestSummary {
-    let filesWithErrors = 0;
+    let filesWithErrors = 0; // Files with test failures (errors IN tests)
+    let filesWithWarningsOutside = 0; // Files with type issues ONLY outside tests
     let testsWithErrors = 0;
     let filesWithWarnings = 0;
     let tests = 0;
@@ -22,24 +56,26 @@ function calculateTestSummary(testFiles: TestFile[], opt: AsOption<"test">): Tes
         const errors = allDiagnostics.filter(d => !opt.warn.includes(d.code));
         const warnings = allDiagnostics.filter(d => opt.warn.includes(d.code));
 
-        if (errors.length > 0)
+        // Count individual tests that have errors (recursively, including nested describes)
+        const fileTestsWithErrors = countTestsWithErrors(testFile.blocks, opt);
+        testsWithErrors += fileTestsWithErrors;
+
+        // Categorize files:
+        // - filesWithErrors = has test failures (errors IN tests)
+        // - filesWithWarningsOutside = has type issues ONLY outside tests (warnings, not errors)
+        if (fileTestsWithErrors > 0) {
+            // File has test failures = errors
             filesWithErrors++;
+        } else if (errors.length > 0) {
+            // File has NO test failures, but has type issues outside tests = warnings
+            filesWithWarningsOutside++;
+        }
+
         if (warnings.length > 0)
             filesWithWarnings++;
 
-        // Count individual tests that have errors, not total error count
-        let testsWithErrorsInThisFile = 0;
-        for (const block of testFile.blocks) {
-            for (const test of block.tests) {
-                const testErrors = test.diagnostics.filter(d => !opt.warn.includes(d.code));
-                if (testErrors.length > 0) {
-                    testsWithErrorsInThisFile++;
-                }
-            }
-        }
-        testsWithErrors += testsWithErrorsInThisFile;
-
-        tests += testFile.blocks.flatMap(b => b.tests).length;
+        // Count all tests (recursively, including nested describes)
+        tests += countAllTests(testFile.blocks);
         skipped += testFile.skippedTests;
         typeTests += testFile.typeTests;
         assertions += testFile.assertions;
@@ -56,6 +92,7 @@ function calculateTestSummary(testFiles: TestFile[], opt: AsOption<"test">): Tes
 
     return {
         filesWithErrors,
+        filesWithWarningsOutside,
         testsWithErrors,
         filesWithWarnings,
         tests,

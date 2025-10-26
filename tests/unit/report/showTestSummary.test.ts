@@ -32,6 +32,7 @@ describe('showTestSummary() - Phase 4', () => {
     it('should display type tests and assertions when both are present', () => {
       const summary: TestSummary = {
         filesWithErrors: 0,
+            filesWithWarningsOutside: 0,
         testsWithErrors: 0,
         filesWithWarnings: 0,
         tests: 50,
@@ -62,6 +63,7 @@ describe('showTestSummary() - Phase 4', () => {
     it('should display zero type tests and assertions when none present', () => {
       const summary: TestSummary = {
         filesWithErrors: 0,
+            filesWithWarningsOutside: 0,
         testsWithErrors: 0,
         filesWithWarnings: 0,
         tests: 30,
@@ -85,6 +87,7 @@ describe('showTestSummary() - Phase 4', () => {
     it('should handle case where all tests have type assertions', () => {
       const summary: TestSummary = {
         filesWithErrors: 0,
+            filesWithWarningsOutside: 0,
         testsWithErrors: 0,
         filesWithWarnings: 0,
         tests: 15,
@@ -107,6 +110,7 @@ describe('showTestSummary() - Phase 4', () => {
     it('should handle large numbers correctly', () => {
       const summary: TestSummary = {
         filesWithErrors: 0,
+            filesWithWarningsOutside: 0,
         testsWithErrors: 0,
         filesWithWarnings: 0,
         tests: 1250,
@@ -132,6 +136,7 @@ describe('showTestSummary() - Phase 4', () => {
     it('should still display no errors message when tests pass', () => {
       const summary: TestSummary = {
         filesWithErrors: 0,
+            filesWithWarningsOutside: 0,
         testsWithErrors: 0,
         filesWithWarnings: 0,
         tests: 50,
@@ -153,6 +158,7 @@ describe('showTestSummary() - Phase 4', () => {
     it('should display error counts when tests fail', () => {
       const summary: TestSummary = {
         filesWithErrors: 2,
+            filesWithWarningsOutside: 0,
         testsWithErrors: 5,
         filesWithWarnings: 0,
         tests: 50,
@@ -180,6 +186,7 @@ describe('showTestSummary() - Phase 4', () => {
     it('should display skipped test count', () => {
       const summary: TestSummary = {
         filesWithErrors: 0,
+            filesWithWarningsOutside: 0,
         testsWithErrors: 0,
         filesWithWarnings: 0,
         tests: 50,
@@ -202,6 +209,7 @@ describe('showTestSummary() - Phase 4', () => {
     it('should display slow files', () => {
       const summary: TestSummary = {
         filesWithErrors: 0,
+            filesWithWarningsOutside: 0,
         testsWithErrors: 0,
         filesWithWarnings: 0,
         tests: 50,
@@ -224,6 +232,7 @@ describe('showTestSummary() - Phase 4', () => {
     it('should display warnings', () => {
       const summary: TestSummary = {
         filesWithErrors: 0,
+            filesWithWarningsOutside: 0,
         testsWithErrors: 0,
         filesWithWarnings: 2,
         tests: 50,
@@ -248,6 +257,7 @@ describe('showTestSummary() - Phase 4', () => {
     it('should handle summary with no tests executed', () => {
       const summary: TestSummary = {
         filesWithErrors: 0,
+            filesWithWarningsOutside: 0,
         testsWithErrors: 0,
         filesWithWarnings: 0,
         tests: 0,
@@ -269,6 +279,7 @@ describe('showTestSummary() - Phase 4', () => {
     it('should handle single test correctly (singular vs plural)', () => {
       const summary: TestSummary = {
         filesWithErrors: 0,
+            filesWithWarningsOutside: 0,
         testsWithErrors: 0,
         filesWithWarnings: 0,
         tests: 1,
@@ -291,6 +302,7 @@ describe('showTestSummary() - Phase 4', () => {
     it('should handle all tests skipped', () => {
       const summary: TestSummary = {
         filesWithErrors: 0,
+            filesWithWarningsOutside: 0,
         testsWithErrors: 0,
         filesWithWarnings: 0,
         tests: 0,
@@ -315,6 +327,7 @@ describe('showTestSummary() - Phase 4', () => {
     it('should use "tests" for it blocks (not doubled count)', () => {
       const summary: TestSummary = {
         filesWithErrors: 0,
+            filesWithWarningsOutside: 0,
         testsWithErrors: 0,
         filesWithWarnings: 0,
         tests: 26, // This should be the count of it() blocks, matching Vitest
@@ -338,6 +351,7 @@ describe('showTestSummary() - Phase 4', () => {
     it('should distinguish between "tests" and "type assertions"', () => {
       const summary: TestSummary = {
         filesWithErrors: 2,
+            filesWithWarningsOutside: 0,
         testsWithErrors: 3,
         filesWithWarnings: 0,
         tests: 50,
