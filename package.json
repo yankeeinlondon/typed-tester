@@ -21,7 +21,7 @@
         "diagnostics": "bun run ./scripts/get-diagnostics.ts",
         "lint": "eslint src",
         "release": "bumpp",
-        "test": "vitest run",
+        "test": "vitest run unit",
         "test:jsr": "./scripts/jsr-validation",
         "test:types": "bun run ./src/typed.ts test",
         "test:runtime": "pnpm typed test",

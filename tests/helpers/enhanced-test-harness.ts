@@ -205,7 +205,7 @@ export class EnhancedTestHarness {
         }
       };
 
-      console.log(`${commandName} executed in ${metrics.duration.toFixed(2)}ms`);
+      console.log(`${commandName} executed in ${metrics.duration.toFixed(2)}ms, output length: ${output.length}`);
 
       return { output, metrics };
     } catch (error) {
@@ -242,12 +242,19 @@ export class EnhancedTestHarness {
   }> {
     const { output, metrics } = await this.executeWithMetrics('test', async () => {
       return this.captureOutput(async () => {
-        await test_command(options, []);
+        // Pass filter array as second parameter if present
+        const filters = options.filter || [];
+        await test_command(options, filters);
       }, true); // Always capture exit for test commands
     });
 
+    console.log('[PARSE DEBUG] About to parse output, length:', output.length, 'first 100 chars:', output.substring(0, 100));
+
     const result = this.parseTestOutput(output);
     result.quiet = options.quiet;
+
+    console.log('[PARSE DEBUG] After parsing - result.raw.length:', result.raw.length);
+
     return { result, metrics };
   }
 
@@ -331,6 +338,9 @@ export class EnhancedTestHarness {
     const originalError = console.error;
     const originalWarn = console.warn;
     const originalExit = process.exit;
+
+    // Debug: Check if console is already overridden
+    const isOriginal = typeof originalLog === 'function' && originalLog.name !== 'bound consoleCall';
     
     // Capture output without the [CAPTURED] pollution
     console.log = (...args) => {
@@ -361,6 +371,12 @@ export class EnhancedTestHarness {
 
     try {
       await executor();
+
+      // Debug: Log captured output length (to original console if possible)
+      if (originalLog && typeof originalLog === 'function') {
+        originalLog('[HARNESS DEBUG] Captured output length:', output.length);
+      }
+
       return output;
     } catch (error) {
       // Capture errors in output as well, but don't include the full stack trace

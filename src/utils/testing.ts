@@ -8,6 +8,9 @@ const DEFAULT_GLOB = [
     "![node_modules]"
 ];
 
+/**
+ * get's an array of files in the repo
+ */
 export function getTestFiles() {
     const env = process.env.TEST_FILES || process.env.VITE_TEST_FILES;
 

@@ -100,7 +100,7 @@ describe('filterSymbols', () => {
         });
 
         it('should show all symbols when both flags are set (with warning)', () => {
-            const consoleSpy = vi.spyOn(console, 'warn');
+            const consoleSpy = vi.spyOn(console, 'warn').mockImplementation();
 
             const result = filterSymbols(mockSymbols, {
                 filters: [],

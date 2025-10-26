@@ -14,6 +14,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'node',
+    disableConsoleIntercept: true, // Allow test harness to capture console output
     include: [
       'tests/**/*.test.ts',
       'tests/**/*.fast.test.ts'

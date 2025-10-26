@@ -1,3 +1,4 @@
+export * from "./availableWidth";
 export * from "./consumedWidth";
 export * from "./detectTerminalTheme";
 export * from "./diagnosticLookup";
