@@ -1,6 +1,6 @@
 import chalk from "chalk";
-import type { TestFile } from "~/types";
-import { isSlowTest, isVerySlowTest } from "~/ast";
+import type { TestFile } from "../types";
+import { isSlowTest, isVerySlowTest } from "../ast";
 
 /**
  * Formats the timing display with:

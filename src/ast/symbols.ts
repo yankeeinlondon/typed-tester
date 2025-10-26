@@ -24,12 +24,12 @@ import type {
     SymbolReference,
     SymbolScope,
     TypeGeneric
-} from "~/types";
+} from "../types";
 import {
     isSymbol,
     isSymbolMeta
-} from "~/type-guards";
-import { getProjectTypeChecker } from "~/ast";
+} from "../type-guards";
+import { getProjectTypeChecker } from "./";
 
 // Simple string hash function to replace xxhash
 function simpleHash(str: string): number {

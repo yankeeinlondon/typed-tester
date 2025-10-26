@@ -1,4 +1,4 @@
-import type { JsDocInfo, SymbolMeta, TypeGeneric } from "~/types";
+import type { JsDocInfo, SymbolMeta, TypeGeneric } from "../types";
 import chalk from "chalk";
 import Table from "tty-table";
 import { prettyMultiLinePath } from "./prettyPath";

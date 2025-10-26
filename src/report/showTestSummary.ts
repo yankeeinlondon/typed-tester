@@ -1,6 +1,6 @@
-import type { TestSummary } from "~/types";
+import type { TestSummary } from "../types";
 import chalk from "chalk";
-import { fileLink, relativeFile } from "~/utils";
+import { fileLink, relativeFile } from "../utils";
 import { prettyPath } from "./prettyPath";
 
 export function showTestSummary<T extends TestSummary>(test: T) {

@@ -1,8 +1,8 @@
-import type { FileDiagnostic, TypeTest } from "~/types";
-import type { AsOption } from "~/cli";
+import type { FileDiagnostic, TypeTest } from "../types";
+import type { AsOption } from "../cli";
 import chalk from "chalk";
-import { getErrorDiagnostics } from "~/ast";
-import { getTerminalTheme } from "~/utils";
+import { getErrorDiagnostics } from "../ast";
+import { getTerminalTheme } from "../utils";
 import { showDiagnostic } from "./showDiagnostic";
 
 export function showTest(test: TypeTest, opt: AsOption<"test">, hasTypeTests = true, indentLevel = 2) {

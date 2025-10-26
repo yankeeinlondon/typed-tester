@@ -4,7 +4,7 @@ import type {
     DependencyNode,
     DependencyTraversal,
     FQN
-} from "~/types";
+} from "../types";
 import { getAllSymbolObjectsInProject } from "./project";
 import {
     buildDependencyMap,

@@ -1,8 +1,8 @@
-import type { TestBlock } from "~/types";
-import type { AsOption } from "~/cli";
+import type { TestBlock } from "../types";
+import type { AsOption } from "../cli";
 import chalk from "chalk";
-import { getErrorDiagnostics, getWarningDiagnostics } from "~/ast";
-import { fileLink, getTerminalTheme } from "~/utils";
+import { getErrorDiagnostics, getWarningDiagnostics } from "../ast";
+import { fileLink, getTerminalTheme } from "../utils";
 import { showDiagnostic } from "./showDiagnostic";
 import { showTest } from "./showTest";
 import { calculateBlockMetrics } from "./calculateMetrics";

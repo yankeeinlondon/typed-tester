@@ -1,7 +1,7 @@
 import type { SourceFile, Symbol } from "ts-morph";
 import type { SymbolFilterCallback, TestBlock, TestFile, TestFileOptions, TypeTest } from "../types/testing-types";
 import { isString } from "inferred-types";
-import { relativeFile } from "~/utils";
+import { relativeFile } from "../utils";
 import { SyntaxKind } from "ts-morph";
 import { getDiagnosticsBetweenLines } from "./diagnostics";
 import { getFileDiagnostics, getImportsForFile } from "./files";

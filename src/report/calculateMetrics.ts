@@ -1,6 +1,6 @@
-import type { TestBlock, TestFile, TypeTest } from "~/types";
-import type { AsOption } from "~/cli";
-import { getErrorDiagnostics } from "~/ast";
+import type { TestBlock, TestFile, TypeTest } from "../types";
+import type { AsOption } from "../cli";
+import { getErrorDiagnostics } from "../ast";
 
 /**
  * Unified metrics structure used across all hierarchy levels

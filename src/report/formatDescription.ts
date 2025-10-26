@@ -1,4 +1,4 @@
-import type { JsDocInfo } from "~/types";
+import type { JsDocInfo } from "../types";
 import chalk from "chalk";
 
 /**

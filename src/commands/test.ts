@@ -1,10 +1,10 @@
-import type { AsOption } from "~/cli";
-import type { TestBlock, TestFile, TestSummary } from "~/types";
+import type { AsOption } from "../cli";
+import type { TestBlock, TestFile, TestSummary } from "../types";
 import process from "node:process";
 import chalk from "chalk";
-import { asTestFile, getDiagnosticsOutsideBlocks, getErrorDiagnostics, projectUsing } from "~/ast";
-import { showTestFile, showTestSummary } from "~/report";
-import { detectTerminalTheme, fileLink, filterTestFilesByPattern, getTestFiles, msg, shout } from "~/utils";
+import { asTestFile, getDiagnosticsOutsideBlocks, getErrorDiagnostics, projectUsing } from "../ast";
+import { showTestFile, showTestSummary } from "../report";
+import { detectTerminalTheme, fileLink, filterTestFilesByPattern, getTestFiles, msg, shout } from "../utils";
 
 /**
  * Recursively count all tests across all blocks including nested describes.

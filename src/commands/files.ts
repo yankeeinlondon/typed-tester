@@ -1,6 +1,6 @@
-import type { AsOption } from "~/cli";
-import { getSymbolFileDefinition, projectUsing } from "~/ast";
-import { relativeFile } from "~/utils";
+import type { AsOption } from "../cli";
+import { getSymbolFileDefinition, projectUsing } from "../ast";
+import { relativeFile } from "../utils";
 import Table from "tty-table";
 
 export async function files_command(opt: AsOption<"files">) {

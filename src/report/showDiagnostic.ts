@@ -1,7 +1,7 @@
-import type { FileDiagnostic } from "~/types";
-import type { AsOption } from "~/cli";
+import type { FileDiagnostic } from "../types";
+import type { AsOption } from "../cli";
 import chalk from "chalk";
-import { tsCodeLink } from "~/utils";
+import { tsCodeLink } from "../utils";
 
 export function showDiagnostic(
     diag: FileDiagnostic,

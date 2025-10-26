@@ -1,6 +1,6 @@
 import type { ImportDeclaration, SourceFile } from "ts-morph";
 import { SyntaxKind } from "ts-morph";
-import type { ImportCategory } from "~/types/imports";
+import type { ImportCategory } from "../types/imports";
 import { dirname, normalize, relative, resolve } from "pathe";
 
 /**

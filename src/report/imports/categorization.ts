@@ -1,4 +1,4 @@
-import type { AnalysisResult } from "~/types/imports/AnalysisResult";
+import type { AnalysisResult } from "../../types/imports/AnalysisResult";
 import chalk from "chalk";
 import { formatCategoryDetails, formatCategoryTable, formatExternalDependencies } from "./format";
 

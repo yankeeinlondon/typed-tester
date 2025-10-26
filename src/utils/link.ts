@@ -11,7 +11,7 @@ import {
 } from "inferred-types";
 import { resolve } from "pathe";
 import { existsSync } from "node:fs";
-import { InvalidFilePath } from "~/errors";
+import { InvalidFilePath } from "../errors";
 
 export const CONSOLE_LINK_PREAMBLE = narrow(`\x1B]8;;`);
 export const CONSOLE_LINK_DELIMITER = narrow(`\x1B\\`);

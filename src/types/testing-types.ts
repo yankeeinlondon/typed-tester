@@ -1,4 +1,4 @@
-import type { BlockType } from "~/ast";
+import type { BlockType } from "../ast";
 import type { FileDiagnostic, SymbolImport } from "./file-ast-types";
 import type { SymbolReference } from "./symbol-ast-types";
 

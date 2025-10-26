@@ -1,7 +1,7 @@
-import type { AnalysisResult } from "~/types/imports/AnalysisResult";
-import type { CombinedImport } from "~/types/imports/CombinedImport";
+import type { AnalysisResult } from "../../types";
+import type { CombinedImport } from "../../types";
 import chalk from "chalk";
-import { fileLink } from "~/utils/link";
+import { fileLink } from "../../utils/link";
 
 export interface ReportOptions {
     quiet: boolean;

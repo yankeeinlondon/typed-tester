@@ -1,11 +1,11 @@
 import type { LanguageService, Symbol, TypeChecker } from "ts-morph";
-import type { DependencyGraph, SymbolKind } from "~/types";
+import type { DependencyGraph, SymbolKind } from "../types";
 import { existsSync, statSync } from "node:fs";
 import { cwd } from "node:process";
 import { repoRoot } from "repo-root";
 import { join } from "pathe";
 import { Project } from "ts-morph";
-import { createDependencyCacheManager } from "~/cache";
+import { createDependencyCacheManager } from "../cache";
 import { buildDependencyGraph } from "./dependency-graph";
 import { createFullyQualifiedNameForSymbol, getSymbolKind, getSymbolScope } from "./symbols";
 

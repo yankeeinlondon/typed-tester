@@ -1,7 +1,7 @@
-import type { AnalysisResult } from "~/types/imports/AnalysisResult";
-import type { MissingTypeModifier } from "~/types/imports/MissingTypeModifier";
+import type { AnalysisResult } from "../../types/imports/AnalysisResult";
+import type { MissingTypeModifier } from "../../types/imports/MissingTypeModifier";
 import chalk from "chalk";
-import { fileLink } from "~/utils/link";
+import { fileLink } from "../../utils/link";
 
 export interface ReportOptions {
     quiet: boolean;

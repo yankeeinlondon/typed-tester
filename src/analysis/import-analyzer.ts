@@ -7,7 +7,7 @@ import {
     extractImports,
     getImportLocation,
     getImportStructure
-} from "~/ast/imports";
+} from "../ast/imports";
 import type {
     AnalysisOptions,
     AnalysisResult,
@@ -15,7 +15,7 @@ import type {
     ImportCategory,
     ImportType,
     MissingTypeModifier
-} from "~/types/imports";
+} from "../types/imports";
 
 /**
  * **analyzeImports**

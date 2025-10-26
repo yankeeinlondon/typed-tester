@@ -1,15 +1,15 @@
-import type { AsOption } from "~/cli";
-import type { AnalysisResult } from "~/types/imports";
+import type { AsOption } from "../cli";
+import type { AnalysisResult } from "../types/imports";
 import process from "node:process";
 import chalk from "chalk";
 import fg from "fast-glob";
 import { normalize } from "pathe";
-import { analyzeImports } from "~/analysis/import-analyzer";
-import { projectUsing } from "~/ast";
-import { msg, shout } from "~/utils";
-import { reportCombinedImports } from "~/report/imports/reportCombinedImports";
-import { reportMissingTypeModifiers } from "~/report/imports/reportMissingTypeModifiers";
-import { reportCategorization } from "~/report/imports/categorization";
+import { analyzeImports } from "../analysis/import-analyzer";
+import { projectUsing } from "../ast";
+import { msg, shout } from "../utils";
+import { reportCombinedImports } from "../report/imports/reportCombinedImports";
+import { reportMissingTypeModifiers } from "../report/imports/reportMissingTypeModifiers";
+import { reportCategorization } from "../report/imports/categorization";
 
 /**
  * **imports_command**

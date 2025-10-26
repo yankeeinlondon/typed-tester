@@ -1,9 +1,9 @@
 import type { Mutable, NumberLike } from "inferred-types";
 import type {
     TypescriptDiagnostic
-} from "~/types";
+} from "../types";
 import { asString, hasKeys, isNumberLike } from "inferred-types";
-import { InvalidDiagnosticCode, InvalidDiagnosticMessage } from "~/errors";
+import { InvalidDiagnosticCode, InvalidDiagnosticMessage } from "../errors";
 
 // Import JSON data files (using relative paths and import attributes for Deno/JSR compatibility)
 import DIAGNOSTIC_CODE_LOOKUP from "../data/diagnostic-code-lookup.json" with { type: "json" };

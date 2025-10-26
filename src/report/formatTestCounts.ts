@@ -1,6 +1,6 @@
 import chalk from "chalk";
-import type { TestFile } from "~/types";
-import type { AsOption } from "~/cli";
+import type { TestFile } from "../types";
+import type { AsOption } from "../cli";
 import { calculateFileMetrics } from "./calculateMetrics";
 
 /**

@@ -1,4 +1,4 @@
-import type { ImportType } from "~/types/imports/ImportType";
+import type { ImportType } from "../../types/imports/ImportType";
 import chalk from "chalk";
 
 /**

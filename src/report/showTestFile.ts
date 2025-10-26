@@ -2,8 +2,8 @@ import chalk from "chalk";
 import { relative } from "pathe";
 import type {
     TestFile
-} from "~/types";
-import type { AsOption } from "~/cli";
+} from "../types";
+import type { AsOption } from "../cli";
 import {
     getDiagnosticsOutsideBlocks,
     getErrorDiagnostics,
@@ -11,10 +11,10 @@ import {
     getWarningDiagnostics,
     isSlowTest,
     isVerySlowTest
-} from "~/ast";
-import { fileLink, getTerminalTheme } from "~/utils";
-import { formatTestCounts, formatTiming, prettyPath, showTestBlock } from "~/report";
-import { shouldShowDescribeLevel } from "~/report/hierarchy";
+} from "../ast";
+import { fileLink, getTerminalTheme } from "../utils";
+import { formatTestCounts, formatTiming, prettyPath, showTestBlock } from "./";
+import { shouldShowDescribeLevel } from "./hierarchy";
 
 export function showTestFile(test: TestFile, opt: AsOption<"test">) {
     /**

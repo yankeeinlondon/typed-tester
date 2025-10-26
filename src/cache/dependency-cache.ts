@@ -6,7 +6,7 @@ import type {
     DependencyTraversal,
     FQN,
     SymbolMeta
-} from "~/types";
+} from "../types";
 import { existsSync, readFileSync, statSync, unlinkSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 

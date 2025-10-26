@@ -1,4 +1,4 @@
-import type { SymbolMeta } from "~/types";
+import type { SymbolMeta } from "../types";
 
 export type SymbolJsonOutput = Omit<SymbolMeta, "deps"> & { deps: SymbolMeta[] };
 

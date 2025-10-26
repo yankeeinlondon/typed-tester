@@ -1,4 +1,4 @@
-import type { SymbolMeta } from "~/types";
+import type { SymbolMeta } from "../../types";
 
 /**
  * **functionDescription**`(symbol)`

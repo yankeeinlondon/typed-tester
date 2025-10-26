@@ -1,8 +1,8 @@
-import type { AsOption } from "~/cli";
+import type { AsOption } from "../cli";
 import chalk from "chalk";
 import { join } from "pathe";
-import { getFileDiagnostics, getProjectRoot, projectUsing } from "~/ast";
-import { diagnosticLookup, fileLink, filterTestFilesByPattern, msg, prettyPath, relativeFile, tsCodeLink } from "~/utils";
+import { getFileDiagnostics, getProjectRoot, projectUsing } from "../ast";
+import { diagnosticLookup, fileLink, filterTestFilesByPattern, msg, prettyPath, relativeFile, tsCodeLink } from "../utils";
 
 interface DiagnosticSummary {
     totalFiles: number;

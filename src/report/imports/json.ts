@@ -1,4 +1,4 @@
-import type { AnalysisResult } from "~/types/imports/AnalysisResult";
+import type { AnalysisResult } from "../../types/imports/AnalysisResult";
 
 /**
  * **formatImportsAsJson**

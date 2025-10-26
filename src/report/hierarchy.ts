@@ -1,4 +1,4 @@
-import type { TestBlock, TestFile } from "~/types";
+import type { TestBlock, TestFile } from "../types";
 
 /**
  * Determines whether describe blocks should be shown for this file.

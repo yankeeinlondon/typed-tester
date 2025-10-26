@@ -1,5 +1,5 @@
 import type { StringKeys } from "inferred-types";
-import type { IMPORT_TYPES } from "~/constants";
+import type { IMPORT_TYPES } from "../../constants";
 
 /**
  * a category for imports
