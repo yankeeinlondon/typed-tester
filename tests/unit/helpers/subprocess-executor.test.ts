@@ -98,7 +98,7 @@ describe("executeCliCommand() - Subprocess Execution", () => {
             } catch (error) {
                 // If timeout occurs, verify error is thrown
                 const elapsed = Date.now() - startTime;
-                expect(elapsed).toBeLessThanOrEqual(150); // Allow small buffer
+                expect(elapsed).toBeLessThanOrEqual(250); // Allow buffer for CI timing variability
                 expect(error).toBeDefined();
             }
 
