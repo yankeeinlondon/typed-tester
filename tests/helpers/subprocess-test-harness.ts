@@ -104,6 +104,194 @@ export async function runTestCommand(
 }
 
 /**
+ * Generic command result (used by all commands)
+ */
+export interface CommandResult {
+    /** Raw stdout output from command */
+    output: string;
+    /** Exit code (0 = success, non-zero = failure) */
+    exitCode: number;
+    /** Execution time in milliseconds */
+    executionTime: number;
+}
+
+/**
+ * Options for symbols command
+ */
+export interface SymbolsCommandOptions {
+    /** Filter patterns */
+    filter?: string[];
+    /** Quiet mode */
+    quiet?: boolean;
+    /** Verbose mode */
+    verbose?: boolean;
+}
+
+/**
+ * Options for source command
+ */
+export interface SourceCommandOptions {
+    /** Filter patterns */
+    filter?: string[];
+    /** Quiet mode */
+    quiet?: boolean;
+    /** Verbose mode */
+    verbose?: boolean;
+}
+
+/**
+ * Options for deps command
+ */
+export interface DepsCommandOptions {
+    /** Filter patterns */
+    filter?: string[];
+    /** Graph mode */
+    graph?: boolean;
+    /** Quiet mode */
+    quiet?: boolean;
+}
+
+/**
+ * Options for files command
+ */
+export interface FilesCommandOptions {
+    /** Filter patterns */
+    filter?: string[];
+    /** Quiet mode */
+    quiet?: boolean;
+}
+
+/**
+ * Runs the typed symbols command as a subprocess.
+ */
+export async function runSymbolsCommand(
+    options: SymbolsCommandOptions,
+    projectPath?: string,
+): Promise<CommandResult> {
+    const args: string[] = ["symbols"];
+
+    if (options.filter && options.filter.length > 0) {
+        args.push(...options.filter);
+    }
+    if (options.quiet) {
+        args.push("--quiet");
+    }
+    if (options.verbose) {
+        args.push("--verbose");
+    }
+
+    const subprocessOptions: SubprocessOptions = { timeout: 30000 };
+    if (projectPath) {
+        subprocessOptions.cwd = projectPath;
+    }
+
+    const result = await executeCliCommand(args, subprocessOptions);
+
+    return {
+        output: result.stdout,
+        exitCode: result.exitCode,
+        executionTime: result.executionTime,
+    };
+}
+
+/**
+ * Runs the typed source command as a subprocess.
+ */
+export async function runSourceCommand(
+    options: SourceCommandOptions,
+    projectPath?: string,
+): Promise<CommandResult> {
+    const args: string[] = ["source"];
+
+    if (options.filter && options.filter.length > 0) {
+        args.push(...options.filter);
+    }
+    if (options.quiet) {
+        args.push("--quiet");
+    }
+    if (options.verbose) {
+        args.push("--verbose");
+    }
+
+    const subprocessOptions: SubprocessOptions = { timeout: 30000 };
+    if (projectPath) {
+        subprocessOptions.cwd = projectPath;
+    }
+
+    const result = await executeCliCommand(args, subprocessOptions);
+
+    // Source command outputs to stderr, so combine stdout + stderr
+    return {
+        output: result.stdout + result.stderr,
+        exitCode: result.exitCode,
+        executionTime: result.executionTime,
+    };
+}
+
+/**
+ * Runs the typed deps command as a subprocess.
+ */
+export async function runDepsCommand(
+    options: DepsCommandOptions,
+    projectPath?: string,
+): Promise<CommandResult> {
+    const args: string[] = ["deps"];
+
+    if (options.filter && options.filter.length > 0) {
+        args.push(...options.filter);
+    }
+    if (options.graph) {
+        args.push("--graph");
+    }
+    if (options.quiet) {
+        args.push("--quiet");
+    }
+
+    const subprocessOptions: SubprocessOptions = { timeout: 30000 };
+    if (projectPath) {
+        subprocessOptions.cwd = projectPath;
+    }
+
+    const result = await executeCliCommand(args, subprocessOptions);
+
+    return {
+        output: result.stdout,
+        exitCode: result.exitCode,
+        executionTime: result.executionTime,
+    };
+}
+
+/**
+ * Runs the typed files command as a subprocess.
+ */
+export async function runFilesCommand(
+    options: FilesCommandOptions,
+    projectPath?: string,
+): Promise<CommandResult> {
+    const args: string[] = ["files"];
+
+    if (options.filter && options.filter.length > 0) {
+        args.push(...options.filter);
+    }
+    if (options.quiet) {
+        args.push("--quiet");
+    }
+
+    const subprocessOptions: SubprocessOptions = { timeout: 30000 };
+    if (projectPath) {
+        subprocessOptions.cwd = projectPath;
+    }
+
+    const result = await executeCliCommand(args, subprocessOptions);
+
+    return {
+        output: result.stdout,
+        exitCode: result.exitCode,
+        executionTime: result.executionTime,
+    };
+}
+
+/**
  * Backward compatibility: Export types that match enhanced-test-harness API
  */
 export type { SubprocessOptions as CommandOptions };

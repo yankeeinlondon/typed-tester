@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import type { TestFile, TestSummary } from "~/types";
-import type { Expect, Equal as AssertEqual } from "inferred-types/types";
+import type { Expect, AssertEqual } from "inferred-types/types";
 
 describe("Phase 4: Hide Zero-Type-Test Files", () => {
     describe("filterZeroTypeTestFiles()", () => {

@@ -12,7 +12,7 @@ export type ImportCategory = StringKeys<typeof IMPORT_TYPES>[number];
  * Information describing a categorized import found
  * in the project.
  */
-export interface ImportType {
+export type ImportType = {
     /** the category of the import */
     category: ImportCategory;
     /** the module specifier (e.g., 'chalk', '~/utils', './foo') */

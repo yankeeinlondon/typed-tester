@@ -70,16 +70,16 @@ describe('Test Reporting - Baseline Behavior', () => {
   // Run each fixture ONCE at top level and share across all describe blocks
   let nestedDescribesOutput: string;
   let noTypeTestsOutput: string;
+  let allFixturesOutput: string;
+  let noTypeTestsVerboseOutput: string;
 
   beforeAll(() => {
     nestedDescribesOutput = runTestOnFixture('nested-describes.test.ts');
+    noTypeTestsOutput = runTestOnFixture('no-type-tests.test.ts');
     // Run on entire fixture directory to test filtering behavior (not explicit file selection)
     allFixturesOutput = runAllFixtures();
     noTypeTestsVerboseOutput = runTestOnFixture('no-type-tests.test.ts', ['--verbose']);
   });
-
-  let allFixturesOutput: string;
-  let noTypeTestsVerboseOutput: string;
 
   describe('Bug 1: Missing Describe Block Reporting', () => {
 

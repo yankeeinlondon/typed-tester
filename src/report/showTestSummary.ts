@@ -8,12 +8,7 @@ export function showTestSummary<T extends TestSummary>(test: T) {
     console.log(chalk.bold(`TEST SUMMARY:`));
     console.log();
 
-    // Show hidden files message if applicable
-    if (test.hiddenFiles && test.hiddenFiles > 0) {
-        const fileWord = test.hiddenFiles === 1 ? "file" : "files";
-        console.log(chalk.dim(`- ${test.hiddenFiles} runtime-only ${fileWord} hidden (use ${chalk.blue("--verbose")} to show)`));
-        console.log();
-    }
+
 
     // Show errors and warnings separately:
     // - Errors = test failures (in test blocks)
@@ -21,7 +16,7 @@ export function showTestSummary<T extends TestSummary>(test: T) {
     const hasErrors = test.testsWithErrors > 0 || test.filesWithErrors > 0;
     const hasWarnings = test.filesWithWarningsOutside > 0;
 
-    if (!hasErrors && !hasWarnings) {
+    if (!hasErrors ) {
         if (test.testFiles - test.skipped !== 0) {
             console.log(`- 🎉 ${chalk.green.bold("No errors!")}`);
         }
@@ -40,11 +35,11 @@ export function showTestSummary<T extends TestSummary>(test: T) {
             console.log(`- ${chalk.red.bold(test.filesWithErrors)} ${chalk.italic("of")} ${chalk.bold(test.testFiles)} ${chalk.bold("test files")} had errors`);
         }
 
-        // Show warnings (files with type issues only outside test blocks)
-        if (test.filesWithWarningsOutside > 0) {
-            const prefix = test.filesWithErrors > 0 ? "additional " : "";
-            console.log(`- ${chalk.yellowBright.bold(test.filesWithWarningsOutside)} ${prefix}${chalk.italic("of")} ${chalk.bold(test.testFiles)} ${chalk.bold("test files")} had warnings (type issues outside test blocks)`);
-        }
+    }
+    // Show warnings (files with type issues only outside test blocks)
+    if (test.filesWithWarningsOutside > 0) {
+        const prefix = test.filesWithErrors > 0 ? "additional " : "";
+        console.log(`- ${chalk.yellowBright.bold(test.filesWithWarningsOutside)} ${prefix}${chalk.italic("of")} ${chalk.bold(test.testFiles)} ${chalk.bold("test files")} had warnings (type issues outside test blocks)`);
     }
 
     // Display type test and assertion metrics
@@ -55,6 +50,12 @@ export function showTestSummary<T extends TestSummary>(test: T) {
             `- ${chalk.cyan.bold(test.typeTests)} ${chalk.italic("of")} ${test.tests} ${typeTestsText} type tests `
             + `(${chalk.cyan.bold(test.assertions)} total ${assertionsText})`
         );
+    }
+    // Show hidden files message if applicable
+    if (test.hiddenFiles && test.hiddenFiles > 0) {
+        const fileWord = test.hiddenFiles === 1 ? "file" : "files";
+        console.log(chalk.dim(`- ${test.hiddenFiles} runtime-only ${fileWord} hidden (use ${chalk.blue("--verbose")} to show)`));
+        console.log();
     }
 
     if (test.skipped > 0) {

@@ -1,24 +1,18 @@
 import { describe, it, expect } from "vitest";
 import type { Expect, AssertEqual, AssertExtends } from "inferred-types/types";
-import type { AnalysisResult } from "~/types/imports/AnalysisResult";
-import type { ImportType } from "~/types/imports/ImportType";
+import type { AnalysisResult, ImportCategory, ImportType } from "~/types";
 
-/**
- * Phase 5: Categorization Reporter Tests
- *
- * Tests for the categorization reporting functionality that displays
- * import statistics in various modes (normal, verbose, external, deep).
- */
+
 
 // Mock helper to create ImportType objects
 function createImport(
-    category: string,
+    category: ImportCategory,
     file: string,
     line: number,
     content: string
 ): ImportType {
     return {
-        category: category as any,
+        category,
         file,
         line,
         content,
