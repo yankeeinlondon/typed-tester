@@ -1,5 +1,4 @@
-import type { AnalysisResult } from "../../types";
-import type { CombinedImport } from "../../types";
+import type { AnalysisResult, CombinedImport } from "../../types";
 import chalk from "chalk";
 import { fileLink } from "../../utils/link";
 
