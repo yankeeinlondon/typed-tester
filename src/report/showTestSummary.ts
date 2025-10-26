@@ -12,7 +12,7 @@ export function showTestSummary<T extends TestSummary>(test: T) {
     // - Errors = test failures (in test blocks)
     // - Warnings = type issues outside test blocks
     const hasErrors = test.testsWithErrors > 0 || test.filesWithErrors > 0;
-    const hasWarnings = test.filesWithWarningsOutside > 0;
+    const _hasWarnings = test.filesWithWarningsOutside > 0;
 
     if (!hasErrors) {
         if (test.testFiles - test.skipped !== 0) {
