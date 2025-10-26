@@ -46,13 +46,15 @@ export async function executeCliCommand(
     args: string[],
     options: SubprocessOptions = {},
 ): Promise<SubprocessResult> {
-    const { timeout = 30000, cwd = process.cwd() } = options;
+    const { timeout = 30000, cwd } = options;
 
     return new Promise((resolve, reject) => {
         const startTime = Date.now();
 
-        // Path to the CLI entry point
-        const cliPath = join(process.cwd(), "bin", "typed.js");
+        // Path to the CLI entry point - always relative to project root
+        // The project root is where this test suite is running from
+        const projectRoot = process.cwd();
+        const cliPath = join(projectRoot, "bin", "typed.js");
 
         // Spawn the subprocess
         const subprocess = spawn("node", [cliPath, ...args], {

@@ -1,12 +1,13 @@
 import { describe, it, expect } from "vitest";
 import type { Expect, AssertExtends, AssertEqual } from "inferred-types/types";
-import type { AnalysisResult } from "~/types/imports/AnalysisResult";
-import type { CombinedImport } from "~/types/imports/CombinedImport";
-import type { MissingTypeModifier } from "~/types/imports/MissingTypeModifier";
+import type { AnalysisResult } from "../../../../src/types/imports/AnalysisResult";
+import type { CombinedImport } from "../../../../src/types/imports/CombinedImport";
+import type { MissingTypeModifier } from "../../../../src/types/imports/MissingTypeModifier";
+import { resolve } from "pathe";
 
 // Import functions to test (will be implemented)
-import { reportCombinedImports } from "~/report/imports/reportCombinedImports";
-import { reportMissingTypeModifiers } from "~/report/imports/reportMissingTypeModifiers";
+import { reportCombinedImports } from "../../../../src/report/imports/reportCombinedImports";
+import { reportMissingTypeModifiers } from "../../../../src/report/imports/reportMissingTypeModifiers";
 
 describe("reportCombinedImports()", () => {
     it("should format combined imports grouped by file", () => {
@@ -75,7 +76,7 @@ describe("reportCombinedImports()", () => {
 
     it("should include OSC8 file links in output", () => {
         // Use a real file that exists
-        const realFile = "/Volumes/coding/personal/typed-tester/src/typed.ts";
+        const realFile = resolve(process.cwd(), "src/typed.ts");
 
         const mockResult: AnalysisResult = {
             files: [],
@@ -197,7 +198,7 @@ describe("reportCombinedImports()", () => {
 
     it("should apply color coding to output", () => {
         // Use a real file that exists
-        const realFile = "/Volumes/coding/personal/typed-tester/src/typed.ts";
+        const realFile = resolve(process.cwd(), "src/typed.ts");
 
         const mockResult: AnalysisResult = {
             files: [],
@@ -300,7 +301,7 @@ describe("reportMissingTypeModifiers()", () => {
 
     it("should include OSC8 file links in output", () => {
         // Use a real file that exists
-        const realFile = "/Volumes/coding/personal/typed-tester/src/typed.ts";
+        const realFile = resolve(process.cwd(), "src/typed.ts");
 
         const mockResult: AnalysisResult = {
             files: [],
@@ -413,7 +414,7 @@ describe("reportMissingTypeModifiers()", () => {
 
     it("should apply color coding to output", () => {
         // Use a real file that exists
-        const realFile = "/Volumes/coding/personal/typed-tester/src/typed.ts";
+        const realFile = resolve(process.cwd(), "src/typed.ts");
 
         const mockResult: AnalysisResult = {
             files: [],
