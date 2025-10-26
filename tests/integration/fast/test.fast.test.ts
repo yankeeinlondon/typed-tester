@@ -157,14 +157,15 @@ describe('Test Command - Fast Integration Tests', () => {
     it('should show passing tests when requested', async () => {
       const options = {
         ...getOptimizedDefaultOptions('test'),
-        'show-passing': true
+        'show-passing': true,
+        verbose: true // Need verbose to show files with zero type tests
       };
-      
+
       const { result, metrics } = await harness.runTestCommand(options);
-      
+
       PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.test, 'test-show-passing');
       CLIOutputValidator.validateTestCommand(result);
-      
+
       // Should have valid test output
       expect(result.summary.totalTests >= 0).toBe(true);
     });
@@ -184,14 +185,15 @@ describe('Test Command - Fast Integration Tests', () => {
     it('should show symbols when requested', async () => {
       const options = {
         ...getOptimizedDefaultOptions('test'),
-        'show-symbols': true
+        'show-symbols': true,
+        verbose: true // Need verbose to show files with zero type tests
       };
-      
+
       const { result, metrics } = await harness.runTestCommand(options);
-      
+
       PerformanceAssertions.expectExecutionTime(metrics, PERFORMANCE_THRESHOLDS.test, 'test-show-symbols');
       CLIOutputValidator.validateTestCommand(result);
-      
+
       // Should contain test or symbol information in output
       expect(result.raw.length).toBeGreaterThan(0);
     });

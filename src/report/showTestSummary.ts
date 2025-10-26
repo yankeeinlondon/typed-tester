@@ -7,6 +7,14 @@ export function showTestSummary<T extends TestSummary>(test: T) {
     console.log();
     console.log(chalk.bold(`TEST SUMMARY:`));
     console.log();
+
+    // Show hidden files message if applicable
+    if (test.hiddenFiles && test.hiddenFiles > 0) {
+        const fileWord = test.hiddenFiles === 1 ? "file" : "files";
+        console.log(chalk.dim(`- ${test.hiddenFiles} runtime-only ${fileWord} hidden (use ${chalk.blue("--verbose")} to show)`));
+        console.log();
+    }
+
     if (test.testsWithErrors === 0) {
         if (test.testFiles - test.skipped !== 0) {
             console.log(`- 🎉 ${chalk.green.bold("No errors!")}`);

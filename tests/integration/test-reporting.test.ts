@@ -44,6 +44,28 @@ function runTestOnFixture(filename: string, extraArgs: string[] = []): string {
   }
 }
 
+/**
+ * Helper to run the test command on all fixtures in the test-project directory
+ */
+function runAllFixtures(extraArgs: string[] = []): string {
+  const relativePath = `tests/fixtures/test-project/tests`;
+  const args = ['test', relativePath, ...extraArgs];
+  const cmd = `node "${CLI_JS}" ${args.join(' ')}`;
+
+  try {
+    const result = execSync(cmd, {
+      cwd: process.cwd(),
+      encoding: 'utf8',
+      stdio: 'pipe'
+    });
+    return result;
+  } catch (error: any) {
+    // test command may exit with non-zero on type errors (expected for some fixtures)
+    const output = (error.stdout || '') + (error.stderr || '');
+    return output;
+  }
+}
+
 describe('Test Reporting - Baseline Behavior', () => {
   // Run each fixture ONCE at top level and share across all describe blocks
   let nestedDescribesOutput: string;
@@ -51,8 +73,13 @@ describe('Test Reporting - Baseline Behavior', () => {
 
   beforeAll(() => {
     nestedDescribesOutput = runTestOnFixture('nested-describes.test.ts');
-    noTypeTestsOutput = runTestOnFixture('no-type-tests.test.ts');
+    // Run on entire fixture directory to test filtering behavior (not explicit file selection)
+    allFixturesOutput = runAllFixtures();
+    noTypeTestsVerboseOutput = runTestOnFixture('no-type-tests.test.ts', ['--verbose']);
   });
+
+  let allFixturesOutput: string;
+  let noTypeTestsVerboseOutput: string;
 
   describe('Bug 1: Missing Describe Block Reporting', () => {
 
@@ -109,23 +136,30 @@ describe('Test Reporting - Baseline Behavior', () => {
     });
   });
 
-  describe('Bug 3: Zero Type Test Files (Future Policy)', () => {
+  describe('Phase 4: Hide Zero-Type-Test Files Policy', () => {
 
-    it('should show zero-type-test files in current behavior (before policy implemented)', () => {
-      // CURRENT: File with 0 type tests is shown (policy not yet implemented)
-      expect(noTypeTestsOutput).toContain('no-type-tests.test.ts');
-      expect(noTypeTestsOutput).toContain('tests');
-      expect(noTypeTestsOutput).toBeTruthy();
+    it('should hide zero-type-test files by default (Phase 4 implemented)', () => {
+      // AFTER Phase 4: Files with 0 type tests are hidden by default
+      // File should not appear with a checkmark (file listing)
+      expect(allFixturesOutput).not.toMatch(/[✓⤬⇣]\s+.*no-type-tests\.test\.ts/);
+
+      // Should show message about hidden files or just not show the file
+      // (when running on directory, it should hide zero-type-test files)
+
+      expect(allFixturesOutput).toBeTruthy();
     });
 
-    it('should include zero-type-test files in summary counts (current behavior)', () => {
-      // Should show runtime tests were found (8 tests in this file)
-      expect(noTypeTestsOutput).toMatch(/8\s+tests/);
+    it('should show zero-type-test files when --verbose flag is used (Phase 4 implemented)', () => {
+      // WITH --verbose: Files with 0 type tests are shown with checkmark
+      expect(noTypeTestsVerboseOutput).toMatch(/[✓⤬⇣]\s+.*no-type-tests\.test\.ts/);
+
+      // Should show runtime tests were found (6 tests in this file)
+      expect(noTypeTestsVerboseOutput).toMatch(/6\s+tests/);
 
       // Should show 0 type tests
-      expect(noTypeTestsOutput).toMatch(/0\s+(of\s+\d+\s+)?type\s+tests/i);
+      expect(noTypeTestsVerboseOutput).toMatch(/0\s+type\s+tests/i);
 
-      expect(noTypeTestsOutput).toBeTruthy();
+      expect(noTypeTestsVerboseOutput).toBeTruthy();
     });
   });
 

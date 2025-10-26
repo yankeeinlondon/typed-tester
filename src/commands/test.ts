@@ -64,7 +64,8 @@ function calculateTestSummary(testFiles: TestFile[], opt: AsOption<"test">): Tes
         withDiagnostics,
         slow,
         typeTests,
-        assertions
+        assertions,
+        hiddenFiles: 0 // Default value, will be set by caller if files are filtered
     };
 }
 
@@ -109,9 +110,18 @@ export async function test_command(opt: AsOption<"test">, filters: string[] = []
     await detectTerminalTheme();
 
     // Analyze all test files directly
-    const testFiles = await Promise.all(
+    const allTestFiles = await Promise.all(
         testFileList.map(file => asTestFile(file))
     );
+
+    // Filter out files with zero type tests unless in verbose mode
+    const hiddenFiles = opt.verbose
+        ? []
+        : allTestFiles.filter(f => f.typeTests === 0);
+
+    const testFiles = opt.verbose
+        ? allTestFiles
+        : allTestFiles.filter(f => f.typeTests > 0);
 
     // Handle --files flag to show only files with errors and error count
     if (opt.files && !opt.json) {
@@ -149,7 +159,15 @@ export async function test_command(opt: AsOption<"test">, filters: string[] = []
         }
 
         const summary = calculateTestSummary(testFiles, opt);
+        summary.hiddenFiles = hiddenFiles.length;
         showTestSummary(summary);
+    }
+    else if (testFiles.length === 0 && hiddenFiles.length > 0 && !opt.json) {
+        // All files have zero type tests and are hidden
+        msg(opt)();
+        msg(opt)(chalk.dim(`All ${hiddenFiles.length} test file${hiddenFiles.length === 1 ? "" : "s"} ${hiddenFiles.length === 1 ? "has" : "have"} zero type tests and ${hiddenFiles.length === 1 ? "is" : "are"} hidden.`));
+        msg(opt)(chalk.dim(`Use ${chalk.blue("--verbose")} to see ${hiddenFiles.length === 1 ? "it" : "them"}.`));
+        msg(opt)();
     }
     else if (!opt.json) {
         msg(opt)(`- no test files found with the given filter ${filterDesc}`);

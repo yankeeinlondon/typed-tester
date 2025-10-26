@@ -102,4 +102,6 @@ export interface TestSummary {
     typeTests: number;
     /** the total number of type assertions across all tests */
     assertions: number;
+    /** the number of test files hidden due to having zero type tests (only relevant when not in verbose mode) */
+    hiddenFiles?: number;
 }
