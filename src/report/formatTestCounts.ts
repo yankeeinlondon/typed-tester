@@ -1,15 +1,35 @@
 import chalk from "chalk";
 import type { TestFile } from "~/types";
+import type { AsOption } from "~/cli";
+import { calculateFileMetrics } from "./calculateMetrics";
 
 /**
  * Formats the test count display with the new three-metric system:
- * - tests: number of it/test blocks
+ * - tests: number of it/test blocks (recursively calculated)
  * - typeTests: tests containing type assertions
  * - assertions: total type assertions
  */
-export function formatTestCounts(testFile: TestFile, options: { verbose?: boolean; showPassing?: boolean }): string {
-    const totalTests = testFile.blocks.flatMap(b => b.tests).length;
-    const skippedTests = testFile.skippedTests;
+export function formatTestCounts(
+    testFile: TestFile,
+    options: { verbose?: boolean; showPassing?: boolean } & Partial<AsOption<"test">>
+): string {
+    // Use unified metric calculator for consistency across hierarchy levels
+    const opt: AsOption<"test"> = {
+        "ignore-outside": options["ignore-outside"] ?? false,
+        "only-errors": options["only-errors"] ?? false,
+        "show-passing": options.showPassing ?? false,
+        "show-symbols": options["show-symbols"] ?? false,
+        "slow": options.slow ?? false,
+        "verbose": options.verbose ?? false,
+        "metrics": options.metrics ?? false,
+        "warn": options.warn ?? [],
+        command: "test",
+        _: []
+    };
+
+    const metrics = calculateFileMetrics(testFile, opt);
+    const totalTests = metrics.totalTests;
+    const skippedTests = metrics.skippedTests;
     const activeTests = totalTests - skippedTests;
 
     const skippedMsg = skippedTests > 0

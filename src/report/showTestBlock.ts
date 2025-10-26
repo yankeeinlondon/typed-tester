@@ -5,12 +5,38 @@ import { getErrorDiagnostics, getWarningDiagnostics } from "~/ast";
 import { fileLink, getTerminalTheme } from "~/utils";
 import { showDiagnostic } from "./showDiagnostic";
 import { showTest } from "./showTest";
+import { calculateBlockMetrics } from "./calculateMetrics";
 
-export function showTestBlock(block: TestBlock, opt: AsOption<"test">, hasTypeTests = true) {
+/**
+ * Recursively check if a block should be considered "skipped"
+ * A block is skipped if:
+ * - It's explicitly marked as skip, OR
+ * - It has no non-skipped tests AND no non-skipped nested blocks
+ */
+function isBlockSkipped(block: TestBlock): boolean {
+    if (block.skip) {
+        return true;
+    }
+
+    const hasNonSkippedTests = block.tests.some(t => !t.skip);
+    if (hasNonSkippedTests) {
+        return false;
+    }
+
+    // Check if any nested blocks have non-skipped content
+    if (block.blocks && block.blocks.length > 0) {
+        return block.blocks.every(isBlockSkipped);
+    }
+
+    // No tests and no nested blocks = considered skipped
+    return true;
+}
+
+export function showTestBlock(block: TestBlock, opt: AsOption<"test">, hasTypeTests = true, indentLevel = 1) {
     const errors = getErrorDiagnostics(block.diagnostics, opt);
     const warnings = getWarningDiagnostics(block.diagnostics, opt);
     const hasError = errors.length > 0;
-    const skip = block.skip || block.tests.filter(t => !t.skip).length === 0;
+    const skip = isBlockSkipped(block);
 
     if ((hasError || opt["show-passing"] || opt.verbose) && !opt.slow) {
         const theme = getTerminalTheme();
@@ -28,12 +54,20 @@ export function showTestBlock(block: TestBlock, opt: AsOption<"test">, hasTypeTe
                         ? chalk.hex("#AAAAAA")(`✓`)
                         : chalk.hex("#555555")(`✓`);
 
-        const testDisplay = `${block.tests.length} ${chalk.italic(block.tests.length === 1 ? "test" : "tests")}`;
+        // Use unified metric calculator for consistency
+        const metrics = calculateBlockMetrics(block, opt);
+
+        const testDisplay = `${metrics.totalTests} ${chalk.italic(metrics.totalTests === 1 ? "test" : "tests")}`;
+
+        // Display type metrics (new in Phase 3)
+        const typeMetricsDisplay = metrics.typeTests > 0
+            ? `, ${metrics.typeTests} ${chalk.italic(metrics.typeTests === 1 ? "type test" : "type tests")}, ${metrics.assertions} ${chalk.italic(metrics.assertions === 1 ? "assertion" : "assertions")}`
+            : "";
 
         // Distinguish between failing tests and block-level type errors
         // Block errors are from describe block code (imports, setup, etc.)
         // Test errors are from individual test code
-        const failingTests = block.tests.filter(t => getErrorDiagnostics(t.diagnostics, opt).length > 0).length;
+        const failingTests = metrics.failingTests;
         const blockTypeErrors = errors.length; // All errors from block.diagnostics
 
         const errDisplay = blockTypeErrors > 0 || failingTests > 0
@@ -53,8 +87,10 @@ export function showTestBlock(block: TestBlock, opt: AsOption<"test">, hasTypeTe
                 : `, ${chalk.yellowBright(`${warnings.length} ${chalk.italic("warnings")}`)}`
             : "";
 
-        const blockLine = `    [ ${blockStatusIcon} ] ${fileLink(block.description, block.filepath)} [${testDisplay}, ${errDisplay}${warningDisplay}]`;
-        const skipBlockLine = `    [ ${blockStatusIcon} ] ${fileLink(block.description, block.filepath)}`;
+        // Adjust indentation based on nesting level
+        const indent = "    ".repeat(indentLevel);
+        const blockLine = `${indent}[ ${blockStatusIcon} ] ${fileLink(block.description, block.filepath)} [${testDisplay}${typeMetricsDisplay}, ${errDisplay}${warningDisplay}]`;
+        const skipBlockLine = `${indent}[ ${blockStatusIcon} ] ${fileLink(block.description, block.filepath)}`;
 
         if (skip) {
             console.log(skipBlockLine);
@@ -72,6 +108,13 @@ export function showTestBlock(block: TestBlock, opt: AsOption<"test">, hasTypeTe
             else {
                 for (const d of errors) {
                     showDiagnostic(d, block.filepath, opt);
+                }
+            }
+
+            // Recursively show nested blocks
+            if (block.blocks && block.blocks.length > 0) {
+                for (const nestedBlock of block.blocks) {
+                    showTestBlock(nestedBlock, opt, hasTypeTests, indentLevel + 1);
                 }
             }
         }

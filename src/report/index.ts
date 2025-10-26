@@ -1,3 +1,4 @@
+export * from "./calculateMetrics";
 export * from "./formatTestCounts";
 export * from "./formatTiming";
 export * from "./prettyPath";

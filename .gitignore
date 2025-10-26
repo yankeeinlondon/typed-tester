@@ -14,3 +14,4 @@ test-results.xml
 coverage/
 .vitest/
 tests/__snapshots__/
+.ai/prompts

@@ -64,6 +64,132 @@ function detectTypeCases(testBody: any): { hasTypeCases: boolean; typeAssertionC
 }
 
 /**
+ * Recursively processes a describe block and its nested children.
+ * This function extracts:
+ * - Direct "it" blocks as tests
+ * - Nested "describe" blocks as child blocks
+ */
+function processDescribeBlock(
+    callExpression: any,
+    filepath: string | SourceFile,
+    fileDiagnostics: readonly FileDiagnostic[],
+    config: { symbolsFilter: SymbolFilterCallback }
+): TestBlock {
+    const expressionText = callExpression.getExpression().getText();
+    const description = callExpression.getArguments()[0].getText().replace(/['"]/g, "");
+    const startLine = callExpression.getStartLineNumber();
+    const endLine = callExpression.getEndLineNumber();
+    const skip = expressionText.includes(".skip");
+
+    const blockDiagnostics = getDiagnosticsBetweenLines(
+        fileDiagnostics,
+        startLine,
+        endLine
+    );
+
+    const tests: TypeTest[] = [];
+    const nestedBlocks: TestBlock[] = [];
+    const blockBody = callExpression.getArguments()[1].asKindOrThrow(SyntaxKind.ArrowFunction).getBody();
+
+    if (blockBody) {
+        // Get ONLY the immediate children of this describe block's body
+        // Use getChildrenOfKind instead of getDescendantsOfKind to avoid getting deeply nested calls
+        const statements = blockBody.getKind() === SyntaxKind.Block
+            ? blockBody.getStatements()
+            : [blockBody];
+
+        for (const statement of statements) {
+            // Find call expressions in this statement
+            const calls = statement.getDescendantsOfKind(SyntaxKind.CallExpression);
+
+            for (const call of calls) {
+                const callText = call.getExpression().getText();
+
+                // Check if this is a direct child (not nested deeper)
+                // We do this by checking if the call's parent chain includes another describe/it
+                let isDirectChild = true;
+                let parent = call.getParent();
+
+                while (parent && parent !== statement) {
+                    if (parent.getKind() === SyntaxKind.CallExpression) {
+                        const parentCallText = (parent as any).getExpression()?.getText();
+                        if (
+                            parentCallText === "describe" ||
+                            parentCallText === "describe.skip" ||
+                            parentCallText === "it" ||
+                            parentCallText === "it.skip" ||
+                            parentCallText === "test" ||
+                            parentCallText === "test.skip"
+                        ) {
+                            isDirectChild = false;
+                            break;
+                        }
+                    }
+                    parent = parent.getParent();
+                }
+
+                if (!isDirectChild) {
+                    continue;
+                }
+
+                if (callText === "describe" || callText === "describe.skip") {
+                    // Recursively process nested describe block
+                    const nestedBlock = processDescribeBlock(call, filepath, fileDiagnostics, config);
+                    nestedBlocks.push(nestedBlock);
+                }
+                else if (
+                    callText === "it" ||
+                    callText === "test" ||
+                    callText === "it.skip" ||
+                    callText === "test.skip"
+                ) {
+                    // Handle test block (it/test)
+                    const testDescription = call.getArguments()[0].getText().replace(/['"]/g, "");
+                    const testStartLine = call.getStartLineNumber();
+                    const testEndLine = call.getEndLineNumber();
+                    const testSkip = callText.includes(".skip");
+                    const symbols = call.getDescendantsOfKind(SyntaxKind.Identifier).map(id => id.getSymbol()).filter(i => i) as Symbol[];
+
+                    // Detect type cases in the test body
+                    const testBodyArg = call.getArguments()[1];
+                    const testBody = testBodyArg?.asKind(SyntaxKind.ArrowFunction)?.getBody();
+                    const typeCasesInfo = testBody ? detectTypeCases(testBody) : { hasTypeCases: false, typeAssertionCount: 0 };
+
+                    tests.push({
+                        filepath: isString(filepath) ? filepath : filepath.getFilePath(),
+                        description: testDescription,
+                        startLine: testStartLine,
+                        endLine: testEndLine,
+                        skip: testSkip,
+                        diagnostics: getDiagnosticsBetweenLines(
+                            filepath,
+                            testStartLine,
+                            testEndLine
+                        ),
+                        symbols: symbols
+                            .map(i => asSymbolReference(i))
+                            .filter(config.symbolsFilter),
+                        hasTypeCases: typeCasesInfo.hasTypeCases,
+                        typeAssertionCount: typeCasesInfo.typeAssertionCount,
+                    });
+                }
+            }
+        }
+    }
+
+    return {
+        filepath: relativeFile(isString(filepath) ? filepath : filepath.getFilePath()),
+        description,
+        startLine,
+        endLine,
+        skip,
+        diagnostics: blockDiagnostics,
+        tests,
+        blocks: nestedBlocks.length > 0 ? nestedBlocks : undefined,
+    };
+}
+
+/**
  * **asTestFile**`(filePath, options)` -> `Promise<TestFile>`
  *
  * Providing a filepath to a file, this function will convert
@@ -86,98 +212,72 @@ export async function asTestFile(
     const fileDiagnostics = getFileDiagnostics(filepath);
     const blocks: TestBlock[] = [];
 
-    // Find all `describe`, `it`, `test`, etc., function calls
-    const callExpressions = sourceFile.getDescendantsOfKind(SyntaxKind.CallExpression);
+    // Find ONLY top-level describe blocks (not nested ones)
+    // We'll process nesting recursively within processDescribeBlock
+    const statements = sourceFile.getStatements();
 
-    for (const callExpression of callExpressions) {
-        const expressionText = callExpression.getExpression().getText();
+    for (const statement of statements) {
+        // Find all call expressions in this top-level statement
+        const calls = statement.getDescendantsOfKind(SyntaxKind.CallExpression);
 
-        if (expressionText === "describe" || expressionText === "describe.skip") {
-            // Handle group block (describe block)
-            const description = callExpression.getArguments()[0].getText().replace(/['"]/g, "");
-            const startLine = callExpression.getStartLineNumber();
-            const endLine = callExpression.getEndLineNumber();
-            const skip = expressionText.includes(".skip");
+        for (const call of calls) {
+            const callText = call.getExpression().getText();
 
-            const blockDiagnostics = getDiagnosticsBetweenLines(
-                fileDiagnostics,
-                startLine,
-                endLine
-            );
+            if (callText === "describe" || callText === "describe.skip") {
+                // Check if this is a top-level describe (not nested in another describe)
+                let isTopLevel = true;
+                let parent = call.getParent();
 
-            const tests: TypeTest[] = [];
-            const blockBody = callExpression.getArguments()[1].asKindOrThrow(SyntaxKind.ArrowFunction).getBody();
-
-            if (blockBody) {
-                const innerCalls = blockBody.getDescendantsOfKind(SyntaxKind.CallExpression);
-                for (const innerCall of innerCalls) {
-                    const innerExpressionText = innerCall.getExpression().getText();
-
-                    if (
-                        innerExpressionText === "it"
-                        || innerExpressionText === "test"
-                        || innerExpressionText === "it.skip"
-                        || innerExpressionText === "test.skip"
-                    ) {
-                        // Handle test block inside describe
-                        const testDescription = innerCall.getArguments()[0].getText().replace(/['"]/g, "");
-                        const testStartLine = innerCall.getStartLineNumber();
-                        const testEndLine = innerCall.getEndLineNumber();
-                        const testSkip = innerExpressionText.includes(".skip");
-                        const symbols = innerCall.getDescendantsOfKind(SyntaxKind.Identifier).map(id => id.getSymbol()).filter(i => i) as Symbol[];
-
-                        // Detect type cases in the test body
-                        const testBodyArg = innerCall.getArguments()[1];
-                        const testBody = testBodyArg?.asKind(SyntaxKind.ArrowFunction)?.getBody();
-                        const typeCasesInfo = testBody ? detectTypeCases(testBody) : { hasTypeCases: false, typeAssertionCount: 0 };
-
-                        tests.push({
-                            filepath: sourceFile.getFilePath(),
-                            description: testDescription,
-                            startLine: testStartLine,
-                            endLine: testEndLine,
-                            skip: testSkip,
-                            diagnostics: getDiagnosticsBetweenLines(
-                                filepath,
-                                testStartLine,
-                                testEndLine
-                            ),
-                            symbols: symbols
-                                .map(i => asSymbolReference(i))
-                                .filter(config.symbolsFilter),
-                            hasTypeCases: typeCasesInfo.hasTypeCases,
-                            typeAssertionCount: typeCasesInfo.typeAssertionCount,
-                        });
+                while (parent && parent !== statement) {
+                    if (parent.getKind() === SyntaxKind.CallExpression) {
+                        const parentCallText = (parent as any).getExpression()?.getText();
+                        if (parentCallText === "describe" || parentCallText === "describe.skip") {
+                            isTopLevel = false;
+                            break;
+                        }
                     }
+                    parent = parent.getParent();
+                }
+
+                if (isTopLevel) {
+                    const block = processDescribeBlock(call, filepath, fileDiagnostics, config);
+                    blocks.push(block);
                 }
             }
-
-            blocks.push({
-                filepath: relativeFile(sourceFile.getFilePath()),
-                description,
-                startLine,
-                endLine,
-                skip,
-                diagnostics: blockDiagnostics,
-                tests,
-            });
         }
     }
 
-    // Calculate aggregate type test metrics
-    const allTests = blocks.flatMap(b => b.tests);
-    const typeTests = allTests.filter(t => t.hasTypeCases).length;
-    const assertions = allTests.reduce((sum, test) => sum + test.typeAssertionCount, 0);
+    // Calculate aggregate type test metrics (recursively count from all blocks)
+    function countTests(blocks: TestBlock[]): { tests: TypeTest[]; typeTests: number; assertions: number } {
+        let allTests: TypeTest[] = [];
+        let typeTestCount = 0;
+        let assertionCount = 0;
+
+        for (const block of blocks) {
+            // Add tests from this block
+            allTests = allTests.concat(block.tests);
+            typeTestCount += block.tests.filter(t => t.hasTypeCases).length;
+            assertionCount += block.tests.reduce((sum, t) => sum + t.typeAssertionCount, 0);
+
+            // Recursively count from nested blocks
+            if (block.blocks && block.blocks.length > 0) {
+                const nested = countTests(block.blocks);
+                allTests = allTests.concat(nested.tests);
+                typeTestCount += nested.typeTests;
+                assertionCount += nested.assertions;
+            }
+        }
+
+        return { tests: allTests, typeTests: typeTestCount, assertions: assertionCount };
+    }
+
+    const { tests: allTests, typeTests, assertions } = countTests(blocks);
 
     return {
         filepath: relativeFile(sourceFile.getFilePath()),
         importSymbols: getImportsForFile(sourceFile).filter(i => !i.isExternalSource),
-        skip: blocks.every(b => b.skip) || blocks.flatMap(b => b.tests).every(t => t.skip),
-        skippedTests: blocks.reduce(
-            (sum, block) => sum + (block.skip ? block.tests.length : 0)
-                + (block.skip ? 0 : block.tests.filter(t => t.skip).length),
-            0
-        ),
+        skip: blocks.every(b => b.skip) || allTests.every(t => t.skip),
+        skippedTests: allTests.filter(t => t.skip).length,
         blocks,
         duration: performance.now() - start,
         testLines: calculateTestLines(blocks),

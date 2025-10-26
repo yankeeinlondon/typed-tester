@@ -30,6 +30,11 @@ export interface TestBlock extends BlockType {
     skip: boolean;
     diagnostics: FileDiagnostic[];
     tests: TypeTest[];
+    /**
+     * Nested describe blocks within this describe block.
+     * This enables hierarchical test organization.
+     */
+    blocks?: TestBlock[];
 }
 
 export interface TestFile {

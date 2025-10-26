@@ -95,7 +95,7 @@ export function showTestFile(test: TestFile, opt: AsOption<"test">) {
     const file = relative(getProjectRoot(), test.filepath);
 
     // Use new formatters for test counts and timing
-    const testCount = formatTestCounts(test, { verbose: opt.verbose, showPassing: opt["show-passing"] });
+    const testCount = formatTestCounts(test, opt);
     const timing = formatTiming(test, { metrics: opt.metrics, verbose: opt.verbose });
     const perfCondition = isSlowTest(test) || isVerySlowTest(test);
 

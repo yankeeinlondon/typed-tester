@@ -584,6 +584,10 @@ Use the tests to guide your implementation.
 
 Verify completeness, check for regressions, and finalize the phase.
 
+**🚨 CRITICAL WARNING: DO NOT MIGRATE TESTS AUTOMATICALLY 🚨**
+
+**Tests MUST remain in `tests/unit/WIP/` until the user explicitly reviews and approves them. Even if the user says "closeout this phase" or "finish up" - DO NOT migrate tests. Only migrate after user says "migrate the tests" or explicitly approves migration.**
+
 **Actions:**
 
 1. **Run full test suite:**

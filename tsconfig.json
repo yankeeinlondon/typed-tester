@@ -3,7 +3,6 @@
     "incremental": true,
     "tsBuildInfoFile": ".tsbuildinfo",
     "target": "ES2022",
-    "baseUrl": ".",
     "module": "ESNext",
     "types": ["node"],
     "moduleResolution": "Bundler",
@@ -24,8 +23,8 @@
   "include": [
     "src",
     "tests",
-    "tests",
     "scripts",
+    "examples",
     "claude/tasks"
   ],
   "exclude": [
