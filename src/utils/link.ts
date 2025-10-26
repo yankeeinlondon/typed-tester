@@ -23,12 +23,6 @@ export const CONSOLE_LINK_CLOSURE = narrow(`\x1B]8;;\x1B\\`);
  * Prints a link to the terminal using a relatively new
  * [standard](https://gist.github.com/egmontkob/eb114294efbcd5adb1944c9f3cb5feda) for making pretty links.
  *
- * You can use the following protocols for your links:
- * - `http` / `https`
- * - `file` (note format is `file://hostname/path/to/file.txt` and hostname
- * IS required)
- * - `mailto`
- * - `
  */
 function link<
     T extends string,

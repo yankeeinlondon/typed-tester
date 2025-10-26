@@ -4,7 +4,11 @@ import type { AsOption } from "~/cli";
 import type { Expect, AssertEqual, AssertExtends } from "inferred-types/types";
 
 // Import the functions we're going to implement
-import { calculateTestMetrics, calculateBlockMetrics, calculateFileMetrics, type TestMetrics } from "~/report/calculateMetrics";
+import { 
+    calculateTestMetrics, 
+    calculateBlockMetrics, 
+    calculateFileMetrics, 
+    type TestMetrics } from "~/report/calculateMetrics";
 
 // Helper to create minimal CLI options for testing
 const createTestOptions = (): AsOption<"test"> => ({
@@ -16,8 +20,7 @@ const createTestOptions = (): AsOption<"test"> => ({
     "verbose": false,
     "metrics": false,
     "warn": [], // Empty array means no warnings to ignore
-    command: "test",
-    _: []
+    "cmd": "test"
 });
 
 describe("calculateTestMetrics()", () => {
