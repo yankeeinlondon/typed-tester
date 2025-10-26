@@ -1,7 +1,7 @@
 import type { ImportDeclaration, SourceFile } from "ts-morph";
 import { SyntaxKind } from "ts-morph";
 import type { ImportCategory } from "~/types/imports";
-import { normalize, resolve, relative, dirname } from "pathe";
+import { dirname, normalize, relative, resolve } from "pathe";
 
 /**
  * Extract all import declarations from a source file
@@ -73,23 +73,26 @@ export function classifyImportSymbols(importDecl: ImportDeclaration): "runtime" 
 
             if (declarations.length > 0) {
                 // Check if ALL declarations are type-only constructs
-                const isTypeDeclaration = declarations.every(decl => {
+                const isTypeDeclaration = declarations.every((decl) => {
                     const kind = decl.getKind();
-                    return kind === SyntaxKind.TypeAliasDeclaration ||
-                           kind === SyntaxKind.InterfaceDeclaration ||
-                           kind === SyntaxKind.TypeParameter;
+                    return kind === SyntaxKind.TypeAliasDeclaration
+                        || kind === SyntaxKind.InterfaceDeclaration
+                        || kind === SyntaxKind.TypeParameter;
                 });
 
                 if (isTypeDeclaration) {
                     hasTypeSymbol = true;
-                } else {
+                }
+                else {
                     hasRuntimeSymbol = true;
                 }
-            } else {
+            }
+            else {
                 // No declarations found, assume runtime
                 hasRuntimeSymbol = true;
             }
-        } else {
+        }
+        else {
             // Can't resolve symbol, assume runtime
             hasRuntimeSymbol = true;
         }
@@ -103,9 +106,11 @@ export function classifyImportSymbols(importDecl: ImportDeclaration): "runtime" 
     // Determine classification
     if (hasRuntimeSymbol && hasTypeSymbol) {
         return "mixed";
-    } else if (hasTypeSymbol && !hasRuntimeSymbol) {
+    }
+    else if (hasTypeSymbol && !hasRuntimeSymbol) {
         return "type";
-    } else {
+    }
+    else {
         return "runtime";
     }
 }
@@ -154,7 +159,7 @@ export function getImportLocation(
     const moduleSpecifier = importDecl.getModuleSpecifierValue();
 
     // Check if it's an external module (not starting with . or /)
-    if (!moduleSpecifier.startsWith('.') && !moduleSpecifier.startsWith('/')) {
+    if (!moduleSpecifier.startsWith(".") && !moduleSpecifier.startsWith("/")) {
         // Check if it's a path alias
         const project = importDecl.getSourceFile().getProject();
         const compilerOptions = project.getCompilerOptions();
@@ -164,7 +169,7 @@ export function getImportLocation(
             // Check if module specifier matches any path alias
             for (const [alias, _mappings] of Object.entries(paths)) {
                 // Remove the /* suffix from alias for comparison
-                const aliasPrefix = alias.replace(/\/\*$/, '');
+                const aliasPrefix = alias.replace(/\/\*$/, "");
 
                 if (moduleSpecifier.startsWith(aliasPrefix)) {
                     // Check if there's an offset (path after the alias)
@@ -172,15 +177,15 @@ export function getImportLocation(
                     const remainder = moduleSpecifier.slice(aliasPrefix.length);
 
                     // If remainder is empty or just '/', it's a direct alias import
-                    if (remainder === '' || remainder === '/') {
+                    if (remainder === "" || remainder === "/") {
                         return "alias";
                     }
 
                     // If remainder starts with '/' and has more path segments, it's offset
-                    if (remainder.startsWith('/')) {
+                    if (remainder.startsWith("/")) {
                         const pathAfterSlash = remainder.slice(1);
                         // Check if there are subdirectories (more than one segment)
-                        const hasSubdirs = pathAfterSlash.includes('/');
+                        const hasSubdirs = pathAfterSlash.includes("/");
                         return hasSubdirs ? "aliasOffset" : "alias";
                     }
 
@@ -203,22 +208,23 @@ export function getImportLocation(
     const rel = relative(sourceDir, importDir);
 
     // Same directory (peer)
-    if (rel === '' || rel === '.') {
+    if (rel === "" || rel === ".") {
         return "peer";
     }
 
     // Parent directory (starts with ..)
-    if (rel.startsWith('..')) {
+    if (rel.startsWith("..")) {
         return "parent";
     }
 
     // Child directory
     // Count directory depth
-    const depthCount = rel.split('/').filter(p => p !== '' && p !== '.').length;
+    const depthCount = rel.split("/").filter(p => p !== "" && p !== ".").length;
 
     if (depthCount === 1) {
         return "child";
-    } else {
+    }
+    else {
         return "deepChild";
     }
 }

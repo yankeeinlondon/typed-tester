@@ -13,16 +13,16 @@ export function formatImportsAsJson(result: AnalysisResult): string {
     const cleanResult = {
         files: result.files.map(file => ({
             path: file.path,
-            imports: file.imports.map(imp => {
+            imports: file.imports.map((imp) => {
                 const { toString, ...rest } = imp as any;
                 return rest;
             }),
         })),
-        combinedImports: result.combinedImports.map(imp => {
+        combinedImports: result.combinedImports.map((imp) => {
             const { toString, ...rest } = imp;
             return rest;
         }),
-        missingTypeModifiers: result.missingTypeModifiers.map(imp => {
+        missingTypeModifiers: result.missingTypeModifiers.map((imp) => {
             const { toString, ...rest } = imp;
             return rest;
         }),

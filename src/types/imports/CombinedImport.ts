@@ -1,23 +1,22 @@
-
 /**
  * **CombinedImport**
- * 
+ *
  * A diagnostic type that is used to highlight an import which
  * imports both **runtime** and **type** symbols from a single
  * import statement.
- * 
+ *
  * This is considered a bad practice because all type symbols
  * should ideally use the `type` modifier to express clearly
  * to the type system that the symbol is a type.
  */
-export type CombinedImport = {
+export interface CombinedImport {
     kind: "combined-import";
 
-    /** 
-     * the source/path that was used as the source for the import 
+    /**
+     * the source/path that was used as the source for the import
      */
     source: string;
-    /** 
+    /**
      * the symbols in the import which are type symbols
      */
     typeSymbols: string[];
@@ -36,13 +35,13 @@ export type CombinedImport = {
 
     /**
      * A boolean flag indicating whether `type` modifier was used.
-     * 
+     *
      * **Note:** it would be rare for this to be `true` because importing a
      * runtime symbol with the `type` modifier presents a highly visible
      * error whereas the inverse is much quieter.
      */
     hasTypeModifier: boolean;
-    
+
     /** the import statement */
     content: string;
 
@@ -50,5 +49,5 @@ export type CombinedImport = {
      * a console friendly way of presenting
      * the import.
      */
-    toString(): string;
+    toString: () => string;
 }

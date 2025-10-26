@@ -5,8 +5,8 @@ import { narrow } from "inferred-types";
  * the `imports` command.
  */
 export const IMPORT_TYPES = narrow({
-    external: { 
-        name: "External Import", 
+    external: {
+        name: "External Import",
         desc: "imports of external packages to this repo"
     },
 
@@ -26,7 +26,7 @@ export const IMPORT_TYPES = narrow({
         name: "Hybrid Import (peer)",
         desc: "a hybrid import (name and default) of a symbol within the same directory as the source file"
     },
-    
+
     relativeParentBarrel: {
         name: "Barrel Import (parent)",
         desc: "a barrel import of a symbol above the source file in the source tree"
@@ -44,38 +44,37 @@ export const IMPORT_TYPES = narrow({
         desc: "a hybrid import (name and default) of a symbol above the source file in the source tree"
     },
 
-    relativeChildBarrel: { 
-        name: "Barrel Import (child)", 
+    relativeChildBarrel: {
+        name: "Barrel Import (child)",
         desc: "a barrel import of a symbol from a direct child directory"
     },
-    relativeChildNamed: { 
-        name: "Named Import (child)", 
+    relativeChildNamed: {
+        name: "Named Import (child)",
         desc: "a named import of a symbol from a direct child directory"
     },
-    relativeChildDefault: { 
-        name: "Default Import (child)", 
+    relativeChildDefault: {
+        name: "Default Import (child)",
         desc: "a default import of a symbol from a direct child directory"
     },
-    relativeChildHybrid: { 
-        name: "Hybrid Import (child)", 
+    relativeChildHybrid: {
+        name: "Hybrid Import (child)",
         desc: "a hybrid import (name and default) of a symbol from a direct child directory"
     },
 
-
-    relativeDeepChildBarrel: { 
-        name: "Barrel Import (deep child)", 
+    relativeDeepChildBarrel: {
+        name: "Barrel Import (deep child)",
         desc: "a barrel import from a file that is two or more directories under the source file"
     },
-    relativeDeepChildNamed: { 
-        name: "Named Import (deep child)", 
+    relativeDeepChildNamed: {
+        name: "Named Import (deep child)",
         desc: "a barrel import from a file that is two or more directories under the source file"
     },
-    relativeDeepChildDefault: { 
-        name: "Default Import (deep child)", 
+    relativeDeepChildDefault: {
+        name: "Default Import (deep child)",
         desc: "a barrel import from a file that is two or more directories under the source file"
     },
-    relativeDeepChildHybrid: { 
-        name: "Hybrid Import (deep child)", 
+    relativeDeepChildHybrid: {
+        name: "Hybrid Import (deep child)",
         desc: "a hybrid import (name  and default) from a file that is two or more directories under the source file"
     },
 
@@ -112,4 +111,4 @@ export const IMPORT_TYPES = narrow({
         name: "Hybrid Import (alias)",
         desc: "a hybrid (default, named) import from an offset path alias"
     },
-})
+});

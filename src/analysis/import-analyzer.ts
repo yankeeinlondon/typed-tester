@@ -1,23 +1,21 @@
-import type { SourceFile, Project } from "ts-morph";
-import { Project as TsMorphProject } from "ts-morph";
+import type { Project, SourceFile } from "ts-morph";
+import { SyntaxKind, Project as TsMorphProject } from "ts-morph";
 import fg from "fast-glob";
 import { normalize } from "pathe";
 import {
-    extractImports,
     classifyImportSymbols,
-    getImportStructure,
-    getImportLocation
+    extractImports,
+    getImportLocation,
+    getImportStructure
 } from "~/ast/imports";
 import type {
-    AnalysisResult,
     AnalysisOptions,
-    FileImportSummary,
+    AnalysisResult,
     CombinedImport,
-    MissingTypeModifier,
+    ImportCategory,
     ImportType,
-    ImportCategory
+    MissingTypeModifier
 } from "~/types/imports";
-import { SyntaxKind } from "ts-morph";
 
 /**
  * **analyzeImports**
@@ -69,20 +67,20 @@ export function analyzeImports(
         if (allSourceFiles.length > 0) {
             // In-memory project or already loaded files - match against loaded files
             const patterns = filePaths;
-            sourceFiles = allSourceFiles.filter(sf => {
+            sourceFiles = allSourceFiles.filter((sf) => {
                 const path = sf.getFilePath();
-                return patterns.some(pattern => {
+                return patterns.some((pattern) => {
                     // Simple glob matching (supports **/*.ts style patterns)
-                    const normalizedPath = path.replace(/\\/g, '/');
-                    const normalizedPattern = pattern.replace(/\\/g, '/');
+                    const normalizedPath = path.replace(/\\/g, "/");
+                    const normalizedPattern = pattern.replace(/\\/g, "/");
 
                     // Convert glob pattern to regex
                     // Special handling for **/ which should match zero or more path segments
-                    let regexPattern = normalizedPattern
-                        .replace(/\./g, '\\.')  // Escape dots
-                        .replace(/\*\*\/\*/g, '(?:.*/)?\[^/\]*')  // **/* matches zero or more segments then a file
-                        .replace(/\*\*/g, '.*')  // ** by itself matches anything
-                        .replace(/\*/g, '[^/]*');  // * matches anything except /
+                    const regexPattern = normalizedPattern
+                        .replace(/\./g, "\\.") // Escape dots
+                        .replace(/\*\*\/\*/g, "(?:.*/)?\[^/\]*") // **/* matches zero or more segments then a file
+                        .replace(/\*\*/g, ".*") // ** by itself matches anything
+                        .replace(/\*/g, "[^/]*"); // * matches anything except /
 
                     // Allow pattern to match anywhere in path (don't anchor to start)
                     const regex = new RegExp(regexPattern);
@@ -90,7 +88,8 @@ export function analyzeImports(
                     return regex.test(normalizedPath);
                 });
             });
-        } else {
+        }
+        else {
             // Filesystem-based project - use fast-glob
             const resolvedPaths = fg.sync(filePaths, {
                 absolute: true,
@@ -100,7 +99,8 @@ export function analyzeImports(
                 .map(path => project.getSourceFile(path) || project.addSourceFileAtPath(path))
                 .filter((sf): sf is SourceFile => sf !== undefined);
         }
-    } else {
+    }
+    else {
         // Exact paths mode
         sourceFiles = filePaths
             .map(path => project.getSourceFile(normalize(path)))
@@ -131,7 +131,8 @@ export function analyzeImports(
             let category: ImportCategory;
             if (location === "external") {
                 category = "external";
-            } else {
+            }
+            else {
                 // Combine structure and location for internal imports
                 // e.g., "barrel" + "peer" = "relativePeerBarrel"
                 const prefix = "relative";
@@ -234,22 +235,25 @@ function createCombinedImport(
             const declarations = targetSymbol.getDeclarations();
 
             if (declarations.length > 0) {
-                const isTypeDeclaration = declarations.every(decl => {
+                const isTypeDeclaration = declarations.every((decl) => {
                     const kind = decl.getKind();
-                    return kind === SyntaxKind.TypeAliasDeclaration ||
-                           kind === SyntaxKind.InterfaceDeclaration ||
-                           kind === SyntaxKind.TypeParameter;
+                    return kind === SyntaxKind.TypeAliasDeclaration
+                        || kind === SyntaxKind.InterfaceDeclaration
+                        || kind === SyntaxKind.TypeParameter;
                 });
 
                 if (isTypeDeclaration) {
                     typeSymbols.push(name);
-                } else {
+                }
+                else {
                     runtimeSymbols.push(name);
                 }
-            } else {
+            }
+            else {
                 runtimeSymbols.push(name);
             }
-        } else {
+        }
+        else {
             runtimeSymbols.push(name);
         }
     }

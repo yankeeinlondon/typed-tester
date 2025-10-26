@@ -3,9 +3,9 @@ import type { MissingTypeModifier } from "~/types/imports/MissingTypeModifier";
 import chalk from "chalk";
 import { fileLink } from "~/utils/link";
 
-export type ReportOptions = {
+export interface ReportOptions {
     quiet: boolean;
-};
+}
 
 /**
  * **reportMissingTypeModifiers**

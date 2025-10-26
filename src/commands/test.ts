@@ -66,7 +66,8 @@ function calculateTestSummary(testFiles: TestFile[], opt: AsOption<"test">): Tes
         if (fileTestsWithErrors > 0) {
             // File has test failures = errors
             filesWithErrors++;
-        } else if (errors.length > 0) {
+        }
+        else if (errors.length > 0) {
             // File has NO test failures, but has type issues outside tests = warnings
             filesWithWarningsOutside++;
         }

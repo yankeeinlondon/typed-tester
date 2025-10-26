@@ -3,9 +3,9 @@ import type { CombinedImport } from "~/types/imports/CombinedImport";
 import chalk from "chalk";
 import { fileLink } from "~/utils/link";
 
-export type ReportOptions = {
+export interface ReportOptions {
     quiet: boolean;
-};
+}
 
 /**
  * **reportCombinedImports**
@@ -71,14 +71,14 @@ export function reportCombinedImports(
 
             // Type symbols
             lines.push(
-                chalk.dim(`  Type symbols: `) +
-                chalk.magenta(imp.typeSymbols.join(", "))
+                chalk.dim(`  Type symbols: `)
+                + chalk.magenta(imp.typeSymbols.join(", "))
             );
 
             // Runtime symbols
             lines.push(
-                chalk.dim(`  Runtime symbols: `) +
-                chalk.green(imp.runtimeSymbols.join(", "))
+                chalk.dim(`  Runtime symbols: `)
+                + chalk.green(imp.runtimeSymbols.join(", "))
             );
 
             // Import statement

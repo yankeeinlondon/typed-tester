@@ -23,8 +23,8 @@ export function formatTestCounts(
         "verbose": options.verbose ?? false,
         "metrics": options.metrics ?? false,
         "warn": options.warn ?? [],
-        command: "test",
-        _: []
+        "command": "test",
+        "_": []
     };
 
     const metrics = calculateFileMetrics(testFile, opt);

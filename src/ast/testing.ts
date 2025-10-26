@@ -114,12 +114,12 @@ function processDescribeBlock(
                     if (parent.getKind() === SyntaxKind.CallExpression) {
                         const parentCallText = (parent as any).getExpression()?.getText();
                         if (
-                            parentCallText === "describe" ||
-                            parentCallText === "describe.skip" ||
-                            parentCallText === "it" ||
-                            parentCallText === "it.skip" ||
-                            parentCallText === "test" ||
-                            parentCallText === "test.skip"
+                            parentCallText === "describe"
+                            || parentCallText === "describe.skip"
+                            || parentCallText === "it"
+                            || parentCallText === "it.skip"
+                            || parentCallText === "test"
+                            || parentCallText === "test.skip"
                         ) {
                             isDirectChild = false;
                             break;
@@ -138,10 +138,10 @@ function processDescribeBlock(
                     nestedBlocks.push(nestedBlock);
                 }
                 else if (
-                    callText === "it" ||
-                    callText === "test" ||
-                    callText === "it.skip" ||
-                    callText === "test.skip"
+                    callText === "it"
+                    || callText === "test"
+                    || callText === "it.skip"
+                    || callText === "test.skip"
                 ) {
                     // Handle test block (it/test)
                     const testDescription = call.getArguments()[0].getText().replace(/['"]/g, "");

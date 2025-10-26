@@ -1,4 +1,4 @@
-import type { TestFile, TestBlock, TypeTest } from "~/types";
+import type { TestBlock, TestFile, TypeTest } from "~/types";
 import type { AsOption } from "~/cli";
 import { getErrorDiagnostics } from "~/ast";
 

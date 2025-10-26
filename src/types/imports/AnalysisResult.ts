@@ -8,7 +8,7 @@ import type { ImportType } from "./ImportType";
  *
  * Options for analyzing imports across files.
  */
-export type AnalysisOptions = {
+export interface AnalysisOptions {
     /**
      * The ts-morph Project instance to use for analysis.
      * If not provided, a new project will be created.
@@ -24,14 +24,14 @@ export type AnalysisOptions = {
      * When `false` (default), file paths are treated as exact paths.
      */
     useGlob?: boolean;
-};
+}
 
 /**
  * **FileImportSummary**
  *
  * Summary of imports for a single file.
  */
-export type FileImportSummary = {
+export interface FileImportSummary {
     /**
      * The file path
      */
@@ -41,7 +41,7 @@ export type FileImportSummary = {
      * All imports found in this file
      */
     imports: ImportType[];
-};
+}
 
 /**
  * **AnalysisResult**
@@ -54,7 +54,7 @@ export type FileImportSummary = {
  * - Missing type modifiers
  * - Categorized imports by structure and location
  */
-export type AnalysisResult = {
+export interface AnalysisResult {
     /**
      * File-by-file breakdown of imports
      */
@@ -80,4 +80,4 @@ export type AnalysisResult = {
      * See `ImportCategory` for complete list.
      */
     categorized: Record<string, ImportType[]>;
-};
+}

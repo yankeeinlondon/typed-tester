@@ -1,13 +1,13 @@
 import type { AnalysisResult } from "~/types/imports/AnalysisResult";
 import chalk from "chalk";
-import { formatCategoryTable, formatExternalDependencies, formatCategoryDetails } from "./format";
+import { formatCategoryDetails, formatCategoryTable, formatExternalDependencies } from "./format";
 
 /**
  * **ReportOptions**
  *
  * Options for categorization reporting
  */
-export type ReportOptions = {
+export interface ReportOptions {
     /** Suppress headings and decorative output */
     quiet: boolean;
     /** Show detailed information for all categories */
@@ -16,7 +16,7 @@ export type ReportOptions = {
     external: boolean;
     /** Show detailed information for deep path imports only */
     deep: boolean;
-};
+}
 
 /**
  * **reportCategorization**

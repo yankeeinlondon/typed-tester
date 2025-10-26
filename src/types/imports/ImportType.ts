@@ -1,11 +1,10 @@
-import { StringKeys } from 'inferred-types';
-import { IMPORT_TYPES } from '~/constants';
+import type { StringKeys } from "inferred-types";
+import type { IMPORT_TYPES } from "~/constants";
 
 /**
  * a category for imports
  */
 export type ImportCategory = StringKeys<typeof IMPORT_TYPES>[number];
-
 
 /**
  * **ImportType**
@@ -13,7 +12,7 @@ export type ImportCategory = StringKeys<typeof IMPORT_TYPES>[number];
  * Information describing a categorized import found
  * in the project.
  */
-export type ImportType = {
+export interface ImportType {
     /** the category of the import */
     category: ImportCategory;
     /** the module specifier (e.g., 'chalk', '~/utils', './foo') */
@@ -29,5 +28,5 @@ export type ImportType = {
      * when exported as a string we will export a
      * _console friendly_ string.
      */
-    toString(): string;
+    toString: () => string;
 }
